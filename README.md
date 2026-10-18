@@ -2,6 +2,8 @@
 
 A photography teaching simulator with a large viewfinder, four primary sliders and immediate visual feedback. The interface is in Simplified Chinese. Based on [leocb’s Camera Simulator](https://github.com/leocb/CameraSimulator); the original fan demonstration remains available from the header.
 
+Public site: [Photography Lab](https://bw1145.github.io/CameraSimulator/). The `main` workflow publishes the tested production artifact after all verification steps pass. The site's `release.json` records its commit and workflow run.
+
 ## Run and verify
 
 Requires Node.js 22.12+ or 24+ and WebGL 2.

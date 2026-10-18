@@ -28,3 +28,30 @@ jobs:
         with:
           name: browser-results
           path: test-results/
+      - name: Record deployment source
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        env:
+          SITE_COMMIT: ${{ github.sha }}
+          SITE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: node -e "require('node:fs').writeFileSync('dist/release.json', JSON.stringify({commit:process.env.SITE_COMMIT,run:process.env.SITE_RUN_URL}))"
+      - name: Upload tested production site
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: actions/upload-pages-artifact@v5.0.0
+        with:
+          path: dist
+  deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: verify
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Read Pages configuration
+        uses: actions/configure-pages@v6.0.0
+      - name: Publish verified production artifact
+        id: deployment
+        uses: actions/deploy-pages@v5.0.1
