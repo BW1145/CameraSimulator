@@ -18,6 +18,8 @@ float coc(float z){
 }
 float random(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
 void main(){
+  // The meter consumes linear HDR light, before lens effects or display encoding.
+  if(meteringPass){gl_FragColor=vec4(texture2D(plate,vUv).rgb,1.);return;}
   float z=depthAt(vUv);float radius=coc(z);
   vec3 c=texture2D(plate,vUv).rgb;float count=1.;
   for(int i=0;i<24;i++){
@@ -32,9 +34,10 @@ void main(){
   float temperature=(wb-5000.)/3000.;c*=vec3(exp(temperature*.32),1.,exp(-temperature*.32));
   // Filmic highlight shoulder, applied after photographic exposure.
   if(!meteringPass)c=(c*(2.51*c+.03))/(c*(2.43*c+.59)+.14);
-  c=pow(max(c,vec3(0.)),vec3(1./2.2));
-  c+=(random(gl_FragCoord.xy+floor(time*30.))-.5)*.018*sqrt(iso/100.);
+  c=max(c,vec3(0.));
+  c=mix(c*12.92,1.055*pow(c,vec3(1./2.4))-.055,step(vec3(.0031308),c));
   bool clipped=max(c.r,max(c.g,c.b))>=.995;
+  c+=(random(gl_FragCoord.xy+floor(time*30.))-.5)*.018*sqrt(iso/100.);
   if(zebra&&clipped&&mod(gl_FragCoord.x+gl_FragCoord.y,12.)<5.)c=vec3(1.,.1,.1);
   gl_FragColor=vec4(clamp(c,0.,1.),1.);
 }`;
@@ -53,7 +56,15 @@ export class Renderer {
     this.camera=new T.PerspectiveCamera(50,1.5,.03,150);
     this.raycaster=new T.Raycaster();this.anchor=new T.Vector3();this.anchorRotation=new T.Quaternion();
     this.target=new T.WebGLRenderTarget(1,1,{type:T.HalfFloatType,depthTexture:new T.DepthTexture(1,1,T.UnsignedIntType)});
+    // The scene is drawn offscreen: default-framebuffer antialiasing cannot help.
+    // Resolve both colour and depth so the lens pass sees the same geometry.
+    const gl=this.renderer.getContext();
+    const supported=gl.getInternalformatParameter(gl.RENDERBUFFER,gl.RGBA16F,gl.SAMPLES);
+    this.target.samples=Math.max(0,...Array.from(supported).filter(n=>n<=4));
+    this.target.resolveDepthBuffer=true;
+    canvas.dataset.samples=String(this.target.samples);
     this.analysisTarget=new T.WebGLRenderTarget(1,1,{type:T.UnsignedByteType,depthBuffer:false});
+    this.meterTarget=new T.WebGLRenderTarget(1,1,{type:T.FloatType,depthBuffer:false});
     this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,resolution:new T.Vector2(1,1),focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,meteringPass:false}).map(([key,value])=>[key,{value}]));
     this.postScene=new T.Scene();this.postCamera=new T.Camera();
     this.postScene.add(new T.Mesh(new T.PlaneGeometry(2,2),new T.ShaderMaterial({vertexShader:vertex,fragmentShader:fragment,uniforms:this.uniforms,depthTest:false,depthWrite:false})));
@@ -93,8 +104,13 @@ export class Renderer {
   resize(width,height){
     width=Math.round(width);height=Math.round(height);
     if(this.canvas.width===width&&this.canvas.height===height&&this.pixels)return;
-    this.renderer.setSize(width,height,false);this.target.setSize(width,height);this.analysisTarget.setSize(width,height);
-    this.uniforms.resolution.value.set(width,height);this.pixels=new Uint8Array(width*height*4);
+    this.renderer.setSize(width,height,false);this.target.setSize(width,height);
+    // Metering and histogram do not need a multi-megapixel GPU readback.
+    this.analysisWidth=Math.min(256,width);this.analysisHeight=Math.max(1,Math.round(this.analysisWidth*height/width));
+    this.analysisTarget.setSize(this.analysisWidth,this.analysisHeight);
+    this.meterTarget.setSize(this.analysisWidth,this.analysisHeight);
+    this.meterLight=new Float32Array(this.analysisWidth*this.analysisHeight*4);
+    this.uniforms.resolution.value.set(width,height);this.pixels=new Uint8Array(this.analysisWidth*this.analysisHeight*4);
   }
   geometry(s){
     const aspect=this.canvas.width/this.canvas.height,wide=s.sensor==='aps-c'?23.5:36,short=s.sensor==='aps-c'?15.6:24;
@@ -134,10 +150,9 @@ export class Renderer {
   readPlate(s,exposure,time){
     this.renderPlate(s,exposure,time,false);
     const u=this.uniforms;u.focus.value=s.focus;u.focal.value=s.focal;u.aperture.value=1000000;
-    // Four stops of headroom keep bright HDR surfaces in the meter readback.
-    u.exposure.value=-4;u.iso.value=0;u.wb.value=5000;u.zebra.value=false;u.meteringPass.value=true;
-    this.renderer.setRenderTarget(this.analysisTarget);this.renderer.render(this.postScene,this.postCamera);
-    this.renderer.readRenderTargetPixels(this.analysisTarget,0,0,this.canvas.width,this.canvas.height,this.pixels);u.meteringPass.value=false;return this.pixels;
+    u.exposure.value=0;u.iso.value=0;u.wb.value=5000;u.zebra.value=false;u.meteringPass.value=true;
+    this.renderer.setRenderTarget(this.meterTarget);this.renderer.render(this.postScene,this.postCamera);
+    this.renderer.readRenderTargetPixels(this.meterTarget,0,0,this.analysisWidth,this.analysisHeight,this.meterLight);u.meteringPass.value=false;return this.meterLight;
   }
   draw(s,exposure,time,analyse=false){
     if(!this.ready)return;
@@ -146,7 +161,7 @@ export class Renderer {
     for(const [key,value]of Object.entries(values))this.uniforms[key].value=value;
     if(analyse){
       this.renderer.setRenderTarget(this.analysisTarget);this.renderer.render(this.postScene,this.postCamera);
-      this.renderer.readRenderTargetPixels(this.analysisTarget,0,0,this.canvas.width,this.canvas.height,this.pixels);
+      this.renderer.readRenderTargetPixels(this.analysisTarget,0,0,this.analysisWidth,this.analysisHeight,this.pixels);
     }
     this.uniforms.zebra.value=s.zebra;
     this.renderer.setRenderTarget(null);this.renderer.render(this.postScene,this.postCamera);return this.pixels;

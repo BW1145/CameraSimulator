@@ -1,6 +1,7 @@
 import {test} from 'node:test';
 import assert from 'node:assert/strict';
-import {DEFAULTS,ev100,resolveExposure,meterPixels,circleOfConfusion,histogram} from '../src/camera.js';
+import {DEFAULTS,ev100,resolveExposure,meterPixels,meterLinearPixels,linearToSrgb,srgbToLinear,circleOfConfusion,histogram} from '../src/camera.js';
+import {previewSize,captureSize} from '../src/render-size.js';
 test('one stop doubles light through shutter or ISO',()=>{
   assert.equal(ev100(4,1/125,100)-ev100(4,1/125,200),1);
   assert.equal(ev100(4,1/125,100)-ev100(4,1/250,100),-1);
@@ -43,4 +44,25 @@ test('depth of field depends on focus, focal length and aperture',()=>{
 test('histogram places black and white in the extreme bins',()=>{
   const p=new Uint8Array(32);p.fill(255,16);
   const h=histogram(p);assert.equal(h[0],1);assert.equal(h[63],1);
+});
+
+test('linear HDR meter retains dark values and light above display white',()=>{
+  for(const luminance of [.001,.01,.18,1,8]){
+    const pixels=new Float32Array(16*16*4);
+    for(let i=0;i<pixels.length;i+=4)pixels.set([luminance,luminance,luminance,1],i);
+    const actual=meterLinearPixels(pixels,16,16,'matrix');
+    assert.ok(Math.abs(Math.log2(actual/luminance))<.000001,`${luminance}: ${actual}`);
+    assert.ok(Math.abs(srgbToLinear(linearToSrgb(luminance))-luminance)<1e-10);
+  }
+});
+
+test('preview follows display density and captures remain useful on a phone',()=>{
+  assert.deepEqual(previewSize(1392,21/9,1),[1392,597]);
+  const dense=previewSize(1392,21/9,2);
+  assert.ok(dense[0]>2700&&dense[0]*dense[1]<3501000);
+  for(const aspect of [21/9,16/9,3/2,2/3,1]){
+    const exported=captureSize(aspect);
+    assert.equal(Math.max(...exported),2048);
+    assert.ok(Math.abs(exported[0]/exported[1]-aspect)<.003);
+  }
 });

@@ -1,7 +1,8 @@
 import './style.css';
-import {APERTURES,SHUTTERS,ISOS,DEFAULTS,clamp,ev100,resolveExposure,formatShutter,meterPixels,histogram} from './camera.js';
+import {APERTURES,SHUTTERS,ISOS,DEFAULTS,clamp,ev100,resolveExposure,formatShutter,meterLinearPixels,histogram} from './camera.js';
 import {SCENES} from './scenes.js';
 import {Renderer} from './renderer.js';
+import {previewSize,captureSize} from './render-size.js';
 
 const $=id=>document.getElementById(id);
 const canvas=$('image'),view=$('viewfinder'),loading=$('loading');
@@ -44,8 +45,7 @@ function sync(){
 function resize(){
   const [w,h]=s.crop.split(':').map(Number),aspect=w/h;
   view.style.setProperty('--aspect',aspect);
-  // Cap preview pixels, independently of device pixel ratio.
-  const width=Math.min(1200,Math.max(360,view.clientWidth));renderer?.resize(width,width/aspect);invalidate();
+  renderer?.resize(...previewSize(view.clientWidth,aspect,window.devicePixelRatio));invalidate();
 }
 for(const [key,table]of Object.entries(tables))$(key).addEventListener('input',()=>{s[key]=table[Number($(key).value)];invalidate(false);});
 for(const key of numeric)$(key).addEventListener('input',()=>{
@@ -130,25 +130,35 @@ function animate(now){
   const moving=s.motion&&!s.pause;
   if(moving)clock+=elapsed;
   if((!dirty&&!moving)||now-lastFrame<1000/30)return;
-  lastFrame=now;renderer.geometry(s);updateFocus();
+  lastFrame=now;
   const analyse=dirty||now-lastAnalysis>300;
-  if(meterDirty||(moving&&analyse)){
-    const p=renderer.readPlate(s,resolved,clock);
-    const luminance=16*meterPixels(p,canvas.width,canvas.height,s.metering,point);
-    meterEV=scene.baseEV+Math.log2(luminance/.18);meterDirty=false;
-  }
-  resolved=resolveExposure(s,meterEV);resolved.ev=ev100(resolved.aperture,resolved.shutter,resolved.iso);
-  const p=renderer.draw(s,resolved,clock,analyse);
-  if(analyse){if(s.histogram)drawHistogram(p);lastAnalysis=now;sync();}
+  resolveCurrentFrame(analyse);
+  if(analyse)lastAnalysis=now;
   magnify();dirty=false;canvas.dataset.ready='true';
   canvas.dataset.triangles=renderer.frameStats.triangles;canvas.dataset.drawCalls=renderer.frameStats.calls;
   if(s.motion){const ball=renderer.ballPosition(clock);canvas.dataset.ballX=ball.x;canvas.dataset.ballY=ball.y;}
 }
+function resolveCurrentFrame(analyse=true){
+  renderer.geometry(s);updateFocus();
+  if(meterDirty||(s.motion&&analyse)){
+    const p=renderer.readPlate(s,resolved,clock);
+    const luminance=meterLinearPixels(p,renderer.analysisWidth,renderer.analysisHeight,s.metering,point);
+    meterEV=scene.baseEV+Math.log2(luminance/.18);meterDirty=false;
+  }
+  resolved=resolveExposure(s,meterEV);resolved.ev=ev100(resolved.aperture,resolved.shutter,resolved.iso);
+  const p=renderer.draw(s,resolved,clock,analyse);
+  if(analyse){if(s.histogram)drawHistogram(p);sync();}
+}
 $('capture').addEventListener('click',()=>{
   if(!ready)return;
+  resolveCurrentFrame();
   // Export the photographic frame, independently of on-screen guidance overlays.
-  const zebra=s.zebra;s.zebra=false;renderer.draw(s,resolved,clock);s.zebra=zebra;
+  const zebra=s.zebra;s.zebra=false;
+  const size=[canvas.width,canvas.height],aspect=size[0]/size[1];
+  // Export a fresh full-resolution photographic frame, even on a narrow phone.
+  renderer.resize(...captureSize(aspect));renderer.draw(s,resolved,clock);s.zebra=zebra;
   canvas.toBlob(blob=>{if(!blob)return;const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`camera-${scene.id}.png`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);},'image/png');
+  renderer.resize(...size);
   invalidate(false);
 });
 sync();resize();loadScene(scene.id);requestAnimationFrame(animate);

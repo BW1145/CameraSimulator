@@ -34,7 +34,15 @@ export function resolveExposure(s, meteredEV) {
   return { aperture:n, shutter:t, iso, deviation: meteredEV-actual, limited: (s.mode!=='M'||s.autoISO)&&Math.abs(target-actual)>0.55 };
 }
 
+export const srgbToLinear = v => v<=0.04045 ? v/12.92 : ((v+0.055)/1.055)**2.4;
+export const linearToSrgb = v => v<=0.0031308 ? 12.92*v : 1.055*v**(1/2.4)-0.055;
 export function meterPixels(pixels, width, height, mode, point={x:0.5,y:0.5}) {
+  return weightedMeter(pixels,width,height,mode,point,v=>srgbToLinear(v/255));
+}
+export function meterLinearPixels(pixels, width, height, mode, point={x:0.5,y:0.5}) {
+  return weightedMeter(pixels,width,height,mode,point,v=>v);
+}
+function weightedMeter(pixels, width, height, mode, point, linear) {
   let sum=0, weight=0;
   // Log-average in linear light; input is an unexposed sRGB scene plate.
   for (let y=0; y<height; y+=4) for (let x=0; x<width; x+=4) {
@@ -42,9 +50,8 @@ export function meterPixels(pixels, width, height, mode, point={x:0.5,y:0.5}) {
     const d=dx*dx+dy*dy;
     const w=mode==='spot' ? (d<0.0064?1:0) : mode==='center' ? 0.15+Math.exp(-d*20) : 1;
     const i=(y*width+x)*4;
-    const linear = v => v<=0.04045 ? v/12.92 : ((v+0.055)/1.055)**2.4;
-    const l=0.2126*linear(pixels[i]/255)+0.7152*linear(pixels[i+1]/255)+0.0722*linear(pixels[i+2]/255);
-    sum+=Math.log2(Math.max(0.0001,l))*w; weight+=w;
+    const l=0.2126*linear(pixels[i])+0.7152*linear(pixels[i+1])+0.0722*linear(pixels[i+2]);
+    sum+=Math.log2(Math.max(0.00000001,l))*w; weight+=w;
   }
   return 2**(sum/Math.max(1,weight));
 }
