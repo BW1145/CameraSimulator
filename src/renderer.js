@@ -10,36 +10,69 @@ uniform sampler2D plate;uniform sampler2D sceneDepth;
 uniform vec2 resolution;uniform float focus;uniform float focal;uniform float aperture;
 uniform float exposure;uniform float iso;uniform float wb;uniform float time;uniform bool zebra;
 uniform float sensorWidth;uniform float nearClip;uniform float farClip;
-uniform bool meteringPass;
+uniform bool meteringPass;uniform bool lensOnly;uniform bool skipLens;
 uniform bool agx;
 #include <tonemapping_pars_fragment>
 float depthAt(vec2 p){float d=texture2D(sceneDepth,p).x;return nearClip*farClip/(farClip-(farClip-nearClip)*d);}
 float coc(float z){
   float f=focal/1000.;
-  return min(28.,abs(f*f*(z-focus)/(aperture*max(.05,z)*max(.01,focus-f)))*1000./sensorWidth*resolution.x*.5);
+  return min(resolution.x*.08,abs(f*f*(z-focus)/(aperture*max(.05,z)*max(.01,focus-f)))*1000./sensorWidth*resolution.x*.5);
 }
 float random(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
 void main(){
   // The meter consumes linear HDR light, before lens effects or display encoding.
   if(meteringPass){gl_FragColor=vec4(texture2D(plate,vUv).rgb,1.);return;}
   float z=depthAt(vUv);float radius=coc(z);
-  vec3 c=texture2D(plate,vUv).rgb;float count=1.;
-  for(int i=0;i<24;i++){
-    float angle=float(i)*2.399963;float r=sqrt((float(i)+.5)/24.);
-    vec2 offset=vec2(cos(angle),sin(angle))*r*radius;
-    vec2 sampleUV=clamp(vUv+offset/resolution,vec2(0.),vec2(1.));
-    float sampleZ=depthAt(sampleUV);
-    float weight=sampleZ<z-.1 && coc(sampleZ)<length(offset)?0.:1.;
-    c+=texture2D(plate,sampleUV).rgb*weight;count+=weight;
+  vec3 center=texture2D(plate,vUv).rgb;
+  vec3 c=center;float count=1.;
+  if(!skipLens){
+  // A sharp foreground surface occludes a defocused background. Use a soft,
+  // relative depth comparison instead of a fixed 10 cm discontinuity.
+  if(radius>.35){
+    for(int i=0;i<32;i++){
+      float angle=float(i)*2.399963;float r=sqrt((float(i)+.5)/32.);
+      vec2 offset=vec2(cos(angle),sin(angle))*r*radius;
+      vec2 sampleUV=clamp(vUv+offset/resolution,vec2(0.),vec2(1.));
+      float sampleZ=depthAt(sampleUV);float sampleRadius=coc(sampleZ);
+      float separation=smoothstep(max(.02,z*.01),max(.04,z*.025),abs(sampleZ-z));
+      float coverage=smoothstep(length(offset)-.75,length(offset)+.75,sampleRadius);
+      float weight=sampleZ<z?mix(1.,coverage,separation):mix(1.,smoothstep(.35,2.,radius),separation);
+      c+=texture2D(plate,sampleUV).rgb*weight;count+=weight;
+    }
   }
-  c=c/count*exp2(exposure);
+  c/=count;
+  // Foreground coverage is gathered independently of the centre CoC, so a
+  // defocused near silhouette can soften into an otherwise focused background.
+  // Radially concentrated taps retain small discs without a discontinuous
+  // neighbour-probe gate. A soft disc edge suppresses sparse-sample rings.
+  if(z>=focus){
+    vec3 foreground=vec3(0.);float coverage=0.;
+    float searchRadius=resolution.x*.08;
+    for(int i=0;i<24;i++){
+      float angle=float(i)*2.399963;float r=(float(i)+.5)/24.;
+      vec2 offset=vec2(cos(angle),sin(angle))*r*searchRadius;
+      vec2 p=clamp(vUv+offset/resolution,vec2(0.),vec2(1.));
+      float sampleZ=depthAt(p);float sampleRadius=coc(sampleZ);
+      if(sampleZ<min(z,focus)-.02 && sampleRadius>1.){
+        float distance=length(offset);
+        float w=1.-smoothstep(sampleRadius*.65,sampleRadius+.75,distance);
+        // Importance correction: taps are uniform in radius, not disc area.
+        w*=2.*r*searchRadius*searchRadius/max(1.,sampleRadius*sampleRadius);
+        foreground+=texture2D(plate,p).rgb*w;coverage+=w;
+      }
+    }
+    if(coverage>0.)c=mix(c,foreground/coverage,clamp(coverage/24.,0.,1.));
+  }
+  }
+  if(lensOnly){gl_FragColor=vec4(c,1.);return;}
+  c*=exp2(exposure);
   float temperature=(wb-5000.)/3000.;c*=vec3(exp(temperature*.32),1.,exp(-temperature*.32));
   // Filmic highlight shoulder, applied after photographic exposure.
   if(!meteringPass)c=agx?AgXToneMapping(c):(c*(2.51*c+.03))/(c*(2.43*c+.59)+.14);
   c=max(c,vec3(0.));
   c=mix(c*12.92,1.055*pow(c,vec3(1./2.4))-.055,step(vec3(.0031308),c));
   bool clipped=max(c.r,max(c.g,c.b))>=.995;
-  c+=(random(gl_FragCoord.xy+floor(time*30.))-.5)*.018*sqrt(iso/100.);
+  c+=(random(gl_FragCoord.xy+floor(time*30.))-.5)*.003*sqrt(iso/100.);
   if(zebra&&clipped&&mod(gl_FragCoord.x+gl_FragCoord.y,12.)<5.)c=vec3(1.,.1,.1);
   gl_FragColor=vec4(clamp(c,0.,1.),1.);
 }`;
@@ -69,7 +102,7 @@ export class Renderer {
     canvas.dataset.samples=String(this.target.samples);
     this.analysisTarget=new T.WebGLRenderTarget(1,1,{type:T.UnsignedByteType,depthBuffer:false});
     this.meterTarget=new T.WebGLRenderTarget(1,1,{type:T.FloatType,depthBuffer:false});
-    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,resolution:new T.Vector2(1,1),focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,meteringPass:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
+    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,resolution:new T.Vector2(1,1),focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,meteringPass:false,lensOnly:false,skipLens:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
     this.postScene=new T.Scene();this.postCamera=new T.Camera();
     this.postScene.add(new T.Mesh(new T.PlaneGeometry(2,2),new T.ShaderMaterial({vertexShader:vertex,fragmentShader:fragment,uniforms:this.uniforms,depthTest:false,depthWrite:false})));
     this.loadVersion=0;
@@ -189,9 +222,11 @@ export class Renderer {
   }
   draw(s,exposure,time,analyse=false){
     if(!this.ready)return;
-    this.renderPlate(s,exposure,time);
+    this.geometry(s);
     const values={focus:s.focus,focal:s.focal,aperture:this.sourceView?1000000:exposure.aperture,exposure:this.scene.baseEV+this.exposureOffset-exposure.ev,iso:this.sourceView?0:exposure.iso,wb:s.wb,time,zebra:false,sensorWidth:this.filmWidth,agx:this.restoredLighting};
     for(const [key,value]of Object.entries(values))this.uniforms[key].value=value;
+    this.uniforms.skipLens.value=false;this.uniforms.lensOnly.value=false;
+    this.renderPlate(s,exposure,time);
     if(analyse){
       this.renderer.setRenderTarget(this.analysisTarget);this.renderer.render(this.postScene,this.postCamera);
       this.renderer.readRenderTargetPixels(this.analysisTarget,0,0,this.analysisWidth,this.analysisHeight,this.pixels);

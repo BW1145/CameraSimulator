@@ -2,6 +2,13 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {periodicExposureSamples} from '../src/temporal-exposure.js';
 
+test('short shutters resolve projected rotor travel at telephoto scale',()=>{
+  const screenArc=120*2*Math.PI/3;
+  const samples=periodicExposureSamples(1,1/500,1/12,24,screenArc);
+  assert.ok(samples.length>=4);assert.ok(samples.length<=24);
+  assert.ok(Math.abs(samples.reduce((sum,s)=>sum+s.weight,0)-1)<1e-12);
+});
+
 test('temporal exposure preserves constant radiance through 30 seconds with a bounded sample budget',()=>{
   for(const shutter of [1/8000,1/125,1/30,.1,.125,.25,1,2,4,8,15,30]){
     const samples=periodicExposureSamples(123.456,shutter,1/12);

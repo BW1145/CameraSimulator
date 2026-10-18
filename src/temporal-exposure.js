@@ -1,10 +1,12 @@
 // Midpoint quadrature of a periodic subject over a physical shutter interval.
 // Complete cycles share one cycle average; the residual interval has its own
 // normalized weight. Long exposures therefore do not add more render samples.
-export function periodicExposureSamples(time,shutter,period,maxSamples=24){
+export function periodicExposureSamples(time,shutter,period,maxSamples=24,screenTravelPerPeriod=0){
   const duration=Math.max(1e-8,shutter),cap=Math.max(1,Math.floor(maxSamples));
   const segment=(span,count,weight)=>Array.from({length:count},(_,i)=>({time:time-span*(i+.5)/count,weight:weight/count}));
-  if(duration<period||cap===1)return segment(duration,Math.min(cap,Math.max(1,Math.ceil(duration/period*cap))),1);
+  // A short exposure can still sweep several screen pixels at telephoto scale.
+  // Keep each midpoint interval below about 1.5 projected pixels, within budget.
+  if(duration<period||cap===1)return segment(duration,Math.min(cap,Math.max(1,Math.ceil(duration/period*Math.max(cap,screenTravelPerPeriod/1.5)))),1);
   let remainder=duration%period;
   if(remainder<period*1e-8||period-remainder<period*1e-8)remainder=0;
   if(remainder===0)return segment(period,cap,1);

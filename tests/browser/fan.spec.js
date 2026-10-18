@@ -19,7 +19,7 @@ test('default photographic fan conserves static light while the shutter integrat
   await range('focal',50);await canvas.scrollIntoViewIfNeeded();const box=await canvas.boundingBox();
   await page.mouse.move(box.x+box.width*.6,box.y+box.height*.4);await page.mouse.down();await page.mouse.move(box.x+box.width*.6-156.25,box.y+box.height*.4+18.75,{steps:8});await page.mouse.up();
   await page.locator('#pause').check();await page.locator('#motion').check();
-  await range('aperture',0);await range('shutter',3);await range('iso',4);await expect(canvas).toHaveAttribute('data-temporal-samples','1');await page.mouse.move(0,0);const fast=await canvas.screenshot();
+  await range('aperture',0);await range('shutter',3);await range('iso',4);expect(Number(await canvas.getAttribute('data-temporal-samples'))).toBeGreaterThan(1);await page.mouse.move(0,0);const fast=await canvas.screenshot();
   await range('aperture',7);await range('shutter',10);await expect(canvas).toHaveAttribute('data-temporal-samples','24');const slow=await canvas.screenshot();
   const region=JSON.parse(await canvas.getAttribute('data-temporal-region')),meta=await sharp(slow).metadata();
   const corner={left:region.x+4,top:meta.height-region.y-region.height+4,width:8,height:8};

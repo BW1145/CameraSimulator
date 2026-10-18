@@ -4,6 +4,7 @@ import {createDeskFan} from './desk-fan.js';
 import {periodicExposureSamples} from './temporal-exposure.js';
 import {TemporalIntegrator} from './temporal-integrator.js';
 import {HDRLoader} from 'three/addons/loaders/HDRLoader.js';
+import {decodeRadianceTexture} from './linear-radiance.js';
 
 export class PlateRenderer extends Renderer {
   constructor(canvas){super(canvas);this.cache=new Map();this.moveVersion=0;}
@@ -23,12 +24,12 @@ export class PlateRenderer extends Renderer {
     const matrix=new T.Matrix4().fromArray(this.pack.views[0].cameraMatrix);this.anchor.setFromMatrixPosition(matrix);this.anchorRotation.setFromRotationMatrix(matrix);
     this.camera.near=this.pack.camera.near??1.1;this.camera.far=this.pack.camera.far??100;this.uniforms.nearClip.value=this.camera.near;this.uniforms.farClip.value=this.camera.far;
     this.world=new T.Scene();this.world.background=new T.Color(0,0,0);
-    this.plateUniforms={image:{value:null},depth:{value:null},rayToCapture:{value:new T.Matrix4()},tanHalfFov:{value:new T.Vector2()},near:{value:this.camera.near},far:{value:this.camera.far}};
+    this.plateUniforms={image:{value:null},flashImage:{value:null},flashStrength:{value:0},depth:{value:null},rayToCapture:{value:new T.Matrix4()},tanHalfFov:{value:new T.Vector2()},near:{value:this.camera.near},far:{value:this.camera.far}};
     this.plateMaterial=new T.ShaderMaterial({depthTest:true,depthWrite:true,uniforms:this.plateUniforms,vertexShader:'varying vec2 uvPlate;void main(){uvPlate=uv;gl_Position=vec4(position.xy,1.,1.);}',fragmentShader:`
-      precision highp float;varying vec2 uvPlate;uniform sampler2D image;uniform sampler2D depth;uniform mat4 rayToCapture;uniform vec2 tanHalfFov;uniform float near;uniform float far;
+      precision highp float;varying vec2 uvPlate;uniform sampler2D image;uniform sampler2D flashImage;uniform float flashStrength;uniform sampler2D depth;uniform mat4 rayToCapture;uniform vec2 tanHalfFov;uniform float near;uniform float far;
       void main(){vec3 ray=vec3((uvPlate*2.-1.)*tanHalfFov,-1.);vec4 projected=rayToCapture*vec4(ray,0.);vec2 uv=projected.xy/projected.w*.5+.5;
         if(any(lessThan(uv,vec2(0.)))||any(greaterThan(uv,vec2(1.)))){gl_FragColor=vec4(0.,0.,0.,1.);gl_FragDepth=1.;return;}
-        vec3 radiance=exp2(texture2D(image,uv).rgb*22.-16.);
+        vec3 radiance=texture2D(image,uv).rgb;if(flashStrength>0.)radiance+=texture2D(flashImage,uv).rgb*flashStrength;
         // Cycles perspective Z is axial camera-space depth, not ray length.
         // projected.w is the capture-camera Z scale of this current-view ray.
         vec2 packed=texture2D(depth,uv).rg*255.;float sourceZ=(packed.x*256.+packed.y)/65535.*64.;
@@ -63,10 +64,12 @@ export class PlateRenderer extends Renderer {
     this.ready=true;this.frameStats={};this.canvas.dataset.view='prerender';this.canvas.dataset.packInitialBytes=this.pack.initialBytes;return true;
   }
   constrain(s,key){
-    if(!this.plateMode)return;
+    if(!this.plateMode||!this.ready||!this.pack||!this.entry)return;
+    s.focal=Math.max(Math.ceil(this.pack.referenceFocal/1.199),Math.min(200,s.focal));
     if(['x','y','z'].includes(key)){
-      const step=key==='y'?.2:.3,value=Math.sign(s[key])*Math.min(1,Math.round(Math.abs(s[key])/step))*step;
-      s.x=0;s.y=0;s.z=0;s[key]=value;
+      const id=key==='x'?(s.x<0?'left':s.x>0?'right':'center'):key==='y'?(s.y<0?'down':s.y>0?'up':'center'):(s.z<0?'back':s.z>0?'front':'center');
+      const offset=this.pack.views.find(v=>v.id===id).offset;
+      [s.x,s.y,s.z]=[offset[0],offset[1],-offset[2]];
     }
     for(const axis of ['yaw','pitch','roll'])s[axis]=Math.max(this.pack.bounds[axis][0],Math.min(this.pack.bounds[axis][1],s[axis]));
     // Limit rotation to the photographed overscan instead of revealing black
@@ -81,7 +84,7 @@ export class PlateRenderer extends Renderer {
     }
   }
   async setPosition(s,onProgress){
-    if(!this.plateMode)return;
+    if(!this.plateMode||!this.ready)return;
     const id=s.x<0?'left':s.x>0?'right':s.y<0?'down':s.y>0?'up':s.z<0?'back':s.z>0?'front':'center';
     await this.selectPosition(id,onProgress);
   }
@@ -91,7 +94,7 @@ export class PlateRenderer extends Renderer {
     if(!resource){
       const loader=new T.TextureLoader();
       resource=Promise.all([loader.loadAsync(this.packBase+entry.file,e=>onProgress(e.loaded,e.total)),loader.loadAsync(this.packBase+entry.depth)]).then(([image,depth])=>{
-        image.colorSpace=T.NoColorSpace;image.minFilter=T.LinearFilter;image.magFilter=T.LinearFilter;image.generateMipmaps=false;
+        image=decodeRadianceTexture(image,this.pack.encoding,Math.min(4,this.renderer.capabilities.getMaxAnisotropy()));
         depth.colorSpace=T.NoColorSpace;depth.minFilter=T.NearestFilter;depth.magFilter=T.NearestFilter;depth.generateMipmaps=false;
         const canvas=document.createElement('canvas');canvas.width=depth.image.width;canvas.height=depth.image.height;const context=canvas.getContext('2d',{willReadFrequently:true});context.drawImage(depth.image,0,0);
         return {image,depth,pixels:context.getImageData(0,0,canvas.width,canvas.height).data,width:canvas.width,height:canvas.height};
@@ -100,10 +103,49 @@ export class PlateRenderer extends Renderer {
     }else{this.cache.delete(cacheKey);this.cache.set(cacheKey,resource);}
     const loaded=await resource;if(version!==this.moveVersion)return;
     this.plate=loaded;this.entry=entry;this.captureMatrix=new T.Matrix4().fromArray(entry.matrix);
-    this.plateUniforms.image.value=loaded.image;this.plateUniforms.depth.value=loaded.depth;
+    loaded.detailFailed=false;
+    this.plateUniforms.image.value=loaded.image;this.plateUniforms.depth.value=loaded.depth;this.plateUniforms.flashImage.value=loaded.flash||loaded.image;this.plateUniforms.flashStrength.value=0;
     this.canvas.dataset.position=id;this.canvas.dataset.cameraPosition=JSON.stringify(entry.position);
     // Only the selected position downloads. Keep at most three decoded views.
-    while(this.cache.size>3){const [old,promise]=this.cache.entries().next().value;this.cache.delete(old);promise.then(r=>{r.image.dispose();r.depth.dispose();},()=>{});}
+    while(this.cache.size>3){const [old,promise]=this.cache.entries().next().value;this.cache.delete(old);promise.then(r=>{r.image.dispose();r.depth.dispose();r.flash?.dispose();},()=>{});}
+    this.trimDecodedCache();
+  }
+  async trimDecodedCache(){
+    const resources=await Promise.all([...this.cache].map(async([key,promise])=>({key,resource:await promise.catch(()=>null)})));
+    let bytes=resources.reduce((sum,{resource:r})=>sum+(r?(r.image.image.width*r.image.image.height+(r.flash?r.flash.image.width*r.flash.image.height:0))*8*4/3+r.width*r.height*8:0),0);
+    for(const {key,resource:r}of resources){if(bytes<=128*1024*1024&&this.cache.size<=3)break;if(!r||r===this.plate)continue;
+      if(this.cache.delete(key)){bytes-=(r.image.image.width*r.image.image.height+(r.flash?r.flash.image.width*r.flash.image.height:0))*8*4/3+r.width*r.height*8;r.image.dispose();r.depth.dispose();r.flash?.dispose();}
+    }
+  }
+  ensureDetail(s,width=this.canvas.width){
+    const entry=this.entry,resource=this.plate;
+    if(!entry.detailFile||resource.detailLoading||resource.detailFailed||resource.image.image.width>=entry.detailWidth)return;
+    const needed=width*(s.focal/this.pack.referenceFocal)*1.2*(36/this.filmWidth);
+    if(needed<resource.image.image.width*1.15||entry.detailWidth>this.renderer.capabilities.maxTextureSize)return;
+    resource.detailLoading=true;const base=this.packBase,encoding=this.pack.encoding;
+    resource.detailTask=new T.TextureLoader().loadAsync(base+entry.detailFile).then(encoded=>{
+      // Only the currently selected room/position may promote a late detail map.
+      if(resource!==this.plate||base!==this.packBase){encoded.dispose();return;}
+      const linear=decodeRadianceTexture(encoded,encoding,Math.min(4,this.renderer.capabilities.getMaxAnisotropy()));
+      resource.image.dispose();resource.image=linear;this.plateUniforms.image.value=linear;
+      this.canvas.dataset.detailWidth=String(linear.image.width);this.trimDecodedCache();this.onTextureUpdate?.();
+    }).catch(()=>{resource.detailFailed=true;}).finally(()=>{resource.detailLoading=false;});
+    return resource.detailTask;
+  }
+  async prepareCapture(s,width){
+    if(!this.plateMode)return;
+    this.geometry(s);this.ensureDetail(s,width);if(s.flash>0)this.ensureFlash();
+    await Promise.all([this.plate.detailTask,this.plate.flashTask]);
+  }
+  ensureFlash(){
+    const resource=this.plate,entry=this.entry,base=this.packBase,encoding=this.pack.encoding;
+    if(!entry.flash||resource.flash||resource.flashLoading||resource.flashFailed)return;
+    resource.flashLoading=true;
+    resource.flashTask=new T.TextureLoader().loadAsync(base+entry.flash).then(encoded=>{
+      if(resource!==this.plate||base!==this.packBase){encoded.dispose();return;}
+      resource.flash=decodeRadianceTexture(encoded,encoding,Math.min(4,this.renderer.capabilities.getMaxAnisotropy()));
+      this.plateUniforms.flashImage.value=resource.flash;this.trimDecodedCache();this.onTextureUpdate?.();
+    }).catch(()=>{resource.flashFailed=true;}).finally(()=>{resource.flashLoading=false;});
   }
   geometry(s){
     if(!this.plateMode)return super.geometry(s);
@@ -117,6 +159,7 @@ export class PlateRenderer extends Renderer {
     this.camera.updateProjectionMatrix();this.camera.updateMatrixWorld(true);
     this.plateUniforms.rayToCapture.value.multiplyMatrices(this.captureMatrix,this.camera.matrixWorld);
     const vertical=Math.tan(this.camera.fov*Math.PI/360);this.plateUniforms.tanHalfFov.value.set(vertical*aspect,vertical);
+    this.ensureDetail(s);
   }
   uvAt(x,y){
     const t=this.plateUniforms.tanHalfFov.value;
@@ -133,10 +176,17 @@ export class PlateRenderer extends Renderer {
     return {x:uv.x*.5+.5,y:uv.y*.5+.5,z:-view.z};
   }
   renderPlate(s,exposure,time,flash=true){
-    if(!this.fan)return super.renderPlate(s,exposure,time,flash);
-    this.geometry(s);this.updateMotion(s,exposure,time);this.flashLight.position.copy(this.camera.position);this.flashLight.intensity=0;
-    const samples=s.motion?periodicExposureSamples(time,exposure.shutter,this.fan.period):[{time:0,weight:1}];
-    this.integrator.render(this,samples,s.motion?time:0);
+    if(!this.plateMode)return super.renderPlate(s,exposure,time,flash);
+    this.geometry(s);this.updateMotion(s,exposure,time);
+    if(flash&&s.flash>0)this.ensureFlash();
+    const amount=flash?s.flash*(this.pack.flash?.referenceDuration??.01)/exposure.shutter:0;
+    this.plateUniforms.flashStrength.value=this.plate.flash?amount:0;
+    this.flashLight.position.copy(this.camera.position).addScaledVector(this.camera.getWorldDirection(new T.Vector3()),this.pack.flash?.originOffsetForward??0);this.flashLight.intensity=flash?s.flash*(this.pack.flash?.referenceEnergy??1000)/Math.PI*(this.pack.flash?.referenceDuration??.01)/exposure.shutter:0;
+    if(!this.fan){this.renderer.setRenderTarget(this.target);this.renderer.render(this.world,this.camera);this.frameStats={triangles:this.renderer.info.render.triangles,calls:this.renderer.info.render.calls,textures:this.renderer.info.memory.textures};return;}
+    const bounds=this.fan.bounds(this.camera,this.target.width,this.target.height);
+    const radius=bounds?Math.max(bounds.width,bounds.height)/2:0;
+    const samples=s.motion?periodicExposureSamples(time,exposure.shutter,this.fan.period,24,radius*2*Math.PI/3):[{time:0,weight:1}];
+    this.integrator.render(this,samples,s.motion?time:0,flash&&!this.sourceView);
   }
   hitAt(x,y){
     if(!this.plateMode)return super.hitAt(x,y);
@@ -147,7 +197,7 @@ export class PlateRenderer extends Renderer {
     const radial=z/this.raycaster.ray.direction.dot(this.camera.getWorldDirection(new T.Vector3()));
     const point=this.raycaster.ray.at(radial,new T.Vector3());
     let hit={z:-point.clone().applyMatrix4(this.camera.matrixWorldInverse).z,point,ball:false};
-    if(this.fan){const fan=this.raycaster.intersectObject(this.fan.group,true).find(hit=>hit.object.userData.focusable!==false);if(fan&&fan.distance<radial)hit={z:-fan.point.clone().applyMatrix4(this.camera.matrixWorldInverse).z,point:fan.point,ball:true};}
+    if(this.fan){const fan=this.raycaster.intersectObject(this.fan.group,true).find(hit=>hit.object.userData.focusable!==false);if(fan&&fan.distance<radial)hit={z:-fan.point.clone().applyMatrix4(this.camera.matrixWorldInverse).z,point:fan.point,ball:false,track:{object:fan.object,localPoint:fan.object.worldToLocal(fan.point.clone())}};}
     if(this.ballGroup.visible){const ball=this.raycaster.intersectObject(this.balls[0])[0];if(ball&&ball.distance<radial)hit={z:-ball.point.clone().applyMatrix4(this.camera.matrixWorldInverse).z,point:ball.point,ball:true};}
     return hit;
   }

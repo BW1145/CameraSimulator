@@ -13,8 +13,8 @@ try{renderer=usePlates?new PlateRenderer(canvas):new Renderer(canvas);}catch(err
 let s={...DEFAULTS},scene=SCENES[0],resolved=resolveExposure(s,8),meterEV=8;
 const sourceView=new URLSearchParams(location.search).get('view')==='source';
 if(sourceView||usePlates){
-  $('crop').add(new Option('原始宽幅','2048:858'));
-  s={...s,crop:'2048:858',focal:18.8027323,aperture:8,shutter:1/4,iso:100,autoISO:false};
+  $('crop').add(new Option('原始画幅','native'));
+  s={...s,crop:'native',focal:18.8027323,aperture:8,shutter:1/4,iso:100,autoISO:false};
   resolved=resolveExposure(s,8);
 }
 let dirty=true,meterDirty=true,ready=false,lastFrame=0,lastAnalysis=0,clock=0,lastClock=performance.now(),track=null,point={x:.5,y:.5},loadVersion=0;
@@ -26,11 +26,12 @@ const checks={autoISO:'autoISO',motion:'motion',pause:'pause',zebra:'zebra','gri
 const originalBounds=Object.fromEntries(['x','y','z','yaw','pitch','roll'].map(key=>[key,{min:$(key).min,max:$(key).max,step:$(key).step}]));
 const positionLabels={center:'中心',left:'左移 30 cm',right:'右移 30 cm',up:'升高 20 cm',down:'降低 20 cm',front:'前移 30 cm',back:'后退 30 cm'};
 for(const button of document.querySelectorAll('button[data-position]'))button.addEventListener('click',()=>{
+  if(!renderer.ready||!renderer.plateMode)return;
   const entry=renderer.pack.views.find(view=>view.id===button.dataset.position);[s.x,s.y,s.z]=[entry.offset[0],entry.offset[1],-entry.offset[2]];track=null;sync();changePosition();
 });
 let positionVersion=0;
 async function changePosition(){
-  if(!renderer.plateMode)return;
+  if(!renderer.plateMode||!renderer.ready)return;
   const version=++positionVersion;ready=false;canvas.dataset.ready='false';loading.hidden=false;loading.textContent='正在加载选定的拍摄机位…';$('capture').disabled=true;
   try{
     await renderer.setPosition(s);if(version!==positionVersion)return;
@@ -43,6 +44,7 @@ async function changePosition(){
 for(const item of SCENES)$('scene').add(new Option(item.name,item.id));
 
 function invalidate(geometry=true){dirty=true;if(geometry)meterDirty=true;}
+if(renderer)renderer.onTextureUpdate=()=>invalidate();
 function resetView(){for(const key of ['x','y','z','yaw','pitch','roll'])s[key]=0;track=null;point={x:.5,y:.5};invalidate();sync();if(ready&&renderer.plateMode)changePosition();}
 function sync(){
   const position=s.x<0?'left':s.x>0?'right':s.y<0?'down':s.y>0?'up':s.z<0?'back':s.z>0?'front':'center';
@@ -71,7 +73,7 @@ function sync(){
   canvas.dataset.focus=s.focus.toFixed(3);canvas.dataset.iso=resolved.iso;canvas.dataset.ev=ev100(resolved.aperture,resolved.shutter,resolved.iso).toFixed(3);
 }
 function resize(){
-  const [w,h]=s.crop.split(':').map(Number),aspect=w/h;
+  const [w,h]=s.crop.split(':').map(Number),aspect=s.crop==='native'?(renderer?.pack?.camera.aspect||renderer?.nativeCamera?.aspect||2048/858):w/h;
   view.style.setProperty('--aspect',aspect);
   renderer?.resize(...previewSize(view.clientWidth,aspect,window.devicePixelRatio));invalidate();
 }
@@ -91,7 +93,7 @@ for(const key of selects)$(key).addEventListener('change',()=>{
 for(const [id,key]of Object.entries(checks))$(id).addEventListener('change',()=>{s[key]=$(id).checked;if(key==='motion')track=null;invalidate(key==='motion');sync();});
 $('reset').addEventListener('click',()=>{
   s={...DEFAULTS,focus:scene.focus,focal:scene.focal};
-  if(renderer.plateMode)s={...s,crop:'2048:858',focal:renderer.pack.referenceFocal,aperture:8,shutter:1/4,iso:100,autoISO:false};
+  if(renderer.plateMode)s={...s,crop:'native',focal:renderer.pack.referenceFocal,aperture:8,shutter:1/4,iso:100,autoISO:false};
   resolved=resolveExposure(s,meterEV);track=null;clock=0;resize();sync();changePosition();
 });
 $('reset-view').addEventListener('click',resetView);
@@ -105,13 +107,16 @@ async function loadScene(id){
   try{
     const loaded=await renderer.load(next,(bytes,total)=>{if(version===loadVersion)loading.textContent=total?`正在加载${next.name} ${Math.round(bytes/total*100)}%`:`正在加载${next.name} ${(bytes/1048576).toFixed(1)} MB`;});
     if(!loaded||version!==loadVersion)return;
-    scene=next;s.focus=scene.focus;s.focal=(sourceView||renderer.plateMode)&&scene.id==='barbershop'?18.8027323:scene.focal;clock=0;resetView();resize();ready=true;loading.hidden=true;$('capture').disabled=false;
+    scene=next;s.focus=scene.focus;s.focal=renderer.plateMode?renderer.pack.referenceFocal:sourceView&&scene.id==='barbershop'?18.8027323:scene.focal;clock=0;resetView();resize();ready=true;loading.hidden=true;$('capture').disabled=false;
     for(const key of ['x','y','z','yaw','pitch','roll']){
       const bounds=renderer.plateMode?{min:renderer.pack.bounds[key][0],max:renderer.pack.bounds[key][1],step:key==='y'?.2:['x','z'].includes(key)?.3:1}:originalBounds[key];
+      if(renderer.plateMode){const axis=['x','y','z'].indexOf(key);if(axis>=0){const values=renderer.pack.views.map(v=>v.offset[axis]*(key==='z'?-1:1));bounds.min=Math.min(...values);bounds.max=Math.max(...values);bounds.step=Math.min(...values.filter(v=>v!==0).map(Math.abs));}}
       Object.assign($(key),bounds);
     }
-    $('flash').disabled=renderer.plateMode;$('flash').title=renderer.plateMode?'预渲染闪光照明层尚未生成':'';if(renderer.plateMode)s.flash=0;
-    $('flash-control').hidden=renderer.plateMode;$('legacy-view').hidden=renderer.plateMode;$('position-controls').hidden=!renderer.plateMode;
+    $('focal').min=renderer.plateMode?Math.max(18,Math.ceil(renderer.pack.referenceFocal/1.199)):18;
+    if(renderer.plateMode){for(const v of renderer.pack.views){const distance=Math.round(Math.hypot(...v.offset)*100),label=positionLabels[v.id].split(' ')[0];positionLabels[v.id]=distance?`${label} ${distance} cm`:label;document.querySelector(`button[data-position=${v.id}]`).setAttribute('aria-label',positionLabels[v.id]);}}
+    $('flash').disabled=renderer.plateMode&&!renderer.pack.flash;$('flash').title=renderer.plateMode&&!renderer.pack.flash?'预渲染闪光照明层尚未生成':'';if(renderer.plateMode&&!renderer.pack.flash)s.flash=0;
+    $('flash-control').hidden=renderer.plateMode&&!renderer.pack.flash;$('legacy-view').hidden=renderer.plateMode;$('position-controls').hidden=!renderer.plateMode;
     $('subject-controls').hidden=!renderer.fan;
     (renderer.fan?$('subject-controls'):$('assist-tools').querySelector('.tool-content')).append($('motion-controls'));
     $('hint').textContent=renderer.plateMode?'点击对焦 · 拖动取景':'点击对焦 · 拖动转向 · WASD 移动';
@@ -130,11 +135,11 @@ $('scene').addEventListener('change',()=>loadScene($('scene').value));
 function focusAt(x,y){
   if(!ready)return;
   const hit=renderer.hitAt(x,y);if(!hit)return;
-  s.focus=clamp(hit.z,.2,50);point={x,y};track=hit.ball?{ball:true}:{point:hit.point};
+  s.focus=clamp(hit.z,.2,50);point={x,y};track=hit.track||(hit.ball?{ball:true}:{point:hit.point});
   $('focus-mark').hidden=false;invalidate();sync();
 }
 $('focus-center').addEventListener('click',()=>focusAt(.5,.5));
-canvas.addEventListener('pointerdown',e=>{canvas.focus({preventScroll:true});canvas.setPointerCapture(e.pointerId);pointer={x:e.clientX,y:e.clientY,yaw:s.yaw,pitch:s.pitch,dragged:false};});
+canvas.addEventListener('pointerdown',e=>{if(!ready)return;canvas.focus({preventScroll:true});canvas.setPointerCapture(e.pointerId);pointer={x:e.clientX,y:e.clientY,yaw:s.yaw,pitch:s.pitch,dragged:false};});
 canvas.addEventListener('pointermove',e=>{
   const box=canvas.getBoundingClientRect();hover={x:(e.clientX-box.left)/box.width,y:(e.clientY-box.top)/box.height};
   if(pointer){const dx=e.clientX-pointer.x,dy=e.clientY-pointer.y;if(Math.hypot(dx,dy)>4)pointer.dragged=true;
@@ -164,7 +169,7 @@ function drawHistogram(pixels){
 }
 function updateFocus(){
   if(!track){$('focus-mark').hidden=true;return;}
-  const projection=track.ball?renderer.ballPosition(clock):renderer.project(track.point);
+  const projection=track.ball?renderer.ballPosition(clock):renderer.project(track.object?track.object.localToWorld(track.localPoint.clone()):track.point);
   const visible=projection.z>0&&projection.x>=0&&projection.x<=1&&projection.y>=0&&projection.y<=1;
   if(visible){point={x:projection.x,y:projection.y};if(s.af==='AF-C')s.focus=clamp(projection.z,.2,50);}
   $('focus-mark').hidden=!visible;
@@ -196,8 +201,11 @@ function resolveCurrentFrame(analyse=true){
   const p=renderer.draw(s,resolved,clock,analyse);
   if(analyse){if(s.histogram)drawHistogram(p);sync();}
 }
-$('capture').addEventListener('click',()=>{
+$('capture').addEventListener('click',async()=>{
   if(!ready)return;
+  const version=loadVersion;const aspectForCapture=canvas.width/canvas.height;
+  $('capture').disabled=true;await renderer.prepareCapture?.(s,captureSize(aspectForCapture)[0]);
+  if(version!==loadVersion)return;$('capture').disabled=false;
   resolveCurrentFrame();
   // Export the photographic frame, independently of on-screen guidance overlays.
   const zebra=s.zebra;s.zebra=false;
