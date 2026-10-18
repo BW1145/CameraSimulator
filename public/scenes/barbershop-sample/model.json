@@ -1,0 +1,24 @@
+{
+  "id": "barbershop",
+  "camera": "Camera",
+  "nativeCamera": {
+    "lens": 13,
+    "sensorWidth": 24.889999389648438
+  },
+  "sourceSha256": "95972b56180462cac47ec82f3a755bd9111ec18ca37a6196a319c013db994130",
+  "blender": "4.5.14 LTS",
+  "sourceObjects": 1105,
+  "sourcePolygonEstimate": 1233668,
+  "triangleBudget": 650000,
+  "maxTextureSize": 2048,
+  "bytes": 10994904,
+  "excludedVolumeBoundaries": [
+    "ENV-Fog.001"
+  ],
+  "changes": "Complete active scene exported to glTF, retaining source geometry layout, collection instances and native camera optics. Existing images remain capped at 1024px; designated WEB bakes retain their requested resolution. Subdivision limited to level 1 and large meshes decimated. Source camera-ray visibility retained as material metadata. Legacy materials outside the bounded bake sample still use the documented fallback conversion.",
+  "optimization": "Deduplicated, flattened, joined by material, welded, simplified toward 650k triangles with 1% error bound, quantized and Meshopt compressed.",
+  "meshes": 150,
+  "materials": 132,
+  "triangles": 774378,
+  "textures": 71
+}

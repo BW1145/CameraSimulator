@@ -143,7 +143,7 @@ function resolveCurrentFrame(analyse=true){
   if(meterDirty||(s.motion&&analyse)){
     const p=renderer.readPlate(s,resolved,clock);
     const luminance=meterLinearPixels(p,renderer.analysisWidth,renderer.analysisHeight,s.metering,point);
-    meterEV=scene.baseEV+Math.log2(luminance/.18);meterDirty=false;
+    meterEV=scene.baseEV+renderer.exposureOffset+Math.log2(luminance/.18);meterDirty=false;
   }
   resolved=resolveExposure(s,meterEV);resolved.ev=ev100(resolved.aperture,resolved.shutter,resolved.iso);
   const p=renderer.draw(s,resolved,clock,analyse);

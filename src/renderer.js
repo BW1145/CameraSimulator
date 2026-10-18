@@ -53,6 +53,7 @@ export class Renderer {
     this.canvas=canvas;
     this.renderer=new T.WebGLRenderer({canvas,antialias:false,alpha:false,preserveDrawingBuffer:true,powerPreference:'high-performance'});
     this.renderer.setPixelRatio(1);this.renderer.outputColorSpace=T.LinearSRGBColorSpace;this.renderer.toneMapping=T.NoToneMapping;
+    this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=T.PCFSoftShadowMap;
     this.camera=new T.PerspectiveCamera(50,1.5,.03,150);
     this.raycaster=new T.Raycaster();this.anchor=new T.Vector3();this.anchorRotation=new T.Quaternion();
     this.target=new T.WebGLRenderTarget(1,1,{type:T.HalfFloatType,depthTexture:new T.DepthTexture(1,1,T.UnsignedIntType)});
@@ -74,9 +75,21 @@ export class Renderer {
     const version=++this.loadVersion;
     const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
     const gltf=await loader.loadAsync(`${import.meta.env.BASE_URL}scenes/${scene.id}/scene.glb`,e=>onProgress(e.loaded,e.total));
+    const baked=new Set();gltf.scene.traverse(o=>{for(const m of [o.material].flat().filter(Boolean))if(m.userData.bakedIndirect)baked.add(m);});
+    await Promise.all([...baked].map(async m=>{
+      m.lightMap=await new T.TextureLoader().loadAsync(`${import.meta.env.BASE_URL}scenes/${scene.id}/${m.userData.bakedIndirect}`);
+      m.lightMap.channel=m.map?.channel??m.userData.bakedIndirectUV??1;m.lightMapIntensity=Math.PI;
+      // This atlas stores indirect diffuse light, not another ambient fill.
+      // Keep direct lights and flash, and retain environment specular separately.
+      m.onBeforeCompile=shader=>{shader.fragmentShader=shader.fragmentShader.replace('#include <lights_fragment_maps>','irradiance = vec3(0.0);\n#include <lights_fragment_maps>\niblIrradiance = vec3(0.0);');};
+      m.customProgramCacheKey=()=> 'baked-indirect-v1';
+    }));
     if(version!==this.loadVersion){disposeScene(gltf.scene);return false;}
     if(this.world)disposeScene(this.world);
-    this.scene=scene;this.world=new T.Scene();this.world.background=new T.Color('#b5c2c9');
+    this.scene=scene;this.restoredLighting=baked.size>0;
+    const lighting=scene.bakedLighting??{};
+    this.exposureOffset=this.restoredLighting?(lighting.exposureOffset??0):0;
+    this.world=new T.Scene();this.world.background=new T.Color('#b5c2c9');
     const source=gltf.scene;source.updateMatrixWorld(true);
     const cam=gltf.cameras.find(c=>c.name===scene.camera)||gltf.cameras[0];
     if(!cam)throw Error('场景缺少拍摄机位。');
@@ -85,14 +98,21 @@ export class Renderer {
     this.world.add(source);
     // Punctual lights export directly; indirect illumination uses ambient fill.
     source.traverse(o=>{
-      if(o.isLight)o.intensity=Math.min(o.intensity,scene.lightCap||30);
+      // glTF punctual lights are photometric (candela). The source bake is
+      // radiometric; use one unit conversion, preserving original light ratios.
+      if(o.isLight)o.intensity=this.restoredLighting?o.intensity*(lighting.lightScale??(1/683)):Math.min(o.intensity,scene.lightCap??30);
       if(o.isMesh){o.frustumCulled=true;for(const m of [o.material].flat()){
-        if(m.transmission>0){m.transmission=0;m.opacity=.22;m.transparent=true;m.depthWrite=false;}
+        o.castShadow=this.restoredLighting;o.receiveShadow=this.restoredLighting;
+        if(!this.restoredLighting&&m.transmission>0){m.transmission=0;m.opacity=.22;m.transparent=true;m.depthWrite=false;}
+        if(m.userData.cameraInvisible){m.colorWrite=false;m.depthWrite=false;}
         m.envMapIntensity=.35;
       }}
     });
-    this.world.add(new T.HemisphereLight(0xdceaff,0x807060,scene.fill||1.5));
-    const sun=new T.DirectionalLight(0xffead1,1);sun.position.set(-3,8,5);this.world.add(sun);
+    // Bound shadow cost by choosing the strongest original directional/spot keys.
+    const keys=[];source.traverse(o=>{if(o.isSpotLight||o.isDirectionalLight)keys.push(o);});
+    if(this.restoredLighting)keys.sort((a,b)=>b.intensity-a.intensity).slice(0,2).forEach(light=>{light.castShadow=true;light.shadow.mapSize.set(1024,1024);light.shadow.normalBias=.025;light.shadow.bias=-.0001;});
+    this.world.add(new T.HemisphereLight(0xdceaff,0x807060,this.restoredLighting ? (lighting.fill??0) : (scene.fill??1.5)));
+    const sun=new T.DirectionalLight(0xffead1,this.restoredLighting ? (lighting.sunlight??0) : (scene.sunlight??1));sun.position.set(-3,8,5);this.world.add(sun);
     this.flashLight=new T.PointLight(0xffffff,0,25,2);this.world.add(this.flashLight);
     this.ballGroup=new T.Group();this.world.add(this.ballGroup);
     const ballGeometry=new T.SphereGeometry(.12,20,12);
@@ -157,7 +177,7 @@ export class Renderer {
   draw(s,exposure,time,analyse=false){
     if(!this.ready)return;
     this.renderPlate(s,exposure,time);
-    const values={focus:s.focus,focal:s.focal,aperture:exposure.aperture,exposure:this.scene.baseEV-exposure.ev,iso:exposure.iso,wb:s.wb,time,zebra:false,sensorWidth:this.filmWidth};
+    const values={focus:s.focus,focal:s.focal,aperture:exposure.aperture,exposure:this.scene.baseEV+this.exposureOffset-exposure.ev,iso:exposure.iso,wb:s.wb,time,zebra:false,sensorWidth:this.filmWidth};
     for(const [key,value]of Object.entries(values))this.uniforms[key].value=value;
     if(analyse){
       this.renderer.setRenderTarget(this.analysisTarget);this.renderer.render(this.postScene,this.postCamera);
@@ -168,7 +188,7 @@ export class Renderer {
   }
   hitAt(x,y){
     this.raycaster.setFromCamera(new T.Vector2(x*2-1,y*2-1),this.camera);
-    const hits=this.raycaster.intersectObjects(this.world.children,true).filter(h=>h.object.visible&&h.object.material?.opacity!==.22);
+    const hits=this.raycaster.intersectObjects(this.world.children,true).filter(h=>h.object.visible&&h.object.material?.opacity!==.22&&!h.object.material?.userData.cameraInvisible&&!(h.object.material?.transmission>0));
     const hit=hits.find(h=>!this.balls.slice(1).includes(h.object)&&(!this.balls.includes(h.object)||this.ballGroup.visible));
     if(!hit)return null;
     const z=-hit.point.clone().applyMatrix4(this.camera.matrixWorldInverse).z;

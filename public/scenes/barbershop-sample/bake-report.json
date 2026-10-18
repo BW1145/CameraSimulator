@@ -1,0 +1,63 @@
+{
+  "scope": "Bounded cabinet material sample; overall scene lighting and original desk-fan camera are not accepted yet",
+  "sourceSha256": "95972b56180462cac47ec82f3a755bd9111ec18ca37a6196a319c013db994130",
+  "objects": 33,
+  "materials": [
+    "brass_knob.002",
+    "marble",
+    "wood_dresser",
+    "wood_furniture_dresser",
+    "wood_furniture_generic",
+    "wood_light.003"
+  ],
+  "maps": {
+    "baseColor": {
+      "width": 2048,
+      "reused": true
+    },
+    "roughness": {
+      "width": 1024,
+      "reused": true
+    },
+    "normal": {
+      "width": 1024,
+      "seconds": 238.77
+    },
+    "indirect": {
+      "width": 1024,
+      "reused": true
+    }
+  },
+  "method": "Cycles selected-to-active for colour, roughness and indirect; direct source-surface tangent normal bake; original node groups and mapping evaluated",
+  "samples": 16,
+  "sourceCamera": {
+    "lens": 13.0,
+    "sensorWidth": 24.889999389648438,
+    "matrix": [
+      [
+        -0.9588513374328613,
+        -0.020995380356907845,
+        0.28313034772872925,
+        2.9678049087524414
+      ],
+      [
+        0.2838309109210968,
+        -0.04768785834312439,
+        0.9576875567436218,
+        9.9551420211792
+      ],
+      [
+        -0.006605132948607206,
+        0.9986414909362793,
+        0.05168471857905388,
+        1.545469045639038
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  }
+}
