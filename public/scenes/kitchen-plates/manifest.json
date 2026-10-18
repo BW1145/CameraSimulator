@@ -295,7 +295,15 @@
       "flash": "left-flash.webp",
       "flashBytes": 485198,
       "flashWidth": 1280,
-      "flashHeight": 1205
+      "flashHeight": 1205,
+      "detailFile": "left-detail.webp",
+      "detailBytes": 2455458,
+      "detailWidth": 3072,
+      "detailHeight": 2893,
+      "detailDepth": "left-detail-depth.png",
+      "detailDepthWidth": 1536,
+      "detailDepthHeight": 1446,
+      "detailDepthBytes": 1076109
     },
     {
       "id": "right",
@@ -380,7 +388,15 @@
       "flash": "right-flash.webp",
       "flashBytes": 484570,
       "flashWidth": 1280,
-      "flashHeight": 1205
+      "flashHeight": 1205,
+      "detailFile": "right-detail.webp",
+      "detailBytes": 2443198,
+      "detailWidth": 3072,
+      "detailHeight": 2893,
+      "detailDepth": "right-detail-depth.png",
+      "detailDepthWidth": 1536,
+      "detailDepthHeight": 1446,
+      "detailDepthBytes": 1064882
     },
     {
       "id": "up",
@@ -465,7 +481,15 @@
       "flash": "up-flash.webp",
       "flashBytes": 487824,
       "flashWidth": 1280,
-      "flashHeight": 1205
+      "flashHeight": 1205,
+      "detailFile": "up-detail.webp",
+      "detailBytes": 2475798,
+      "detailWidth": 3072,
+      "detailHeight": 2893,
+      "detailDepth": "up-detail-depth.png",
+      "detailDepthWidth": 1536,
+      "detailDepthHeight": 1446,
+      "detailDepthBytes": 1074519
     },
     {
       "id": "down",
@@ -550,7 +574,15 @@
       "flash": "down-flash.webp",
       "flashBytes": 480140,
       "flashWidth": 1280,
-      "flashHeight": 1205
+      "flashHeight": 1205,
+      "detailFile": "down-detail.webp",
+      "detailBytes": 2433420,
+      "detailWidth": 3072,
+      "detailHeight": 2893,
+      "detailDepth": "down-detail-depth.png",
+      "detailDepthWidth": 1536,
+      "detailDepthHeight": 1446,
+      "detailDepthBytes": 1065649
     },
     {
       "id": "front",
@@ -635,7 +667,15 @@
       "flash": "front-flash.webp",
       "flashBytes": 500822,
       "flashWidth": 1280,
-      "flashHeight": 1205
+      "flashHeight": 1205,
+      "detailFile": "front-detail.webp",
+      "detailBytes": 2530436,
+      "detailWidth": 3072,
+      "detailHeight": 2893,
+      "detailDepth": "front-detail-depth.png",
+      "detailDepthWidth": 1536,
+      "detailDepthHeight": 1446,
+      "detailDepthBytes": 1108004
     },
     {
       "id": "back",
@@ -720,7 +760,15 @@
       "flash": "back-flash.webp",
       "flashBytes": 472048,
       "flashWidth": 1280,
-      "flashHeight": 1205
+      "flashHeight": 1205,
+      "detailFile": "back-detail.webp",
+      "detailBytes": 2402660,
+      "detailWidth": 3072,
+      "detailHeight": 2893,
+      "detailDepth": "back-detail-depth.png",
+      "detailDepthWidth": 1536,
+      "detailDepthHeight": 1446,
+      "detailDepthBytes": 1037980
     }
   ],
   "totalBytes": 18526274,
@@ -1130,6 +1178,204 @@
         "maximumRadiance": 83.32549285888672,
         "clampedChannels": 0,
         "negativeChannels": 0
+      },
+      {
+        "id": "left",
+        "file": "left-detail.webp",
+        "bytes": 2455458,
+        "offset": [
+          -0.3,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          0.6371816992759705,
+          -0.004181867465376854,
+          -0.7707021236419678,
+          0,
+          -0.1989787518978119,
+          0.9651914238929749,
+          -0.16974382102489471,
+          0,
+          0.7445850372314453,
+          0.26151102781295776,
+          0.6141703128814697,
+          0,
+          8.215173721313477,
+          4.933152675628662,
+          7.166459560394287,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.10000000149011612,
+        "maximumRadiance": 93.36470794677734,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "right",
+        "file": "right-detail.webp",
+        "bytes": 2443198,
+        "offset": [
+          0.3,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          0.6371816992759705,
+          -0.004181867465376854,
+          -0.7707021236419678,
+          0,
+          -0.1989787518978119,
+          0.9651914238929749,
+          -0.16974382102489471,
+          0,
+          0.7445850372314453,
+          0.26151102781295776,
+          0.6141703128814697,
+          0,
+          8.597482681274414,
+          4.930643558502197,
+          6.704038143157959,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.10000000149011612,
+        "maximumRadiance": 85.33333587646484,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "up",
+        "file": "up-detail.webp",
+        "bytes": 2475798,
+        "offset": [
+          0,
+          0.2,
+          0
+        ],
+        "cameraMatrix": [
+          0.6371816992759705,
+          -0.004181867465376854,
+          -0.7707021236419678,
+          0,
+          -0.1989787518978119,
+          0.9651914238929749,
+          -0.16974382102489471,
+          0,
+          0.7445850372314453,
+          0.26151102781295776,
+          0.6141703128814697,
+          0,
+          8.366532325744629,
+          5.124936580657959,
+          6.901299953460693,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.10000000149011612,
+        "maximumRadiance": 93.36470794677734,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "down",
+        "file": "down-detail.webp",
+        "bytes": 2433420,
+        "offset": [
+          0,
+          -0.2,
+          0
+        ],
+        "cameraMatrix": [
+          0.6371816992759705,
+          -0.004181867465376854,
+          -0.7707021236419678,
+          0,
+          -0.1989787518978119,
+          0.9651914238929749,
+          -0.16974382102489471,
+          0,
+          0.7445850372314453,
+          0.26151102781295776,
+          0.6141703128814697,
+          0,
+          8.446124076843262,
+          4.7388596534729,
+          6.969197750091553,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.10000000149011612,
+        "maximumRadiance": 88.84706115722656,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "front",
+        "file": "front-detail.webp",
+        "bytes": 2530436,
+        "offset": [
+          0,
+          0,
+          -0.3
+        ],
+        "cameraMatrix": [
+          0.6371816992759705,
+          -0.004181867465376854,
+          -0.7707021236419678,
+          0,
+          -0.1989787518978119,
+          0.9651914238929749,
+          -0.16974382102489471,
+          0,
+          0.7445850372314453,
+          0.26151102781295776,
+          0.6141703128814697,
+          0,
+          8.182952880859375,
+          4.853444576263428,
+          6.750997543334961,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.10000000149011612,
+        "maximumRadiance": 100.89411926269531,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "back",
+        "file": "back-detail.webp",
+        "bytes": 2402660,
+        "offset": [
+          0,
+          0,
+          0.3
+        ],
+        "cameraMatrix": [
+          0.6371816992759705,
+          -0.004181867465376854,
+          -0.7707021236419678,
+          0,
+          -0.1989787518978119,
+          0.9651914238929749,
+          -0.16974382102489471,
+          0,
+          0.7445850372314453,
+          0.26151102781295776,
+          0.6141703128814697,
+          0,
+          8.629703521728516,
+          5.010351657867432,
+          7.119500160217285,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.10000000149011612,
+        "maximumRadiance": 92.36078643798828,
+        "clampedChannels": 0,
+        "negativeChannels": 0
       }
     ],
     "derivations": [
@@ -1159,9 +1405,9 @@
       "max": 7,
       "losslessContainer": "WebP",
       "maximumChannelQuantizationEV": 0.045098039215686274,
-      "sourceMaximumRadiance": 83.32549285888672
+      "sourceMaximumRadiance": 100.89411926269531
     },
-    "totalBytes": 2461580
+    "totalBytes": 17202550
   },
   "detailDepth": {
     "sourceSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
@@ -1197,8 +1443,182 @@
         "minimumZ": 8.908385276794434,
         "maximumZ": 100.5010986328125,
         "clampedPixels": 119362
+      },
+      {
+        "id": "left",
+        "file": "left-detail-depth.png",
+        "width": 1536,
+        "height": 1446,
+        "near": 0.10000000149011612,
+        "cameraMatrix": [
+          0.6371816992759705,
+          -0.004181867465376854,
+          -0.7707021236419678,
+          0,
+          -0.1989787518978119,
+          0.9651914238929749,
+          -0.16974382102489471,
+          0,
+          0.7445850372314453,
+          0.26151102781295776,
+          0.6141703128814697,
+          0,
+          8.215173721313477,
+          4.933152675628662,
+          7.166459560394287,
+          1
+        ],
+        "bytes": 1076109,
+        "minimumZ": 8.911014556884766,
+        "maximumZ": 100.53056335449219,
+        "clampedPixels": 119467
+      },
+      {
+        "id": "right",
+        "file": "right-detail-depth.png",
+        "width": 1536,
+        "height": 1446,
+        "near": 0.10000000149011612,
+        "cameraMatrix": [
+          0.6371816992759705,
+          -0.004181867465376854,
+          -0.7707021236419678,
+          0,
+          -0.1989787518978119,
+          0.9651914238929749,
+          -0.16974382102489471,
+          0,
+          0.7445850372314453,
+          0.26151102781295776,
+          0.6141703128814697,
+          0,
+          8.597482681274414,
+          4.930643558502197,
+          6.704038143157959,
+          1
+        ],
+        "bytes": 1064882,
+        "minimumZ": 8.90578556060791,
+        "maximumZ": 100.47164154052734,
+        "clampedPixels": 119256
+      },
+      {
+        "id": "up",
+        "file": "up-detail-depth.png",
+        "width": 1536,
+        "height": 1446,
+        "near": 0.10000000149011612,
+        "cameraMatrix": [
+          0.6371816992759705,
+          -0.004181867465376854,
+          -0.7707021236419678,
+          0,
+          -0.1989787518978119,
+          0.9651914238929749,
+          -0.16974382102489471,
+          0,
+          0.7445850372314453,
+          0.26151102781295776,
+          0.6141703128814697,
+          0,
+          8.366532325744629,
+          5.124936580657959,
+          6.901299953460693,
+          1
+        ],
+        "bytes": 1074519,
+        "minimumZ": 9.310197830200195,
+        "maximumZ": 105.03404235839844,
+        "clampedPixels": 134721
+      },
+      {
+        "id": "down",
+        "file": "down-detail-depth.png",
+        "width": 1536,
+        "height": 1446,
+        "near": 0.10000000149011612,
+        "cameraMatrix": [
+          0.6371816992759705,
+          -0.004181867465376854,
+          -0.7707021236419678,
+          0,
+          -0.1989787518978119,
+          0.9651914238929749,
+          -0.16974382102489471,
+          0,
+          0.7445850372314453,
+          0.26151102781295776,
+          0.6141703128814697,
+          0,
+          8.446124076843262,
+          4.7388596534729,
+          6.969197750091553,
+          1
+        ],
+        "bytes": 1065649,
+        "minimumZ": 8.50660228729248,
+        "maximumZ": 95.9681625366211,
+        "clampedPixels": 104002
+      },
+      {
+        "id": "front",
+        "file": "front-detail-depth.png",
+        "width": 1536,
+        "height": 1446,
+        "near": 0.10000000149011612,
+        "cameraMatrix": [
+          0.6371816992759705,
+          -0.004181867465376854,
+          -0.7707021236419678,
+          0,
+          -0.1989787518978119,
+          0.9651914238929749,
+          -0.16974382102489471,
+          0,
+          0.7445850372314453,
+          0.26151102781295776,
+          0.6141703128814697,
+          0,
+          8.182952880859375,
+          4.853444576263428,
+          6.750997543334961,
+          1
+        ],
+        "bytes": 1108004,
+        "minimumZ": 8.745101928710938,
+        "maximumZ": 98.65885162353516,
+        "clampedPixels": 113115
+      },
+      {
+        "id": "back",
+        "file": "back-detail-depth.png",
+        "width": 1536,
+        "height": 1446,
+        "near": 0.10000000149011612,
+        "cameraMatrix": [
+          0.6371816992759705,
+          -0.004181867465376854,
+          -0.7707021236419678,
+          0,
+          -0.1989787518978119,
+          0.9651914238929749,
+          -0.16974382102489471,
+          0,
+          0.7445850372314453,
+          0.26151102781295776,
+          0.6141703128814697,
+          0,
+          8.629703521728516,
+          5.010351657867432,
+          7.119500160217285,
+          1
+        ],
+        "bytes": 1037980,
+        "minimumZ": 9.071698188781738,
+        "maximumZ": 102.34335327148438,
+        "clampedPixels": 125609
       }
     ],
-    "totalBytes": 1071417
+    "totalBytes": 7498560
   }
 }

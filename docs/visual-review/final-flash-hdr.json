@@ -1,0 +1,99 @@
+{
+  "method": "Headless Chrome, built production application served by npm run preview at 127.0.0.1:8002. Intercept actual WebGL2 draw calls and read bound single-sample HalfFloat framebuffers using the GPU implementation read type. No source-only shader surrogate.",
+  "settings": {
+    "aperture": 22,
+    "iso": 50,
+    "flashStrength": 2,
+    "slowShutter": "1/125 s",
+    "fastShutter": "1/8000 s",
+    "motion": false
+  },
+  "preExposure": "gain = flashStrength * referenceDuration / shutter; scale = 1 / (1 + gain). Apply to static plate and ordinary live material outputs before first HalfFloat write. Preserve scale through lens/temporal/pulse buffers. Restore scene units at final photographic exposure; meter restores scene units too.",
+  "actualSource": {
+    "file": "public/scenes/barbershop-plates/right-flash.webp",
+    "sourceMaximumRadiance": 4602.9560546875,
+    "ambient": "Black substituted ambient plate only, to isolate the actual unmodified flash layer",
+    "measurement": {
+      "fixture": false,
+      "slow": {
+        "scale": 0.2857142857142857,
+        "peak": 3200,
+        "unscaledPeak": 11200,
+        "exposedPeak": 23.690079120879577,
+        "mean": 9.625697888783918,
+        "meshScales": []
+      },
+      "fast": {
+        "scale": 0.006211180124223602,
+        "peak": 4452,
+        "unscaledPeak": 716772,
+        "exposedPeak": 23.689153727163916,
+        "mean": 9.625394048837453,
+        "meshScales": []
+      },
+      "exposedPeakDifferenceEV": -5.635637575246419e-05,
+      "auditedNonFiniteChannels": 0
+    }
+  },
+  "strongFixture": {
+    "targetRadiance": 4602.9560546875,
+    "description": "Constant transport WebP encoded with the real flash log2 encoding; quantized decoded level about 4715, substantially above the old 16-radiance fixture",
+    "measurement": {
+      "fixture": true,
+      "slow": {
+        "scale": 0.2857142857142857,
+        "peak": 3368,
+        "unscaledPeak": 11788,
+        "exposedPeak": 24.933808274725756,
+        "mean": 254.3888683868682,
+        "meshScales": []
+      },
+      "fast": {
+        "scale": 0.006211180124223602,
+        "peak": 4684,
+        "unscaledPeak": 754124,
+        "exposedPeak": 24.9236289438535,
+        "mean": 254.3888683868682,
+        "meshScales": []
+      },
+      "exposedPeakDifferenceEV": -0.0005891065081682696,
+      "auditedNonFiniteChannels": 0
+    }
+  },
+  "liveFan": {
+    "description": "Real production geometry/materials and camera-mounted PointLight. Black ambient plate, black room flash, black HDR environment and zero area-light intensities isolate the fan pulse. All live mesh shaders receive the same scale.",
+    "measurement": {
+      "slow": {
+        "scale": 0.2857142857142857,
+        "peak": 108.875,
+        "unscaledPeak": 381.0625,
+        "exposedPeak": 0.8060179263393012,
+        "mean": 0.21521258135201804,
+        "meshScales": [
+          0.2857142984867096
+        ]
+      },
+      "fast": {
+        "scale": 0.006211180124223602,
+        "peak": 151.5,
+        "unscaledPeak": 24391.5,
+        "exposedPeak": 0.8061336005537586,
+        "mean": 0.18860915931874245,
+        "meshScales": [
+          0.006211180239915848
+        ]
+      },
+      "exposedPeakDifferenceEV": 0.00020703093109905344,
+      "auditedNonFiniteChannels": 0
+    }
+  },
+  "existingRegression": "7/7 production HDR/lens/layer tests passed in 21.1 s, plus the added legacy Scene Color production regression passed in 4.6 s (8 checks total).",
+  "log": "qa-evidence/flash-hdr-regression.log (outside repository)",
+  "limits": "HalfFloat quantization remains; this is reversible pre-exposure, not clipping or a change to the flash teaching model. Single-depth optical approximation and bounded motion sample limitations are unchanged.",
+  "legacyBackground": {
+    "description": "Production camera-only glTF fixture verifies directly cleared Scene Color, which bypasses material shaders, receives matching pre-exposure. Same aperture/ISO/shutter, flash off/on.",
+    "meanDisplayCodeWithoutFlash": 42.690083158448694,
+    "meanDisplayCodeWithFlash": 42.69278223813833,
+    "absoluteDisplayCodeDifference": 0.002699079689634
+  }
+}

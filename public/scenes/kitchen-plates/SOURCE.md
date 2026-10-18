@@ -16,6 +16,8 @@ Flash and high-resolution detail availability are declared by the manifest. Miss
 
 Flash: seven 1280 px isolated Cycles light-group renders, 32 samples, camera-origin 0.08 m area lamp, reference 1000 W for 0.01 s. It uses the same perspective conversion and extended source ground as ambient. Packaging verifies source SHA, actual camera pose, near plane and lamp position against the ambient rig. Flash encoding is independent of ambient encoding. Optional detail uses 3072 px radiance and matching 1536 px axial Z; the manifest lists the completed views.
 
+All seven positions now include the optional detail radiance/Z pair. A full-pixel audit checks each lossless WebP and PNG against the raw HDR/EXR, alongside source SHA, camera transform, per-view clipping and file dimensions/bytes. The completed layer has zero radiance/depth pixel mismatches and zero radiance clamps; original base and flash files remain byte-identical.
+
 The extended studio floor reaches approximately 100 m axial distance at the overscan edge. Depth beyond 64 m saturates at the declared 64 m limit (119,362 pixels, 5.37%, in the center detail Z). This affects the distant studio backdrop; the kitchen subject is approximately 9–20 m away. Radiance retains the complete floor and is not clipped by this depth limit.
 
 

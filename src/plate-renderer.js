@@ -33,9 +33,9 @@ export class PlateRenderer extends Renderer {
     const matrix=new T.Matrix4().fromArray(this.pack.views[0].cameraMatrix);this.anchor.setFromMatrixPosition(matrix);this.anchorRotation.setFromRotationMatrix(matrix);
     this.camera.near=this.pack.camera.near??1.1;this.camera.far=this.pack.camera.far??100;this.uniforms.nearClip.value=this.camera.near;this.uniforms.farClip.value=this.camera.far;
     this.world=new T.Scene();this.world.background=new T.Color(0,0,0);
-    this.plateUniforms={image:{value:null},flashImage:{value:null},flashStrength:{value:0},depth:{value:null},rayToCapture:{value:new T.Matrix4()},tanHalfFov:{value:new T.Vector2()},viewShift:{value:new T.Vector2()},near:{value:this.camera.near},far:{value:this.camera.far}};
+    this.plateUniforms={radianceScale:this.uniforms.radianceScale,image:{value:null},flashImage:{value:null},flashStrength:{value:0},depth:{value:null},rayToCapture:{value:new T.Matrix4()},tanHalfFov:{value:new T.Vector2()},viewShift:{value:new T.Vector2()},near:{value:this.camera.near},far:{value:this.camera.far}};
     this.plateMaterial=new T.ShaderMaterial({depthTest:true,depthWrite:true,uniforms:this.plateUniforms,vertexShader:'varying vec2 uvPlate;void main(){uvPlate=uv;gl_Position=vec4(position.xy,1.,1.);}',fragmentShader:`
-      precision highp float;varying vec2 uvPlate;uniform sampler2D image;uniform sampler2D flashImage;uniform float flashStrength;uniform sampler2D depth;uniform mat4 rayToCapture;uniform vec2 tanHalfFov;uniform vec2 viewShift;uniform float near;uniform float far;
+      precision highp float;varying vec2 uvPlate;uniform sampler2D image;uniform sampler2D flashImage;uniform float flashStrength;uniform float radianceScale;uniform sampler2D depth;uniform mat4 rayToCapture;uniform vec2 tanHalfFov;uniform vec2 viewShift;uniform float near;uniform float far;
       void main(){vec3 ray=vec3((uvPlate*2.-1.+viewShift)*tanHalfFov,-1.);vec4 projected=rayToCapture*vec4(ray,0.);vec2 uv=projected.xy/projected.w*.5+.5;
         if(any(lessThan(uv,vec2(0.)))||any(greaterThan(uv,vec2(1.)))){gl_FragColor=vec4(0.,0.,0.,1.);gl_FragDepth=1.;return;}
         vec3 radiance=texture2D(image,uv).rgb;if(flashStrength>0.)radiance+=texture2D(flashImage,uv).rgb*flashStrength;
@@ -43,7 +43,7 @@ export class PlateRenderer extends Renderer {
         // projected.w is the capture-camera Z scale of this current-view ray.
         vec2 packed=texture2D(depth,uv).rg*255.;float sourceZ=(packed.x*256.+packed.y)/65535.*64.;
         float z=max(near,sourceZ/projected.w);gl_FragDepth=far/(far-near)-far*near/((far-near)*z);
-        gl_FragColor=vec4(radiance,1.);}`});
+        gl_FragColor=vec4(radiance*radianceScale,1.);}`});
     this.plateMesh=new T.Mesh(new T.PlaneGeometry(2,2),this.plateMaterial);this.plateMesh.frustumCulled=false;this.plateMesh.renderOrder=-100;this.world.add(this.plateMesh);
     this.world.add(new T.HemisphereLight(0xffe6c8,0x40352a,.5));
     const key=new T.DirectionalLight(0xffddb2,3);key.position.copy(this.anchor).add(new T.Vector3(-2,3,-4));this.world.add(key);
@@ -112,7 +112,7 @@ export class PlateRenderer extends Renderer {
     }else{this.cache.delete(cacheKey);this.cache.set(cacheKey,resource);}
     const loaded=await resource;if(version!==this.moveVersion)return;
     this.plate=loaded;this.entry=entry;this.captureMatrix=new T.Matrix4().fromArray(entry.matrix);
-    loaded.detailFailed=false;
+    loaded.detailFailed=false;loaded.flashFailed=false;
     this.camera.near=entry.near??this.pack.camera.near;this.uniforms.nearClip.value=this.camera.near;this.plateUniforms.near.value=this.camera.near;
     this.plateUniforms.image.value=loaded.image;this.plateUniforms.depth.value=loaded.depth;this.plateUniforms.flashImage.value=loaded.flash||loaded.image;this.plateUniforms.flashStrength.value=0;
     this.canvas.dataset.position=id;this.canvas.dataset.cameraPosition=JSON.stringify(entry.position);
@@ -198,6 +198,7 @@ export class PlateRenderer extends Renderer {
     this.geometry(s);this.fan?.setQuality(this.camera,this.target.width,this.target.height);this.updateMotion(s,exposure,time);
     if(flash&&s.flash>0)this.ensureFlash();
     const amount=flash?s.flash*(this.pack.flash?.referenceDuration??.01)/exposure.shutter:0;
+    this.setRadianceScale(amount);
     this.plateUniforms.flashStrength.value=this.plate.flash?amount:0;
     this.flashLight.position.copy(this.camera.position).addScaledVector(new T.Vector3(0,0,-1).applyQuaternion(this.anchorRotation),this.pack.flash?.originOffsetForward??0);this.flashLight.intensity=flash?s.flash*(this.pack.flash?.referenceEnergy??1000)/Math.PI*(this.pack.flash?.referenceDuration??.01)/exposure.shutter:0;
     if(!this.fan){

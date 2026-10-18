@@ -34,3 +34,28 @@ test('detail radiance is lazy and a stale pose cannot replace the selected view'
   await page.locator('button[data-position=right]').click();await expect(canvas).toHaveAttribute('data-position','right');release();await page.waitForTimeout(200);
   await expect(canvas).toHaveAttribute('data-position','right');expect(await canvas.getAttribute('data-detail-width')).not.toBe('5120');
 });
+
+test('a previous position layer failure does not remain on a healthy selected position',async({page})=>{
+  const manifest=JSON.parse(await readFile('public/scenes/barbershop-plates/manifest.json','utf8'));
+  for(const view of manifest.views){delete view.detailFile;delete view.detailDepth;}
+  manifest.views[0].detailFile='unavailable-detail.webp';manifest.views[0].detailWidth=5120;
+  await page.route('**/barbershop-plates/manifest.json',r=>r.fulfill({json:manifest}));
+  await page.route('**/unavailable-detail.webp',r=>r.abort());
+  await page.goto('/?subject=none');const canvas=page.locator('#image');await expect(canvas).toHaveAttribute('data-ready','true');
+  await openControl(page,'focal');await page.locator('#focal').fill('100');await page.locator('#focal').dispatchEvent('input');await expect(page.locator('#hint button')).toBeVisible();
+  await page.locator('button[data-position=right]').click();await expect(canvas).toHaveAttribute('data-position','right');await expect(canvas).toHaveAttribute('data-ready','true');await expect(page.locator('#hint button')).toHaveCount(0);
+});
+
+test('returning to a failed flash position permits a new request',async({page})=>{
+  const manifest=JSON.parse(await readFile('public/scenes/barbershop-plates/manifest.json','utf8'));
+  for(const view of manifest.views){delete view.detailFile;delete view.detailDepth;delete view.flash;}
+  manifest.views[0].flash='unavailable-flash.webp';let requests=0;
+  await page.route('**/barbershop-plates/manifest.json',r=>r.fulfill({json:manifest}));
+  await page.route('**/unavailable-flash.webp',r=>{requests++;return r.abort();});
+  await page.goto('/?subject=none');const canvas=page.locator('#image');await expect(canvas).toHaveAttribute('data-ready','true');
+  await openControl(page,'flash');await page.locator('#flash').fill('1');await page.locator('#flash').dispatchEvent('input');await expect(page.locator('#hint button')).toBeVisible();expect(requests).toBe(1);
+  await page.locator('button[data-position=right]').click();await expect(canvas).toHaveAttribute('data-position','right');await expect(page.locator('#hint button')).toHaveCount(0);
+  await page.locator('button[data-position=center]').click();await expect(canvas).toHaveAttribute('data-position','center');await expect.poll(()=>requests).toBe(2);await expect(page.locator('#hint button')).toBeVisible();
+  await page.locator('#scene').selectOption('classroom');await expect(canvas).toHaveAttribute('data-scene','classroom');await expect(canvas).toHaveAttribute('data-ready','true');
+  await page.locator('#scene').selectOption('barbershop');await expect(canvas).toHaveAttribute('data-scene','barbershop');await expect.poll(()=>requests).toBe(3);await expect(page.locator('#hint button')).toBeVisible();
+});

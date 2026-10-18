@@ -22,7 +22,7 @@ test('GPU lens preserves focused foreground, softens near silhouettes and scales
       for(const [unit,name,data] of [[0,'plate',color],[1,'sceneDepth',depth]]){
         const texture=gl.createTexture();gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,texture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,width,height,0,gl.RGBA,gl.FLOAT,data);gl.uniform1i(gl.getUniformLocation(program,name),unit);
       }
-      for(const [name,value]of Object.entries({focus,focal,aperture,exposure:0,iso:0,wb:5000,time:0,sensorWidth,nearClip:.03,farClip:150}))gl.uniform1f(gl.getUniformLocation(program,name),value);
+      for(const [name,value]of Object.entries({focus,focal,aperture,exposure:0,iso:0,wb:5000,time:0,sensorWidth,nearClip:.03,farClip:150,radianceScale:1}))gl.uniform1f(gl.getUniformLocation(program,name),value);
       gl.uniform2f(gl.getUniformLocation(program,'resolution'),width,height);gl.viewport(0,0,width,height);gl.drawArrays(gl.TRIANGLES,0,6);const pixels=new Uint8Array(width*4);gl.readPixels(0,height/2,width,1,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
       const red=Array.from({length:width},(_,x)=>pixels[x*4]);const blue=Array.from({length:width},(_,x)=>pixels[x*4+2]);gl.getExtension('WEBGL_lose_context')?.loseContext();return {red,blue};
     };

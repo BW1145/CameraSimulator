@@ -35,7 +35,7 @@ async function changePosition(){
   const version=++positionVersion;ready=false;canvas.dataset.ready='false';loading.hidden=false;loading.textContent='正在加载选定的拍摄机位…';$('capture').disabled=true;
   try{
     await renderer.setPosition(s);if(version!==positionVersion)return;
-    track=null;ready=true;loading.hidden=true;$('capture').disabled=false;invalidate();
+    track=null;ready=true;loading.hidden=true;$('capture').disabled=false;$('hint').textContent='点击对焦 · 拖动取景';invalidate();
   }catch(error){
     if(version!==positionVersion)return;loading.textContent=`机位加载失败：${error.message} `;
     const retry=document.createElement('button');retry.textContent='重新加载';retry.onclick=changePosition;loading.append(retry);
@@ -75,7 +75,12 @@ function sync(){
 function resize(){
   const [w,h]=s.crop.split(':').map(Number),aspect=s.crop==='native'?(renderer?.pack?.camera.aspect||renderer?.nativeCamera?.aspect||2048/858):w/h;
   view.style.setProperty('--aspect',aspect);
-  renderer?.resize(...previewSize(view.clientWidth,aspect,window.devicePixelRatio));invalidate();
+  // Transient hidden layouts have no drawable size. Preserve the last valid
+  // frame instead of clearing it to 1x1 while the compositor takes a snapshot.
+  if(!view.clientWidth)return;
+  const size=previewSize(view.clientWidth,aspect,window.devicePixelRatio);
+  if(canvas.width!==size[0]||canvas.height!==size[1])canvas.dataset.ready='false';
+  renderer?.resize(...size);invalidate();
 }
 for(const [key,table]of Object.entries(tables))$(key).addEventListener('input',()=>{s[key]=table[Number($(key).value)];invalidate(false);});
 for(const key of numeric)$(key).addEventListener('input',()=>{

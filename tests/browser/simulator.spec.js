@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
-import {openControl} from './controls.js';
+import {openControl,motionSample,waitForMotion} from './controls.js';
 const waitFrame=async page=>{await expect(page.locator('#image')).toHaveAttribute('data-ready','true');await page.waitForTimeout(180);};
 const range=async(page,id,value)=>{await openControl(page,id);await page.locator('#'+id).fill(String(value));await page.locator('#'+id).dispatchEvent('input');await waitFrame(page);};
 const stats=async page=>{
@@ -51,16 +51,25 @@ test('auto exposure compensation, assist overlays, portrait and capture work',as
   await page.screenshot({path:'test-results/mobile.png',fullPage:true});
 });
 test('AF-S locks distance and AF-C follows a moving three dimensional subject',async({page})=>{
+  // This legacy full-geometry test verifies focus, not desktop raster cost.
+  // Use the same real viewport on hardware and software GPUs; default desktop
+  // and narrow-screen visual coverage remains in the separate scene tests.
+  await page.setViewportSize({width:800,height:700});
   await page.goto('/?renderer=gltf');await waitFrame(page);await openControl(page,'motion');
-  await page.locator('#motion').check();await page.locator('#pause').check();await waitFrame(page);
+  await page.locator('#pause').check();await page.locator('#motion').check();await waitFrame(page);
   const box=await page.locator('#image').boundingBox();
   const x=Number(await page.locator('#image').getAttribute('data-ball-x')),y=Number(await page.locator('#image').getAttribute('data-ball-y'));
   await page.locator('#image').click({position:{x:x*box.width,y:(1-y)*box.height}});await waitFrame(page);
-  const locked=Number(await page.locator('#image').getAttribute('data-focus'));
-  await page.locator('#pause').uncheck();await page.waitForTimeout(500);
-  expect(Number(await page.locator('#image').getAttribute('data-focus'))).toBeCloseTo(locked,2);
-  await openControl(page,'af');await page.locator('#af').selectOption('AF-C');await page.waitForTimeout(500);
-  expect(Math.abs(Number(await page.locator('#image').getAttribute('data-focus'))-locked)).toBeGreaterThan(.03);
+  const locked=await motionSample(page);
+  await page.locator('#pause').uncheck();await waitForMotion(page,locked);await page.locator('#pause').check();
+  const movedLocked=await motionSample(page);expect(movedLocked.focus).toBeCloseTo(locked.focus,2);
+  // Pause the genuine moving scene before changing a collapsed panel. On the
+  // software GPU, continuous full-room redraws can starve pointer hit testing.
+  await openControl(page,'af');await page.locator('#af').selectOption('AF-C');await waitFrame(page);
+  const initial=await motionSample(page);await openControl(page,'pause');await page.locator('#pause').uncheck();await waitForMotion(page,initial);
+  let tracked;await expect.poll(async()=>{tracked=await motionSample(page);return Math.abs(tracked.focus-initial.focus);},{message:'AF-C must follow depth after the rendered target actually moves',timeout:45000}).toBeGreaterThan(.03);
+  await page.locator('#pause').check();
+  await test.info().attach('legacy-af-progress.json',{body:JSON.stringify({locked,movedLocked,initial,tracked},null,2),contentType:'application/json'});
 });
 test('spot metering follows real image regions and fill flash lights the scene',async({page})=>{
   await page.goto('/?renderer=gltf');await waitFrame(page);await openControl(page,'metering');

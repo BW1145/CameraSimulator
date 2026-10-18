@@ -18,4 +18,6 @@ Composition preserves source lens shift Y = 0.03. Runtime minimum focal length i
 
 Flash: seven 1280 px isolated Cycles light-group renders, 32 samples, 0.08 m area lamp, reference 1000 W for 0.01 s. The camera origin is behind the source cutaway wall and a flash there is almost entirely blocked. This derivative places the lamp 4.4 m forward from each actual capture position, beyond that wall. This is scene-local fill, not a strict camera-origin flash. Packaging verifies source SHA, actual camera pose, near plane and recorded lamp position against the ambient rig. Flash encoding is independent of ambient encoding. Optional detail uses 4096 px radiance and matching 2048 px axial Z; the manifest lists the completed views.
 
+All seven positions now include the optional detail radiance/Z pair. A full-pixel audit checks each lossless WebP and PNG against the raw HDR/EXR, alongside source SHA, camera transform, per-view clipping and file dimensions/bytes. The completed layer has zero radiance/depth pixel mismatches, zero radiance clamps and no depth beyond the 64 m encoding limit. Original base/flash files and the 53 mm minimum / 0.095 valid-image inset remain unchanged. Full overscan source images retain architectural cutaway and near-wall edges; runtime composition uses the recorded limits.
+
 

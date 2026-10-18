@@ -9,7 +9,7 @@ varying vec2 vUv;
 uniform sampler2D plate;uniform sampler2D sceneDepth;
 uniform vec2 resolution;uniform float focus;uniform float focal;uniform float aperture;
 uniform float exposure;uniform float iso;uniform float wb;uniform float time;uniform bool zebra;
-uniform float sensorWidth;uniform float nearClip;uniform float farClip;
+uniform float sensorWidth;uniform float nearClip;uniform float farClip;uniform float radianceScale;
 uniform bool meteringPass;uniform bool lensOnly;uniform bool skipLens;
 uniform bool agx;
 #include <tonemapping_pars_fragment>
@@ -21,7 +21,7 @@ float coc(float z){
 float random(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
 void main(){
   // The meter consumes linear HDR light, before lens effects or display encoding.
-  if(meteringPass){gl_FragColor=vec4(texture2D(plate,vUv).rgb,1.);return;}
+  if(meteringPass){gl_FragColor=vec4(texture2D(plate,vUv).rgb/radianceScale,1.);return;}
   float z=depthAt(vUv);float radius=coc(z);
   vec3 center=texture2D(plate,vUv).rgb;
   vec3 c=center;float count=1.;
@@ -65,7 +65,8 @@ void main(){
   }
   }
   if(lensOnly){gl_FragColor=vec4(c,1.);return;}
-  c*=exp2(exposure);
+  // Restore pre-exposed scene units only after all HalfFloat intermediates.
+  c*=exp2(exposure)/radianceScale;
   float temperature=(wb-5000.)/3000.;c*=vec3(exp(temperature*.32),1.,exp(-temperature*.32));
   // Filmic highlight shoulder, applied after photographic exposure.
   if(!meteringPass)c=agx?AgXToneMapping(c):(c*(2.51*c+.03))/(c*(2.43*c+.59)+.14);
@@ -102,7 +103,7 @@ export class Renderer {
     canvas.dataset.samples=String(this.target.samples);
     this.analysisTarget=new T.WebGLRenderTarget(1,1,{type:T.UnsignedByteType,depthBuffer:false});
     this.meterTarget=new T.WebGLRenderTarget(1,1,{type:T.FloatType,depthBuffer:false});
-    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,resolution:new T.Vector2(1,1),focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,meteringPass:false,lensOnly:false,skipLens:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
+    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,resolution:new T.Vector2(1,1),focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,radianceScale:1,meteringPass:false,lensOnly:false,skipLens:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
     this.postScene=new T.Scene();this.postCamera=new T.Camera();
     this.postScene.add(new T.Mesh(new T.PlaneGeometry(2,2),new T.ShaderMaterial({vertexShader:vertex,fragmentShader:fragment,uniforms:this.uniforms,depthTest:false,depthWrite:false})));
     this.loadVersion=0;
@@ -205,11 +206,47 @@ export class Renderer {
       ball.material.depthWrite=true;
     }
   }
+  setRadianceScale(strength){
+    // The flash is represented as radiance / shutter until photographic
+    // exposure is applied. Normalize that gain BEFORE any HalfFloat write:
+    // even the 1/8000 s pulse is bounded by its reference-radiance magnitude.
+    const scale=1/(1+Math.max(0,strength));
+    this.uniforms.radianceScale.value=scale;
+    // Scene Color is cleared directly by Three and bypasses mesh materials.
+    // Keep its original linear value so the display unscale does not brighten
+    // the legacy sky whenever flash pre-exposure changes.
+    if(this.world.background?.isColor){
+      if(this.preexposedBackground?.world!==this.world||this.preexposedBackground.color!==this.world.background){
+        this.preexposedBackground={world:this.world,color:this.world.background,linear:this.world.background.clone()};
+      }
+      this.world.background.copy(this.preexposedBackground.linear).multiplyScalar(scale);
+    }
+    this.canvas.dataset.radianceScale=String(scale);
+    this.scaledMaterials??=new WeakSet();
+    this.world.traverse(object=>{
+      for(const material of [object.material].flat().filter(Boolean)){
+        // The plate has its own explicit output scale; ordinary live subjects
+        // (including unlit coverage meshes) must use exactly the same scale.
+        if(material.isShaderMaterial||this.scaledMaterials.has(material))continue;
+        this.scaledMaterials.add(material);
+        const compile=material.onBeforeCompile,key=material.customProgramCacheKey.bind(material);
+        material.onBeforeCompile=(shader,renderer)=>{
+          compile.call(material,shader,renderer);
+          shader.uniforms.sceneRadianceScale=this.uniforms.radianceScale;
+          shader.fragmentShader='uniform float sceneRadianceScale;\n'+shader.fragmentShader;
+          shader.fragmentShader=shader.fragmentShader.replace('#include <tonemapping_fragment>','gl_FragColor.rgb *= sceneRadianceScale;\n#include <tonemapping_fragment>');
+        };
+        const originalKey=key();material.customProgramCacheKey=()=>originalKey+'-preexposed-radiance-v1';material.needsUpdate=true;
+      }
+    });
+    return scale;
+  }
   renderPlate(s,exposure,time,flash=true){
     this.geometry(s);this.updateMotion(s,exposure,time);
     this.flashLight.position.copy(this.camera.position);
     // Inverse duration preserves flash energy when ambient shutter time changes.
     this.flashLight.intensity=flash?s.flash*.08/exposure.shutter:0;
+    this.setRadianceScale(this.flashLight.intensity);
     this.renderer.setRenderTarget(this.target);this.renderer.render(this.world,this.camera);
     this.frameStats={triangles:this.renderer.info.render.triangles,calls:this.renderer.info.render.calls,textures:this.renderer.info.memory.textures};
   }

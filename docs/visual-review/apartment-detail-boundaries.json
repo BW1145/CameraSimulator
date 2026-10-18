@@ -1,0 +1,278 @@
+{
+  "errors": [],
+  "records": [
+    {
+      "pose": "center",
+      "mean": 68.13004287925793,
+      "deviation": 40.659941843549376,
+      "contentFraction": 0.7597916336946219,
+      "box": {
+        "x": 229.09375,
+        "y": 56,
+        "width": 981.8125,
+        "height": 599.984375
+      },
+      "controls": {
+        "focal": "53",
+        "yaw": "0",
+        "pitch": "0",
+        "roll": "0"
+      },
+      "data": {
+        "engine": "three.js r186",
+        "samples": "4",
+        "focus": "6.000",
+        "iso": "100",
+        "ev": "8.000",
+        "ready": "true",
+        "detailWidth": "4096",
+        "detailDepthWidth": "2048",
+        "position": "center",
+        "cameraPosition": "[2.9473440647125244,0.8999998569488525,-13.412710189819336]",
+        "view": "prerender",
+        "packInitialBytes": "1802485",
+        "scene": "apartment",
+        "radianceScale": "1",
+        "temporalSamples": "1",
+        "temporalWeight": "1.000000000000",
+        "temporalRegion": "null",
+        "triangles": "2",
+        "drawCalls": "1"
+      }
+    },
+    {
+      "pose": "left",
+      "mean": 68.10576013823015,
+      "deviation": 41.55525235408504,
+      "contentFraction": 0.7466810977861505,
+      "box": {
+        "x": 229.09375,
+        "y": 56,
+        "width": 981.8125,
+        "height": 599.984375
+      },
+      "controls": {
+        "focal": "53",
+        "yaw": "0",
+        "pitch": "0",
+        "roll": "0"
+      },
+      "data": {
+        "engine": "three.js r186",
+        "samples": "4",
+        "focus": "6.000",
+        "iso": "100",
+        "ev": "8.000",
+        "ready": "true",
+        "detailWidth": "4096",
+        "detailDepthWidth": "2048",
+        "position": "left",
+        "cameraPosition": "[3.2473440170288086,0.8999998569488525,-13.412710189819336]",
+        "view": "prerender",
+        "packInitialBytes": "1802485",
+        "scene": "apartment",
+        "radianceScale": "1",
+        "temporalSamples": "1",
+        "temporalWeight": "1.000000000000",
+        "temporalRegion": "null",
+        "triangles": "2",
+        "drawCalls": "1"
+      }
+    },
+    {
+      "pose": "right",
+      "mean": 68.54838991478039,
+      "deviation": 39.198118364726845,
+      "contentFraction": 0.7813855576487486,
+      "box": {
+        "x": 229.09375,
+        "y": 56,
+        "width": 981.8125,
+        "height": 599.984375
+      },
+      "controls": {
+        "focal": "53",
+        "yaw": "0",
+        "pitch": "0",
+        "roll": "0"
+      },
+      "data": {
+        "engine": "three.js r186",
+        "samples": "4",
+        "focus": "6.000",
+        "iso": "100",
+        "ev": "8.000",
+        "ready": "true",
+        "detailWidth": "4096",
+        "detailDepthWidth": "2048",
+        "position": "right",
+        "cameraPosition": "[2.6473441123962402,0.8999998569488525,-13.412710189819336]",
+        "view": "prerender",
+        "packInitialBytes": "1802485",
+        "scene": "apartment",
+        "radianceScale": "1",
+        "temporalSamples": "1",
+        "temporalWeight": "1.000000000000",
+        "temporalRegion": "null",
+        "triangles": "2",
+        "drawCalls": "1"
+      }
+    },
+    {
+      "pose": "up",
+      "mean": 72.37855651365936,
+      "deviation": 39.10875392101981,
+      "contentFraction": 0.8097474724268616,
+      "box": {
+        "x": 229.09375,
+        "y": 56,
+        "width": 981.8125,
+        "height": 599.984375
+      },
+      "controls": {
+        "focal": "53",
+        "yaw": "0",
+        "pitch": "0",
+        "roll": "0"
+      },
+      "data": {
+        "engine": "three.js r186",
+        "samples": "4",
+        "focus": "6.000",
+        "iso": "100",
+        "ev": "8.000",
+        "ready": "true",
+        "detailWidth": "4096",
+        "detailDepthWidth": "2048",
+        "position": "up",
+        "cameraPosition": "[2.9473440647125244,1.0999999046325684,-13.412710189819336]",
+        "view": "prerender",
+        "packInitialBytes": "1802485",
+        "scene": "apartment",
+        "radianceScale": "1",
+        "temporalSamples": "1",
+        "temporalWeight": "1.000000000000",
+        "temporalRegion": "null",
+        "triangles": "2",
+        "drawCalls": "1"
+      }
+    },
+    {
+      "pose": "down",
+      "mean": 66.9836038884606,
+      "deviation": 41.09854440032611,
+      "contentFraction": 0.7590309367123935,
+      "box": {
+        "x": 229.09375,
+        "y": 56,
+        "width": 981.8125,
+        "height": 599.984375
+      },
+      "controls": {
+        "focal": "53",
+        "yaw": "0",
+        "pitch": "0",
+        "roll": "0"
+      },
+      "data": {
+        "engine": "three.js r186",
+        "samples": "4",
+        "focus": "6.000",
+        "iso": "100",
+        "ev": "8.000",
+        "ready": "true",
+        "detailWidth": "4096",
+        "detailDepthWidth": "2048",
+        "position": "down",
+        "cameraPosition": "[2.9473440647125244,0.6999998688697815,-13.412710189819336]",
+        "view": "prerender",
+        "packInitialBytes": "1802485",
+        "scene": "apartment",
+        "radianceScale": "1",
+        "temporalSamples": "1",
+        "temporalWeight": "1.000000000000",
+        "temporalRegion": "null",
+        "triangles": "2",
+        "drawCalls": "1"
+      }
+    },
+    {
+      "pose": "front",
+      "mean": 68.57325239653585,
+      "deviation": 40.92830934910874,
+      "contentFraction": 0.7547118115649766,
+      "box": {
+        "x": 229.09375,
+        "y": 56,
+        "width": 981.8125,
+        "height": 599.984375
+      },
+      "controls": {
+        "focal": "53",
+        "yaw": "0",
+        "pitch": "0",
+        "roll": "0"
+      },
+      "data": {
+        "engine": "three.js r186",
+        "samples": "4",
+        "focus": "6.000",
+        "iso": "100",
+        "ev": "8.000",
+        "ready": "true",
+        "detailWidth": "4096",
+        "detailDepthWidth": "2048",
+        "position": "front",
+        "cameraPosition": "[2.9473440647125244,0.8999998569488525,-13.112709999084473]",
+        "view": "prerender",
+        "packInitialBytes": "1802485",
+        "scene": "apartment",
+        "radianceScale": "1",
+        "temporalSamples": "1",
+        "temporalWeight": "1.000000000000",
+        "temporalRegion": "null",
+        "triangles": "2",
+        "drawCalls": "1"
+      }
+    },
+    {
+      "pose": "back",
+      "mean": 68.16665673959942,
+      "deviation": 39.94294076461344,
+      "contentFraction": 0.7722912295211694,
+      "box": {
+        "x": 229.09375,
+        "y": 56,
+        "width": 981.8125,
+        "height": 599.984375
+      },
+      "controls": {
+        "focal": "53",
+        "yaw": "0",
+        "pitch": "0",
+        "roll": "0"
+      },
+      "data": {
+        "engine": "three.js r186",
+        "samples": "4",
+        "focus": "6.000",
+        "iso": "100",
+        "ev": "8.000",
+        "ready": "true",
+        "detailWidth": "4096",
+        "detailDepthWidth": "2048",
+        "position": "back",
+        "cameraPosition": "[2.9473440647125244,0.8999998569488525,-13.7127103805542]",
+        "view": "prerender",
+        "packInitialBytes": "1802485",
+        "scene": "apartment",
+        "radianceScale": "1",
+        "temporalSamples": "1",
+        "temporalWeight": "1.000000000000",
+        "temporalRegion": "null",
+        "triangles": "2",
+        "drawCalls": "1"
+      }
+    }
+  ]
+}

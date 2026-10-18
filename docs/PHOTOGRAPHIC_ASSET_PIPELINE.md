@@ -30,6 +30,7 @@ node tools/package-scene-layer.mjs flash FLASH_RAW PUBLIC_PACK
 node tools/package-scene-layer.mjs detail DETAIL_RAW PUBLIC_PACK
 node tools/package-scene-detail-depth.mjs DETAIL_RAW PUBLIC_PACK
 node tools/audit-scene-plates.mjs PUBLIC_PACK
+node tools/audit-scene-detail.mjs DETAIL_RAW PUBLIC_PACK
 ```
 
 Check the argument header of each script before running; the base packager also takes its scene description arguments. Do not regenerate an existing base manifest to add optional layers. Optional packagers read and preserve top-level runtime fields such as apartment `minimumFocal: 53` and `reframeInset: 0.095`. Serialize writers to each manifest. Package detail radiance and detail depth together before accepting an optional view.
@@ -44,7 +45,9 @@ For continuation, read delivered `manifest.views`: a usable optional view has bo
 | --- | --- | --- | --- | --- |
 | Barbershop | All 7, 2560 / 1280 | All 7, 1280 | All 7, 5120 / 2560 | None |
 | Classroom | All 7, 2560 / 1280 | All 7, 1280 | All 7, 4096 / 2048 | None |
-| Kitchen | All 7, 2560 / 1280 | All 7, 1280 | Center, 3072 / 1536 | left, right, up, down, front, back |
-| Apartment | All 7, 2560 / 1280 | All 7, 1280 | Center, 4096 / 2048 | left, right, up, down, front, back |
+| Kitchen | All 7, 2560 / 1280 | All 7, 1280 | All 7, 3072 / 1536 | None |
+| Apartment | All 7, 2560 / 1280 | All 7, 1280 | All 7, 4096 / 2048 | None |
 
-Widths are pixels, radiance followed by Z. The twelve remaining optional views are not delivered high-resolution layers; they keep the complete base pair. To finish, run the corresponding detail capture recipe with `--views left,right,up,down,front,back` in the existing detail raw directory, then serialize the detail and detail-depth packagers for that scene. Do not overwrite its base manifest. The local raw directories for this run are under the task's sibling `qa-evidence` directory and are not included in the application repository.
+Widths are pixels, radiance followed by Z. All four scenes now have complete seven-view detail radiance/Z pairs, with no remaining optional view captures. To reproduce a subset, pass `--views left,right,up,down,front,back` (or the required IDs) to the matching recipe, then serialize the detail and detail-depth packagers. Do not overwrite its base manifest. A `.pause-capture` marker in the raw output directory exits before Cycles starts; remove it only when resuming the queue. The local raw directories for this run are under the task's sibling `qa-evidence` directory and are not included in the application repository.
+
+The optional-detail auditor checks every delivered radiance/depth pixel against its raw source encoding, requires seven distinct pairs, verifies source identity, camera/clip transforms and file dimensions/bytes, and reports subpixel projection differences caused by integer resolution rounding. With the optional preserved-baseline JSON argument it also verifies all original base/flash files and composition metadata remain unchanged.

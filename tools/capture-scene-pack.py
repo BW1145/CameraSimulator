@@ -9,6 +9,9 @@ from scene_capture_setup import apply_derivations
 p=argparse.ArgumentParser();p.add_argument('--output',required=True);p.add_argument('--camera');p.add_argument('--width',type=int,default=2560);p.add_argument('--samples',type=int,default=64);p.add_argument('--preview',action='store_true');p.add_argument('--radiance-only',action='store_true');p.add_argument('--reuse',action='store_true');p.add_argument('--views',default='center,left,right,up,down,front,back');p.add_argument('--back-distance',type=float,default=.3);p.add_argument('--perspective-focal',type=float);p.add_argument('--fixed-world-clip',action='store_true')
 p.add_argument('--extend-ground');p.add_argument('--ground-scale',type=float,default=32);p.add_argument('--far',type=float);p.add_argument('--depth-width',type=int,default=1280);p.add_argument('--detail-depth',action='store_true')
 a=p.parse_args(sys.argv[sys.argv.index('--')+1:]);out=pathlib.Path(a.output).resolve();out.mkdir(parents=True,exist_ok=True)
+if (out/'.pause-capture').exists():
+ print('CAPTURE_PAUSED: remove the output .pause-capture marker to resume; existing captures unchanged.',flush=True)
+ sys.exit(0)
 s=bpy.context.scene
 derivations=apply_derivations([{'type':'extend-ground','object':a.extend_ground,'scaleXY':a.ground_scale}]) if a.extend_ground else []
 if a.camera:s.camera=bpy.data.objects[a.camera]
