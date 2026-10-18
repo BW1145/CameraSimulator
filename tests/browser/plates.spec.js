@@ -1,6 +1,24 @@
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
 import {openControl} from './controls.js';
+import {readFile} from 'node:fs/promises';
+import {Matrix4} from 'three';
+
+test('source lens shift stays consistent between the photographic ray and click focus',async({page})=>{
+  const manifest=JSON.parse(await readFile('public/scenes/barbershop-plates/manifest.json','utf8'));
+  const entry=manifest.views[0];entry.projectionMatrix[8]=.1;entry.projectionMatrix[9]=.2;delete entry.detailFile;
+  entry.matrix=new Matrix4().fromArray(entry.projectionMatrix).multiply(new Matrix4().fromArray(entry.cameraMatrix).invert()).toArray();
+  await page.route('**/barbershop-plates/manifest.json',r=>r.fulfill({json:manifest}));
+  const {data,info}=await sharp('public/scenes/barbershop-plates/center-depth.png').raw().toBuffer({resolveWithObject:true});
+  await page.goto('/?subject=none&view=source');const image=page.locator('#image');await expect(image).toHaveAttribute('data-ready','true');const box=await image.boundingBox();
+  for(const [x,y]of [[.2,.7],[.5,.46]]){
+    const u=.5+(x-.5)/1.2+.1*(1/1.2-1)/2,v=.5+(y-.5)/1.2-.2*(1/1.2-1)/2;
+    const cx=Math.floor(u*info.width),cy=Math.floor(v*info.height),values=[];
+    for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const i=((cy+dy)*info.width+cx+dx)*info.channels;values.push((data[i]*256+data[i+1])/65535*64);}
+    await image.click({position:{x:x*box.width,y:y*box.height}});const actual=Number(await image.getAttribute('data-focus'));
+    expect(actual).toBeGreaterThanOrEqual(Math.min(...values)-.02);expect(actual).toBeLessThanOrEqual(Math.max(...values)+.02);
+  }
+});
 
 test('off-axis autofocus preserves the source axial Z instead of treating it as radial distance',async({page})=>{
   const {data,info}=await sharp('public/scenes/barbershop-plates/center-depth.png').raw().toBuffer({resolveWithObject:true});

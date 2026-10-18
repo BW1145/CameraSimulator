@@ -13,7 +13,9 @@ export function createDeskFan(config,lookToward){
   finishContext.putImageData(finishPixels,0,0);
   const finish=new T.CanvasTexture(finishCanvas);finish.wrapS=finish.wrapT=T.RepeatWrapping;finish.repeat.set(3,3);finish.colorSpace=T.NoColorSpace;
   const shell=new T.MeshPhysicalMaterial({color:0x465d50,metalness:.38,roughness:.44,clearcoat:.32,clearcoatRoughness:.28,bumpMap:finish,bumpScale:.00012,roughnessMap:finish,envMapIntensity:1.1});
-  const wire=new T.MeshStandardMaterial({color:0x71766a,metalness:.88,roughness:.35,envMapIntensity:1.1});
+  // Painted steel wire has a broad, restrained highlight. Chrome-like F0 on
+  // subpixel tubes produced white specular beads instead of a resolved grille.
+  const wire=new T.MeshPhysicalMaterial({color:0x3e4b42,metalness:.2,roughness:.68,specularIntensity:.25,envMapIntensity:.6});
   const brass=new T.MeshStandardMaterial({color:0x9b713c,metalness:.88,roughness:.39,bumpMap:finish,bumpScale:.00005,roughnessMap:finish,envMapIntensity:1.2});
   const darkMetal=new T.MeshStandardMaterial({color:0x333c34,metalness:.65,roughness:.4});
   const rubber=new T.MeshStandardMaterial({color:0x242722,roughness:.94});
@@ -34,19 +36,25 @@ export function createDeskFan(config,lookToward){
   for(const z of [-.104,-.094,-.084])add(head,new T.TorusGeometry(.064,.0015,6,48),darkMetal,0,0,z);
   for(let i=0;i<8;i++){const a=i*Math.PI/4;const vent=add(head,new T.BoxGeometry(.003,.017,.001),darkMetal,Math.cos(a)*.044,Math.sin(a)*.044,-.136);vent.rotation.z=a-Math.PI/2;}
   const radius=.19;
+  const grille=[];
   for(const z of [-.026,.064]){
-    const rim=add(head,new T.TorusGeometry(radius+.012,.004,8,64),shell,0,0,z);
+    const rim=add(head,new T.TorusGeometry(radius+.012,.004,8,64),wire,0,0,z);
     rim.name='Fan guard rim';
   }
   for(const r of [.055,.09,.125,.16,.193]){
     const z=.07+.035*Math.sqrt(Math.max(0,1-(r/.205)**2));
-    add(head,new T.TorusGeometry(r,.0015,4,64),wire,0,0,z);
+    grille.push({mesh:add(head,new T.TorusGeometry(r,.0015,8,64),wire,0,0,z),medium:[.09,.16,.193].includes(r)});
   }
   for(let i=0;i<20;i++){
     const angle=i*Math.PI*2/20,points=[];
     for(let j=0;j<=8;j++){const r=.035+(.17*j/8),z=.064+.04*Math.sqrt(Math.max(0,1-(r/.205)**2));points.push(new T.Vector3(Math.cos(angle)*r,Math.sin(angle)*r,z));}
-    add(head,new T.TubeGeometry(new T.CatmullRomCurve3(points),8,.00135,4,false),wire);
+    grille.push({mesh:add(head,new T.TubeGeometry(new T.CatmullRomCurve3(points),8,.00135,6,false),wire),medium:i%2===0});
   }
+  // Below a pixel, individual wires should contribute average coverage rather
+  // than sparkle. This disk is the spatially averaged unresolved grille, with
+  // actual mesh restored as soon as the projected head can resolve it.
+  const grilleAverage=add(head,new T.CircleGeometry(.193,64),new T.MeshBasicMaterial({color:0x303b34,transparent:true,opacity:.18,depthWrite:false}),0,0,.106);
+  grilleAverage.userData.focusable=false;
   const rotor=new T.Group();head.add(rotor);
   // A thin, closed blade with an actual cambered and twisted surface. A flat
   // extruded shape has one face normal, making its entire face a painted disc.
@@ -79,6 +87,11 @@ export function createDeskFan(config,lookToward){
   const shadow=add(group,new T.PlaneGeometry(.34,.29),new T.MeshBasicMaterial({map:new T.CanvasTexture(shadowCanvas),transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1}),.012,.003,.007);shadow.rotation.x=-Math.PI/2;shadow.renderOrder=2;
   shadow.userData.focusable=false;
   return {group,rotor,head,period:1/(3*config.rotationsPerSecond),setTime(time){rotor.rotation.z=time*Math.PI*2*config.rotationsPerSecond;},
+    setQuality(camera,width,height){
+      const bounds=this.bounds(camera,width,height),r=bounds?Math.max(bounds.width,bounds.height)/2-3:0;
+      for(const item of grille)item.mesh.visible=r>=40||(r>=12&&item.medium);
+      grilleAverage.visible=r<40;grilleAverage.material.opacity=r<12?.18:.07;
+    },
     center(){group.updateMatrixWorld(true);return head.getWorldPosition(new T.Vector3());},
     bounds(camera,width,height){
       group.updateMatrixWorld(true);let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;

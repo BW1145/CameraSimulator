@@ -4,3 +4,6 @@ test-results/
 playwright-report/
 .assets-cache/
 *.blend1
+
+__pycache__/
+*.pyc

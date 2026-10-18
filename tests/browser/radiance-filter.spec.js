@@ -1,8 +1,11 @@
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
+import {readFile} from 'node:fs/promises';
 import {openControl} from './controls.js';
 
 test('transport log texels are decoded before GPU interpolation and minification',async({page})=>{
+  const manifest=JSON.parse(await readFile('public/scenes/barbershop-plates/manifest.json','utf8'));manifest.encoding={min:-16,max:6};for(const view of manifest.views)delete view.detailFile;
+  await page.route('**/barbershop-plates/manifest.json',r=>r.fulfill({json:manifest}));
   const encode=n=>Math.round((Math.log2(n)+16)/22*255);
   const low=encode(1),high=encode(16),expected=(2**(low/255*22-16)+2**(high/255*22-16))/2;
   for(const size of [2,1024]){

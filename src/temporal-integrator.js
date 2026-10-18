@@ -12,7 +12,7 @@ export class TemporalIntegrator {
     this.scene=new T.Scene();this.scene.add(new T.Mesh(new T.PlaneGeometry(2,2),this.material));this.camera=new T.Camera();
   }
   render(owner,samples,time,optical=true){
-    const renderer=owner.renderer,plate=owner.target,fan=owner.fan,width=plate.width,height=plate.height;
+    const renderer=owner.renderer,plate=owner.target,fan=owner.fan||owner.motionSubject,width=plate.width,height=plate.height;
     if(this.target.width!==width||this.target.height!==height){this.target.setSize(width,height);this.lensTarget.setSize(width,height);this.pulseTarget.setSize(width,height);}
     const autoClear=renderer.autoClear,clearColor=renderer.getClearColor(new T.Color()),clearAlpha=renderer.getClearAlpha();
     const scissorTest=renderer.getScissorTest(),scissor=renderer.getScissor(new T.Vector4());
@@ -62,7 +62,7 @@ export class TemporalIntegrator {
       owner.uniforms.plate.value=this.target.texture;owner.uniforms.skipLens.value=optical;
     }
     owner.flashLight.intensity=flashPower;owner.plateUniforms.flashStrength.value=roomFlash;
-    fan.setTime(time);renderer.autoClear=autoClear;renderer.setClearColor(clearColor,clearAlpha);renderer.setScissor(scissor);renderer.setScissorTest(scissorTest);
+    fan.setTime(time);owner.world.updateMatrixWorld(true);renderer.autoClear=autoClear;renderer.setClearColor(clearColor,clearAlpha);renderer.setScissor(scissor);renderer.setScissorTest(scissorTest);
     owner.frameStats={triangles,calls,textures:renderer.info.memory.textures};
     owner.canvas.dataset.temporalSamples=String(bounds?samples.length:1);owner.canvas.dataset.temporalWeight=samples.reduce((sum,s)=>sum+s.weight,0).toFixed(12);
     owner.canvas.dataset.temporalRegion=JSON.stringify(bounds);

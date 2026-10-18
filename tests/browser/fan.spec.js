@@ -7,7 +7,7 @@ test('switching away during a delayed fan probe cannot replace the selected scen
   await page.route('**/fan-room.hdr',async route=>{if(first){first=false;entered();await new Promise(resolve=>{release=resolve;});}await route.continue();});
   await page.goto('/');await pending;await page.locator('#scene').selectOption('kitchen');release();
   await expect(page.locator('#image')).toHaveAttribute('data-scene','kitchen');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
-  await openControl(page,'motion');await expect(page.locator('#motion')).toBeVisible();await expect(page.locator('#position-controls')).toBeHidden();
+  await openControl(page,'motion');await expect(page.locator('#motion')).toBeVisible();await expect(page.locator('#position-controls')).toBeVisible();
   await page.locator('#scene').selectOption('barbershop');await expect(page.locator('#image')).toHaveAttribute('data-scene','barbershop');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');await expect(page.locator('#position-controls')).toBeVisible();
 });
 

@@ -44,7 +44,7 @@ async function changePosition(){
 for(const item of SCENES)$('scene').add(new Option(item.name,item.id));
 
 function invalidate(geometry=true){dirty=true;if(geometry)meterDirty=true;}
-if(renderer)renderer.onTextureUpdate=()=>invalidate();
+if(renderer){renderer.onTextureUpdate=()=>{canvas.dataset.ready='false';invalidate();$('hint').textContent=renderer.plateMode?'点击对焦 · 拖动取景':'点击对焦 · 拖动转向 · WASD 移动';};renderer.onLayerError=(name,retry)=>{$('hint').textContent=`${name}加载失败 `;const button=document.createElement('button');button.textContent='重试';button.onclick=retry;$('hint').append(button);};}
 function resetView(){for(const key of ['x','y','z','yaw','pitch','roll'])s[key]=0;track=null;point={x:.5,y:.5};invalidate();sync();if(ready&&renderer.plateMode)changePosition();}
 function sync(){
   const position=s.x<0?'left':s.x>0?'right':s.y<0?'down':s.y>0?'up':s.z<0?'back':s.z>0?'front':'center';
@@ -93,7 +93,7 @@ for(const key of selects)$(key).addEventListener('change',()=>{
 for(const [id,key]of Object.entries(checks))$(id).addEventListener('change',()=>{s[key]=$(id).checked;if(key==='motion')track=null;invalidate(key==='motion');sync();});
 $('reset').addEventListener('click',()=>{
   s={...DEFAULTS,focus:scene.focus,focal:scene.focal};
-  if(renderer.plateMode)s={...s,crop:'native',focal:renderer.pack.referenceFocal,aperture:8,shutter:1/4,iso:100,autoISO:false};
+  if(renderer.plateMode)s={...s,crop:'native',focal:Math.max(renderer.pack.referenceFocal,renderer.pack.minimumFocal||0),aperture:8,shutter:1/4,iso:100,autoISO:false};
   resolved=resolveExposure(s,meterEV);track=null;clock=0;resize();sync();changePosition();
 });
 $('reset-view').addEventListener('click',resetView);
@@ -107,13 +107,13 @@ async function loadScene(id){
   try{
     const loaded=await renderer.load(next,(bytes,total)=>{if(version===loadVersion)loading.textContent=total?`正在加载${next.name} ${Math.round(bytes/total*100)}%`:`正在加载${next.name} ${(bytes/1048576).toFixed(1)} MB`;});
     if(!loaded||version!==loadVersion)return;
-    scene=next;s.focus=scene.focus;s.focal=renderer.plateMode?renderer.pack.referenceFocal:sourceView&&scene.id==='barbershop'?18.8027323:scene.focal;clock=0;resetView();resize();ready=true;loading.hidden=true;$('capture').disabled=false;
+    scene=next;s.focus=scene.focus;s.focal=renderer.plateMode?Math.max(renderer.pack.referenceFocal,renderer.pack.minimumFocal||0):sourceView&&scene.id==='barbershop'?18.8027323:scene.focal;clock=0;resetView();resize();ready=true;loading.hidden=true;$('capture').disabled=false;
     for(const key of ['x','y','z','yaw','pitch','roll']){
       const bounds=renderer.plateMode?{min:renderer.pack.bounds[key][0],max:renderer.pack.bounds[key][1],step:key==='y'?.2:['x','z'].includes(key)?.3:1}:originalBounds[key];
       if(renderer.plateMode){const axis=['x','y','z'].indexOf(key);if(axis>=0){const values=renderer.pack.views.map(v=>v.offset[axis]*(key==='z'?-1:1));bounds.min=Math.min(...values);bounds.max=Math.max(...values);bounds.step=Math.min(...values.filter(v=>v!==0).map(Math.abs));}}
       Object.assign($(key),bounds);
     }
-    $('focal').min=renderer.plateMode?Math.max(18,Math.ceil(renderer.pack.referenceFocal/1.199)):18;
+    $('focal').min=renderer.plateMode?Math.max(18,renderer.pack.minimumFocal??Math.ceil(renderer.pack.referenceFocal/1.199)):18;
     if(renderer.plateMode){for(const v of renderer.pack.views){const distance=Math.round(Math.hypot(...v.offset)*100),label=positionLabels[v.id].split(' ')[0];positionLabels[v.id]=distance?`${label} ${distance} cm`:label;document.querySelector(`button[data-position=${v.id}]`).setAttribute('aria-label',positionLabels[v.id]);}}
     $('flash').disabled=renderer.plateMode&&!renderer.pack.flash;$('flash').title=renderer.plateMode&&!renderer.pack.flash?'预渲染闪光照明层尚未生成':'';if(renderer.plateMode&&!renderer.pack.flash)s.flash=0;
     $('flash-control').hidden=renderer.plateMode&&!renderer.pack.flash;$('legacy-view').hidden=renderer.plateMode;$('position-controls').hidden=!renderer.plateMode;
@@ -203,9 +203,9 @@ function resolveCurrentFrame(analyse=true){
 }
 $('capture').addEventListener('click',async()=>{
   if(!ready)return;
-  const version=loadVersion;const aspectForCapture=canvas.width/canvas.height;
+  const version=loadVersion,viewVersion=positionVersion;const aspectForCapture=canvas.width/canvas.height;
   $('capture').disabled=true;await renderer.prepareCapture?.(s,captureSize(aspectForCapture)[0]);
-  if(version!==loadVersion)return;$('capture').disabled=false;
+  if(version!==loadVersion||viewVersion!==positionVersion){if(ready)$('capture').disabled=false;return;}$('capture').disabled=false;
   resolveCurrentFrame();
   // Export the photographic frame, independently of on-screen guidance overlays.
   const zebra=s.zebra;s.zebra=false;
