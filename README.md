@@ -2,25 +2,27 @@
 
 ## Pre-rendered barbershop sample
 
-The quality-restoration branch includes a first bounded photographic sample at
-`/?renderer=plates`. It uses seven real adjacent Blender camera positions and
+The default barbershop view uses a bounded photographic scene pack at `/`.
+It uses seven real adjacent Blender camera positions and
 source radiance/depth images, with the same camera controls, HDR metering,
 display-density rendering and PNG export. The scene's first image/depth pair is
 2.21 MB; all seven positions total 15.44 MB and load individually on demand.
-XYZ chooses discrete positions one axis at a time; focal length, direction and
+Seven direction/center buttons choose actual captured positions; focal length, dragging and
 aspect ratios reframe the selected photograph. This sample does not navigate
-the room. Add `&view=source` for the native-camera visual diagnostic without
-depth blur or noise.
+the room. A local three-dimensional desk fan supplies the animated subject,
+with normalized shutter integration capped at 24 samples, including 30 seconds.
+Use `/?subject=none&view=source` for the background-only native-camera diagnostic.
 
 See the [scene pack contract and remaining limits](public/scenes/barbershop-plates/README.txt).
-The desktop fan, static flash layer, depth-blur boundaries and high-magnification
-detail remain unfinished. This is a reviewable image/camera milestone, not final
+See the [fan, simplified controls and source-depth evidence](docs/visual-review/FAN.md).
+The static flash layer, depth-blur boundaries and high-magnification
+detail remain unfinished. This is a reviewable milestone, not final
 acceptance of the four-scene simulator. The other three scenes retain their
 existing renderer until the barbershop sample is reviewed.
 
 A photography teaching simulator with a large viewfinder, four primary sliders and immediate visual feedback. Based on [leocb's Camera Simulator](https://github.com/leocb/CameraSimulator). The interface is in Simplified Chinese.
 
-The primary renderer loads complete Blender environments as optimized glTF models. Camera translation changes perspective and occlusion; rotation and focal length operate on the perspective camera. Additional controls live in one expandable section. The [original fan demonstration](public/original.html) remains available from the header.
+The barbershop combines pre-rendered source imagery with a local live subject. Other scenes temporarily retain their legacy optimized glTF conversions; `/?renderer=gltf` explicitly selects that renderer. Focus, composition and exposure aids have separate collapsible panels. The [original fan demonstration](public/original.html) remains available from the header.
 
 ## Run and verify
 

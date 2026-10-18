@@ -8,12 +8,12 @@ import {previewSize,captureSize} from './render-size.js';
 const $=id=>document.getElementById(id);
 const canvas=$('image'),view=$('viewfinder'),loading=$('loading');
 let renderer;
-const usePlates=new URLSearchParams(location.search).get('renderer')==='plates';
+const usePlates=new URLSearchParams(location.search).get('renderer')!=='gltf';
 try{renderer=usePlates?new PlateRenderer(canvas):new Renderer(canvas);}catch(error){loading.textContent=error.message;}
 let s={...DEFAULTS},scene=SCENES[0],resolved=resolveExposure(s,8),meterEV=8;
 const sourceView=new URLSearchParams(location.search).get('view')==='source';
 if(sourceView||usePlates){
-  $('crop').add(new Option('Source Camera 2048:858','2048:858'));
+  $('crop').add(new Option('原始宽幅','2048:858'));
   s={...s,crop:'2048:858',focal:18.8027323,aperture:8,shutter:1/4,iso:100,autoISO:false};
   resolved=resolveExposure(s,8);
 }
@@ -24,6 +24,10 @@ const numeric=['wb','focal','focus','compensation','flash','x','y','z','yaw','pi
 const selects=['mode','metering','af','crop','sensor'];
 const checks={autoISO:'autoISO',motion:'motion',pause:'pause',zebra:'zebra','grid-toggle':'grid','level-toggle':'level','histogram-toggle':'histogram','magnifier-toggle':'magnifier'};
 const originalBounds=Object.fromEntries(['x','y','z','yaw','pitch','roll'].map(key=>[key,{min:$(key).min,max:$(key).max,step:$(key).step}]));
+const positionLabels={center:'中心',left:'左移 30 cm',right:'右移 30 cm',up:'升高 20 cm',down:'降低 20 cm',front:'前移 30 cm',back:'后退 30 cm'};
+for(const button of document.querySelectorAll('button[data-position]'))button.addEventListener('click',()=>{
+  const entry=renderer.pack.views.find(view=>view.id===button.dataset.position);[s.x,s.y,s.z]=[entry.offset[0],entry.offset[1],-entry.offset[2]];track=null;sync();changePosition();
+});
 let positionVersion=0;
 async function changePosition(){
   if(!renderer.plateMode)return;
@@ -41,6 +45,9 @@ for(const item of SCENES)$('scene').add(new Option(item.name,item.id));
 function invalidate(geometry=true){dirty=true;if(geometry)meterDirty=true;}
 function resetView(){for(const key of ['x','y','z','yaw','pitch','roll'])s[key]=0;track=null;point={x:.5,y:.5};invalidate();sync();if(ready&&renderer.plateMode)changePosition();}
 function sync(){
+  const position=s.x<0?'left':s.x>0?'right':s.y<0?'down':s.y>0?'up':s.z<0?'back':s.z>0?'front':'center';
+  $('position-status').textContent=positionLabels[position];
+  for(const button of document.querySelectorAll('button[data-position]'))button.setAttribute('aria-pressed',String(button.dataset.position===position));
   for(const key of selects)$(key).value=s[key];
   for(const [id,key]of Object.entries(checks))$(id).checked=s[key];
   for(const key of numeric)$(key).value=key==='compensation'?Math.round(s[key]*3):s[key];
@@ -50,7 +57,7 @@ function sync(){
   }
   $('aperture').disabled=s.mode==='S'||s.mode==='P';$('shutter').disabled=s.mode==='A'||s.mode==='P';$('iso').disabled=s.autoISO;
   $('compensation').disabled=s.mode==='M'&&!s.autoISO;
-  $('wb-value').textContent=`${s.wb} K`;$('focal-value').textContent=`${s.focal} mm`;
+  $('wb-value').textContent=`${s.wb} K`;$('focal-value').textContent=`${Number(s.focal.toFixed(1))} mm`;
   $('focus-value').textContent=`${s.focus.toFixed(2)} m`;
   $('compensation-value').textContent=`${s.compensation>=0?'+':''}${s.compensation.toFixed(1)} EV`;
   $('flash-value').textContent=s.flash===0?'关闭':s.flash.toFixed(1);
@@ -104,9 +111,15 @@ async function loadScene(id){
       Object.assign($(key),bounds);
     }
     $('flash').disabled=renderer.plateMode;$('flash').title=renderer.plateMode?'预渲染闪光照明层尚未生成':'';if(renderer.plateMode)s.flash=0;
+    $('flash-control').hidden=renderer.plateMode;$('legacy-view').hidden=renderer.plateMode;$('position-controls').hidden=!renderer.plateMode;
+    $('subject-controls').hidden=!renderer.fan;
+    (renderer.fan?$('subject-controls'):$('assist-tools').querySelector('.tool-content')).append($('motion-controls'));
+    $('hint').textContent=renderer.plateMode?'点击对焦 · 拖动取景':'点击对焦 · 拖动转向 · WASD 移动';
+    $('motion').closest('label').lastChild.textContent=renderer.fan?'风扇转动':'运动练习球';
+    $('pause').closest('label').lastChild.textContent=renderer.fan?'暂停播放':'暂停运动';
     $('credit').textContent=`${scene.title} — ${scene.author} · ${scene.license}。场景经过 glTF 转换、网格精简和纹理缩放。`;
     canvas.dataset.scene=scene.id;invalidate();
-    if(renderer.plateMode)$('credit').textContent=`${renderer.pack.title} · ${renderer.pack.attribution}。七个真实预渲染机位，平移选择机位；转向、焦距和画幅用于取景。`;
+    if(renderer.plateMode)$('credit').textContent=`${renderer.pack.title} · ${renderer.pack.attribution}`;
   }catch(error){
     if(version!==loadVersion)return;
     loading.textContent=`场景加载失败：${error.message} `;

@@ -21,6 +21,12 @@ for(const scene of SCENES){
     }
     assert.equal(total,pack.totalBytes);assert.equal(pack.initialBytes,pack.views[0].bytes+pack.views[0].depthBytes);
     assert.ok(pack.initialBytes<4*1024*1024);assert.ok(total<25*1024*1024);
+    if(pack.subjects){
+      const source=await readFile(`${packRoot}/${pack.subjects}`),subjects=JSON.parse(source),files=new Set(subjects.map(subject=>subject.environment).filter(Boolean));let bytes=source.length;
+      for(const file of files)bytes+=(await stat(`${packRoot}/${file}`)).size;
+      assert.equal(bytes,pack.subjectBytes);assert.equal(pack.initialBytes+bytes,pack.initialWithSubjectBytes);assert.ok(total+bytes<25*1024*1024);
+      console.log(`${scene.id} local subject: ${(bytes/1024).toFixed(1)} KiB assets; geometry generated locally`);
+    }
     console.log(`${scene.id} photographic pack: ${(pack.initialBytes/1048576).toFixed(2)} MiB initial, ${(total/1048576).toFixed(2)} MiB all seven positions`);
   }
 }

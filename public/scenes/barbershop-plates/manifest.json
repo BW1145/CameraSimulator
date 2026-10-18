@@ -2,6 +2,7 @@
   "version": 1,
   "id": "barbershop",
   "title": "Agent 327 Barbershop",
+  "subjects": "subjects.json",
   "sourceSha256": "95972b56180462cac47ec82f3a755bd9111ec18ca37a6196a319c013db994130",
   "attribution": "Blender Foundation / Blender Studio — CC BY",
   "method": "Seven individually rendered positions. XYZ selects an actual source camera; pan and focal length reframe that image. No invented continuous physical camera translation.",
@@ -14,6 +15,7 @@
   },
   "depth": {
     "type": "uint16-rg",
+    "space": "capture-camera-z",
     "range": 64
   },
   "camera": {
@@ -69,12 +71,12 @@
       0.3
     ],
     "yaw": [
-      -5,
-      5
+      -35,
+      35
     ],
     "pitch": [
-      -3,
-      3
+      -20,
+      20
     ],
     "roll": [
       -5,
@@ -644,5 +646,7 @@
     }
   ],
   "totalBytes": 15439316,
-  "initialBytes": 2213745
+  "initialBytes": 2213745,
+  "subjectBytes": 112169,
+  "initialWithSubjectBytes": 2325914
 }

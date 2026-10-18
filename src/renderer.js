@@ -44,7 +44,7 @@ void main(){
   gl_FragColor=vec4(clamp(c,0.,1.),1.);
 }`;
 
-function disposeScene(scene){
+export function disposeScene(scene){
   const geometries=new Set(),materials=new Set(),textures=new Set();
   scene.traverse(o=>{if(o.geometry)geometries.add(o.geometry);for(const m of [o.material].flat().filter(Boolean)){materials.add(m);for(const v of Object.values(m))if(v?.isTexture)textures.add(v);}});
   geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());

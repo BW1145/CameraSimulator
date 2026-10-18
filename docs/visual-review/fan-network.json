@@ -1,0 +1,66 @@
+{
+  "resources": [
+    {
+      "url": "http://127.0.0.1:8002/",
+      "encodedBodySize": 2515,
+      "decodedBodySize": 7663,
+      "transferSize": 2815
+    },
+    {
+      "url": "http://127.0.0.1:8002/assets/index-BoXmU8xp.js",
+      "encodedBodySize": 186887,
+      "decodedBodySize": 718016,
+      "transferSize": 187187
+    },
+    {
+      "url": "http://127.0.0.1:8002/assets/index-CG8wozou.css",
+      "encodedBodySize": 2120,
+      "decodedBodySize": 6674,
+      "transferSize": 2420
+    },
+    {
+      "url": "http://127.0.0.1:8002/scenes/barbershop-plates/manifest.json",
+      "encodedBodySize": 2316,
+      "decodedBodySize": 14191,
+      "transferSize": 2616
+    },
+    {
+      "url": "http://127.0.0.1:8002/assets/favicon-DQZQdvBn.png",
+      "encodedBodySize": 2688,
+      "decodedBodySize": 2688,
+      "transferSize": 2988
+    },
+    {
+      "url": "http://127.0.0.1:8002/scenes/barbershop-plates/subjects.json",
+      "encodedBodySize": 971,
+      "decodedBodySize": 971,
+      "transferSize": 1271
+    },
+    {
+      "url": "http://127.0.0.1:8002/scenes/barbershop-plates/fan-room.hdr",
+      "encodedBodySize": 100589,
+      "decodedBodySize": 111198,
+      "transferSize": 100889
+    },
+    {
+      "url": "http://127.0.0.1:8002/assets/RectAreaLightUniformsLib-l-3PGXes.js",
+      "encodedBodySize": 101216,
+      "decodedBodySize": 247260,
+      "transferSize": 101516
+    },
+    {
+      "url": "http://127.0.0.1:8002/scenes/barbershop-plates/center-depth.png",
+      "encodedBodySize": 501951,
+      "decodedBodySize": 501951,
+      "transferSize": 502251
+    },
+    {
+      "url": "http://127.0.0.1:8002/scenes/barbershop-plates/center.webp",
+      "encodedBodySize": 1711794,
+      "decodedBodySize": 1711794,
+      "transferSize": 1712094
+    }
+  ],
+  "encodedBodyBytes": 2613047,
+  "transferBytes": 2616047
+}

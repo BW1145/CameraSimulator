@@ -1,0 +1,68 @@
+[
+  {
+    "nativeTopLeftUV": [
+      0.16,
+      0.85
+    ],
+    "pixel": [
+      277,
+      424
+    ],
+    "rgba": [
+      8,
+      228,
+      0,
+      255
+    ],
+    "object": "GEO-Dresser_marble.001",
+    "radialM": 2.723508813551384,
+    "axisZM": 2.2219905853271484,
+    "pngZM": 2.2226901655603877,
+    "pngAxisErrorMm": 0.6995802332392387,
+    "oldCosConvertedZ": 1.813395725493847
+  },
+  {
+    "nativeTopLeftUV": [
+      0.2,
+      0.7
+    ],
+    "pixel": [
+      320,
+      357
+    ],
+    "rgba": [
+      13,
+      54,
+      0,
+      255
+    ],
+    "object": "GEO-bowl_metal",
+    "radialM": 3.843656197620634,
+    "axisZM": 3.30232572555542,
+    "pngZM": 3.302784771496147,
+    "pngAxisErrorMm": 0.45904594072698757,
+    "oldCosConvertedZ": 2.837629049284703
+  },
+  {
+    "nativeTopLeftUV": [
+      0.5,
+      0.46
+    ],
+    "pixel": [
+      640,
+      250
+    ],
+    "rgba": [
+      37,
+      131,
+      0,
+      255
+    ],
+    "object": "GEO-barbershop_wall_panels",
+    "radialM": 9.382232831936225,
+    "axisZM": 9.377601623535156,
+    "pngZM": 9.378072785534448,
+    "pngAxisErrorMm": 0.4711619992914251,
+    "oldCosConvertedZ": 9.373441104622612
+  }
+]

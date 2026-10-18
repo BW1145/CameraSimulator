@@ -1,6 +1,7 @@
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
 import {SCENES} from '../../src/scenes.js';
+import {openControl} from './controls.js';
 
 function constantPlate(luminance){
   const positions=new Float32Array([-100,-100,-5,100,-100,-5,100,100,-5,-100,-100,-5,100,100,-5,-100,100,-5]);
@@ -12,7 +13,7 @@ test('GPU meter reads linear dark values without a display-gamma roundtrip',asyn
   const errors=[];page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
   for(const luminance of [.001,.01,.18]){
     await page.route('**/scenes/barbershop/scene.glb',r=>r.fulfill({contentType:'model/gltf-binary',body:constantPlate(luminance)}));
-    await page.goto('/');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
+    await page.goto('/?renderer=gltf');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
     const actual=Number(await page.locator('#image').getAttribute('data-ev'))+parseFloat(await page.locator('#meter').textContent());
     expect(Math.abs(actual-(SCENES[0].baseEV+Math.log2(luminance/.18)))).toBeLessThan(.06);
     await page.unroute('**/scenes/barbershop/scene.glb');
@@ -22,16 +23,16 @@ test('GPU meter reads linear dark values without a display-gamma roundtrip',asyn
 
 test('dense displays receive scene pixels and mobile capture is independent of preview size',async({browser})=>{
   const context=await browser.newContext({viewport:{width:1440,height:1000},deviceScaleFactor:2});const page=await context.newPage();
-  await page.goto('/');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
+  await page.goto('/?renderer=gltf');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
   const size=await page.locator('#image').evaluate(e=>({w:e.width,css:e.clientWidth,samples:Number(e.dataset.samples)}));
   expect(size.w).toBeGreaterThan(size.css*1.9);expect(size.samples).toBeGreaterThan(0);
-  await page.setViewportSize({width:390,height:844});await page.locator('#more summary').click();await page.locator('#crop').selectOption('2:3');
+  await page.setViewportSize({width:390,height:844});await openControl(page,'crop');await page.locator('#crop').selectOption('2:3');
   const pending=page.waitForEvent('download');await page.locator('#capture').click();const downloaded=await pending;const meta=await sharp(await downloaded.path()).metadata();
   expect(meta.height).toBe(2048);expect(meta.width).toBe(1365);await context.close();
 });
 
 test('capture resolves an exposure edit made in the same event turn',async({page})=>{
-  await page.goto('/');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
+  await page.goto('/?renderer=gltf');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
   await page.locator('#autoISO').uncheck();
   const shoot=async iso=>{
     const pending=page.waitForEvent('download');

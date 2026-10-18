@@ -10,7 +10,7 @@ await fs.mkdir(out,{recursive:true});
 const raw=JSON.parse(await fs.readFile(path.join(source,'viewfield.json'),'utf8'));
 const manifest={version:1,id,title,sourceSha256:raw.sourceSha256,attribution,
   method:'Seven individually rendered positions. XYZ selects an actual source camera; pan and focal length reframe that image. No invented continuous physical camera translation.',
-  encoding:{type:'log2-rgb',min:-16,max:6,losslessContainer:'WebP',maximumChannelQuantizationEV:22/510},depth:{type:'uint16-rg',range:64},
+  encoding:{type:'log2-rgb',min:-16,max:6,losslessContainer:'WebP',maximumChannelQuantizationEV:22/510},depth:{type:'uint16-rg',space:'capture-camera-z',range:64},
   camera:raw.camera,referenceFocal:raw.camera.lens/raw.camera.sensorWidth*36,captureLens:raw.captureLens,bounds:raw.bounds,views:[]};
 async function parse(file,loader){const b=await fs.readFile(file);return loader.parse(b.buffer.slice(b.byteOffset,b.byteOffset+b.byteLength));}
 for(const view of raw.views){
@@ -36,4 +36,12 @@ for(const view of raw.views){
 }
 manifest.totalBytes=manifest.views.reduce((sum,v)=>sum+v.bytes+v.depthBytes,0);
 manifest.initialBytes=manifest.views[0].bytes+manifest.views[0].depthBytes;
+let subjectSource;
+try{subjectSource=await fs.readFile(path.join(out,'subjects.json'));}catch(error){if(error.code!=='ENOENT')throw error;}
+if(subjectSource){
+  manifest.subjects='subjects.json';const subjects=JSON.parse(subjectSource),files=new Set(subjects.map(subject=>subject.environment).filter(Boolean));
+  manifest.subjectBytes=subjectSource.length;
+  for(const file of files)manifest.subjectBytes+=(await fs.stat(path.join(out,file))).size;
+  manifest.initialWithSubjectBytes=manifest.initialBytes+manifest.subjectBytes;
+}
 await fs.writeFile(path.join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
