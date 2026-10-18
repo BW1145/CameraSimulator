@@ -72,6 +72,9 @@ test('AF-S locks distance and AF-C follows a moving three dimensional subject',a
   await test.info().attach('legacy-af-progress.json',{body:JSON.stringify({locked,movedLocked,initial,tracked},null,2),contentType:'application/json'});
 });
 test('spot metering follows real image regions and fill flash lights the scene',async({page})=>{
+  // Functional fixture shared by hardware and software GPUs. Independent
+  // scene tests retain the full desktop raster and screenshot coverage.
+  await page.setViewportSize({width:800,height:700});
   await page.goto('/?renderer=gltf');await waitFrame(page);await openControl(page,'metering');
   await page.locator('#metering').selectOption('spot');
   const image=page.locator('#image'),box=await image.boundingBox();
@@ -79,10 +82,21 @@ test('spot metering follows real image regions and fill flash lights the scene',
   await image.click({position:{x:box.width*.9,y:box.height*.6}});await waitFrame(page);const right=Number(await image.getAttribute('data-ev'));
   expect(Math.abs(left-right)).toBeGreaterThan(.2);
   await page.locator('#metering').selectOption('matrix');await waitFrame(page);
-  const unlit=await stats(page);await range(page,'flash',2);expect((await stats(page)).brightness).toBeGreaterThan(unlit.brightness*1.01);
-  await range(page,'flash',0);await page.locator('#motion').check();await page.locator('#pause').check();
-  await page.locator('#autoISO').uncheck();await range(page,'shutter',3);await range(page,'iso',7);const fast=await stats(page);
-  await range(page,'shutter',10);await range(page,'iso',0);const slow=await stats(page);
+  const unlit=await stats(page);await range(page,'flash',2);const lit=await stats(page);expect(lit.brightness).toBeGreaterThan(unlit.brightness*1.01);
+  console.log('legacy meter and flash',JSON.stringify({left,right,unlit:unlit.brightness,lit:lit.brightness}));
+});
+
+test('paused legacy motion target responds to short and long shutter intervals',async({page})=>{
+  await page.setViewportSize({width:800,height:700});
+  await page.goto('/?renderer=gltf');await waitFrame(page);await openControl(page,'motion');
+  // Pause before enabling motion so genuine UI actions do not queue behind
+  // continuous full-room software rendering. The shutter still spans its path.
+  await page.locator('#pause').check();await page.locator('#motion').check();
+  const image=page.locator('#image');await page.locator('#autoISO').uncheck();
+  await range(page,'shutter',3);await range(page,'iso',7);await expect(image).toHaveAttribute('data-ev','7.966');const fast=await stats(page),initial=await motionSample(page);
+  await range(page,'shutter',10);await range(page,'iso',0);await expect(image).toHaveAttribute('data-ev','8.000');const slow=await stats(page),final=await motionSample(page);
+  expect(final.x).toBeCloseTo(initial.x,5);expect(final.y).toBeCloseTo(initial.y,5);
   expect(slow.buffer.equals(fast.buffer)).toBe(false);
+  console.log('legacy shutter comparison',JSON.stringify({fastEV:7.966,slowEV:8,initial,final,fastBrightness:fast.brightness,slowBrightness:slow.brightness}));
   await page.screenshot({path:'test-results/long-exposure.png',fullPage:true});
 });
