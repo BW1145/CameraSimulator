@@ -1,0 +1,20 @@
+{
+  "id": "barbershop",
+  "camera": "Camera",
+  "sourceSha256": "95972b56180462cac47ec82f3a755bd9111ec18ca37a6196a319c013db994130",
+  "blender": "4.5.14 LTS",
+  "sourceObjects": 1121,
+  "sourcePolygonEstimate": 1116938,
+  "triangleBudget": 650000,
+  "maxTextureSize": 1024,
+  "bytes": 9692912,
+  "excludedVolumeBoundaries": [
+    "ENV-Fog.001"
+  ],
+  "changes": "Complete active scene exported to glTF, retaining source geometry layout and collection instances. Image textures resized to 1024px, subdivision limited to level 1, large meshes decimated, legacy shaders converted to source BSDF colours and diffuse image maps. Volume boundary meshes omitted from surface rendering. Perspective cameras exported at 35mm; web lighting uses punctual lights plus ambient fill.",
+  "optimization": "Deduplicated, flattened, joined by material, welded, simplified toward 650k triangles with 1% error bound, quantized and Meshopt compressed.",
+  "meshes": 147,
+  "materials": 128,
+  "triangles": 764500,
+  "textures": 67
+}

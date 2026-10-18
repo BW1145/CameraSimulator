@@ -1,0 +1,18 @@
+{
+  "id": "apartment",
+  "camera": "Cam Living",
+  "sourceSha256": "0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25",
+  "blender": "4.5.14 LTS",
+  "sourceObjects": 476,
+  "sourcePolygonEstimate": 21483686,
+  "triangleBudget": 650000,
+  "maxTextureSize": 1024,
+  "bytes": 15983748,
+  "excludedVolumeBoundaries": [],
+  "changes": "Complete active scene exported to glTF, retaining source geometry layout and collection instances. Image textures resized to 1024px, subdivision limited to level 1, large meshes decimated, legacy shaders converted to source BSDF colours and diffuse image maps. Volume boundary meshes omitted from surface rendering. Perspective cameras exported at 35mm; web lighting uses punctual lights plus ambient fill.",
+  "optimization": "Deduplicated, flattened, joined by material, welded, simplified toward 650k triangles with 1% error bound, quantized and Meshopt compressed.",
+  "meshes": 70,
+  "materials": 89,
+  "triangles": 593544,
+  "textures": 72
+}

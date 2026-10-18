@@ -1,30 +1,81 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="zh-CN">
 <head>
-  <title>Camera Simulator</title>
-  <meta name="description"
-    content="An online camera simulator app: learn how changes to the f-stop, shutter speed and ISO changes the image in realtime!">
-  <meta name="keywords"
-    content="camera, film, video, dslr, nikon, sony, panasonic, lumix, blackmagic, simulator, online, viewer, viewfinder, digital, noise, ISO, shutter, fstop, iris, learning, how, tutorial, example">
-  <meta name="robots" content="">
-  <meta name="revisit-after" content="7 day">
-  <meta name="language" content="English">
-  <meta name="generator" content="N/A">
-  <link rel="icon" type="image/x-icon" href="/favicon.png">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta charset="utf-8" />
-
-  <script src="libs/p5.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css">
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="移动机位、调整相机参数，即时观察曝光、景深和运动拖影。">
+  <link rel="icon" href="./favicon.png">
+  <title>Camera Simulator · 摄影练习</title>
 </head>
-
 <body>
+  <header><h1>Camera Simulator</h1><p>调一调，看见照片怎样变化。</p><a href="./original.html">原版风扇演示</a></header>
   <main>
+    <section class="view-area" aria-label="取景器">
+      <div id="viewfinder">
+        <canvas id="image" tabindex="0" aria-label="相机画面。点击对焦，拖动转向，WASD 移动，Q/E 升降。"></canvas>
+        <div id="grid" hidden aria-hidden="true"></div>
+        <div id="level" hidden aria-hidden="true"><i></i></div>
+        <div id="focus-mark" hidden aria-hidden="true"></div>
+        <canvas id="magnifier" width="200" height="150" hidden aria-label="局部放大"></canvas>
+        <canvas id="histogram-view" width="180" height="76" hidden aria-label="亮度直方图"></canvas>
+        <div id="loading" role="status">正在准备场景…</div>
+      </div>
+      <div class="view-caption"><span id="hint">点击对焦 · 拖动转向 · 聚焦画面后用 WASD 移动</span><output id="meter" aria-label="曝光读数"></output></div>
+    </section>
+    <div class="toolbar">
+      <label>场景 <select id="scene" aria-label="场景"></select></label>
+      <label>模式 <select id="mode" aria-label="曝光模式"><option value="M">M 手动</option><option value="A">A 光圈优先</option><option value="S">S 快门优先</option><option value="P">P 程序自动</option></select></label>
+      <label class="check"><input id="autoISO" type="checkbox" checked>自动 ISO</label>
+      <button id="reset" type="button">重置参数</button>
+      <button id="capture" type="button">保存照片</button>
+    </div>
+    <section class="primary-controls" aria-label="基础参数">
+      <label>光圈 <output id="aperture-value"></output><input id="aperture" type="range" min="0" max="8" step="1"></label>
+      <label>快门 <output id="shutter-value"></output><input id="shutter" type="range" min="0" max="18" step="1"></label>
+      <label>ISO <output id="iso-value"></output><input id="iso" type="range" min="0" max="9" step="1"></label>
+      <label>白平衡 <output id="wb-value"></output><input id="wb" type="range" min="2000" max="10000" step="100"></label>
+    </section>
+    <details id="more">
+      <summary>对焦、构图与补光</summary>
+      <div class="advanced-controls">
+        <fieldset><legend>对焦与镜头</legend>
+          <label>焦距 <output id="focal-value"></output><input id="focal" type="range" min="18" max="200" step="1"></label>
+          <label>对焦距离 <output id="focus-value"></output><input id="focus" type="range" min="0.2" max="50" step="0.1"></label>
+          <label>对焦方式 <select id="af"><option>AF-S</option><option>AF-C</option><option>MF</option></select></label>
+          <button id="focus-center" type="button">对焦画面中央</button>
+          <p>AF-S 锁住距离；AF-C 跟随点选物体。拖动距离滑杆进入手动对焦。</p>
+        </fieldset>
+        <fieldset><legend>曝光与运动</legend>
+          <label>曝光补偿 <output id="compensation-value"></output><input id="compensation" type="range" min="-9" max="9" step="1"></label>
+          <label>测光 <select id="metering"><option value="matrix">全画面</option><option value="center">中央重点</option><option value="spot">点测光</option></select></label>
+          <label>补光强度 <output id="flash-value"></output><input id="flash" type="range" min="0" max="2" step="0.1"></label>
+          <label class="check"><input id="motion" type="checkbox">运动练习球</label>
+          <label class="check"><input id="pause" type="checkbox">暂停运动</label>
+          <p>点测光跟随对焦点。开启练习球，比较快慢快门与连续对焦。</p>
+        </fieldset>
+        <fieldset><legend>构图辅助</legend>
+          <label>画幅 <select id="crop"><option value="21:9">宽幅 21:9</option><option value="3:2">横向 3:2</option><option value="16:9">横向 16:9</option><option value="2:3">竖向 2:3</option><option value="1:1">方形 1:1</option></select></label>
+          <label>感光元件 <select id="sensor"><option value="full">全画幅</option><option value="aps-c">APS-C</option></select></label>
+          <label class="check"><input id="grid-toggle" type="checkbox">九宫格</label>
+          <label class="check"><input id="level-toggle" type="checkbox">水平线</label>
+          <label class="check"><input id="histogram-toggle" type="checkbox">直方图</label>
+          <label class="check"><input id="zebra" type="checkbox">过曝条纹</label>
+          <label class="check"><input id="magnifier-toggle" type="checkbox" checked>局部放大镜</label>
+        </fieldset>
+        <fieldset><legend>移动机位</legend>
+          <label>左右 <output id="x-value"></output><input id="x" type="range" min="-3" max="3" step="0.05"></label>
+          <label>升降 <output id="y-value"></output><input id="y" type="range" min="-2" max="2" step="0.05"></label>
+          <label>前后 <output id="z-value"></output><input id="z" type="range" min="-3" max="3" step="0.05"></label>
+          <label>转向 <output id="yaw-value"></output><input id="yaw" type="range" min="-180" max="180" step="1"></label>
+          <label>俯仰 <output id="pitch-value"></output><input id="pitch" type="range" min="-80" max="80" step="1"></label>
+          <label>倾斜 <output id="roll-value"></output><input id="roll" type="range" min="-20" max="20" step="1"></label>
+          <button id="reset-view" type="button">回到起始机位</button>
+        </fieldset>
+      </div>
+    </details>
+    <p id="lesson" role="status"></p>
+    <details class="about"><summary>场景与使用说明</summary><p>四个场景来自 Blender 官方 demo 文件，按需加载完整三维环境。拖动画面转向，点一下对焦；画面获得键盘焦点后，WASD 前后左右移动，Q/E 升降。机位滑杆以起始机位为参照。</p><p>景深与运动拖影用于摄影教学。实时照明和部分材质经过轻量转换，反射、间接光与散景边界使用近似效果。</p><p id="credit"></p><p><a href="./ASSETS.md">场景来源与授权</a> · <a href="https://github.com/BW1145/CameraSimulator">项目源码</a> · 原版程序与渲染：<a href="https://github.com/leocb/CameraSimulator">leocb</a></p></details>
   </main>
-  <script src="loadHelper.js"></script>
-  <script src="sketch.js"></script>
+  <script type="module" src="./src/app.js"></script>
 </body>
-
 </html>

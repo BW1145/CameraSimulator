@@ -1,0 +1,18 @@
+{
+  "id": "kitchen",
+  "camera": "CAM-wide",
+  "sourceSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+  "blender": "4.5.14 LTS",
+  "sourceObjects": 1058,
+  "sourcePolygonEstimate": 436158,
+  "triangleBudget": 650000,
+  "maxTextureSize": 1024,
+  "bytes": 4850904,
+  "excludedVolumeBoundaries": [],
+  "changes": "Complete active scene exported to glTF, retaining source geometry layout and collection instances. Image textures resized to 1024px, subdivision limited to level 1, large meshes decimated, legacy shaders converted to source BSDF colours and diffuse image maps. Volume boundary meshes omitted from surface rendering. Perspective cameras exported at 35mm; web lighting uses punctual lights plus ambient fill.",
+  "optimization": "Deduplicated, flattened, joined by material, welded, simplified toward 650k triangles with 1% error bound, quantized and Meshopt compressed.",
+  "meshes": 78,
+  "materials": 95,
+  "triangles": 654774,
+  "textures": 4
+}

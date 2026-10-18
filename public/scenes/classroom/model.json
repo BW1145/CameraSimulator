@@ -1,0 +1,18 @@
+{
+  "id": "classroom",
+  "camera": "renderCam",
+  "sourceSha256": "5c526ea3f280566e80253673c9955640527cd0f247ea41b1742620b5bc39f7a4",
+  "blender": "4.5.14 LTS",
+  "sourceObjects": 178,
+  "sourcePolygonEstimate": 159978,
+  "triangleBudget": 650000,
+  "maxTextureSize": 1024,
+  "bytes": 8017940,
+  "excludedVolumeBoundaries": [],
+  "changes": "Complete active scene exported to glTF, retaining source geometry layout and collection instances. Image textures resized to 1024px, subdivision limited to level 1, large meshes decimated, legacy shaders converted to source BSDF colours and diffuse image maps. Volume boundary meshes omitted from surface rendering. Perspective cameras exported at 35mm; web lighting uses punctual lights plus ambient fill.",
+  "optimization": "Deduplicated, flattened, joined by material, welded, simplified toward 650k triangles with 1% error bound, quantized and Meshopt compressed.",
+  "meshes": 65,
+  "materials": 46,
+  "triangles": 550812,
+  "textures": 31
+}
