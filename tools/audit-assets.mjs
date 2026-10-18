@@ -10,4 +10,17 @@ for(const scene of SCENES){
   assert.ok(meta.sourceSha256.match(/^[a-f0-9]{64}$/));assert.equal(meta.bytes,(await stat(`${root}/scene.glb`)).size);
   assert.ok(meta.bytes<25*1024*1024);assert.ok(meta.triangles<900000);assert.ok(meta.maxTextureSize<=1024);
   console.log(`${scene.id}: ${(meta.bytes/1048576).toFixed(2)} MiB, ${meta.triangles} triangles, ${meta.textures} textures`);
+  if(scene.platePack){
+    const packRoot=`public/${scene.platePack}`,pack=JSON.parse(await readFile(`${packRoot}/manifest.json`,'utf8'));
+    assert.equal(pack.id,scene.id);assert.equal(pack.version,1);assert.equal(pack.views.length,7);assert.equal(pack.sourceSha256,meta.sourceSha256);
+    let total=0;
+    for(const view of pack.views){
+      assert.equal((await stat(`${packRoot}/${view.file}`)).size,view.bytes);assert.equal((await stat(`${packRoot}/${view.depth}`)).size,view.depthBytes);
+      assert.equal(view.clampedChannels,0);assert.equal(view.cameraMatrix.length,16);assert.equal(view.projectionMatrix.length,16);
+      total+=view.bytes+view.depthBytes;
+    }
+    assert.equal(total,pack.totalBytes);assert.equal(pack.initialBytes,pack.views[0].bytes+pack.views[0].depthBytes);
+    assert.ok(pack.initialBytes<4*1024*1024);assert.ok(total<25*1024*1024);
+    console.log(`${scene.id} photographic pack: ${(pack.initialBytes/1048576).toFixed(2)} MiB initial, ${(total/1048576).toFixed(2)} MiB all seven positions`);
+  }
 }

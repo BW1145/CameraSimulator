@@ -2,23 +2,44 @@ import './style.css';
 import {APERTURES,SHUTTERS,ISOS,DEFAULTS,clamp,ev100,resolveExposure,formatShutter,meterLinearPixels,histogram} from './camera.js';
 import {SCENES} from './scenes.js';
 import {Renderer} from './renderer.js';
+import {PlateRenderer} from './plate-renderer.js';
 import {previewSize,captureSize} from './render-size.js';
 
 const $=id=>document.getElementById(id);
 const canvas=$('image'),view=$('viewfinder'),loading=$('loading');
 let renderer;
-try{renderer=new Renderer(canvas);}catch(error){loading.textContent=error.message;}
+const usePlates=new URLSearchParams(location.search).get('renderer')==='plates';
+try{renderer=usePlates?new PlateRenderer(canvas):new Renderer(canvas);}catch(error){loading.textContent=error.message;}
 let s={...DEFAULTS},scene=SCENES[0],resolved=resolveExposure(s,8),meterEV=8;
+const sourceView=new URLSearchParams(location.search).get('view')==='source';
+if(sourceView||usePlates){
+  $('crop').add(new Option('Source Camera 2048:858','2048:858'));
+  s={...s,crop:'2048:858',focal:18.8027323,aperture:8,shutter:1/4,iso:100,autoISO:false};
+  resolved=resolveExposure(s,8);
+}
 let dirty=true,meterDirty=true,ready=false,lastFrame=0,lastAnalysis=0,clock=0,lastClock=performance.now(),track=null,point={x:.5,y:.5},loadVersion=0;
 let pointer=null,hover=null;
 const tables={aperture:APERTURES,shutter:SHUTTERS,iso:ISOS};
 const numeric=['wb','focal','focus','compensation','flash','x','y','z','yaw','pitch','roll'];
 const selects=['mode','metering','af','crop','sensor'];
 const checks={autoISO:'autoISO',motion:'motion',pause:'pause',zebra:'zebra','grid-toggle':'grid','level-toggle':'level','histogram-toggle':'histogram','magnifier-toggle':'magnifier'};
+const originalBounds=Object.fromEntries(['x','y','z','yaw','pitch','roll'].map(key=>[key,{min:$(key).min,max:$(key).max,step:$(key).step}]));
+let positionVersion=0;
+async function changePosition(){
+  if(!renderer.plateMode)return;
+  const version=++positionVersion;ready=false;canvas.dataset.ready='false';loading.hidden=false;loading.textContent='正在加载选定的拍摄机位…';$('capture').disabled=true;
+  try{
+    await renderer.setPosition(s);if(version!==positionVersion)return;
+    track=null;ready=true;loading.hidden=true;$('capture').disabled=false;invalidate();
+  }catch(error){
+    if(version!==positionVersion)return;loading.textContent=`机位加载失败：${error.message} `;
+    const retry=document.createElement('button');retry.textContent='重新加载';retry.onclick=changePosition;loading.append(retry);
+  }
+}
 for(const item of SCENES)$('scene').add(new Option(item.name,item.id));
 
 function invalidate(geometry=true){dirty=true;if(geometry)meterDirty=true;}
-function resetView(){for(const key of ['x','y','z','yaw','pitch','roll'])s[key]=0;track=null;point={x:.5,y:.5};invalidate();sync();}
+function resetView(){for(const key of ['x','y','z','yaw','pitch','roll'])s[key]=0;track=null;point={x:.5,y:.5};invalidate();sync();if(ready&&renderer.plateMode)changePosition();}
 function sync(){
   for(const key of selects)$(key).value=s[key];
   for(const [id,key]of Object.entries(checks))$(id).checked=s[key];
@@ -50,29 +71,42 @@ function resize(){
 for(const [key,table]of Object.entries(tables))$(key).addEventListener('input',()=>{s[key]=table[Number($(key).value)];invalidate(false);});
 for(const key of numeric)$(key).addEventListener('input',()=>{
   s[key]=Number($(key).value)/(key==='compensation'?3:1);
+  renderer.constrain?.(s,key);
   if(key==='focus'){s.af='MF';track=null;}
   invalidate(['x','y','z','yaw','pitch','roll','focal'].includes(key));sync();
+  if(['x','y','z'].includes(key))changePosition();
 });
 for(const key of selects)$(key).addEventListener('change',()=>{
   // Keep the current resolved exposure when moving into manual control.
   if(key==='mode'){s.aperture=resolved.aperture;s.shutter=resolved.shutter;s.iso=resolved.iso;}
-  s[key]=$(key).value;if(key==='crop')resize();invalidate();sync();
+  s[key]=$(key).value;if(key==='crop')resize();renderer.constrain?.(s,key);invalidate();sync();
 });
 for(const [id,key]of Object.entries(checks))$(id).addEventListener('change',()=>{s[key]=$(id).checked;if(key==='motion')track=null;invalidate(key==='motion');sync();});
-$('reset').addEventListener('click',()=>{s={...DEFAULTS,focus:scene.focus,focal:scene.focal};resolved=resolveExposure(s,meterEV);track=null;clock=0;resize();sync();});
+$('reset').addEventListener('click',()=>{
+  s={...DEFAULTS,focus:scene.focus,focal:scene.focal};
+  if(renderer.plateMode)s={...s,crop:'2048:858',focal:renderer.pack.referenceFocal,aperture:8,shutter:1/4,iso:100,autoISO:false};
+  resolved=resolveExposure(s,meterEV);track=null;clock=0;resize();sync();changePosition();
+});
 $('reset-view').addEventListener('click',resetView);
 new ResizeObserver(resize).observe(view);
 
 async function loadScene(id){
   if(!renderer)return;
+  ++positionVersion;
   const version=++loadVersion;ready=false;canvas.dataset.ready='false';loading.hidden=false;loading.textContent='正在加载完整场景…';$('capture').disabled=true;
   const next=SCENES.find(item=>item.id===id);
   try{
     const loaded=await renderer.load(next,(bytes,total)=>{if(version===loadVersion)loading.textContent=total?`正在加载${next.name} ${Math.round(bytes/total*100)}%`:`正在加载${next.name} ${(bytes/1048576).toFixed(1)} MB`;});
     if(!loaded||version!==loadVersion)return;
-    scene=next;s.focus=scene.focus;s.focal=scene.focal;clock=0;resetView();resize();ready=true;loading.hidden=true;$('capture').disabled=false;
+    scene=next;s.focus=scene.focus;s.focal=(sourceView||renderer.plateMode)&&scene.id==='barbershop'?18.8027323:scene.focal;clock=0;resetView();resize();ready=true;loading.hidden=true;$('capture').disabled=false;
+    for(const key of ['x','y','z','yaw','pitch','roll']){
+      const bounds=renderer.plateMode?{min:renderer.pack.bounds[key][0],max:renderer.pack.bounds[key][1],step:key==='y'?.2:['x','z'].includes(key)?.3:1}:originalBounds[key];
+      Object.assign($(key),bounds);
+    }
+    $('flash').disabled=renderer.plateMode;$('flash').title=renderer.plateMode?'预渲染闪光照明层尚未生成':'';if(renderer.plateMode)s.flash=0;
     $('credit').textContent=`${scene.title} — ${scene.author} · ${scene.license}。场景经过 glTF 转换、网格精简和纹理缩放。`;
     canvas.dataset.scene=scene.id;invalidate();
+    if(renderer.plateMode)$('credit').textContent=`${renderer.pack.title} · ${renderer.pack.attribution}。七个真实预渲染机位，平移选择机位；转向、焦距和画幅用于取景。`;
   }catch(error){
     if(version!==loadVersion)return;
     loading.textContent=`场景加载失败：${error.message} `;
@@ -91,7 +125,7 @@ canvas.addEventListener('pointerdown',e=>{canvas.focus({preventScroll:true});can
 canvas.addEventListener('pointermove',e=>{
   const box=canvas.getBoundingClientRect();hover={x:(e.clientX-box.left)/box.width,y:(e.clientY-box.top)/box.height};
   if(pointer){const dx=e.clientX-pointer.x,dy=e.clientY-pointer.y;if(Math.hypot(dx,dy)>4)pointer.dragged=true;
-    if(pointer.dragged){s.yaw=clamp(pointer.yaw-dx*.16,-180,180);s.pitch=clamp(pointer.pitch-dy*.16,-80,80);invalidate();sync();}
+    if(pointer.dragged){s.yaw=clamp(pointer.yaw-dx*.16,-180,180);s.pitch=clamp(pointer.pitch-dy*.16,-80,80);renderer.constrain?.(s,'yaw');invalidate();sync();}
   }else magnify();
 });
 canvas.addEventListener('pointerup',e=>{const box=canvas.getBoundingClientRect();if(pointer&&!pointer.dragged)focusAt((e.clientX-box.left)/box.width,1-(e.clientY-box.top)/box.height);pointer=null;});
@@ -99,7 +133,7 @@ canvas.addEventListener('pointercancel',()=>{pointer=null;});
 canvas.addEventListener('pointerleave',()=>{hover=null;$('magnifier').hidden=true;});
 canvas.addEventListener('keydown',e=>{
   const movements={w:['z',.15],s:['z',-.15],a:['x',-.15],d:['x',.15],q:['y',-.15],e:['y',.15],ArrowLeft:['yaw',3],ArrowRight:['yaw',-3],ArrowUp:['pitch',3],ArrowDown:['pitch',-3]};
-  const move=movements[e.key];if(!move)return;e.preventDefault();const [key,amount]=move,input=$(key);s[key]=clamp(s[key]+amount,Number(input.min),Number(input.max));invalidate();sync();
+  const move=movements[e.key];if(!move)return;e.preventDefault();const [key,amount]=move,input=$(key);s[key]=clamp(s[key]+(renderer.plateMode&&['x','y','z'].includes(key)?Math.sign(amount)*Number(input.step):amount),Number(input.min),Number(input.max));renderer.constrain?.(s,key);invalidate();sync();if(['x','y','z'].includes(key))changePosition();
 });
 function magnify(){
   const magnifier=$('magnifier');magnifier.hidden=!hover||!s.magnifier||pointer?.dragged||!ready;

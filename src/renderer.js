@@ -11,6 +11,8 @@ uniform vec2 resolution;uniform float focus;uniform float focal;uniform float ap
 uniform float exposure;uniform float iso;uniform float wb;uniform float time;uniform bool zebra;
 uniform float sensorWidth;uniform float nearClip;uniform float farClip;
 uniform bool meteringPass;
+uniform bool agx;
+#include <tonemapping_pars_fragment>
 float depthAt(vec2 p){float d=texture2D(sceneDepth,p).x;return nearClip*farClip/(farClip-(farClip-nearClip)*d);}
 float coc(float z){
   float f=focal/1000.;
@@ -33,7 +35,7 @@ void main(){
   c=c/count*exp2(exposure);
   float temperature=(wb-5000.)/3000.;c*=vec3(exp(temperature*.32),1.,exp(-temperature*.32));
   // Filmic highlight shoulder, applied after photographic exposure.
-  if(!meteringPass)c=(c*(2.51*c+.03))/(c*(2.43*c+.59)+.14);
+  if(!meteringPass)c=agx?AgXToneMapping(c):(c*(2.51*c+.03))/(c*(2.43*c+.59)+.14);
   c=max(c,vec3(0.));
   c=mix(c*12.92,1.055*pow(c,vec3(1./2.4))-.055,step(vec3(.0031308),c));
   bool clipped=max(c.r,max(c.g,c.b))>=.995;
@@ -51,6 +53,7 @@ function disposeScene(scene){
 export class Renderer {
   constructor(canvas){
     this.canvas=canvas;
+    this.sourceView=new URLSearchParams(location.search).get('view')==='source';
     this.renderer=new T.WebGLRenderer({canvas,antialias:false,alpha:false,preserveDrawingBuffer:true,powerPreference:'high-performance'});
     this.renderer.setPixelRatio(1);this.renderer.outputColorSpace=T.LinearSRGBColorSpace;this.renderer.toneMapping=T.NoToneMapping;
     this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=T.PCFSoftShadowMap;
@@ -66,7 +69,7 @@ export class Renderer {
     canvas.dataset.samples=String(this.target.samples);
     this.analysisTarget=new T.WebGLRenderTarget(1,1,{type:T.UnsignedByteType,depthBuffer:false});
     this.meterTarget=new T.WebGLRenderTarget(1,1,{type:T.FloatType,depthBuffer:false});
-    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,resolution:new T.Vector2(1,1),focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,meteringPass:false}).map(([key,value])=>[key,{value}]));
+    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,resolution:new T.Vector2(1,1),focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,meteringPass:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
     this.postScene=new T.Scene();this.postCamera=new T.Camera();
     this.postScene.add(new T.Mesh(new T.PlaneGeometry(2,2),new T.ShaderMaterial({vertexShader:vertex,fragmentShader:fragment,uniforms:this.uniforms,depthTest:false,depthWrite:false})));
     this.loadVersion=0;
@@ -94,7 +97,13 @@ export class Renderer {
     const cam=gltf.cameras.find(c=>c.name===scene.camera)||gltf.cameras[0];
     if(!cam)throw Error('场景缺少拍摄机位。');
     cam.getWorldPosition(this.anchor);cam.getWorldQuaternion(this.anchorRotation);
-    this.anchor.add(new T.Vector3(0,scene.startUp||0,-(scene.startForward||0)).applyQuaternion(this.anchorRotation));
+    this.nativeCamera={fov:cam.fov,aspect:cam.aspect,referenceFocal:18.8027323};
+    // The source room deliberately puts its camera behind the foreground wall.
+    // Its 1.1 m native near plane is part of the shot, not missing geometry.
+    this.camera.near=this.sourceView?cam.near:.03;this.camera.far=this.sourceView?cam.far:150;
+    this.uniforms.nearClip.value=this.camera.near;this.uniforms.farClip.value=this.camera.far;
+    if(!this.sourceView)this.anchor.add(new T.Vector3(0,scene.startUp||0,-(scene.startForward||0)).applyQuaternion(this.anchorRotation));
+    this.canvas.dataset.view=this.sourceView?'source':'free';
     this.world.add(source);
     // Punctual lights export directly; indirect illumination uses ambient fill.
     source.traverse(o=>{
@@ -136,6 +145,10 @@ export class Renderer {
     const aspect=this.canvas.width/this.canvas.height,wide=s.sensor==='aps-c'?23.5:36,short=s.sensor==='aps-c'?15.6:24;
     this.filmWidth=aspect<1?Math.min(short,wide*aspect):Math.min(wide,short*aspect);
     this.camera.aspect=aspect;this.camera.fov=2*Math.atan(this.filmWidth/aspect/(2*s.focal))*180/Math.PI;
+    if(this.sourceView&&this.scene.id==='barbershop'){
+      this.camera.fov=2*Math.atan(Math.tan(this.nativeCamera.fov*Math.PI/360)*this.nativeCamera.referenceFocal/s.focal)*180/Math.PI;
+      this.filmWidth=2*s.focal*aspect*Math.tan(this.camera.fov*Math.PI/360);
+    }
     const offset=new T.Vector3(s.x,s.y,-s.z).applyQuaternion(this.anchorRotation);
     this.camera.position.copy(this.anchor).add(offset);
     this.camera.quaternion.copy(this.anchorRotation).multiply(new T.Quaternion().setFromEuler(new T.Euler(s.pitch*Math.PI/180,s.yaw*Math.PI/180,s.roll*Math.PI/180,'YXZ')));
@@ -177,7 +190,7 @@ export class Renderer {
   draw(s,exposure,time,analyse=false){
     if(!this.ready)return;
     this.renderPlate(s,exposure,time);
-    const values={focus:s.focus,focal:s.focal,aperture:exposure.aperture,exposure:this.scene.baseEV+this.exposureOffset-exposure.ev,iso:exposure.iso,wb:s.wb,time,zebra:false,sensorWidth:this.filmWidth};
+    const values={focus:s.focus,focal:s.focal,aperture:this.sourceView?1000000:exposure.aperture,exposure:this.scene.baseEV+this.exposureOffset-exposure.ev,iso:this.sourceView?0:exposure.iso,wb:s.wb,time,zebra:false,sensorWidth:this.filmWidth,agx:this.restoredLighting};
     for(const [key,value]of Object.entries(values))this.uniforms[key].value=value;
     if(analyse){
       this.renderer.setRenderTarget(this.analysisTarget);this.renderer.render(this.postScene,this.postCamera);
