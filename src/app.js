@@ -19,6 +19,7 @@ if(sourceView||usePlates){
 }
 let dirty=true,meterDirty=true,ready=false,lastFrame=0,lastAnalysis=0,clock=0,lastClock=performance.now(),track=null,point={x:.5,y:.5},loadVersion=0;
 let pointer=null,hover=null;
+let frameRevision=0;
 const tables={aperture:APERTURES,shutter:SHUTTERS,iso:ISOS};
 const numeric=['wb','focal','focus','compensation','flash','x','y','z','yaw','pitch','roll'];
 const selects=['mode','metering','af','crop','sensor'];
@@ -43,7 +44,7 @@ async function changePosition(){
 }
 for(const item of SCENES)$('scene').add(new Option(item.name,item.id));
 
-function invalidate(geometry=true){dirty=true;if(geometry)meterDirty=true;}
+function invalidate(geometry=true){dirty=true;canvas.dataset.ready='false';canvas.dataset.requestedFrame=String(++frameRevision);if(geometry)meterDirty=true;}
 if(renderer){renderer.onTextureUpdate=()=>{canvas.dataset.ready='false';invalidate();$('hint').textContent=renderer.plateMode?'点击对焦 · 拖动取景':'点击对焦 · 拖动转向 · WASD 移动';};renderer.onLayerError=(name,retry)=>{$('hint').textContent=`${name}加载失败 `;const button=document.createElement('button');button.textContent='重试';button.onclick=retry;$('hint').append(button);};}
 function resetView(){for(const key of ['x','y','z','yaw','pitch','roll'])s[key]=0;track=null;point={x:.5,y:.5};invalidate();sync();if(ready&&renderer.plateMode)changePosition();}
 function sync(){
@@ -191,7 +192,7 @@ function animate(now){
   const analyse=dirty||now-lastAnalysis>300;
   resolveCurrentFrame(analyse);
   if(analyse)lastAnalysis=now;
-  magnify();dirty=false;canvas.dataset.ready='true';
+  magnify();dirty=false;canvas.dataset.frame=String(frameRevision);canvas.dataset.ready='true';
   canvas.dataset.triangles=renderer.frameStats.triangles;canvas.dataset.drawCalls=renderer.frameStats.calls;
   if(s.motion){const ball=renderer.ballPosition(clock);canvas.dataset.ballX=ball.x;canvas.dataset.ballY=ball.y;}
 }
@@ -201,6 +202,7 @@ function resolveCurrentFrame(analyse=true){
     const p=renderer.readPlate(s,resolved,clock);
     const luminance=meterLinearPixels(p,renderer.analysisWidth,renderer.analysisHeight,s.metering,point);
     meterEV=scene.baseEV+renderer.exposureOffset+Math.log2(luminance/.18);meterDirty=false;
+    canvas.dataset.meterEv=meterEV.toFixed(5);
   }
   resolved=resolveExposure(s,meterEV);resolved.ev=ev100(resolved.aperture,resolved.shutter,resolved.iso);
   const p=renderer.draw(s,resolved,clock,analyse);

@@ -12,6 +12,7 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         shard: [1, 2, 3]
     steps:
@@ -20,7 +21,7 @@ jobs:
         with:
           node-version: 24
           cache: npm
-      - run: npm ci
+      - run: npm ci --prefer-offline
       - run: npm test
       - run: npm run audit:assets
       - run: node tools/audit-scene-plates.mjs public/scenes/barbershop-plates public/scenes/classroom-plates public/scenes/kitchen-plates public/scenes/apartment-plates

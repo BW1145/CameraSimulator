@@ -251,8 +251,8 @@ export class Renderer {
     });
     return scale;
   }
-  renderPlate(s,exposure,time,flash=true){
-    this.geometry(s);this.updateMotion(s,exposure,time);
+  renderPlate(s,exposure,time,flash=true,integrate=true){
+    this.geometry(s);this.updateMotion(s,integrate?exposure:{...exposure,shutter:0},time);
     this.flashLight.position.copy(this.camera.position);
     // Inverse duration preserves flash energy when ambient shutter time changes.
     this.flashLight.intensity=flash?s.flash*.08/exposure.shutter:0;
@@ -261,7 +261,9 @@ export class Renderer {
     this.frameStats={triangles:this.renderer.info.render.triangles,calls:this.renderer.info.render.calls,textures:this.renderer.info.memory.textures};
   }
   readPlate(s,exposure,time){
-    this.renderPlate(s,exposure,time,false);
+    // The meter observes current ambient light before choosing the exposure.
+    // Shutter integration and lens blur belong to the resulting photograph.
+    this.renderPlate(s,exposure,time,false,false);
     const u=this.uniforms;u.focus.value=s.focus;u.focal.value=s.focal;u.aperture.value=1000000;
     u.exposure.value=0;u.iso.value=0;u.wb.value=5000;u.zebra.value=false;u.meteringPass.value=true;
     this.renderer.setRenderTarget(this.meterTarget);this.renderer.render(this.postScene,this.postCamera);

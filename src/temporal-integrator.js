@@ -35,9 +35,10 @@ export class TemporalIntegrator {
     owner.flashLight.intensity=0;owner.plateUniforms.flashStrength.value=0;this.uniforms.difference.value=false;
     renderer.autoClear=false;renderer.setScissorTest(false);drawWorld(samples.length===1?samples[0].time:time);
     let bounds=fan.bounds(owner.camera,width,height);
-    if(bounds&&fan.effectBounds){
-      const effect=fan.effectBounds(owner.camera,width,height),x=Math.max(0,Math.floor(Math.min(bounds.x,effect.x))),y=Math.max(0,Math.floor(Math.min(bounds.y,effect.y)));
-      const right=Math.min(width,Math.ceil(Math.max(bounds.x+bounds.width,effect.x+effect.width))),top=Math.min(height,Math.ceil(Math.max(bounds.y+bounds.height,effect.y+effect.height)));
+    const effect=fan.effectBounds?.(owner.camera,width,height);
+    if(effect){
+      const regions=[bounds,effect].filter(Boolean),x=Math.max(0,Math.floor(Math.min(...regions.map(r=>r.x)))),y=Math.max(0,Math.floor(Math.min(...regions.map(r=>r.y))));
+      const right=Math.min(width,Math.ceil(Math.max(...regions.map(r=>r.x+r.width)))),top=Math.min(height,Math.ceil(Math.max(...regions.map(r=>r.y+r.height))));
       bounds={x,y,width:right-x,height:top-y};
     }
     if(bounds&&optical){

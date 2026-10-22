@@ -16,7 +16,11 @@ function readSourceDepth(depth){
 }
 
 export class PlateRenderer extends Renderer {
-  constructor(canvas){super(canvas);this.cache=new Map();this.moveVersion=0;}
+  constructor(canvas){super(canvas);this.cache=new Map();this.moveVersion=0;this.pendingLayers=0;this.canvas.dataset.pendingLayers='0';}
+  trackLayer(task){
+    this.canvas.dataset.pendingLayers=String(++this.pendingLayers);
+    return task.finally(()=>{this.canvas.dataset.pendingLayers=String(--this.pendingLayers);});
+  }
   async load(scene,onProgress){
     ++this.moveVersion;
     this.ready=false;this.plate=null;this.entry=null;this.pack=null;this.packBase=null;this.canvas.dataset.detailWidth='';this.canvas.dataset.detailDepthWidth='';
@@ -107,10 +111,10 @@ export class PlateRenderer extends Renderer {
     const cacheKey=base+id;let resource=this.cache.get(cacheKey);
     if(!resource){
       const loader=new T.TextureLoader();
-      resource=Promise.all([loader.loadAsync(base+entry.file,e=>onProgress(e.loaded,e.total)),loader.loadAsync(base+entry.depth)]).then(([image,depth])=>{
+      resource=this.trackLayer(Promise.all([loader.loadAsync(base+entry.file,e=>onProgress(e.loaded,e.total)),loader.loadAsync(base+entry.depth)]).then(([image,depth])=>{
         image=decodeRadianceTexture(image,encoding,Math.min(4,this.renderer.capabilities.getMaxAnisotropy()));
         return {image,...readSourceDepth(depth)};
-      }).catch(error=>{this.cache.delete(cacheKey);throw error;});
+      }).catch(error=>{this.cache.delete(cacheKey);throw error;}));
       this.cache.set(cacheKey,resource);
     }else{this.cache.delete(cacheKey);this.cache.set(cacheKey,resource);}
     const loaded=await resource;if(version!==this.moveVersion)return;
@@ -138,7 +142,7 @@ export class PlateRenderer extends Renderer {
     if(needed<resource.image.image.width*1.15||entry.detailWidth>this.renderer.capabilities.maxTextureSize)return;
     resource.detailLoading=true;const base=this.packBase,encoding=this.pack.detail?.encoding||this.pack.encoding;
     const loader=new T.TextureLoader();
-    resource.detailTask=Promise.all([loader.loadAsync(base+entry.detailFile),entry.detailDepth?loader.loadAsync(base+entry.detailDepth):Promise.resolve(null)]).then(([encoded,depth])=>{
+    resource.detailTask=this.trackLayer(Promise.all([loader.loadAsync(base+entry.detailFile),entry.detailDepth?loader.loadAsync(base+entry.detailDepth):Promise.resolve(null)]).then(([encoded,depth])=>{
       // Only the currently selected room/position may promote a late detail map.
       if(resource!==this.plate||base!==this.packBase){encoded.dispose();depth?.dispose();return;}
       const linear=decodeRadianceTexture(encoded,encoding,Math.min(4,this.renderer.capabilities.getMaxAnisotropy()));
@@ -146,7 +150,7 @@ export class PlateRenderer extends Renderer {
       if(depth){const upgraded=readSourceDepth(depth);resource.depth.dispose();Object.assign(resource,upgraded);this.plateUniforms.depth.value=depth;this.canvas.dataset.detailDepthWidth=String(upgraded.width);}
       this.plateUniforms.flashImage.value=resource.flash||linear;
       this.canvas.dataset.detailWidth=String(linear.image.width);this.trimDecodedCache();this.onTextureUpdate?.();
-    }).catch(()=>{resource.detailFailed=true;if(resource===this.plate)this.onLayerError?.('高精度图',()=>{resource.detailFailed=false;this.ensureDetail(s,width);});}).finally(()=>{resource.detailLoading=false;});
+    }).catch(()=>{resource.detailFailed=true;if(resource===this.plate)this.onLayerError?.('高精度图',()=>{resource.detailFailed=false;this.ensureDetail(s,width);});}).finally(()=>{resource.detailLoading=false;}));
     return resource.detailTask;
   }
   async prepareCapture(s,width){
@@ -158,11 +162,11 @@ export class PlateRenderer extends Renderer {
     const resource=this.plate,entry=this.entry,base=this.packBase,encoding=this.pack.flash?.encoding||this.pack.encoding;
     if(!entry.flash||resource.flash||resource.flashLoading||resource.flashFailed)return;
     resource.flashLoading=true;
-    resource.flashTask=new T.TextureLoader().loadAsync(base+entry.flash).then(encoded=>{
+    resource.flashTask=this.trackLayer(new T.TextureLoader().loadAsync(base+entry.flash).then(encoded=>{
       if(resource!==this.plate||base!==this.packBase){encoded.dispose();return;}
       resource.flash=decodeRadianceTexture(encoded,encoding,Math.min(4,this.renderer.capabilities.getMaxAnisotropy()));
       this.plateUniforms.flashImage.value=resource.flash;this.trimDecodedCache();this.onTextureUpdate?.();
-    }).catch(()=>{resource.flashFailed=true;if(resource===this.plate)this.onLayerError?.('闪光层',()=>{resource.flashFailed=false;this.ensureFlash();});}).finally(()=>{resource.flashLoading=false;});
+    }).catch(()=>{resource.flashFailed=true;if(resource===this.plate)this.onLayerError?.('闪光层',()=>{resource.flashFailed=false;this.ensureFlash();});}).finally(()=>{resource.flashLoading=false;}));
   }
   geometry(s){
     if(!this.plateMode)return super.geometry(s);
@@ -196,22 +200,23 @@ export class PlateRenderer extends Renderer {
     const p=this.fan.center(),view=p.clone().applyMatrix4(this.camera.matrixWorldInverse),uv=p.project(this.camera);
     return {x:uv.x*.5+.5,y:uv.y*.5+.5,z:-view.z};
   }
-  renderPlate(s,exposure,time,flash=true){
-    if(!this.plateMode)return super.renderPlate(s,exposure,time,flash);
+  renderPlate(s,exposure,time,flash=true,integrate=true){
+    if(!this.plateMode)return super.renderPlate(s,exposure,time,flash,integrate);
     this.geometry(s);this.fan?.setQuality(this.camera,this.target.width,this.target.height);this.updateMotion(s,exposure,time);
     if(flash&&s.flash>0)this.ensureFlash();
     const amount=flash?s.flash*(this.pack.flash?.referenceDuration??.01)/exposure.shutter:0;
     this.setRadianceScale(amount);
     this.plateUniforms.flashStrength.value=this.plate.flash?amount:0;
+    this.canvas.dataset.flashReady=String(Boolean(this.plate.flash));
     this.flashLight.position.copy(this.camera.position).addScaledVector(new T.Vector3(0,0,-1).applyQuaternion(this.anchorRotation),this.pack.flash?.originOffsetForward??0);this.flashLight.intensity=flash?s.flash*(this.pack.flash?.referenceEnergy??1000)/Math.PI*(this.pack.flash?.referenceDuration??.01)/exposure.shutter:0;
     if(!this.fan){
-      const samples=s.motion?this.motionSubject.exposure(time,exposure.shutter):[{time,weight:1}];
-      this.integrator.render(this,samples,time,flash&&!this.sourceView);return;
+      const samples=integrate&&s.motion?this.motionSubject.exposure(time,exposure.shutter):[{time,weight:1}];
+      this.integrator.render(this,samples,time,integrate&&flash&&!this.sourceView);return;
     }
     const bounds=this.fan.bounds(this.camera,this.target.width,this.target.height);
     const radius=bounds?Math.max(bounds.width,bounds.height)/2:0;
-    const samples=s.motion?periodicExposureSamples(time,exposure.shutter,this.fan.period,24,radius*2*Math.PI/3):[{time:0,weight:1}];
-    this.integrator.render(this,samples,s.motion?time:0,flash&&!this.sourceView);
+    const samples=integrate&&s.motion?periodicExposureSamples(time,exposure.shutter,this.fan.period,24,radius*2*Math.PI/3):[{time:s.motion?time:0,weight:1}];
+    this.integrator.render(this,samples,s.motion?time:0,integrate&&flash&&!this.sourceView);
   }
   hitAt(x,y){
     if(!this.plateMode)return super.hitAt(x,y);
