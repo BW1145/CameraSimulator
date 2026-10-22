@@ -6,9 +6,9 @@ import {openControl,setRange,setRanges,waitFrame} from './controls.js';
 test('photographic mirror depth changes focus and blur without changing surface occlusion',async({page})=>{
   const manifest=JSON.parse(await readFile('public/scenes/barbershop-plates/manifest.json','utf8'));
   const view=manifest.views[0];delete view.detailFile;delete manifest.subjects;view.opticalDepth='fixture-optics.png';
-  const depth=async z=>{const n=Math.round(z/64*65535);return sharp(Buffer.from([n>>8,n&255,0]),{raw:{width:1,height:1,channels:3}}).resize(64,32,{kernel:'nearest'}).png().toBuffer();};
+  const depth=async(z,mirror=false)=>{const n=Math.round(z/64*65535),pixels=Buffer.alloc(64*32*3);for(let i=0;i<64*32;i++){pixels[i*3]=n>>8;pixels[i*3+1]=n&255;pixels[i*3+2]=mirror&&i%64>=16?255:0;}return sharp(pixels,{raw:{width:64,height:32,channels:3}}).png().toBuffer();};
   const image=Buffer.alloc(64*32*3);for(let y=0;y<32;y++)for(let x=0;x<64;x++){const i=(y*64+x)*3;image[i]=x<32?160:64;image[i+1]=image[i+2]=64;}
-  const color=await sharp(image,{raw:{width:64,height:32,channels:3}}).webp({lossless:true}).toBuffer(),physical=await depth(1.5),optical=await depth(8),errors=[];
+  const color=await sharp(image,{raw:{width:64,height:32,channels:3}}).webp({lossless:true}).toBuffer(),physical=await depth(1.5),optical=await depth(8,true),errors=[];
   page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
   await page.route('**/barbershop-plates/manifest.json',r=>r.fulfill({json:manifest}));
   await page.route('**/barbershop-plates/center.webp',r=>r.fulfill({contentType:'image/webp',body:color}));
@@ -25,4 +25,6 @@ test('photographic mirror depth changes focus and blur without changing surface 
   await openControl(page,'pause');await page.locator('#pause').check();await page.locator('#motion').check();await waitFrame(page);
   await canvas.click({position:{x:box.width/2,y:box.height/2}});await waitFrame(page);
   expect(Number(await canvas.getAttribute('data-focus'))).toBeCloseTo(8,1);expect(errors).toEqual([]);
+  await setRange(page,'focal',20);await canvas.click({position:{x:box.width*.02,y:box.height/2}});await waitFrame(page);
+  expect(Number(await canvas.getAttribute('data-focus'))).toBeCloseTo(1.5,1);
 });

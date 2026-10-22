@@ -33,4 +33,4 @@ node tools/package-mirror-depth.mjs .assets-cache/barbershop-optics public/scene
 npm run audit:assets
 ```
 
-The source BVH traces one reflected ray for pixels on actual mirror triangles. Geometric path length unfolds into axial camera-Z with a 64m encoding range. The physical Z images remain available for foreground occlusion. Manifests retain their existing ambient/detail/flash layers and record the new optical sidecars separately. The seven sidecars use the source scene's attribution and adaptation license.
+The source BVH traces one reflected ray for pixels on actual mirror triangles. Geometric path length unfolds into axial camera-Z with a 64m encoding range in red/green; blue marks pixels whose optical path is longer than the physical path. Only marked mirror pixels override lens/focus distance, preserving upgraded detail depth elsewhere. The physical Z images remain available for foreground occlusion. Manifests retain their existing ambient/detail/flash layers and record the new optical sidecars separately. The seven sidecars use the source scene's attribution and adaptation license.

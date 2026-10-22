@@ -232,7 +232,7 @@ export class PlateRenderer extends Renderer {
     const radial=z/this.raycaster.ray.direction.dot(this.camera.getWorldDirection(new T.Vector3()));
     const point=this.raycaster.ray.at(radial,new T.Vector3());
     const optical=p.optical;
-    if(optical){const col=Math.min(optical.width-1,Math.floor(uv.x*optical.width)),row=Math.min(optical.height-1,Math.floor((1-uv.y)*optical.height)),i=(row*optical.width+col)*4;const virtualZ=(optical.pixels[i]*256+optical.pixels[i+1])/65535*64/uv.depthScale;this.raycaster.ray.at(radial*virtualZ/z,point);}
+    if(optical){const col=Math.min(optical.width-1,Math.floor(uv.x*optical.width)),row=Math.min(optical.height-1,Math.floor((1-uv.y)*optical.height)),i=(row*optical.width+col)*4;if(optical.pixels[i+2]>127){const virtualZ=(optical.pixels[i]*256+optical.pixels[i+1])/65535*64/uv.depthScale;this.raycaster.ray.at(radial*virtualZ/z,point);}}
     let hit={z:-point.clone().applyMatrix4(this.camera.matrixWorldInverse).z,point,ball:false};
     if(this.fan){const fan=this.raycaster.intersectObject(this.fan.group,true).find(hit=>hit.object.visible&&hit.object.userData.focusable!==false);if(fan&&fan.distance<radial)hit={z:-fan.point.clone().applyMatrix4(this.camera.matrixWorldInverse).z,point:fan.point,ball:false,track:{object:fan.object,localPoint:fan.object.worldToLocal(fan.point.clone())}};}
     if(this.ballGroup.visible){const ball=this.raycaster.intersectObject(this.balls[0])[0];if(ball&&ball.distance<radial)hit={z:-ball.point.clone().applyMatrix4(this.camera.matrixWorldInverse).z,point:ball.point,ball:true};}

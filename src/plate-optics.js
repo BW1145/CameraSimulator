@@ -11,7 +11,7 @@ export class PlateOptics {
         void main(){float d=texture2D(physical,p).r;float z=nearClip*farClip/(farClip-(farClip-nearClip)*d);
           vec4 ray=rayToCapture*vec4((p*2.-1.+viewShift)*tanHalfFov,-1.,0.);vec2 uv=ray.xy/ray.w*.5+.5;
           if(all(greaterThanEqual(uv,vec2(0.)))&&all(lessThanEqual(uv,vec2(1.)))){
-            float realZ=axial(source,uv)/ray.w;if(abs(realZ-z)<.025)z=axial(virtualImage,uv)/ray.w;
+            float realZ=axial(source,uv)/ray.w;if(texture2D(virtualImage,uv).b>.5&&abs(realZ-z)<.025)z=axial(virtualImage,uv)/ray.w;
           }gl_FragColor=vec4(vec3(z),1.);}`});
     this.scene=new T.Scene();this.scene.add(new T.Mesh(new T.PlaneGeometry(2,2),this.material));this.camera=new T.Camera();
   }

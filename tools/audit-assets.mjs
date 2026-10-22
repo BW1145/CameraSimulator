@@ -39,6 +39,7 @@ for(const scene of SCENES){
           const virtualZ=optical.data[i*optical.info.channels]*256+optical.data[i*optical.info.channels+1];
           const physicalZ=physical.data[i*physical.info.channels]*256+physical.data[i*physical.info.channels+1];
           assert.ok(virtualZ>=physicalZ-1,`${scene.id}/${view.id}: reflected path must reach the mirror first`);
+          assert.equal(optical.data[i*optical.info.channels+2],virtualZ>physicalZ+1?255:0);
           if(virtualZ>physicalZ+1)changed++;
         }
         const record=pack.optics.views.find(v=>v.id===view.id);

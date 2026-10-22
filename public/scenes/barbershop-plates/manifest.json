@@ -176,7 +176,7 @@
       "detailDepthHeight": 1072,
       "detailDepthBytes": 1402489,
       "opticalDepth": "center-optical-depth.png",
-      "opticalDepthBytes": 502382
+      "opticalDepthBytes": 503536
     },
     {
       "id": "left",
@@ -270,7 +270,7 @@
       "detailDepthHeight": 1072,
       "detailDepthBytes": 1402176,
       "opticalDepth": "left-optical-depth.png",
-      "opticalDepthBytes": 501522
+      "opticalDepthBytes": 502277
     },
     {
       "id": "right",
@@ -364,7 +364,7 @@
       "detailDepthHeight": 1072,
       "detailDepthBytes": 1396404,
       "opticalDepth": "right-optical-depth.png",
-      "opticalDepthBytes": 494524
+      "opticalDepthBytes": 496190
     },
     {
       "id": "up",
@@ -458,7 +458,7 @@
       "detailDepthHeight": 1072,
       "detailDepthBytes": 1393527,
       "opticalDepth": "up-optical-depth.png",
-      "opticalDepthBytes": 504579
+      "opticalDepthBytes": 505842
     },
     {
       "id": "down",
@@ -552,7 +552,7 @@
       "detailDepthHeight": 1072,
       "detailDepthBytes": 1379612,
       "opticalDepth": "down-optical-depth.png",
-      "opticalDepthBytes": 485933
+      "opticalDepthBytes": 487031
     },
     {
       "id": "front",
@@ -646,7 +646,7 @@
       "detailDepthHeight": 1072,
       "detailDepthBytes": 1405765,
       "opticalDepth": "front-optical-depth.png",
-      "opticalDepthBytes": 509620
+      "opticalDepthBytes": 511493
     },
     {
       "id": "back",
@@ -740,7 +740,7 @@
       "detailDepthHeight": 1072,
       "detailDepthBytes": 1456630,
       "opticalDepth": "back-optical-depth.png",
-      "opticalDepthBytes": 503414
+      "opticalDepthBytes": 504305
     }
   ],
   "totalBytes": 15439316,
@@ -1590,6 +1590,7 @@
         "reflectedPixels": 2815,
         "maximumVirtualZ": 64
       }
-    ]
+    ],
+    "maskChannel": "blue"
   }
 }
