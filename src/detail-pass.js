@@ -1,6 +1,7 @@
 import * as T from 'three';
 import {TemporalIntegrator} from './temporal-integrator.js';
 import {PlateOptics} from './plate-optics.js';
+import {AsyncReadback} from './async-readback.js';
 
 // A small padded photographic render, independent of preview size and metering.
 export class DetailPass {
@@ -9,8 +10,10 @@ export class DetailPass {
     this.target.samples=owner.target.samples;this.target.resolveDepthBuffer=true;
     this.output=new T.WebGLRenderTarget(1,1,{type:T.UnsignedByteType,depthBuffer:false});
     this.integrator=new TemporalIntegrator();
+    this.readback=new AsyncReadback();
   }
-  render(owner,s,exposure,time,region,destination) {
+  render(owner,s,exposure,time,region,destination,request={}) {
+    if(!this.readback.available)return false;
     const gl=owner.renderer;
     const saved={target:owner.target,integrator:owner.integrator,optics:owner.plateOptics,stats:owner.frameStats,
       autoClear:gl.autoClear,clearColor:gl.getClearColor(new T.Color()),clearAlpha:gl.getClearAlpha(),
@@ -28,13 +31,17 @@ export class DetailPass {
       owner.draw(s,exposure,time,false,this.output);
       const bytes=region.outputWidth*region.outputHeight*4;
       if(!this.pixels||this.pixels.length!==bytes)this.pixels=new Uint8Array(bytes);
-      gl.readRenderTargetPixels(this.output,region.readX,region.readY,region.outputWidth,region.outputHeight,this.pixels);
-      if(destination.width!==region.outputWidth||destination.height!==region.outputHeight){destination.width=region.outputWidth;destination.height=region.outputHeight;this.image=null;}
-      const ctx=destination.getContext('2d');
-      this.image??=ctx.createImageData(region.outputWidth,region.outputHeight);
-      const stride=region.outputWidth*4;
-      for(let row=0;row<region.outputHeight;row++)this.image.data.set(this.pixels.subarray(row*stride,(row+1)*stride),(region.outputHeight-1-row)*stride);
-      ctx.putImageData(this.image,0,0);
+      const pixels=this.pixels;
+      // Issue the PBO copy now, then restore every main-photo binding BEFORE
+      // yielding to Three's fence polling. Never hold renderer state over await.
+      this.readback.start(()=>gl.readRenderTargetPixelsAsync(this.output,region.readX,region.readY,region.outputWidth,region.outputHeight,pixels),()=>{
+        if(destination.width!==region.outputWidth||destination.height!==region.outputHeight){destination.width=region.outputWidth;destination.height=region.outputHeight;this.image=null;}
+        const ctx=destination.getContext('2d');
+        this.image??=ctx.createImageData(region.outputWidth,region.outputHeight);
+        const stride=region.outputWidth*4;
+        for(let row=0;row<region.outputHeight;row++)this.image.data.set(pixels.subarray(row*stride,(row+1)*stride),(region.outputHeight-1-row)*stride);
+        ctx.putImageData(this.image,0,0);request.onCommit?.();
+      },request.isCurrent,request.onError);
     } finally {
       owner.detailView=null;owner.target=saved.target;owner.integrator=saved.integrator;owner.plateOptics=saved.optics;
       owner.geometry(s);owner.fan?.setQuality(owner.camera,owner.target.width,owner.target.height);owner.updateMotion(s,exposure,time);
@@ -45,6 +52,7 @@ export class DetailPass {
       owner.flashLight.intensity=saved.flashPower;owner.plateUniforms.flashStrength.value=saved.roomFlash;
       gl.setRenderTarget(saved.renderTarget);gl.setViewport(saved.viewport);gl.setScissor(saved.scissor);gl.setScissorTest(saved.scissorTest);
     }
+    return true;
   }
-  dispose(){this.target.dispose();this.output.dispose();this.integrator.dispose();this.optics?.dispose();}
+  dispose(){this.readback.dispose();this.target.dispose();this.output.dispose();this.integrator.dispose();this.optics?.dispose();}
 }

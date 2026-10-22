@@ -20,7 +20,7 @@ if(sourceView||usePlates){
 }
 let dirty=true,meterDirty=true,ready=false,lastFrame=0,lastAnalysis=0,clock=0,lastClock=performance.now(),track=null,point={x:.5,y:.5},loadVersion=0;
 let pointer=null,hover=null;
-let frameRevision=0,displayedFrame=null,displayedSerial=0,lastMagnifierAt=0,magnifierKey=null;
+let frameRevision=0,displayedFrame=null,displayedSerial=0,lastMagnifierAt=0,magnifierKey=null,magnifierCommittedRegion=null;
 const tables={aperture:APERTURES,shutter:SHUTTERS,iso:ISOS};
 const numeric=['wb','focal','focus','compensation','flash','x','y','z','yaw','pitch','roll'];
 const selects=['mode','metering','af','crop','sensor'];
@@ -45,7 +45,7 @@ async function changePosition(){
 }
 for(const item of SCENES)$('scene').add(new Option(item.name,item.id));
 
-function discardDisplayedFrame(){displayedFrame=null;magnifierKey=null;$('magnifier').hidden=true;}
+function discardDisplayedFrame(){displayedFrame=null;magnifierKey=null;magnifierCommittedRegion=null;$('magnifier').hidden=true;renderer?.analysisReadback.invalidate();renderer?.detailPass?.readback.invalidate();}
 function invalidate(geometry=true){discardDisplayedFrame();dirty=true;canvas.dataset.ready='false';canvas.dataset.requestedFrame=String(++frameRevision);if(geometry)meterDirty=true;}
 if(renderer){renderer.onTextureUpdate=()=>{canvas.dataset.ready='false';invalidate();$('hint').textContent=renderer.plateMode?'点击对焦 · 拖动取景':'点击对焦 · 拖动转向 · WASD 移动';};renderer.onLayerError=(name,retry)=>{$('hint').textContent=`${name}加载失败 `;const button=document.createElement('button');button.textContent='重试';button.onclick=retry;$('hint').append(button);};}
 function resetView(){for(const key of ['x','y','z','yaw','pitch','roll'])s[key]=0;track=null;point={x:.5,y:.5};invalidate();sync();if(ready&&renderer.plateMode)changePosition();}
@@ -156,7 +156,7 @@ canvas.addEventListener('pointermove',e=>{
 });
 canvas.addEventListener('pointerup',e=>{const box=canvas.getBoundingClientRect();if(pointer&&!pointer.dragged)focusAt((e.clientX-box.left)/box.width,1-(e.clientY-box.top)/box.height);pointer=null;});
 canvas.addEventListener('pointercancel',()=>{pointer=null;});
-canvas.addEventListener('pointerleave',()=>{hover=null;$('magnifier').hidden=true;});
+canvas.addEventListener('pointerleave',()=>{hover=null;magnifierKey=null;renderer.detailPass?.readback.invalidate();$('magnifier').hidden=true;});
 canvas.addEventListener('keydown',e=>{
   const movements={w:['z',.15],s:['z',-.15],a:['x',-.15],d:['x',.15],q:['y',-.15],e:['y',.15],ArrowLeft:['yaw',3],ArrowRight:['yaw',-3],ArrowUp:['pitch',3],ArrowDown:['pitch',-3]};
   const move=movements[e.key];if(!move)return;e.preventDefault();const [key,amount]=move,input=$(key);s[key]=clamp(s[key]+(renderer.plateMode&&['x','y','z'].includes(key)?Math.sign(amount)*Number(input.step):amount),Number(input.min),Number(input.max));renderer.constrain?.(s,key);invalidate();sync();if(['x','y','z'].includes(key))changePosition();
@@ -168,20 +168,40 @@ function magnify(now=performance.now()){
   magnifier.style.left=`${clamp(hover.x*box.width-width-10,0,Math.max(0,box.width-width-2))}px`;
   magnifier.style.top=`${clamp(hover.y*box.height-height-10,0,Math.max(0,box.height-height-2))}px`;
   const region=detailRegion(box.width,box.height,hover.x,hover.y,width,height,2.5,window.devicePixelRatio);
+  const regionKey=JSON.stringify([frameRevision,region]);
   const key=JSON.stringify([displayedSerial,region]);
   if(key===magnifierKey||now-lastMagnifierAt<1000/30)return;
+  // Under motion, keep the last COMPLETED snapshot for this unchanged crop
+  // visible while the next one waits. Requiring the newest animation serial
+  // would starve both aids whenever a fence takes longer than one frame.
+  if(regionKey!==magnifierCommittedRegion)magnifier.style.visibility='hidden';
+  if(renderer.detailPass?.readback.pending)return;
   lastMagnifierAt=now;
-  const frame=displayedFrame;
-  if(renderer.drawDetail?.(frame.settings,frame.exposure,frame.time,region,magnifier)){
-    magnifier.dataset.source='detail-render';
+  const frame=displayedFrame,revision=frameRevision,serial=displayedSerial;
+  const isCurrent=()=>{
+    if(!(revision===frameRevision&&displayedFrame&&ready&&s.magnifier&&hover&&!pointer?.dragged&&!document.hidden))return false;
+    // Pointer events can precede the next RAF. Compare the actual quantized
+    // crop now, not a raw-coordinate generation or last RAF's hover cache.
+    const box=view.getBoundingClientRect();
+    return regionKey===JSON.stringify([frameRevision,detailRegion(box.width,box.height,hover.x,hover.y,magnifier.clientWidth,magnifier.clientHeight,2.5,window.devicePixelRatio)]);
+  };
+  const diagnostics=renderer.diagnostics,standalone=!diagnostics.current;
+  if(standalone)diagnostics.begin('magnifier',frameRevision);
+  let handled;
+  try{handled=diagnostics.measure('magnifier',()=>renderer.drawDetail?.(frame.settings,frame.exposure,frame.time,region,magnifier,{
+    isCurrent,
+    onCommit:()=>{magnifierKey=key;magnifierCommittedRegion=regionKey;magnifier.dataset.source='detail-render';magnifier.dataset.sourceFrame=String(serial);magnifier.dataset.sourceTime=String(frame.time);magnifier.dataset.state='ready';magnifier.style.visibility='visible';},
+    onError:()=>{magnifierKey=null;magnifier.dataset.state='error';},
+  }));}finally{if(standalone)diagnostics.end();}
+  if(handled){
+    magnifier.dataset.state='pending';
   }else{
     magnifier.width=region.outputWidth;magnifier.height=region.outputHeight;
     const sx=(region.centerX-region.spanX+1)*.5*canvas.width+region.readX/region.fullWidth*canvas.width;
     const sy=(1-region.centerY-region.spanY)*.5*canvas.height+(region.height-region.readY-region.outputHeight)/region.fullHeight*canvas.height;
     magnifier.getContext('2d').drawImage(canvas,sx,sy,region.outputWidth/region.fullWidth*canvas.width,region.outputHeight/region.fullHeight*canvas.height,0,0,magnifier.width,magnifier.height);
-    magnifier.dataset.source='preview';
+    magnifier.dataset.source='preview';magnifier.style.visibility='visible';magnifierKey=key;magnifierCommittedRegion=regionKey;
   }
-  magnifierKey=key;
 }
 
 function drawHistogram(pixels){
@@ -205,25 +225,34 @@ function animate(now){
   if(moving)clock+=elapsed;
   if((!dirty&&!moving)||now-lastFrame<1000/30){magnify(now);return;}
   lastFrame=now;
+  renderer.diagnostics.begin('preview',frameRevision);
+  try{
   const analyse=dirty||now-lastAnalysis>300;
   resolveCurrentFrame(analyse);
   if(analyse)lastAnalysis=now;
   magnify(now);dirty=false;canvas.dataset.frame=String(frameRevision);canvas.dataset.ready='true';
   canvas.dataset.triangles=renderer.frameStats.triangles;canvas.dataset.drawCalls=renderer.frameStats.calls;
   if(s.motion){const ball=renderer.ballPosition(clock);canvas.dataset.ballX=ball.x;canvas.dataset.ballY=ball.y;}
+  }finally{renderer.diagnostics.end();}
 }
 function resolveCurrentFrame(analyse=true){
   renderer.geometry(s);updateFocus();
   if(meterDirty||(s.motion&&analyse)){
-    const p=renderer.readPlate(s,resolved,clock);
+    const p=renderer.diagnostics.measure('meter',()=>renderer.readPlate(s,resolved,clock));
     const luminance=meterLinearPixels(p,renderer.analysisWidth,renderer.analysisHeight,s.metering,point);
     meterEV=scene.baseEV+renderer.exposureOffset+Math.log2(luminance/.18);meterDirty=false;
     canvas.dataset.meterEv=meterEV.toFixed(5);
   }
   resolved=resolveExposure(s,meterEV);resolved.ev=ev100(resolved.aperture,resolved.shutter,resolved.iso);
-  const p=renderer.draw(s,resolved,clock,analyse);
+  const revision=frameRevision,serial=displayedSerial+1,clockAtRequest=clock;
+  const analysis=analyse&&s.histogram?{
+    isCurrent:()=>ready&&s.histogram&&!document.hidden&&revision===frameRevision,
+    onPixels:pixels=>{drawHistogram(pixels);$('histogram-view').dataset.frame=String(revision);$('histogram-view').dataset.sourceFrame=String(serial);$('histogram-view').dataset.sourceTime=String(clockAtRequest);},
+  }:false;
+  renderer.diagnostics.measure('photograph',()=>renderer.draw(s,resolved,clock,analysis));
   displayedFrame={settings:{...s},exposure:{...resolved},time:clock};displayedSerial++;
-  if(analyse){if(s.histogram)drawHistogram(p);sync();}
+  // Async aid completion updates only its own canvas, never dirty/meterDirty.
+  if(analyse)sync();
 }
 $('capture').addEventListener('click',async()=>{
   if(!ready)return;
@@ -239,5 +268,10 @@ $('capture').addEventListener('click',async()=>{
   canvas.toBlob(blob=>{if(!blob)return;const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`camera-${scene.id}.png`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);},'image/png');
   renderer.resize(...size);
   invalidate(false);
+});
+if(renderer?.diagnostics.enabled)window.__cameraDiagnostics={snapshot:()=>renderer.diagnostics.snapshot()};
+document.addEventListener('visibilitychange',()=>{
+  if(document.hidden){renderer?.analysisReadback.invalidate();renderer?.detailPass?.readback.invalidate();magnifierKey=null;}
+  else if(s.histogram)invalidate(false);
 });
 sync();resize();loadScene(scene.id);requestAnimationFrame(animate);

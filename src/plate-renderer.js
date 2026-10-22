@@ -229,10 +229,11 @@ export class PlateRenderer extends Renderer {
     const vertical=Math.tan(this.camera.fov*Math.PI/360);this.plateUniforms.tanHalfFov.value.set(vertical*aspect,vertical);
     this.ensureDetail(s,this.detailView?.fullWidth??this.canvas.width);this.applyDetailView();
   }
-  drawDetail(s,exposure,time,region,destination){
+  drawDetail(s,exposure,time,region,destination,request){
     if(!this.ready||!this.plateMode)return false;
     this.detailPass??=new DetailPass(this);
-    this.detailPass.render(this,s,exposure,time,region,destination);return true;
+    // A busy pass is handled (not a request to upscale preview pixels).
+    this.detailPass.render(this,s,exposure,time,region,destination,request);return true;
   }
   uvAt(x,y){
     const t=this.plateUniforms.tanHalfFov.value;

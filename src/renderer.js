@@ -5,6 +5,8 @@ import {roomLighting,sourceMatteMaterial} from './lighting.js';
 import {reflectPoint} from './mirror-optics.js';
 import {HDRLoader} from 'three/addons/loaders/HDRLoader.js';
 import {decodeRadianceTexture} from './linear-radiance.js';
+import {AsyncReadback} from './async-readback.js';
+import {FrameDiagnostics} from './frame-diagnostics.js';
 
 const vertex=`varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}`;
 const fragment=`
@@ -95,6 +97,8 @@ export class Renderer {
     this.renderer=new T.WebGLRenderer({canvas,antialias:false,alpha:false,preserveDrawingBuffer:true,powerPreference:'high-performance'});
     this.renderer.setPixelRatio(1);this.renderer.outputColorSpace=T.LinearSRGBColorSpace;this.renderer.toneMapping=T.NoToneMapping;
     this.renderer.shadowMap.enabled=true;this.renderer.shadowMap.type=T.PCFSoftShadowMap;
+    this.diagnostics=new FrameDiagnostics(this.renderer,new URLSearchParams(location.search).get('diagnostics')==='performance');
+    this.analysisReadback=new AsyncReadback();
     this.camera=new T.PerspectiveCamera(50,1.5,.03,150);
     this.raycaster=new T.Raycaster();this.anchor=new T.Vector3();this.anchorRotation=new T.Quaternion();
     this.target=new T.WebGLRenderTarget(1,1,{type:T.HalfFloatType,depthTexture:new T.DepthTexture(1,1,T.UnsignedIntType)});
@@ -200,6 +204,7 @@ export class Renderer {
   resize(width,height){
     width=Math.round(width);height=Math.round(height);
     if(this.canvas.width===width&&this.canvas.height===height&&this.pixels)return;
+    this.analysisReadback.invalidate();
     this.renderer.setSize(width,height,false);this.target.setSize(width,height);
     // Metering and histogram do not need a multi-megapixel GPU readback.
     this.analysisWidth=Math.min(256,width);this.analysisHeight=Math.max(1,Math.round(this.analysisWidth*height/width));
@@ -315,6 +320,16 @@ export class Renderer {
     this.renderer.setRenderTarget(this.meterTarget);this.renderer.render(this.postScene,this.postCamera);
     this.renderer.readRenderTargetPixels(this.meterTarget,0,0,this.analysisWidth,this.analysisHeight,this.meterLight);u.meteringPass.value=false;if(!this.plateMode)u.plate.value=target.texture;return this.meterLight;
   }
+  flushAnalysis(queued=false){
+    if(!this.analysisReadback.available||!this.latestAnalysis)return;
+    const next=this.latestAnalysis;this.latestAnalysis=null;
+    if(next.version!==this.analysisReadback.version||(queued&&!next.request.isCurrent()))return;
+    const bytes=next.width*next.height*4;
+    if(!this.analysisPixels||this.analysisPixels.length!==bytes)this.analysisPixels=new Uint8Array(bytes);
+    const pixels=this.analysisPixels,request=next.request;
+    this.analysisReadback.start(()=>this.renderer.readRenderTargetPixelsAsync(this.analysisTarget,0,0,next.width,next.height,pixels),
+      request.onPixels,request.isCurrent,request.onError,()=>this.flushAnalysis(true));
+  }
   draw(s,exposure,time,analyse=false,output=null){
     if(!this.ready)return;
     this.geometry(s);
@@ -323,9 +338,17 @@ export class Renderer {
     this.uniforms.pixelOrigin.value.set(this.detailView?.originX??0,this.detailView?.originY??0);
     this.uniforms.skipLens.value=false;this.uniforms.lensOnly.value=false;
     this.renderPlate(s,exposure,time);
+    // Histogram delivery can lag a frame; metering above deliberately remains
+    // synchronous so auto-exposure still resolves from THIS frame's light.
+    // While a readback is in flight the target holds only the NEWEST requested
+    // histogram. Coalesce delivery to that one snapshot when the slot frees;
+    // it must not require another whole-photograph render on a static scene.
     if(analyse){
       this.renderer.setRenderTarget(this.analysisTarget);this.renderer.render(this.postScene,this.postCamera);
-      this.renderer.readRenderTargetPixels(this.analysisTarget,0,0,this.analysisWidth,this.analysisHeight,this.pixels);
+      if(typeof analyse==='object'){
+        this.latestAnalysis={version:this.analysisReadback.version,width:this.analysisWidth,height:this.analysisHeight,request:analyse};
+        this.flushAnalysis();
+      }else this.renderer.readRenderTargetPixels(this.analysisTarget,0,0,this.analysisWidth,this.analysisHeight,this.pixels);
     }
     this.uniforms.zebra.value=s.zebra;
     this.renderer.setRenderTarget(output);this.renderer.render(this.postScene,this.postCamera);return this.pixels;
