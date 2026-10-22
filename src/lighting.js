@@ -109,9 +109,22 @@ export function tabletopLighting(owner,config){
     hidden.forEach((o,i)=>o.visible=visible[i]);scene.background=background;renderer.setClearColor(clear,alpha);
   };
   fan.effectBounds=(camera,width,height)=>{
-    let minX=width,minY=height,maxX=0,maxY=0;
-    for(const x of [-.6,.6])for(const z of [-.6,.6]){const v=new T.Vector3(config.position[0]+x,y,config.position[2]+z).project(camera);minX=Math.min(minX,(v.x*.5+.5)*width);maxX=Math.max(maxX,(v.x*.5+.5)*width);minY=Math.min(minY,(v.y*.5+.5)*height);maxY=Math.max(maxY,(v.y*.5+.5)*height);}
-    return {x:minX,y:minY,width:maxX-minX,height:maxY-minY};
+    let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
+    const project=p=>{
+      if(p.clone().applyMatrix4(camera.matrixWorldInverse).z>=-camera.near)return;
+      p.project(camera);const x=(p.x*.5+.5)*width,v=(p.y*.5+.5)*height;
+      minX=Math.min(minX,x);maxX=Math.max(maxX,x);minY=Math.min(minY,v);maxY=Math.max(maxY,v);
+    };
+    const direction=key?new T.Vector3().fromArray(config.position).sub(new T.Vector3().fromArray(key.position)):null;
+    // Only the rotor's reflected and projected-shadow footprints change during
+    // integration. Static marble, fan body and base retain the initial image.
+    for(const x of [-.21,.21])for(const v of [-.21,.21])for(const z of [-.015,.06]){
+      const p=new T.Vector3(x,v,z).applyMatrix4(fan.head.matrixWorld),mirror=p.clone();mirror.y=2*y-p.y;project(mirror);
+      if(direction&&Math.abs(direction.y)>.0001)project(p.clone().addScaledVector(direction,(y+.001-p.y)/direction.y));
+    }
+    const pad=Math.ceil(Math.max(width,height)/384*3)+3;
+    const x=Math.max(0,Math.floor(minX)-pad),v=Math.max(0,Math.floor(minY)-pad),right=Math.min(width,Math.ceil(maxX)+pad),top=Math.min(height,Math.ceil(maxY)+pad);
+    return right>x&&top>v?{x,y:v,width:right-x,height:top-v}:null;
   };
   owner.reflections=[reflection];owner.canvas.dataset.reflections='1';owner.canvas.dataset.environment='source-hdr';
 }

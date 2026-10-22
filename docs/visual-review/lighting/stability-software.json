@@ -1,0 +1,183 @@
+{
+  "renderer": "Chrome with SwiftShader",
+  "tests": [
+    {
+      "title": "switching away during a delayed fan probe cannot replace the selected scene",
+      "status": "passed",
+      "durationMs": 3234
+    },
+    {
+      "title": "default photographic fan conserves static light while the shutter integrates its rotor",
+      "status": "passed",
+      "durationMs": 16366
+    },
+    {
+      "title": "actual high-HDR barber flash and 4603-radiance fixture stay finite at 1/8000 and preserve energy",
+      "status": "passed",
+      "durationMs": 9536
+    },
+    {
+      "title": "live fan uses the same pre-exposure scale during high-power short flash",
+      "status": "passed",
+      "durationMs": 7378
+    },
+    {
+      "title": "legacy Scene Color background receives pre-exposure without a flash brightness jump",
+      "status": "passed",
+      "durationMs": 2765
+    },
+    {
+      "title": "GPU lens preserves focused foreground, softens near silhouettes and scales with export pixels",
+      "status": "passed",
+      "durationMs": 1166
+    },
+    {
+      "title": "tabletop reflection and shadow affect the receiving surface while preserving the room",
+      "status": "passed",
+      "durationMs": 3988
+    },
+    {
+      "title": "planar mirror shows a subject behind the camera and follows actual camera translation",
+      "status": "passed",
+      "durationMs": 1275
+    },
+    {
+      "title": "slow first load tolerates camera controls and dragging before a pack exists",
+      "status": "passed",
+      "durationMs": 2161
+    },
+    {
+      "title": "AF-C preserves an actual fan base hit instead of jumping to the rotor center",
+      "status": "passed",
+      "durationMs": 6092
+    },
+    {
+      "title": "all four photographic packs use independent real positions and load only the selected room",
+      "status": "passed",
+      "durationMs": 21110
+    },
+    {
+      "title": "production photo exposure modes, ISO and compensation share the linear scene meter",
+      "status": "passed",
+      "durationMs": 2212
+    },
+    {
+      "title": "AF-C tracks the clicked moving ball in each photographic room",
+      "status": "passed",
+      "durationMs": 17207
+    },
+    {
+      "title": "static photographs survive hidden layouts, viewport changes and opening controls",
+      "status": "passed",
+      "durationMs": 6984
+    },
+    {
+      "title": "static flash loads on demand, retries failures, and preserves pulse energy across shutter durations",
+      "status": "passed",
+      "durationMs": 2643
+    },
+    {
+      "title": "detail radiance is lazy and a stale pose cannot replace the selected view",
+      "status": "passed",
+      "durationMs": 1838
+    },
+    {
+      "title": "a previous position layer failure does not remain on a healthy selected position",
+      "status": "passed",
+      "durationMs": 1860
+    },
+    {
+      "title": "returning to a failed flash position permits a new request",
+      "status": "passed",
+      "durationMs": 5863
+    },
+    {
+      "title": "source lens shift stays consistent between the photographic ray and click focus",
+      "status": "passed",
+      "durationMs": 1382
+    },
+    {
+      "title": "off-axis autofocus preserves the source axial Z instead of treating it as radial distance",
+      "status": "passed",
+      "durationMs": 1487
+    },
+    {
+      "title": "pre-rendered pack loads one position, meters HDR, and focuses on source depth",
+      "status": "passed",
+      "durationMs": 2025
+    },
+    {
+      "title": "real position selection retries failures, ignores stale loads, and exports portrait crops",
+      "status": "passed",
+      "durationMs": 3836
+    },
+    {
+      "title": "transport log texels are decoded before GPU interpolation and minification",
+      "status": "passed",
+      "durationMs": 1319
+    },
+    {
+      "title": "rule-of-thirds guides paint visible lines over the photograph",
+      "status": "passed",
+      "durationMs": 1805
+    },
+    {
+      "title": "GPU meter reads linear dark values without a display-gamma roundtrip",
+      "status": "passed",
+      "durationMs": 2432
+    },
+    {
+      "title": "dense displays receive scene pixels and mobile capture is independent of preview size",
+      "status": "passed",
+      "durationMs": 20494
+    },
+    {
+      "title": "capture resolves an exposure edit made in the same event turn",
+      "status": "passed",
+      "durationMs": 22388
+    },
+    {
+      "title": "rapid slider edits invalidate the old photograph and finish on the latest visible setting",
+      "status": "passed",
+      "durationMs": 2172
+    },
+    {
+      "title": "four complete scenes load on demand, without browser errors",
+      "status": "passed",
+      "durationMs": 33006
+    },
+    {
+      "title": "exposure, white balance, focus blur, real dolly and focal length alter the frame",
+      "status": "passed",
+      "durationMs": 19711
+    },
+    {
+      "title": "auto exposure compensation, assist overlays, portrait and capture work",
+      "status": "passed",
+      "durationMs": 29832
+    },
+    {
+      "title": "AF-S locks distance and AF-C follows a moving three dimensional subject",
+      "status": "passed",
+      "durationMs": 2395
+    },
+    {
+      "title": "spot metering follows real image regions and fill flash lights the scene",
+      "status": "passed",
+      "durationMs": 13220
+    },
+    {
+      "title": "paused legacy motion target responds to short and long shutter intervals",
+      "status": "passed",
+      "durationMs": 15295
+    },
+    {
+      "title": "bounded shutter integration matches full-frame rendering of reflected and shadowed rotor motion",
+      "status": "passed",
+      "durationMs": 6990
+    }
+  ],
+  "integrationReference": {
+    "meanAbsoluteDifference": 0.027374259359008887
+  }
+}

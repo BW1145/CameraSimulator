@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 import {readFile} from 'node:fs/promises';
 import sharp from 'sharp';
-import {openControl} from './controls.js';
+import {openControl,setRange,waitFrame,waitLayers} from './controls.js';
 
 async function instrument(page){
   await page.addInitScript(()=>{
@@ -25,10 +25,10 @@ async function instrument(page){
     }
   });
 }
-async function input(page,id,value){await openControl(page,id);await page.locator('#'+id).fill(String(value));await page.locator('#'+id).dispatchEvent('input');}
+const input=setRange;
 async function shoot(page,shutter){
   await page.evaluate(()=>{window.hdrAudit=[];window.hdrAuditEnabled=true;});await input(page,'shutter',shutter);
-  await page.waitForTimeout(250);
+  await waitFrame(page);
   const image=page.locator('#image');const scale=Number(await image.getAttribute('data-radiance-scale')),ev=Number(await image.getAttribute('data-ev'));
   await page.evaluate(()=>{window.hdrAuditEnabled=false;});const records=await page.evaluate(()=>window.hdrAudit);
   const relevant=records.filter(record=>record.peak!==undefined&&Math.abs(record.scale-scale)<1e-6);
@@ -52,7 +52,7 @@ test('actual high-HDR barber flash and 4603-radiance fixture stay finite at 1/80
     }
     await page.goto('/?subject=none');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
     await page.locator('button[data-position=right]').click();await expect(page.locator('#image')).toHaveAttribute('data-position','right');
-    await page.locator('#autoISO').uncheck();await input(page,'iso',0);await input(page,'aperture',8);await input(page,'flash',2);await page.waitForTimeout(400);
+    await page.locator('#autoISO').uncheck();await input(page,'iso',0);await input(page,'aperture',8);await input(page,'flash',2);await waitLayers(page);
     const slow=await shoot(page,6),fast=await shoot(page,0);
     console.log('high HDR flash',JSON.stringify({fixture,slow,fast}));
     expect(fast.unscaledPeak).toBeGreaterThan(65504);expect(fast.peak).toBeLessThan(65504);
@@ -73,7 +73,7 @@ test('live fan uses the same pre-exposure scale during high-power short flash',a
   const hdr=Buffer.concat([Buffer.from('#?RADIANCE\nFORMAT=32-bit_rle_rgbe\n\n-Y 2 +X 4\n'),Buffer.alloc(4*2*4)]);
   await page.route('**/barbershop-plates/fan-room.hdr',r=>r.fulfill({contentType:'application/octet-stream',body:hdr}));
   await page.goto('/');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
-  await page.locator('#autoISO').uncheck();await input(page,'iso',0);await input(page,'aperture',8);await input(page,'flash',2);await page.waitForTimeout(400);
+  await page.locator('#autoISO').uncheck();await input(page,'iso',0);await input(page,'aperture',8);await input(page,'flash',2);await waitLayers(page);
   const slow=await shoot(page,6),fast=await shoot(page,0);console.log('live fan HDR flash',JSON.stringify({slow,fast}));
   expect(Math.abs(Math.log2(fast.exposedPeak/slow.exposedPeak))).toBeLessThan(.015);
   expect(Math.abs(fast.mean-slow.mean)).toBeLessThan(1);
@@ -87,7 +87,7 @@ test('legacy Scene Color background receives pre-exposure without a flash bright
   await page.route('**/scenes/barbershop/scene.glb',r=>r.fulfill({json:room}));
   await page.goto('/?renderer=gltf');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
   await page.locator('#autoISO').uncheck();await input(page,'iso',0);await input(page,'aperture',3);await input(page,'shutter',6);
-  const mean=async()=>{await page.mouse.move(0,0);await page.waitForTimeout(150);return (await sharp(await page.locator('#image').screenshot()).stats()).channels.slice(0,3).reduce((sum,c)=>sum+c.mean,0)/3;};
+  const mean=async()=>{await page.mouse.move(0,0);await waitFrame(page);return (await sharp(await page.locator('#image').screenshot()).stats()).channels.slice(0,3).reduce((sum,c)=>sum+c.mean,0)/3;};
   const ambient=await mean();await input(page,'flash',2);const pulse=await mean();
   console.log('legacy background pre-exposure',JSON.stringify({ambient,pulse}));expect(ambient).toBeGreaterThan(10);expect(Math.abs(pulse-ambient)).toBeLessThan(1);
 });

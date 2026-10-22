@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
 import {readFile} from 'node:fs/promises';
-import {openControl} from './controls.js';
+import {openControl,waitFrame} from './controls.js';
 
 test('transport log texels are decoded before GPU interpolation and minification',async({page})=>{
   const manifest=JSON.parse(await readFile('public/scenes/barbershop-plates/manifest.json','utf8'));manifest.encoding={min:-16,max:6};for(const view of manifest.views)delete view.detailFile;
@@ -15,8 +15,8 @@ test('transport log texels are decoded before GPU interpolation and minification
     await page.route('**/barbershop-plates/center.webp',route=>route.fulfill({contentType:'image/webp',body:image}));
     await page.setViewportSize(size===2?{width:1440,height:1000}:{width:390,height:844});
     await page.goto('/?subject=none&view=source');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
-    if(size===2){await openControl(page,'focal');await page.locator('#focal').fill('200');await page.locator('#focal').dispatchEvent('input');}
-    await page.waitForTimeout(200);
+    if(size===2){await openControl(page,'focal');await page.locator('#focal').fill('200');}
+    await waitFrame(page);
     const actual=Number(await page.locator('#image').getAttribute('data-ev'))+parseFloat(await page.locator('#meter').textContent());
     // The legacy log-space sample was about 4; arithmetic radiance is 8.5.
     expect(Math.abs(actual-(8+Math.log2(expected/.18)))).toBeLessThan(.06);

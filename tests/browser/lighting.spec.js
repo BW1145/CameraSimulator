@@ -34,6 +34,6 @@ test('planar mirror shows a subject behind the camera and follows actual camera 
     for(let y=0;y<info.height;y++)for(let x=0;x<info.width;x++){const i=(y*info.width+x)*3;if(data[i]>50&&data[i]>data[i+1]*2&&data[i]>data[i+2]*2){sum+=x;count++;}}
     expect(count).toBeGreaterThan(50);return sum/count;
   };
-  const before=await centroid();await openControl(page,'x');await page.locator('#x').fill('0.5');await page.locator('#x').dispatchEvent('input');await expect(canvas).toHaveAttribute('data-ready','true');
+  const before=await centroid();await openControl(page,'x');await page.locator('#x').fill('0.5');await expect(canvas).toHaveAttribute('data-ready','true');
   expect(before-await centroid()).toBeGreaterThan(10);
 });

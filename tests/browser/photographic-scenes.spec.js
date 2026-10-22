@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
-import {openControl,motionSample,waitForMotion} from './controls.js';
+import {openControl,motionSample,waitForMotion,waitFrame,setRange} from './controls.js';
 import {capturePhotographicPage} from './photo-evidence.js';
 
 test('all four photographic packs use independent real positions and load only the selected room',async({page})=>{
@@ -25,7 +25,7 @@ test('all four photographic packs use independent real positions and load only t
 
 test('production photo exposure modes, ISO and compensation share the linear scene meter',async({page})=>{
   await page.goto('/?subject=none');const canvas=page.locator('#image');await expect(canvas).toHaveAttribute('data-ready','true');await page.locator('#scene').selectOption('classroom');await expect(canvas).toHaveAttribute('data-scene','classroom');await expect(canvas).toHaveAttribute('data-ready','true');
-  const range=async(id,n)=>{await openControl(page,id);await page.locator('#'+id).fill(String(n));await page.locator('#'+id).dispatchEvent('input');await page.waitForTimeout(140);};
+  const range=(id,n)=>setRange(page,id,n);
   await page.locator('#autoISO').uncheck();await range('iso',1);const low=Number(await canvas.getAttribute('data-ev'));await range('iso',3);const high=Number(await canvas.getAttribute('data-ev'));expect(low-high).toBeCloseTo(2,1);
   await page.locator('#mode').selectOption('A');await expect(page.locator('#shutter')).toBeDisabled();await expect(page.locator('#aperture')).toBeEnabled();
   await page.locator('#mode').selectOption('S');await expect(page.locator('#aperture')).toBeDisabled();await expect(page.locator('#shutter')).toBeEnabled();await page.locator('#autoISO').check();await range('shutter',3);expect(Number(await canvas.getAttribute('data-iso'))).toBeGreaterThan(100);
@@ -39,7 +39,7 @@ test('AF-C tracks the clicked moving ball in each photographic room',async({page
     await page.locator('#scene').selectOption(scene);await expect(canvas).toHaveAttribute('data-scene',scene);await expect(canvas).toHaveAttribute('data-ready','true');await page.locator('#reset').click();await expect(canvas).toHaveAttribute('data-ready','true');
     // AF is independent of long-exposure sampling. A real short shutter keeps
     // this test about focus, while the temporal tests cover slow-shutter blur.
-    await page.locator('#shutter').fill('6');await page.locator('#shutter').dispatchEvent('input');
+    await page.locator('#shutter').fill('6');
     await openControl(page,'motion');await page.locator('#pause').check();await page.locator('#motion').check();await expect(canvas).toHaveAttribute('data-ball-x',/\d/);
     await openControl(page,'af');await page.locator('#af').selectOption('AF-C');
     const point=await canvas.evaluate(e=>({x:+e.dataset.ballX,y:+e.dataset.ballY})),box=await canvas.boundingBox();await canvas.click({position:{x:point.x*box.width,y:(1-point.y)*box.height}});
@@ -55,7 +55,7 @@ test('static photographs survive hidden layouts, viewport changes and opening co
   await page.goto('/');const canvas=page.locator('#image');await expect(canvas).toHaveAttribute('data-ready','true');
   for(const scene of ['classroom','kitchen','apartment']){
     await page.locator('#scene').selectOption(scene);await expect(canvas).toHaveAttribute('data-scene',scene);await expect(canvas).toHaveAttribute('data-ready','true');
-    const size=await canvas.evaluate(e=>[e.width,e.height]);await page.locator('#viewfinder').evaluate(e=>{e.style.display='none';});await page.waitForTimeout(80);expect(await canvas.evaluate(e=>[e.width,e.height])).toEqual(size);await page.locator('#viewfinder').evaluate(e=>{e.style.display='';});
+    const size=await canvas.evaluate(e=>[e.width,e.height]);await page.locator('#viewfinder').evaluate(e=>{e.style.display='none';});await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));expect(await canvas.evaluate(e=>[e.width,e.height])).toEqual(size);await page.locator('#viewfinder').evaluate(e=>{e.style.display='';});await waitFrame(page);
     for(const width of [390,1440]){await page.setViewportSize({width,height:1000});await capturePhotographicPage(page);expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await openControl(page,'flash');await capturePhotographicPage(page);}
   }
 });

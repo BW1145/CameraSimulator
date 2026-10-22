@@ -1,9 +1,8 @@
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
-import {openControl,motionSample,waitForMotion} from './controls.js';
+import {openControl,motionSample,waitForMotion,waitFrame,setRange} from './controls.js';
 import {focusRoom} from './focus-room.js';
-const waitFrame=async page=>{await expect(page.locator('#image')).toHaveAttribute('data-ready','true');await page.waitForTimeout(180);};
-const range=async(page,id,value)=>{await openControl(page,id);await page.locator('#'+id).fill(String(value));await page.locator('#'+id).dispatchEvent('input');await waitFrame(page);};
+const range=setRange;
 const stats=async page=>{
   await page.mouse.move(0,0);
   const b=await page.locator('#image').screenshot();const {data,info}=await sharp(b).removeAlpha().raw().toBuffer({resolveWithObject:true});
@@ -24,6 +23,9 @@ test('four complete scenes load on demand, without browser errors',async({page})
   expect(errors).toEqual([]);
 });
 test('exposure, white balance, focus blur, real dolly and focal length alter the frame',async({page})=>{
+  // Optical/parameter assertions use the same real viewport on both GPU paths.
+  // The separate four-room check retains full desktop rendering coverage.
+  await page.setViewportSize({width:800,height:700});
   await page.goto('/?renderer=gltf');await waitFrame(page);await page.locator('#scene').selectOption('kitchen');await expect(page.locator('#image')).toHaveAttribute('data-scene','kitchen');await waitFrame(page);
   await page.locator('#autoISO').uncheck();
   await range(page,'shutter',6);await range(page,'iso',2);
