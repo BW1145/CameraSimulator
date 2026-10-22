@@ -1,7 +1,7 @@
 name: Verify camera simulator
 on:
   push:
-    branches: [main, 'feature/**', 'fix/**']
+    branches: [main]
   pull_request:
 permissions:
   contents: read
@@ -11,6 +11,9 @@ concurrency:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        shard: [1, 2, 3]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -22,20 +25,20 @@ jobs:
       - run: npm run audit:assets
       - run: node tools/audit-scene-plates.mjs public/scenes/barbershop-plates public/scenes/classroom-plates public/scenes/kitchen-plates public/scenes/apartment-plates
       - run: npx playwright install --with-deps chromium
-      - run: npm run test:browser
+      - run: npm run test:browser -- --shard=${{ matrix.shard }}/3
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: browser-results
+          name: browser-results-${{ matrix.shard }}
           path: test-results/
       - name: Record deployment source
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && matrix.shard == 1
         env:
           SITE_COMMIT: ${{ github.sha }}
           SITE_RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: node -e "require('node:fs').writeFileSync('dist/release.json', JSON.stringify({commit:process.env.SITE_COMMIT,run:process.env.SITE_RUN_URL}))"
       - name: Upload tested production site
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push' && matrix.shard == 1
         uses: actions/upload-pages-artifact@v5.0.0
         with:
           path: dist
