@@ -7,7 +7,7 @@
   "sourcePolygonEstimate": 1116938,
   "triangleBudget": 650000,
   "maxTextureSize": 4096,
-  "bytes": 15390088,
+  "bytes": 18694284,
   "excludedVolumeBoundaries": [
     "ENV-Fog.001"
   ],
@@ -16,7 +16,7 @@
   "meshes": 147,
   "materials": 128,
   "triangles": 764500,
-  "textures": 37,
+  "textures": 34,
   "surfaceBake": {
     "sourceSha256": "95972b56180462cac47ec82f3a755bd9111ec18ca37a6196a319c013db994130",
     "samples": 32,
@@ -28,12 +28,13 @@
         "seconds": 80.72
       },
       "irradiance": {
-        "width": 4096,
+        "width": 2048,
         "samples": 256,
         "seconds": 91.56,
         "offset": 0.01,
         "method": "White diffuse receiver above delivered geometry; original source shaders, lights, geometry and ray visibility retained",
-        "denoising": "OpenImageDenoise via Blender compositor, accurate prefilter"
+        "denoising": "OpenImageDenoise via Blender compositor, accurate prefilter",
+        "sourceWidth": 4096
       },
       "roughness": {
         "width": 2048,
@@ -304,22 +305,21 @@
     ],
     "opacityMaps": {
       "cobwebs-web": {
-        "file": "opacity-0.png",
         "color": [
           0.9340371489524841,
           0.9340371489524841,
           0.9340371489524841,
           1
         ],
-        "sourceImage": "spiderwebs.png"
+        "method": "Diffuse-colour bake contains source shader coverage in its original atlas UVs"
       }
     },
-    "materials": 98,
+    "materials": 103,
     "encoding": {
       "min": -16,
       "max": 7
     },
-    "bytes": 5538008,
+    "bytes": 1916480,
     "license": "Same source and adaptation license as the scene"
   }
 }

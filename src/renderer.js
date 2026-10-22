@@ -169,7 +169,7 @@ export class Renderer {
     });
     // Bound shadow cost by choosing the strongest original directional/spot keys.
     const keys=[];source.traverse(o=>{if(o.isSpotLight||o.isDirectionalLight)keys.push(o);});
-    if(this.restoredLighting)keys.sort((a,b)=>b.intensity-a.intensity).slice(0,2).forEach(light=>{light.castShadow=true;light.shadow.mapSize.set(1024,1024);light.shadow.normalBias=.025;light.shadow.bias=-.0001;});
+    if(this.restoredLighting&&!this.sourceDiffuse)keys.sort((a,b)=>b.intensity-a.intensity).slice(0,2).forEach(light=>{light.castShadow=true;light.shadow.mapSize.set(1024,1024);light.shadow.normalBias=.025;light.shadow.bias=-.0001;});
     this.world.add(new T.HemisphereLight(0xdceaff,0x807060,this.sourceDiffuse?0:this.restoredLighting ? (lighting.fill??0) : (scene.fill??1.5)*.7));
     const sun=new T.DirectionalLight(0xffead1,this.sourceDiffuse?0:this.restoredLighting ? (lighting.sunlight??0) : (scene.sunlight??1));sun.position.set(-3,8,5);this.world.add(sun);
     if(!this.restoredLighting){
@@ -178,7 +178,7 @@ export class Renderer {
     }
     roomLighting(this,source);
     this.flashLight=new T.SpotLight(0xffffff,0,25,1.2,.15,2);this.world.add(this.flashLight,this.flashLight.target);
-    this.flashLight.castShadow=true;this.flashLight.shadow.mapSize.set(512,512);this.flashLight.shadow.camera.near=.05;this.flashLight.shadow.normalBias=.008;
+    this.flashLight.shadow.mapSize.set(512,512);this.flashLight.shadow.camera.near=.05;this.flashLight.shadow.normalBias=.008;
     this.ballGroup=new T.Group();this.world.add(this.ballGroup);
     const ballGeometry=new T.SphereGeometry(.12,20,12);
     this.balls=Array.from({length:24},(_,i)=>{
@@ -274,6 +274,7 @@ export class Renderer {
     this.flashLight.target.position.copy(this.flashLight.position).add(this.camera.getWorldDirection(new T.Vector3()));
     // Inverse duration preserves flash energy when ambient shutter time changes.
     this.flashLight.intensity=flash?s.flash*(1000/Math.PI)*.01/exposure.shutter:0;
+    this.flashLight.castShadow=this.flashLight.intensity>0;
     this.setRadianceScale(this.flashLight.intensity);
     this.renderer.setRenderTarget(this.target);this.renderer.render(this.world,this.camera);
     const stats={triangles:this.renderer.info.render.triangles,calls:this.renderer.info.render.calls,textures:this.renderer.info.memory.textures};
@@ -303,9 +304,17 @@ export class Renderer {
     this.uniforms.zebra.value=s.zebra;
     this.renderer.setRenderTarget(null);this.renderer.render(this.postScene,this.postCamera);return this.pixels;
   }
+  passesCutout(hit){
+    const m=hit.object.material;if(!m.alphaTest||!m.map)return true;
+    const map=m.map,uv=map.transformUv((hit[map.channel?'uv'+map.channel:'uv']||new T.Vector2()).clone());
+    if(!this.focusSampler){const canvas=document.createElement('canvas');canvas.width=canvas.height=1;this.focusSampler=canvas.getContext('2d',{willReadFrequently:true});}
+    const c=this.focusSampler,image=map.image;c.clearRect(0,0,1,1);
+    c.drawImage(image,Math.min(image.width-1,Math.max(0,Math.floor(uv.x*image.width))),Math.min(image.height-1,Math.max(0,Math.floor(uv.y*image.height))),1,1,0,0,1,1);
+    return c.getImageData(0,0,1,1).data[3]/255*m.opacity>=m.alphaTest;
+  }
   hitAt(x,y){
     this.raycaster.setFromCamera(new T.Vector2(x*2-1,y*2-1),this.camera);
-    const visible=h=>h.object.visible&&h.object.material?.visible!==false&&h.object.material?.opacity!==.22&&!h.object.material?.userData.cameraInvisible&&!(h.object.material?.transmission>0);
+    const visible=h=>h.object.visible&&h.object.material?.visible!==false&&h.object.material?.opacity!==.22&&!h.object.material?.userData.cameraInvisible&&!(h.object.material?.transmission>0)&&this.passesCutout(h);
     const hits=this.raycaster.intersectObjects(this.world.children,true).filter(visible);
     const hit=hits.find(h=>!this.balls.slice(1).includes(h.object)&&(!this.balls.includes(h.object)||this.ballGroup.visible));
     if(!hit)return null;

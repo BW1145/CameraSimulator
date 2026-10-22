@@ -17,7 +17,7 @@ for(const scene of SCENES){
     const image=await sharp(light).metadata();assert.equal(image.width,meta.surfaceBake.maps.irradiance.width);assert.equal(image.height,image.width);
     const materials=json.materials.filter(m=>m.extras?.bakedDiffuse);assert.equal(materials.length,meta.surfaceBake.materials);
     for(const m of materials){assert.equal(m.extras.bakedDiffuse,'irradiance.webp');assert.deepEqual(m.extras.bakedDiffuseEncoding,meta.surfaceBake.encoding);}
-    for(const name of Object.keys(meta.surfaceBake.opacityMaps||{})){const m=json.materials.find(m=>m.name===name);assert.equal(m.alphaMode,'MASK');assert.equal(m.alphaCutoff,.1);}
+    for(const name of Object.keys(meta.surfaceBake.opacityMaps||{})){const m=json.materials.find(m=>m.name===name);assert.equal(m.alphaMode,'MASK');assert.equal(m.alphaCutoff,.1);assert.equal(m.pbrMetallicRoughness.baseColorTexture.texCoord??0,m.extras.bakedDiffuseUV);}
   }
   console.log(`${scene.id}: ${(meta.bytes/1048576).toFixed(2)} MiB, ${meta.triangles} triangles, ${meta.textures} textures`);
   if(scene.platePack){
