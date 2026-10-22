@@ -11,7 +11,7 @@ const fragment=`
 precision highp float;
 varying vec2 vUv;
 uniform sampler2D plate;uniform sampler2D sceneDepth;
-uniform vec2 resolution;uniform float focus;uniform float focal;uniform float aperture;
+uniform float lensRadiusLimit;uniform vec2 resolution;uniform vec2 pixelOrigin;uniform float focus;uniform float focal;uniform float aperture;
 uniform float exposure;uniform float iso;uniform float wb;uniform float time;uniform bool zebra;
 uniform float sensorWidth;uniform float nearClip;uniform float farClip;uniform float radianceScale;
 uniform bool meteringPass;uniform bool lensOnly;uniform bool skipLens;
@@ -20,7 +20,7 @@ uniform bool agx;uniform bool linearDepth;
 float depthAt(vec2 p){float d=texture2D(sceneDepth,p).x;return linearDepth?d:nearClip*farClip/(farClip-(farClip-nearClip)*d);}
 float coc(float z){
   float f=focal/1000.;
-  return min(resolution.x*.08,abs(f*f*(z-focus)/(aperture*max(.05,z)*max(.01,focus-f)))*1000./sensorWidth*resolution.x*.5);
+  return min(lensRadiusLimit,abs(f*f*(z-focus)/(aperture*max(.05,z)*max(.01,focus-f)))*1000./sensorWidth*resolution.x*.5);
 }
 float random(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
 void main(){
@@ -51,7 +51,7 @@ void main(){
   // neighbour-probe gate. A soft disc edge suppresses sparse-sample rings.
   if(z>=focus){
     vec3 foreground=vec3(0.);float coverage=0.;
-    float searchRadius=resolution.x*.08;
+    float searchRadius=lensRadiusLimit;
     for(int i=0;i<24;i++){
       float angle=float(i)*2.399963;float r=(float(i)+.5)/24.;
       vec2 offset=vec2(cos(angle),sin(angle))*r*searchRadius;
@@ -77,8 +77,8 @@ void main(){
   c=max(c,vec3(0.));
   c=mix(c*12.92,1.055*pow(c,vec3(1./2.4))-.055,step(vec3(.0031308),c));
   bool clipped=max(c.r,max(c.g,c.b))>=.995;
-  c+=(random(gl_FragCoord.xy+floor(time*30.))-.5)*.003*sqrt(iso/100.);
-  if(zebra&&clipped&&mod(gl_FragCoord.x+gl_FragCoord.y,12.)<5.)c=vec3(1.,.1,.1);
+  c+=(random(gl_FragCoord.xy+pixelOrigin+floor(time*30.))-.5)*.003*sqrt(iso/100.);
+  if(zebra&&clipped&&mod(gl_FragCoord.x+pixelOrigin.x+gl_FragCoord.y+pixelOrigin.y,12.)<5.)c=vec3(1.,.1,.1);
   gl_FragColor=vec4(clamp(c,0.,1.),1.);
 }`;
 
@@ -108,7 +108,7 @@ export class Renderer {
     this.analysisTarget=new T.WebGLRenderTarget(1,1,{type:T.UnsignedByteType,depthBuffer:false});
     this.meterTarget=new T.WebGLRenderTarget(1,1,{type:T.FloatType,depthBuffer:false});
     this.meterSceneTarget=new T.WebGLRenderTarget(1,1,{type:T.HalfFloatType,depthTexture:new T.DepthTexture(1,1,T.UnsignedIntType)});
-    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,linearDepth:false,resolution:new T.Vector2(1,1),focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,radianceScale:1,meteringPass:false,lensOnly:false,skipLens:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
+    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,linearDepth:false,resolution:new T.Vector2(1,1),pixelOrigin:new T.Vector2(),lensRadiusLimit:.08,focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,radianceScale:1,meteringPass:false,lensOnly:false,skipLens:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
     this.postScene=new T.Scene();this.postCamera=new T.Camera();
     this.postScene.add(new T.Mesh(new T.PlaneGeometry(2,2),new T.ShaderMaterial({vertexShader:vertex,fragmentShader:fragment,uniforms:this.uniforms,depthTest:false,depthWrite:false})));
     this.loadVersion=0;
@@ -220,7 +220,21 @@ export class Renderer {
     const offset=new T.Vector3(s.x,s.y,-s.z).applyQuaternion(this.anchorRotation);
     this.camera.position.copy(this.anchor).add(offset);
     this.camera.quaternion.copy(this.anchorRotation).multiply(new T.Quaternion().setFromEuler(new T.Euler(s.pitch*Math.PI/180,s.yaw*Math.PI/180,s.roll*Math.PI/180,'YXZ')));
-    this.camera.updateProjectionMatrix();this.camera.updateMatrixWorld(true);
+    this.camera.updateProjectionMatrix();this.camera.updateMatrixWorld(true);this.applyDetailView();
+  }
+  applyDetailView(){
+    const region=this.detailView;if(!region)return;
+    this.detailFullCamera??=new T.PerspectiveCamera();this.detailFullCamera.copy(this.camera);
+    const m=this.camera.projectionMatrix.elements;
+    m[0]/=region.spanX;m[5]/=region.spanY;
+    m[8]=(m[8]+region.centerX)/region.spanX;m[9]=(m[9]+region.centerY)/region.spanY;
+    this.camera.projectionMatrixInverse.copy(this.camera.projectionMatrix).invert();
+    if(this.plateMode){
+      const p=this.plateUniforms,shift=p.viewShift.value;
+      shift.set((shift.x+region.centerX)/region.spanX,(shift.y+region.centerY)/region.spanY);
+      p.tanHalfFov.value.multiply(new T.Vector2(region.spanX,region.spanY));
+    }
+    this.filmWidth*=region.spanX;
   }
   ballWorld(time){
     const d=this.scene.ballDistance;
@@ -301,11 +315,12 @@ export class Renderer {
     this.renderer.setRenderTarget(this.meterTarget);this.renderer.render(this.postScene,this.postCamera);
     this.renderer.readRenderTargetPixels(this.meterTarget,0,0,this.analysisWidth,this.analysisHeight,this.meterLight);u.meteringPass.value=false;if(!this.plateMode)u.plate.value=target.texture;return this.meterLight;
   }
-  draw(s,exposure,time,analyse=false){
+  draw(s,exposure,time,analyse=false,output=null){
     if(!this.ready)return;
     this.geometry(s);
-    const values={focus:s.focus,focal:s.focal,aperture:this.sourceView?1000000:exposure.aperture,exposure:this.scene.baseEV+this.exposureOffset-exposure.ev,iso:this.sourceView?0:exposure.iso,wb:s.wb,time,zebra:false,sensorWidth:this.filmWidth,agx:this.restoredLighting};
+    const values={lensRadiusLimit:(this.detailView?.fullWidth??this.target.width)*.08,focus:s.focus,focal:s.focal,aperture:this.sourceView?1000000:exposure.aperture,exposure:this.scene.baseEV+this.exposureOffset-exposure.ev,iso:this.sourceView?0:exposure.iso,wb:s.wb,time,zebra:false,sensorWidth:this.filmWidth,agx:this.restoredLighting};
     for(const [key,value]of Object.entries(values))this.uniforms[key].value=value;
+    this.uniforms.pixelOrigin.value.set(this.detailView?.originX??0,this.detailView?.originY??0);
     this.uniforms.skipLens.value=false;this.uniforms.lensOnly.value=false;
     this.renderPlate(s,exposure,time);
     if(analyse){
@@ -313,7 +328,7 @@ export class Renderer {
       this.renderer.readRenderTargetPixels(this.analysisTarget,0,0,this.analysisWidth,this.analysisHeight,this.pixels);
     }
     this.uniforms.zebra.value=s.zebra;
-    this.renderer.setRenderTarget(null);this.renderer.render(this.postScene,this.postCamera);return this.pixels;
+    this.renderer.setRenderTarget(output);this.renderer.render(this.postScene,this.postCamera);return this.pixels;
   }
   passesCutout(hit){
     const m=hit.object.material;if(!m.alphaTest||!m.map)return true;

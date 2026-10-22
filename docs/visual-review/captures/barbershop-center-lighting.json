@@ -1,0 +1,44 @@
+{
+  "variant": "soft-fill-15w-rect",
+  "originalBounces": {
+    "max_bounces": 2,
+    "diffuse_bounces": 2,
+    "glossy_bounces": 2,
+    "transmission_bounces": 2
+  },
+  "effectiveBounces": {
+    "max_bounces": 8,
+    "diffuse_bounces": 6,
+    "glossy_bounces": 6,
+    "transmission_bounces": 8
+  },
+  "fill": {
+    "positionBlender": [
+      2.9685792922973633,
+      8.563234329223633,
+      2.1799702644348145
+    ],
+    "directionBlender": [
+      -0.36883971095085144,
+      -0.8846008777618408,
+      -0.28537455201148987
+    ],
+    "powerWatts": 15.0,
+    "shape": "RECTANGLE",
+    "sizeX": 2.0,
+    "sizeY": 2.0,
+    "color": [
+      1.0,
+      0.949999988079071,
+      0.8600000143051147
+    ],
+    "rotationEulerBlender": [
+      1.281399130821228,
+      7.70482984080445e-08,
+      2.7465548515319824
+    ],
+    "normalize": true,
+    "sceneUnitScale": 1.0
+  },
+  "exposure": 0
+}

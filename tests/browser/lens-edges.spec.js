@@ -9,6 +9,7 @@ test('GPU lens preserves focused foreground, softens near silhouettes and scales
     const draw=(width,focus,aperture,{focal=120,nearZ=2,farZ=8,sensorWidth=36}={})=>{
       const height=width/2,canvas=document.createElement('canvas');canvas.width=width;canvas.height=height;
       const gl=canvas.getContext('webgl',{preserveDrawingBuffer:true});
+      if(!gl)throw Error('WebGL unavailable in GPU lens fixture');
       if(!gl.getExtension('OES_texture_float'))throw Error('Float texture unavailable');
       const shader=(type,code)=>{const s=gl.createShader(type);gl.shaderSource(s,code);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;};
       const program=gl.createProgram();gl.attachShader(program,shader(gl.VERTEX_SHADER,'attribute vec2 p;varying vec2 vUv;void main(){vUv=p*.5+.5;gl_Position=vec4(p,0.,1.);}'));gl.attachShader(program,shader(gl.FRAGMENT_SHADER,fragment));gl.linkProgram(program);if(!gl.getProgramParameter(program,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(program));gl.useProgram(program);
@@ -22,7 +23,11 @@ test('GPU lens preserves focused foreground, softens near silhouettes and scales
       for(const [unit,name,data] of [[0,'plate',color],[1,'sceneDepth',depth]]){
         const texture=gl.createTexture();gl.activeTexture(gl.TEXTURE0+unit);gl.bindTexture(gl.TEXTURE_2D,texture);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.NEAREST);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_S,gl.CLAMP_TO_EDGE);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_WRAP_T,gl.CLAMP_TO_EDGE);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA,width,height,0,gl.RGBA,gl.FLOAT,data);gl.uniform1i(gl.getUniformLocation(program,name),unit);
       }
-      for(const [name,value]of Object.entries({focus,focal,aperture,exposure:0,iso:0,wb:5000,time:0,sensorWidth,nearClip:.03,farClip:150,radianceScale:1}))gl.uniform1f(gl.getUniformLocation(program,name),value);
+      // Match Renderer.draw's uncropped full-frame lens state. Leaving the
+      // explicit radius limit at GLSL's zero default disables all lens blur.
+      for(const [name,value]of Object.entries({lensRadiusLimit:width*.08,focus,focal,aperture,exposure:0,iso:0,wb:5000,time:0,sensorWidth,nearClip:.03,farClip:150,radianceScale:1}))gl.uniform1f(gl.getUniformLocation(program,name),value);
+      for(const name of ['meteringPass','lensOnly','skipLens','agx','linearDepth','zebra'])gl.uniform1i(gl.getUniformLocation(program,name),0);
+      gl.uniform2f(gl.getUniformLocation(program,'pixelOrigin'),0,0);
       gl.uniform2f(gl.getUniformLocation(program,'resolution'),width,height);gl.viewport(0,0,width,height);gl.drawArrays(gl.TRIANGLES,0,6);const pixels=new Uint8Array(width*4);gl.readPixels(0,height/2,width,1,gl.RGBA,gl.UNSIGNED_BYTE,pixels);
       const red=Array.from({length:width},(_,x)=>pixels[x*4]);const blue=Array.from({length:width},(_,x)=>pixels[x*4+2]);gl.getExtension('WEBGL_lose_context')?.loseContext();return {red,blue};
     };

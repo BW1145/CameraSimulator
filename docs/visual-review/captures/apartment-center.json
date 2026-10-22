@@ -1,0 +1,326 @@
+{
+  "method": "One existing center view re-rendered; metadata does not claim other views were upgraded.",
+  "sceneId": "apartment",
+  "sourceSha256": "0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25",
+  "sourceUrl": "https://download.blender.org/demo/cycles/flat-archiviz.blend",
+  "sourceAttribution": "Flavio Della Tommasa / CC BY; adaptation CC BY 4.0",
+  "sourceBytes": 367972724,
+  "camera": {
+    "name": "Cam Living",
+    "lens": 50,
+    "sourceProjection": "PERSP",
+    "sourceLens": 50,
+    "sourceOrthoScale": 6,
+    "sensorWidth": 36,
+    "aspect": 1.6363636363636365,
+    "nativeResolution": [
+      1800,
+      1100
+    ],
+    "near": 3.9999983310699463,
+    "far": 1000,
+    "matrix": [
+      [
+        -0.9999999403953552,
+        1.1399864918422518e-14,
+        -1.5099578831723193e-07,
+        2.9473440647125244
+      ],
+      [
+        -1.5099578831723193e-07,
+        -7.549789415861596e-08,
+        0.9999999403953552,
+        13.412710189819336
+      ],
+      [
+        0.0,
+        0.9999999403953552,
+        7.549789415861596e-08,
+        0.8999998569488525
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "sourceScale": [
+      1,
+      1,
+      1
+    ],
+    "sourceFar": 1000,
+    "shiftX": 0,
+    "shiftY": 0.029999999329447746,
+    "sensorFit": "AUTO",
+    "sourceClippingMethod": "Fixed world near plane from architectural cutaway source; capture near = source near + camera-local backward offset.",
+    "sensorHeight": 24.0
+  },
+  "captureLens": 41.66666793823242,
+  "samples": 256,
+  "scope": [
+    "center"
+  ],
+  "effectiveSampling": "Exactly 256 samples per pixel: adaptive sampling disabled and time limit cleared.",
+  "views": [
+    {
+      "id": "center",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "near": 3.9999983310699463,
+      "position": [
+        2.9473440647125244,
+        0.8999998569488525,
+        -13.412710189819336
+      ],
+      "matrix": [
+        -2.314815044403076,
+        -1.4824474092733908e-08,
+        1.5220861371290084e-07,
+        1.5099580252808664e-07,
+        0.0,
+        3.787745237350464,
+        -7.610430685645042e-08,
+        -7.549790126404332e-08,
+        3.49527311982456e-07,
+        -0.09817807376384735,
+        1.008032202720642,
+        1.0000001192092896,
+        6.8225603103637695,
+        -4.725803852081299,
+        5.488317489624023,
+        13.412711143493652
+      ],
+      "cameraMatrix": [
+        -0.9999999403953552,
+        0.0,
+        1.5099578831723193e-07,
+        0.0,
+        1.1399864918422518e-14,
+        0.9999999403953552,
+        7.549789415861596e-08,
+        0.0,
+        -1.5099578831723193e-07,
+        7.549789415861596e-08,
+        -0.9999999403953552,
+        0.0,
+        2.9473440647125244,
+        0.8999998569488525,
+        -13.412710189819336,
+        1.0
+      ],
+      "projectionMatrix": [
+        2.314814805984497,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        3.7877447605133057,
+        0.0,
+        0.0,
+        0.0,
+        0.09817834198474884,
+        -1.0080320835113525,
+        -1.0,
+        0.0,
+        0.0,
+        -8.032125473022461,
+        0.0
+      ],
+      "file": "center-256spp-oidn.exr",
+      "width": 5120,
+      "height": 3129,
+      "samples": 256,
+      "seconds": 16476.379144582002,
+      "bytes": 177104263,
+      "cameraMatrixVerification": "Initialized from actual existing capture and checked after render within 1e-5.",
+      "maximumRadiance": 5.650686740875244,
+      "nonfiniteChannels": 0,
+      "negativeChannels": 0,
+      "channelsOverExistingUpperBound": 0,
+      "effectiveSeed": 17
+    }
+  ],
+  "derivations": [],
+  "blender": "4.5.14 LTS",
+  "blenderBuildHash": "62c1db4208e8",
+  "sourceScene": "Scene",
+  "sourceFrame": 3,
+  "sourceViewLayers": [
+    {
+      "name": "View Layer",
+      "enabled": true,
+      "samples": 0
+    },
+    {
+      "name": "ID",
+      "enabled": false,
+      "samples": 0
+    }
+  ],
+  "sourceObjectCount": 525,
+  "renderSceneObjectCount": 526,
+  "sourceLibraries": [],
+  "sourceSettings": {
+    "cycles": {
+      "samples": 576,
+      "use_adaptive_sampling": true,
+      "adaptive_threshold": 0.009999999776482582,
+      "adaptive_min_samples": 0,
+      "time_limit": 0.0,
+      "max_bounces": 12,
+      "diffuse_bounces": 6,
+      "glossy_bounces": 8,
+      "transmission_bounces": 12,
+      "transparent_max_bounces": 24,
+      "volume_bounces": 0,
+      "caustics_reflective": true,
+      "caustics_refractive": true,
+      "sample_clamp_direct": 5.0,
+      "sample_clamp_indirect": 10.0,
+      "blur_glossy": 1.0,
+      "use_light_tree": false,
+      "pixel_filter_type": "BLACKMAN_HARRIS",
+      "filter_width": 1.0,
+      "use_denoising": true,
+      "denoiser": "OPENIMAGEDENOISE",
+      "denoising_prefilter": "ACCURATE",
+      "denoising_input_passes": "RGB_ALBEDO_NORMAL",
+      "denoising_quality": "HIGH",
+      "denoising_use_gpu": false,
+      "use_layer_samples": "USE",
+      "use_sample_subset": false,
+      "sample_subset_length": 2048,
+      "use_animated_seed": false,
+      "sample_offset": 0
+    },
+    "render": {
+      "use_simplify": true,
+      "simplify_subdivision_render": 2,
+      "use_motion_blur": false,
+      "film_transparent": false,
+      "pixel_aspect_x": 1.0,
+      "pixel_aspect_y": 1.0
+    }
+  },
+  "renderSettings": {
+    "samples": 256,
+    "use_adaptive_sampling": false,
+    "adaptive_threshold": 0.009999999776482582,
+    "adaptive_min_samples": 0,
+    "time_limit": 0.0,
+    "max_bounces": 12,
+    "diffuse_bounces": 6,
+    "glossy_bounces": 8,
+    "transmission_bounces": 12,
+    "transparent_max_bounces": 24,
+    "volume_bounces": 0,
+    "caustics_reflective": true,
+    "caustics_refractive": true,
+    "sample_clamp_direct": 5.0,
+    "sample_clamp_indirect": 10.0,
+    "blur_glossy": 1.0,
+    "use_light_tree": false,
+    "pixel_filter_type": "BLACKMAN_HARRIS",
+    "filter_width": 1.0,
+    "use_denoising": true,
+    "denoiser": "OPENIMAGEDENOISE",
+    "denoising_prefilter": "ACCURATE",
+    "denoising_input_passes": "RGB_ALBEDO_NORMAL",
+    "denoising_quality": "HIGH",
+    "denoising_use_gpu": false,
+    "use_layer_samples": "IGNORE",
+    "use_sample_subset": false,
+    "sample_subset_length": 2048,
+    "use_animated_seed": false,
+    "sample_offset": 0,
+    "device": "CPU",
+    "seed": 17,
+    "use_auto_tile": true,
+    "tile_size": 256
+  },
+  "requestedSeed": 17,
+  "pixelAspect": [
+    1.0,
+    1.0
+  ],
+  "renderThreads": 2,
+  "renderThreadsMode": "FIXED",
+  "displayTransform": {
+    "view": "AgX",
+    "look": "None",
+    "exposure": 0,
+    "gamma": 1
+  },
+  "existingSharedEncoding": {
+    "type": "log2-rgb",
+    "min": -16,
+    "max": 6,
+    "losslessContainer": "WebP",
+    "maximumChannelQuantizationEV": 0.043137254901960784,
+    "sourceMaximumRadiance": 6.43137264251709
+  },
+  "status": "complete",
+  "renderSeconds": 16476.379144582002,
+  "peakRssMiB": 5519.02734375,
+  "cameraMatrixMaxDelta": 1.0048591563601838e-14,
+  "effectiveSeedAfterRender": 17,
+  "exr": "center-256spp-oidn.exr",
+  "png": "center-256spp-oidn.png",
+  "validation": {
+    "dimensions": [
+      5120,
+      3129
+    ],
+    "samples": 256,
+    "effectiveSampling": "Exactly 256 samples per pixel: adaptive sampling disabled and time limit cleared.",
+    "samplingLogVerification": {
+      "completedTileCount": 260,
+      "expectedTileCount": 260,
+      "observedSampleGoal": [
+        256
+      ],
+      "samplesPerPixel": 256,
+      "allTilesReachedRequestedSamples": true,
+      "adaptiveSampling": false,
+      "timeLimit": 0.0,
+      "layerSampleMode": "IGNORE",
+      "sampleSubset": false
+    },
+    "minimumRadiance": 0.0,
+    "maximumRadiance": 5.650686740875244,
+    "meanLuminance": 0.08328992506115492,
+    "nonfiniteChannels": 0,
+    "negativeChannels": 0,
+    "channelsOverExistingUpperBound": 0,
+    "channelsOver64": 0,
+    "positiveChannelsBelowEncodingMinimum": 163973,
+    "existingSharedEncoding": {
+      "type": "log2-rgb",
+      "min": -16,
+      "max": 6,
+      "losslessContainer": "WebP",
+      "maximumChannelQuantizationEV": 0.043137254901960784,
+      "sourceMaximumRadiance": 6.43137264251709
+    },
+    "sharedEncodingFitsWithoutUpperClamp": true,
+    "renderSeconds": 16476.379144582002,
+    "peakRssMiB": 5519.02734375,
+    "effectiveSeed": 17,
+    "files": {
+      "center-256spp-oidn.exr": {
+        "sha256": "1e6b2f76c11e8100bd70a3ddc80fbac19fee6463ca6aaef02920ebcf15afad39",
+        "bytes": 177104263
+      },
+      "center-256spp-oidn.png": {
+        "sha256": "97be22f1f4d121c7b4d8e9f00063d3124807d3d81a9e6ca857c7e92c387f2254",
+        "bytes": 96277272
+      }
+    },
+    "validatedAt": "2026-10-22T19:03:39.299844+00:00"
+  }
+}

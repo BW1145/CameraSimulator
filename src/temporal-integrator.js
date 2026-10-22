@@ -43,7 +43,7 @@ export class TemporalIntegrator {
     }
     if(bounds&&optical){
       // Defocused blades spread outside the instantaneous rotor silhouette.
-      const pad=Math.ceil(width*.08),right=Math.min(width,bounds.x+bounds.width+pad),top=Math.min(height,bounds.y+bounds.height+pad);
+      const pad=Math.ceil(owner.uniforms.lensRadiusLimit.value),right=Math.min(width,bounds.x+bounds.width+pad),top=Math.min(height,bounds.y+bounds.height+pad);
       bounds={x:Math.max(0,bounds.x-pad),y:Math.max(0,bounds.y-pad),width:0,height:0};bounds.width=right-bounds.x;bounds.height=top-bounds.y;
     }
     owner.uniforms.skipLens.value=false;

@@ -1,0 +1,48 @@
+{
+  "exr": {
+    "dimensions": [
+      256,
+      128
+    ],
+    "minimumRadiance": 0.00017298413149546832,
+    "maximumRadiance": 5.167081356048584,
+    "meanLuminance": 0.12327333526268316,
+    "negativeChannels": 0,
+    "nonfiniteChannels": 0,
+    "channelsOver64": 0
+  },
+  "hdr": {
+    "dimensions": [
+      256,
+      128
+    ],
+    "minimumRadiance": 0.000171661376953125,
+    "maximumRadiance": 5.15625,
+    "meanLuminance": 0.1227995296769077,
+    "negativeChannels": 0,
+    "nonfiniteChannels": 0,
+    "channelsOver64": 0
+  },
+  "maximumRgbEQuantizationRelativeToPixelPeak": 0.007801137864589691,
+  "meanAbsoluteRgbEQuantizationError": 0.00047293203533627093,
+  "hdrSceneLinearVerified": true,
+  "files": {
+    "fan-room-refined.exr": {
+      "bytes": 387995,
+      "sha256": "5f331f5790217dd3a7533c8ed47a3da2af9646a75bb179294c73e65dd9236f25"
+    },
+    "fan-room-refined.hdr": {
+      "bytes": 111383,
+      "sha256": "2598fa0c8e5cac36d4ed61e52352755290a78fe9a0e4f84b022905422f844c52"
+    },
+    "fan-room-refined-preview.png": {
+      "bytes": 170418,
+      "sha256": "1ec13045b602b40dbdff93ed4e37103c1f7b4cf07c340883d6790152f7d75180"
+    }
+  },
+  "originalProbe": {
+    "file": "public/scenes/barbershop-plates/fan-room.hdr",
+    "bytes": 111198,
+    "sha256": "203672015a3988dad3c63b3002bbf7d703ed326d73ed773cee7d43645292fefc"
+  }
+}

@@ -5,6 +5,7 @@ import sharp from 'sharp';
 import {FloatType} from 'three';
 import {HDRLoader} from 'three/addons/loaders/HDRLoader.js';
 import {EXRLoader} from 'three/addons/loaders/EXRLoader.js';
+import {subjectAssetBytes} from './subject-assets.mjs';
 const [source,out,id='barbershop',title='Agent 327 Barbershop',attribution='Blender Foundation / Blender Studio — CC BY']=process.argv.slice(2);if(!source||!out)throw Error('Provide source and output directories, optionally id/title/attribution');
 await fs.mkdir(out,{recursive:true});
 const raw=JSON.parse(await fs.readFile(path.join(source,'viewfield.json'),'utf8'));
@@ -44,10 +45,8 @@ manifest.initialBytes=manifest.views[0].bytes+manifest.views[0].depthBytes;
 let subjectSource;
 try{subjectSource=await fs.readFile(path.join(out,'subjects.json'));}catch(error){if(error.code!=='ENOENT')throw error;}
 if(subjectSource){
-  manifest.subjects='subjects.json';const subjects=JSON.parse(subjectSource),files=new Set(subjects.map(subject=>subject.environment).filter(Boolean));
-  manifest.subjectBytes=subjectSource.length;
-  for(const file of files)manifest.subjectBytes+=(await fs.stat(path.join(out,file))).size;
-  manifest.initialWithSubjectBytes=manifest.initialBytes+manifest.subjectBytes;
+  manifest.subjects='subjects.json';Object.assign(manifest,await subjectAssetBytes(out,manifest.subjects));
+  manifest.initialWithSubjectBytes=manifest.initialBytes+manifest.initialSubjectBytes;
 }
 await fs.writeFile(path.join(out,'manifest.json'),JSON.stringify(manifest,null,2)+'\n');
 

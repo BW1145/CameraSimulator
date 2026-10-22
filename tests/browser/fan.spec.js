@@ -1,14 +1,27 @@
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
-import {openControl,setRange,setRanges,waitFrame} from './controls.js';
+import {readFile} from 'node:fs/promises';
+import {openControl,setRange,setRanges,waitFrame,waitLayers} from './controls.js';
 
 test('switching away during a delayed fan probe cannot replace the selected scene',async({page})=>{
-  let entered,release;const pending=new Promise(resolve=>{entered=resolve;});let first=true;
-  await page.route('**/fan-room.hdr',async route=>{if(first){first=false;entered();await new Promise(resolve=>{release=resolve;});}await route.continue();});
-  await page.goto('/');await pending;await page.locator('#scene').selectOption('kitchen');release();
-  await expect(page.locator('#image')).toHaveAttribute('data-scene','kitchen');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
-  await openControl(page,'motion');await expect(page.locator('#motion')).toBeVisible();await expect(page.locator('#position-controls')).toBeVisible();
-  await page.locator('#scene').selectOption('barbershop');await expect(page.locator('#image')).toHaveAttribute('data-scene','barbershop');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');await expect(page.locator('#position-controls')).toBeVisible();
+  const subjects=JSON.parse(await readFile(new URL('../../public/scenes/barbershop-plates/subjects.json',import.meta.url),'utf8'));
+  const fan=subjects.find(subject=>subject.type==='desk-fan'),environment=fan?.viewLighting?.center?.environment??fan?.environment;
+  expect(environment,'the default fan must configure a center probe').toBeTruthy();
+  let intercepted=0,release;const pending=new Promise(resolve=>{release=resolve;});
+  await page.route(`**/barbershop-plates/${environment}`,async route=>{if(++intercepted===1)await pending;await route.continue();});
+  try{
+    await page.goto('/',{waitUntil:'domcontentloaded'});
+    await expect.poll(()=>intercepted,{message:`the configured center probe ${environment} must be intercepted`,timeout:30000}).toBe(1);
+    await page.locator('#scene').selectOption('kitchen');
+    await expect(page.locator('#image')).toHaveAttribute('data-scene','kitchen');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
+    // Resolve the old probe only after the replacement scene is actually live.
+    await expect.poll(async()=>Number(await page.locator('#image').getAttribute('data-pending-layers'))).toBeGreaterThan(0);
+    release();await waitLayers(page);
+    await expect(page.locator('#image')).toHaveAttribute('data-scene','kitchen');
+    await openControl(page,'motion');await expect(page.locator('#motion')).toBeVisible();await expect(page.locator('#position-controls')).toBeVisible();
+    await page.locator('#scene').selectOption('barbershop');await expect(page.locator('#image')).toHaveAttribute('data-scene','barbershop');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');await expect(page.locator('#position-controls')).toBeVisible();
+    expect(intercepted,'returning to the fan scene must request its probe again').toBe(2);
+  }finally{release();}
 });
 
 test('default photographic fan conserves static light while the shutter integrates its rotor',async({page})=>{
