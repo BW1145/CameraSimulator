@@ -1,5 +1,26 @@
 import * as T from 'three';
 
+// Nested low-discrepancy azimuths for antipodal pairs. Precompute once rather
+// than reversing bits or evaluating trigonometry inside every pixel's gather.
+export function createForegroundDirections(pairCount=48){
+  return Array.from({length:pairCount},(_,index)=>{
+    let fraction=0,scale=.5;
+    for(let bits=index;bits>0;bits=Math.floor(bits/2)){fraction+=(bits%2)*scale;scale*=.5;}
+    const angle=Math.PI*fraction;return new T.Vector2(Math.cos(angle),Math.sin(angle));
+  });
+}
+
+// Radial area primitive for the antialiased disc: integral 2r*coverage(r) dr.
+// coverage is 1-smoothstep(R-.5,R+.5,r); its total area divided by PI is R²+.05.
+// This scalar form mirrors softDiscArea() in the shared lens fragment shader.
+export function softDiscArea(r,R){
+  const a=R-.5;
+  if(r<=a)return r*r;
+  if(r>=R+.5)return R*R+.05;
+  const t=r-a,t2=t*t,t3=t2*t,t4=t2*t2,t5=t4*t;
+  return a*a+2*(a*(t-t3+.5*t4)+(.5*t2-.75*t4+.4*t5));
+}
+
 // The transport is an unsigned16 axial camera-Z packed into R/G. Zero is kept:
 // silently discarding it would turn an uncertain near surface into a far one.
 export function minimumPackedDepth(pixels,range=64,validityChannel=null){

@@ -5,12 +5,14 @@ import {roomLighting,sourceMatteMaterial} from './lighting.js';
 import {reflectPoint} from './mirror-optics.js';
 import {HDRLoader} from 'three/addons/loaders/HDRLoader.js';
 import {decodeRadianceTexture} from './linear-radiance.js';
+import {createForegroundDirections} from './lens-support.js';
 
 const vertex=`varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}`;
 const fragment=`
 precision highp float;
 varying vec2 vUv;
 uniform sampler2D plate;uniform sampler2D sceneDepth;
+uniform vec2 foregroundDirections[48];
 uniform float lensRadiusLimit;uniform float foregroundSupportRadius;uniform vec2 resolution;uniform vec2 pixelOrigin;uniform float focus;uniform float focal;uniform float aperture;
 uniform float exposure;uniform float iso;uniform float wb;uniform float time;uniform bool zebra;
 uniform float sensorWidth;uniform float nearClip;uniform float farClip;uniform float radianceScale;
@@ -21,6 +23,15 @@ float depthAt(vec2 p){float d=texture2D(sceneDepth,p).x;return linearDepth?d:nea
 float coc(float z){
   float f=focal/1000.;
   return min(lensRadiusLimit,abs(f*f*(z-focus)/(aperture*max(.05,z)*max(.01,focus-f)))*1000./sensorWidth*resolution.x*.5);
+}
+// Exact radial integral only; depth/color within an angular stratum are still
+// point samples. Keep this polynomial matched to lens-support.js softDiscArea.
+float softDiscArea(float r,float R){
+  float a=R-.5;
+  if(r<=a)return r*r;
+  if(r>=R+.5)return R*R+.05;
+  float t=r-a;float t2=t*t;float t3=t2*t;float t4=t2*t2;float t5=t4*t;
+  return a*a+2.*(a*(t-t3+.5*t4)+(.5*t2-.75*t4+.4*t5));
 }
 float random(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}
 void main(){
@@ -56,20 +67,28 @@ void main(){
   c/=count;
   if(splitForeground){
     vec3 foreground=vec3(0.);float coverage=0.;
-    float searchRadius=min(lensRadiusLimit,foregroundSupportRadius);
-    float pairs=searchRadius<16.?16.:24.;
-    // Antipodal uniform-area samples preserve mirrored-edge symmetry. The
-    // support is scene-derived, not the much larger absolute lens safety cap.
-    for(int i=0;i<48;i++){
+    float support=min(lensRadiusLimit,foregroundSupportRadius);
+    // CoC retains its safety cap; the extra half pixel includes the complete
+    // antialiased disc edge rather than truncating it at its 50% boundary.
+    float searchRadius=support+.5;
+    float pairs=support<16.?16.:(support<64.?32.:48.);
+    // Quadratic radial strata keep small near discs represented even when
+    // another surface makes the certified global support much larger.
+    // Nested base-2 azimuths and antipodes avoid an unpaired directional halo.
+    for(int i=0;i<96;i++){
       if(float(i)>=2.*pairs)break;
-      float index=floor(float(i)*.5);float angle=index*2.399963;
-      float r=sqrt((index+.5)/pairs);float direction=mod(float(i),2.)*2.-1.;
-      vec2 offset=direction*vec2(cos(angle),sin(angle))*r*searchRadius;
+      int index=i/2;float t=(float(index)+.5)/pairs;
+      float direction=mod(float(i),2.)*2.-1.;
+      vec2 offset=direction*foregroundDirections[index]*t*t*searchRadius;
       vec2 p=clamp(vUv+offset/resolution,vec2(0.),vec2(1.));
       float sampleZ=depthAt(p);float sampleRadius=coc(sampleZ);
       if(sampleZ<min(z,focus)-.02&&sampleRadius>1.){
-        float disc=1.-smoothstep(sampleRadius-.5,sampleRadius+.5,length(offset));
-        float w=disc*searchRadius*searchRadius/max(1.,sampleRadius*sampleRadius)/(2.*pairs);
+        float lo=float(index)/pairs;float hi=(float(index)+1.)/pairs;
+        // Integrate the soft-disc area across the complete radial stratum.
+        // This avoids support-phase energy loss; angular/depth placement stays
+        // a finite-sample approximation, not an exact optical convolution.
+        float area=softDiscArea(hi*hi*searchRadius,sampleRadius)-softDiscArea(lo*lo*searchRadius,sampleRadius);
+        float w=max(0.,area)/((sampleRadius*sampleRadius+.05)*2.);
         foreground+=texture2D(plate,p).rgb*w;coverage+=w;
       }
     }
@@ -138,7 +157,7 @@ export class Renderer {
     this.analysisTarget=new T.WebGLRenderTarget(1,1,{type:T.UnsignedByteType,depthBuffer:false});
     this.meterTarget=new T.WebGLRenderTarget(1,1,{type:T.FloatType,depthBuffer:false});
     this.meterSceneTarget=new T.WebGLRenderTarget(1,1,{type:T.HalfFloatType,depthTexture:new T.DepthTexture(1,1,T.UnsignedIntType)});
-    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,linearDepth:false,resolution:new T.Vector2(1,1),pixelOrigin:new T.Vector2(),lensRadiusLimit:.08,foregroundSupportRadius:-1,focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,radianceScale:1,meteringPass:false,lensOnly:false,skipLens:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
+    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,linearDepth:false,resolution:new T.Vector2(1,1),pixelOrigin:new T.Vector2(),lensRadiusLimit:.08,foregroundSupportRadius:-1,foregroundDirections:createForegroundDirections(),focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,radianceScale:1,meteringPass:false,lensOnly:false,skipLens:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
     this.postScene=new T.Scene();this.postCamera=new T.Camera();
     this.postScene.add(new T.Mesh(new T.PlaneGeometry(2,2),new T.ShaderMaterial({vertexShader:vertex,fragmentShader:fragment,uniforms:this.uniforms,depthTest:false,depthWrite:false})));
     this.loadVersion=0;

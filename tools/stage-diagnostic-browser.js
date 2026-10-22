@@ -63,13 +63,17 @@ window.stageAudit = {
     owner.renderer.setRenderTarget(null);owner.renderer.render(owner.postScene,owner.postCamera);
     return {id,requested:{exposureEV,wb,lens,aperture,focus:current.focus},state:current,exposure,uniforms:actual,camera:{position:owner.camera.position.toArray(),quaternion:owner.camera.quaternion.toArray(),projectionMatrix:owner.camera.projectionMatrix.toArray(),rayToCapture:owner.plateUniforms.rayToCapture.value.toArray(),filmWidth:owner.filmWidth},frameStats:owner.frameStats,display,radiance};
   },
-  synthetic({id,whiteSide,nearZ=.9,farZ=3,focus=1.4,aperture=1.4,shape='step',orientation='vertical'}) {
+  synthetic({id,whiteSide,nearZ=.9,farZ=3,focus=1.4,aperture=1.4,shape='step',orientation='vertical',supportRatio=1,supportNearZ=null,nearRadius=null,timing=false}) {
     if(!['left','right'].includes(whiteSide))throw Error('Unsupported synthetic edge');
     const source=new Float32Array(width*height*4),depth=new Float32Array(width*height*4);
+    if(nearRadius!==null){const f=owner.pack.referenceFocal/1000,k=f*f/(aperture*Math.max(.01,focus-f))*1000/36*width*.5;nearZ=focus/(1+nearRadius/k);}
+    const minimumZ=supportNearZ??(supportRatio>1?focus/(1+supportRatio*(focus/nearZ-1)):nearZ);
+    const patchX=whiteSide==='left'||orientation==='horizontal'?8:width-24,patchY=whiteSide==='right'&&orientation!=='vertical'?height-24:8;
     for(let y=0;y<height;y++)for(let x=0;x<width;x++){
       const i=(y*width+x)*4,distance=orientation==='horizontal'?y+.5-height/2:orientation==='diagonal'?(x+.5-width/2+y+.5-height/2)/Math.SQRT2:x+.5-width/2,near=shape==='thin-strip'?Math.abs(x-width/2)<1.5:(whiteSide==='left'?distance:-distance)<(orientation==='diagonal'?.123:0);
       source[i]=source[i+1]=source[i+2]=near?1:0;source[i+3]=1;
       depth[i]=depth[i+1]=depth[i+2]=near ? nearZ : farZ;depth[i+3]=1;
+      if(minimumZ<nearZ&&x>=patchX&&x<patchX+16&&y>=patchY&&y<patchY+16){source[i]=source[i+1]=source[i+2]=1;depth[i]=depth[i+1]=depth[i+2]=minimumZ;}
     }
     const colorTexture=new T.DataTexture(source,width,height,T.RGBAFormat,T.FloatType),depthTexture=new T.DataTexture(depth,width,height,T.RGBAFormat,T.FloatType);
     colorTexture.colorSpace=T.LinearSRGBColorSpace;colorTexture.minFilter=colorTexture.magFilter=T.LinearFilter;
@@ -80,19 +84,20 @@ window.stageAudit = {
       const overrides={plate:colorTexture,sceneDepth:depthTexture,linearDepth:true,lensOnly:true,skipLens:false,meteringPass:false,lensRadiusLimit:width*.08,focus,focal:owner.pack.referenceFocal,aperture,exposure:0,iso:0,wb:5000,time:0,zebra:false,sensorWidth:36,radianceScale:1,agx:true,toneMappingExposure:1};
       if(owner.uniforms.foregroundSupportRadius){
         const f=owner.pack.referenceFocal/1000;
-        overrides.foregroundSupportRadius=nearZ>=focus?0:Math.min(width*.08,Math.abs(f*f*(nearZ-focus)/(aperture*Math.max(.05,nearZ)*Math.max(.01,focus-f)))*1000/36*width*.5);
+        overrides.foregroundSupportRadius=minimumZ>=focus?0:Math.min(width*.08,Math.abs(f*f*(minimumZ-focus)/(aperture*Math.max(.05,minimumZ)*Math.max(.01,focus-f)))*1000/36*width*.5);
       }
       for(const [key,value]of Object.entries(overrides))owner.uniforms[key].value=value;
+      const shaderTiming=[];if(timing){const pixel=new Uint16Array(4);for(let n=0;n<5;n++){const start=performance.now();renderPost(linearTarget);owner.renderer.readRenderTargetPixels(linearTarget,0,0,1,1,pixel);if(n>=2)shaderTiming.push(performance.now()-start);}}
       renderPost(linearTarget);const radiance=base64(read(linearTarget,Uint16Array));
       owner.uniforms.lensOnly.value=false;renderPost(displayTarget);const display=base64(read(displayTarget,Uint8Array));
-      return {id,synthetic:{whiteSide,shape,orientation,mirrorOperation:orientation==='horizontal'?'flip-y':orientation==='diagonal'?'rotate-180':'flip-x',planeOffset:orientation==='diagonal'?.123:0,edgeColumn:width/2,foreground:{linearRGB:[1,1,1],z:nearZ},background:{linearRGB:[0,0,0],z:farZ},textureFilter:{color:'linear',depth:'nearest'},truth:'Exact planar near/far step; mirror-paired inputs test kernel reflection symmetry, not a Cycles scene.'},uniforms:uniforms(),display,radiance};
+      return {id,shaderTimingMs:shaderTiming,timingScope:timing?'Synthetic capped-support post-pass plus1px synchronous readback completion; software-GPU wall timing':null,synthetic:{whiteSide,shape,orientation,supportRatio,minimumDepthPatch:minimumZ<nearZ?{z:minimumZ,rect:[patchX,patchY,16,16],purpose:"Real nearer geometry fixes scene support; far from measured edge"}:null,mirrorOperation:orientation==='horizontal'?'flip-y':orientation==='diagonal'?'rotate-180':'flip-x',planeOffset:orientation==='diagonal'?.123:0,edgeColumn:width/2,foreground:{linearRGB:[1,1,1],z:nearZ},background:{linearRGB:[0,0,0],z:farZ},textureFilter:{color:'linear',depth:'nearest'},truth:'Exact planar near/far step; mirror-paired inputs test kernel reflection symmetry, not a Cycles scene.'},uniforms:uniforms(),display,radiance};
     }finally{for(const [key,value]of Object.entries(saved))owner.uniforms[key].value=value;colorTexture.dispose();depthTexture.dispose();}
   },
   benchmark({aperture,focus=1.4,warmup=1,iterations=3}) {
     const current={...state,aperture,focus},exposure={aperture,shutter:current.shutter,iso:0,ev:owner.scene.baseEV+owner.exposureOffset};
-    const gl=owner.renderer.getContext(),durations=[];
-    for(let i=0;i<warmup+iterations;i++){const start=performance.now();owner.draw(current,exposure,0,false,displayTarget);gl.finish();const elapsed=performance.now()-start;if(i>=warmup)durations.push(elapsed);}
-    return {variant,width,height,aperture,focus,warmup,iterations,durationsMs:durations,uniforms:uniforms(),note:'Synchronous gl.finish wall timing on this CI software browser only; not user-device FPS.'};
+    const durations=[],pixel=new Uint8Array(4);
+    for(let i=0;i<warmup+iterations;i++){const start=performance.now();owner.draw(current,exposure,0,false,displayTarget);owner.renderer.readRenderTargetPixels(displayTarget,0,0,1,1,pixel);const elapsed=performance.now()-start;if(i>=warmup)durations.push(elapsed);}
+    return {variant,width,height,renderTarget:{width:displayTarget.width,height:displayTarget.height},completionPixel:Array.from(pixel),aperture,focus,warmup,iterations,durationsMs:durations,uniforms:uniforms(),note:'Draw plus mandatory synchronous1px readPixels completion. Chromium gl.finish only flushes and is NOT a completion barrier. Software-CI wall timing, not user-device FPS.'};
   },
   rawFrame() {
     const raw=base64(read(owner.target,Uint16Array));

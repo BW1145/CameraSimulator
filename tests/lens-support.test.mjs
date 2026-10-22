@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import * as T from 'three';
 import {readFile} from 'node:fs/promises';
 import sharp from 'sharp';
-import {minimumPackedDepth,projectedMinimumDepth,minimumWorldBoxDepth,minimumSphereDepth,foregroundSupportRadius} from '../src/lens-support.js';
+import {softDiscArea,createForegroundDirections,minimumPackedDepth,projectedMinimumDepth,minimumWorldBoxDepth,minimumSphereDepth,foregroundSupportRadius} from '../src/lens-support.js';
 import {PlateRenderer} from '../src/plate-renderer.js';
 
 const parameters={focus:1.4,focal:24.9136037681,aperture:1.4,sensorWidth:36,width:2048,limit:2048*.08,nearClip:.05};
@@ -162,5 +162,46 @@ test('all seven shipped barber optical packs select the certified path rather th
     assert.ok(owner.plate.optical.minimumDepth>owner.camera.near,entry.id);
     owner.updateForegroundSupport([],0);
     assert.ok(Number.isFinite(owner.uniforms.foregroundSupportRadius.value)&&owner.uniforms.foregroundSupportRadius.value>=0,`${entry.id} must use the bounded path`);
+  }
+});
+
+
+test('foreground azimuths use nested base-2 directions and exact antipodal pairs at every budget',()=>{
+  const all=createForegroundDirections(),prefix=createForegroundDirections(16);
+  assert.equal(all.length,48);
+  const expected=[0,Math.PI/2,Math.PI/4,3*Math.PI/4,Math.PI/8,5*Math.PI/8];
+  for(let i=0;i<all.length;i++){
+    close(all[i].length(),1);
+    const opposite=all[i].clone().negate();close(all[i].clone().add(opposite).length(),0);
+    if(i<expected.length){close(all[i].x,Math.cos(expected[i]));close(all[i].y,Math.sin(expected[i]));}
+    if(i<prefix.length){assert.notEqual(all[i],prefix[i]);assert.deepEqual(all[i].toArray(),prefix[i].toArray());}
+  }
+});
+
+
+test('soft-disc radial primitive is continuous, integrates coverage, and preserves annular mass',()=>{
+  const smooth=(a,b,x)=>{const t=Math.max(0,Math.min(1,(x-a)/(b-a)));return t*t*(3-2*t);};
+  for(const R of [1.1,5.095,20]){
+    const total=R*R+.05;
+    close(softDiscArea(0,R),0);close(softDiscArea(R+.5,R),total);
+    for(const edge of [R-.5,R+.5]){
+      assert.ok(Math.abs(softDiscArea(edge-1e-8,R)-softDiscArea(edge+1e-8,R))<1e-5);
+    }
+    for(const r of [R-.3,R,R+.3,R+.5]){
+      // Independent composite Simpson integral of the actual coverage function.
+      const n=16384,h=r/n,f=x=>2*x*(1-smooth(R-.5,R+.5,x));
+      let sum=f(0)+f(r);for(let i=1;i<n;i++)sum+=(i%2?4:2)*f(i*h);
+      close(softDiscArea(r,R),sum*h/3,1e-7);
+      if(r<R+.5){const eps=1e-6,derivative=(softDiscArea(r+eps,R)-softDiscArea(r-eps,R))/(2*eps);close(derivative,f(r),1e-6);}
+    }
+    for(const S of [R,Math.min(163.84,R*3),Math.min(163.84,R*8),163.84]){
+      const pairs=S<16?16:S<64?32:48,search=S+.5;let mass=0;
+      for(let j=0;j<pairs;j++){
+        const lo=(j/pairs)**2*search,hi=((j+1)/pairs)**2*search;
+        const pairedWeight=(softDiscArea(hi,R)-softDiscArea(lo,R))/total;
+        assert.ok(pairedWeight>=0);mass+=pairedWeight;
+      }
+      close(mass,1);
+    }
   }
 });

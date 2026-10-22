@@ -18,6 +18,16 @@ export const SYNTHETIC_CASES=[
  {id:'synthetic-thin-strip',whiteSide:'left',shape:'thin-strip',farZ:1.4},
  {id:'synthetic-horizontal-left',whiteSide:'left',orientation:'horizontal'}, {id:'synthetic-horizontal-right',whiteSide:'right',orientation:'horizontal'},
  {id:'synthetic-diagonal-left',whiteSide:'left',orientation:'diagonal'}, {id:'synthetic-diagonal-right',whiteSide:'right',orientation:'diagonal'},
+ {id:'synthetic-support3-left',whiteSide:'left',supportRatio:3,farZ:1.4},
+ {id:'synthetic-support3-right',whiteSide:'right',supportRatio:3,farZ:1.4},
+ {id:'synthetic-support8-left',whiteSide:'left',supportRatio:8,farZ:1.4},
+ {id:'synthetic-support8-right',whiteSide:'right',supportRatio:8,farZ:1.4},
+ {id:'synthetic-cap-small-left',whiteSide:'left',nearRadius:1.1,supportRatio:163.84/1.1,farZ:1.4,timing:true},
+ {id:'synthetic-cap-small-right',whiteSide:'right',nearRadius:1.1,supportRatio:163.84/1.1,farZ:1.4},
+ {id:'synthetic-small-disc-left',whiteSide:'left',nearZ:1.2,supportNearZ:.771,farZ:1.4},
+ {id:'synthetic-small-disc-right',whiteSide:'right',nearZ:1.2,supportNearZ:.771,farZ:1.4},
+ {id:'synthetic-f56-support8-left',whiteSide:'left',aperture:5.6,supportRatio:8,farZ:1.4},
+ {id:'synthetic-f56-support8-right',whiteSide:'right',aperture:5.6,supportRatio:8,farZ:1.4},
 ];
 export function parseArgs(argv){
   const c={candidateRoot:ROOT,out:join(ROOT,'processing-stage-evidence'),url:'http://127.0.0.1:8014/',serve:false,plan:false,validate:false};
@@ -107,6 +117,12 @@ export async function main(argv=process.argv.slice(2)){
         metadata.artifacts=[await artifact(c,`${id}/display.rgba8`,display,pixels*4),await artifact(c,`${id}/linear.rgba16f`,radiance,pixels*8)];
         const png=join(c.out,id,'display.png');await sharp(pixelsBuffer,{raw:{width:run.initial.width,height:run.initial.height,channels:4}}).png().toFile(png);metadata.artifacts.push({path:`${id}/display.png`,bytes:(await stat(png)).size,sha256:await sha(png)});
         await json(join(c.out,id,'case.json'),metadata);run.baseline.captures.push(metadata);
+      }
+      run.baseline.syntheticCaptures=[];
+      for(const entry of SYNTHETIC_CASES.filter(x=>/^synthetic-(support8|small-disc|cap-small)-(left|right)$/.test(x.id))){
+        const {display,radiance,...metadata}=await baselinePage.evaluate(entry=>window.stageAudit.synthetic(entry),entry),id='old-'+entry.id;metadata.originalId=entry.id;metadata.id=id;
+        metadata.artifacts=[await artifact(c,`${id}/display.rgba8`,display,pixels*4),await artifact(c,`${id}/linear.rgba16f`,radiance,pixels*8)];
+        await json(join(c.out,id,'case.json'),metadata);run.baseline.syntheticCaptures.push(metadata);
       }
       run.timing={order:'baseline,candidate,candidate,baseline for each aperture',samples:[]};
       for(const aperture of [1.4,8])for(const which of ['baseline','candidate','candidate','baseline']){const target=which==='baseline'?baselinePage:page;run.timing.samples.push(await target.evaluate(aperture=>window.stageAudit.benchmark({aperture}),aperture));}

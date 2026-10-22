@@ -30,9 +30,9 @@ if(run.syntheticCaptures?.length){
  for(let x=center-20;x<center+20;x++){const i=(mid*width+x)*4;profile.push({x,relativeCenter:x+.5-center,idealCircularCoverage:coverage(x+.5-center),left:left[i],rightMirrored:mirror[i]});}
  report.synthetic={description:'Mirror-paired opaque white foreground against constant black background through production lensOnly shader. Ideal circular footprint and reflection symmetry do not require hidden background colors.',physicalForegroundRadiusPixels:radius,gatherFirstTapRadiusPixels:width*.08*.5/24,gatherSecondTapRadiusPixels:width*.08*1.5/24,mirrorSymmetryEdgeLinear:metrics(left,mirror,width,height,[center-20,Math.floor(height/4),40,Math.floor(height/2)]),profile,note:'Diagnostic only; physical-model residual is reported separately from transport/display implementation gates.'};
 }
-report.foregroundRegression={enabled:run.syntheticCaptures?.some(c=>Number.isFinite(c.uniforms.foregroundSupportRadius)&&c.uniforms.foregroundSupportRadius>=0)??false,cases:[],acceptance:{mirrorMAE:.003,mirrorMax:.015,primaryDiskMAE:.05},note:'Only the certified bounded plate path is gated. Legacy unbounded GLTF remains explicitly outside this correction.'};
+report.foregroundRegression={enabled:run.syntheticCaptures?.some(c=>Number.isFinite(c.uniforms.foregroundSupportRadius)&&c.uniforms.foregroundSupportRadius>=0)??false,cases:[],acceptance:{mirrorMAE:.003,mirrorMax:.015,primaryDiskMAE:.05,multiscaleFarMAE:.12,multiscaleFirstOutsideAlpha:[.02,.85]},note:'Only the certified bounded plate path is gated. Legacy unbounded GLTF remains explicitly outside this correction.'};
 if(report.foregroundRegression.enabled){
- for(const stem of ['synthetic-white','synthetic-focus-bg','synthetic-f56','synthetic-sharp-near','synthetic-horizontal','synthetic-diagonal']){
+ for(const stem of ['synthetic-white','synthetic-focus-bg','synthetic-f56','synthetic-sharp-near','synthetic-horizontal','synthetic-diagonal','synthetic-support3','synthetic-support8','synthetic-small-disc','synthetic-f56-support8','synthetic-cap-small']){
   const left=decodeHalfBuffer(await bytes(`${stem}-left/linear.rgba16f`)),right=decodeHalfBuffer(await bytes(`${stem}-right/linear.rgba16f`)),mirror=new Float32Array(right.length);
   const horizontal=stem==='synthetic-horizontal',diagonal=stem==='synthetic-diagonal';
   for(let y=0;y<height;y++)for(let x=0;x<width;x++)for(let c=0;c<4;c++)mirror[(y*width+x)*4+c]=right[((horizontal||diagonal?height-1-y:y)*width+(horizontal?x:width-1-x))*4+c];
@@ -42,6 +42,15 @@ if(report.foregroundRegression.enabled){
     const radius=report.synthetic.physicalForegroundRadiusPixels,profile=[];
     for(let k=-20;k<20;k++){const x=width/2+(horizontal?0:k),y=height/2+(horizontal?k:0),distance=horizontal?k+.5:(k+1)/Math.SQRT2-.123,t=Math.max(-1,Math.min(1,distance/radius)),ideal=.5-(t*Math.sqrt(Math.max(0,1-t*t))+Math.asin(t))/Math.PI;profile.push({x,y,normalDistance:distance,idealCircularCoverage:ideal,value:left[(y*width+x)*4]});}
     result.diskProfile=profile;result.diskMAE=profile.reduce((sum,p)=>sum+Math.abs(p.value-p.idealCircularCoverage),0)/profile.length;
+  }
+  if(/synthetic-(support3|support8|small-disc|f56-support8|cap-small)$/.test(stem)){
+    const entry=run.syntheticCaptures.find(c=>c.id===stem+'-left'),u=entry.uniforms,z=entry.synthetic.foreground.z,f=u.focal/1000,radius=Math.min(u.lensRadiusLimit,Math.abs(f*f*(z-u.focus)/(u.aperture*Math.max(.05,z)*Math.max(.01,u.focus-f)))*1000/u.sensorWidth*width*.5),profile=[];
+    for(let k=0;k<Math.max(1,Math.ceil(radius));k++){const x=width/2+k,distance=k+.5,t=Math.max(-1,Math.min(1,distance/radius)),ideal=.5-(t*Math.sqrt(Math.max(0,1-t*t))+Math.asin(t))/Math.PI;profile.push({distance,ideal,left:left[(Math.floor(height/2)*width+x)*4],rightMirrored:mirror[(Math.floor(height/2)*width+x)*4]});}
+    result.localRadius=radius;result.supportRadius=u.foregroundSupportRadius;result.supportRatio=u.foregroundSupportRadius/radius;result.farProfile=profile;
+    result.farMAE=profile.reduce((sum,p)=>sum+(Math.abs(p.left-p.ideal)+Math.abs(p.rightMirrored-p.ideal))*.5,0)/profile.length;
+    result.halfPixelAlpha=profile[0].left;result.coveragePassed=result.farMAE<=.12&&result.halfPixelAlpha>.02&&result.halfPixelAlpha<.85;result.passed&&=result.coveragePassed;
+    const oldEntry=run.baseline?.syntheticCaptures?.find(c=>c.originalId===stem+'-left');
+    if(oldEntry){const oldLeft=decodeHalfBuffer(await bytes(`old-${stem}-left/linear.rgba16f`)),oldRight=decodeHalfBuffer(await bytes(`old-${stem}-right/linear.rgba16f`));result.oldFarProfile=profile.map((p,k)=>({...p,left:oldLeft[(Math.floor(height/2)*width+width/2+k)*4],rightMirrored:oldRight[(Math.floor(height/2)*width+width/2-1-k)*4]}));result.oldFarMAE=result.oldFarProfile.reduce((sum,p)=>sum+(Math.abs(p.left-p.ideal)+Math.abs(p.rightMirrored-p.ideal))*.5,0)/profile.length;result.improvesOld=result.farMAE<=result.oldFarMAE+.005;result.passed&&=result.improvesOld;}
   }
   report.foregroundRegression.cases.push(result);
  }

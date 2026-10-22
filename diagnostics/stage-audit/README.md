@@ -62,12 +62,14 @@ separate from normal surfaces and cannot establish a canonical-pack regression.
   app's reference-exposure convention, shared by all4scenes; current shallow
   history/docs provide no independently measured absolute camera calibration.
   This is **not a justified bug fix** and is not reset to match a JPEG.
-- Blender preview versus Three scalar display differs too, but exhaustive
-  effective Blender output/curve/WB settings must be checked before attributing
-  the whole difference to the AgX implementation.
+- Blender native AgX/None differs from Three-defined AgX (neutral mean8.895/255).
+  Effective source settings were verified: AgX/None, exposure0, gamma1, sRGB,
+  no active white balance/curves, output FOLLOW_SCENE. These are different
+  transform implementations, not evidence of a double-gamma bug or permission
+  to change the visual policy. Controlled Cycles f/1.4 and f/5.6 references now
+  exist with exact matched pose/projection. Browser exclusions are below.
 
-Browser results and controlled-source optical results are pending; offline
-facts do not claim those later stages passed. Production source is unchanged.
+Canonical/main remains unchanged. Candidate source changes are isolated here.
 
 ## Confirmed foreground-coverage defect / bounded correction
 
@@ -88,25 +90,43 @@ This is a computation artifact, not the normal effect of changing aperture/focus
 The prototype correction supplies a conservative foreground search bound from
 loaded physical/valid optical depth, current view rays/crop, and live subject
 bounds across the sampled shutter interval. It pairs taps in opposite directions,
-samples the foreground disc by area, and composites eligible foreground once.
-A 32-tap foreground gather is used below 16 px support, 48 for larger support;
-the ordinary gather remains 32 taps. Photographic CoC, controls, display transform,
+uses quadratic radial strata with nested base-2 azimuths, and composites
+eligible foreground once. A 32-tap foreground gather is used below16px support,
+64 below64px, and96 for larger support; the ordinary gather remains32 taps.
+The search includes the half-pixel antialias feather. Each stratum receives
+its exact soft-disc radial area (total area/PI=R²+.05), rather than a sparse
+point-density estimate. This normalizes radial energy without extra texture
+reads; angular/depth placement is still finite-sample approximation. Photographic CoC, controls, display transform,
 exposure/WB policy and the absolute safety cap are unchanged. Uncertified legacy
 GLTF geometry explicitly retains the old kernel (support=-1); do not claim it fixed.
 
 Before accepting this correction, CI additionally requires mirrored-edge linear
 MAE≤0.003/max≤0.015 for the original, in-focus-background, f/5.6 and in-focus-near
 fixtures, plus horizontal and diagonal half-plane reversals; the primary circular-disc profile MAE≤0.05. A thin 3 px strip records
-coverage/energy separately. Actual Cycles comparisons use the same display
+coverage/energy separately. Additional same-geometry tests cover support/radius3
+and8, the actual matched small-disc depth disparity, f/5.6 with loose support,
+and the absolute cap against a1.1px foreground disc. Their far-side profile
+MAE must be≤.12, first outside pixel alpha must lie in(.02,.85), and selected
+stress cases must not worsen actual old-shader profile MAE by more than.005.
+The remote19753 intermediate candidate passed13 original fixtures but is NOT
+accepted: its uniform-area samples missed small discs under loose bounds.
+`audit-lens-quadrature.py` reproduces the broader CPU scope, without claiming
+those analytical point-sample tests replace actual browser readback.
+Actual Cycles comparisons use the same display
 transform and segregate mirror/occlusion/denoising residuals, not pixel equality.
 
 The optional `--baseline-root PATH` copies baseline **source only** into a temporary
 diagnostic directory, uses the same controller/pack/browser, checks the baseline
 renderer SHA-256 against the exact pre-fix shader, and removes the copy afterward.
 At f/1.4 and f/8 it alternates baseline/candidate/candidate/baseline draw batches,
-with warmup and synchronous `gl.finish` (no readback in the timed interval).
-Per-frame timings and medians are recorded. A median ratio above 1.35 warrants
-investigation before acceptance; software-CI numbers are not real-user FPS.
+with warmup and mandatory synchronous1px readPixels **inside** each timed
+interval. Target dimensions and completion pixels are recorded. The cap fixture
+also times old/new lens-only passes using the same readback barrier. Previous
+remote19753 gl.finish timings are INVALID: Chromium implements that call as
+Flush, so those numbers measured submission, not completion. Do not use their
+ratios as performance evidence. New timings include the identical1px readback
+overhead. A median ratio above1.35 warrants investigation; software-CI numbers
+are not real-user FPS. No timing threshold is silently relaxed.
 
 ## Production-pack range scope (read only)
 
