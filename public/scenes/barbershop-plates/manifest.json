@@ -731,8 +731,8 @@
   ],
   "totalBytes": 15439316,
   "initialBytes": 2213745,
-  "subjectBytes": 112217,
-  "initialWithSubjectBytes": 2325962,
+  "subjectBytes": 112199,
+  "initialWithSubjectBytes": 2325944,
   "detail": {
     "method": "Seven independently rendered source cameras. XYZ selects actual positions; pan and focal length reframe each capture.",
     "sourceSha256": "95972b56180462cac47ec82f3a755bd9111ec18ca37a6196a319c013db994130",

@@ -1,0 +1,2 @@
+# Scene manifests count these UTF-8 resource bytes on every platform.
+public/scenes/*-plates/subjects.json text eol=lf
