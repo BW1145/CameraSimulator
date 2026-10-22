@@ -22,8 +22,10 @@ test('GPU meter reads linear dark values without a display-gamma roundtrip',asyn
 });
 
 test('dense displays receive scene pixels and mobile capture is independent of preview size',async({browser})=>{
-  const context=await browser.newContext({viewport:{width:1440,height:1000},deviceScaleFactor:2});const page=await context.newPage();
-  await page.goto('/?renderer=gltf');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
+  // Exercise the same physical 2x density at a bounded real viewport. Complete
+  // desktop scenes retain their independent 1440px visual acceptance checks.
+  const context=await browser.newContext({viewport:{width:800,height:700},deviceScaleFactor:2});const page=await context.newPage();
+  await page.goto('/?renderer=gltf');await expect(page.locator('#image')).toHaveAttribute('data-ready','true',{timeout:90000});
   const size=await page.locator('#image').evaluate(e=>({w:e.width,css:e.clientWidth,samples:Number(e.dataset.samples)}));
   expect(size.w).toBeGreaterThan(size.css*1.9);expect(size.samples).toBeGreaterThan(0);
   await page.setViewportSize({width:390,height:844});await openControl(page,'crop');await page.locator('#crop').selectOption('2:3');

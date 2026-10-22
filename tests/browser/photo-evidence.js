@@ -5,6 +5,9 @@ export async function capturePhotographicPage(page,options={}){
   await page.evaluate(()=>window.scrollTo(0,0));
   await page.waitForFunction(()=>document.querySelector('#image').dataset.ready==='true');
   await page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
+  // ResizeObserver can invalidate the old frame during those layout ticks.
+  // Wait for its replacement before sampling the actual page photograph.
+  await page.waitForFunction(()=>document.querySelector('#image').dataset.ready==='true');
   const canvas=page.locator('#image'),box=await canvas.boundingBox(),scrollY=await page.evaluate(()=>window.scrollY);
   const png=await page.screenshot({fullPage:true,...options});
   const crop=await sharp(png).extract({left:Math.round(box.x),top:Math.round(box.y+scrollY),width:Math.floor(box.width),height:Math.floor(box.height)}).png().toBuffer();

@@ -1,6 +1,7 @@
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
 import {openControl,motionSample,waitForMotion} from './controls.js';
+import {focusRoom} from './focus-room.js';
 const waitFrame=async page=>{await expect(page.locator('#image')).toHaveAttribute('data-ready','true');await page.waitForTimeout(180);};
 const range=async(page,id,value)=>{await openControl(page,id);await page.locator('#'+id).fill(String(value));await page.locator('#'+id).dispatchEvent('input');await waitFrame(page);};
 const stats=async page=>{
@@ -55,6 +56,7 @@ test('AF-S locks distance and AF-C follows a moving three dimensional subject',a
   // Use the same real viewport on hardware and software GPUs; default desktop
   // and narrow-screen visual coverage remains in the separate scene tests.
   await page.setViewportSize({width:800,height:700});
+  await page.route('**/scenes/barbershop/scene.glb',r=>r.fulfill({json:focusRoom}));
   await page.goto('/?renderer=gltf');await waitFrame(page);await openControl(page,'motion');
   await page.locator('#pause').check();await page.locator('#motion').check();await waitFrame(page);
   const box=await page.locator('#image').boundingBox();
