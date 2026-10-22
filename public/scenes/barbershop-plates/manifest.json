@@ -174,7 +174,9 @@
       "detailDepth": "center-detail-depth.png",
       "detailDepthWidth": 2560,
       "detailDepthHeight": 1072,
-      "detailDepthBytes": 1402489
+      "detailDepthBytes": 1402489,
+      "opticalDepth": "center-optical-depth.png",
+      "opticalDepthBytes": 502382
     },
     {
       "id": "left",
@@ -266,7 +268,9 @@
       "detailDepth": "left-detail-depth.png",
       "detailDepthWidth": 2560,
       "detailDepthHeight": 1072,
-      "detailDepthBytes": 1402176
+      "detailDepthBytes": 1402176,
+      "opticalDepth": "left-optical-depth.png",
+      "opticalDepthBytes": 501522
     },
     {
       "id": "right",
@@ -358,7 +362,9 @@
       "detailDepth": "right-detail-depth.png",
       "detailDepthWidth": 2560,
       "detailDepthHeight": 1072,
-      "detailDepthBytes": 1396404
+      "detailDepthBytes": 1396404,
+      "opticalDepth": "right-optical-depth.png",
+      "opticalDepthBytes": 494524
     },
     {
       "id": "up",
@@ -450,7 +456,9 @@
       "detailDepth": "up-detail-depth.png",
       "detailDepthWidth": 2560,
       "detailDepthHeight": 1072,
-      "detailDepthBytes": 1393527
+      "detailDepthBytes": 1393527,
+      "opticalDepth": "up-optical-depth.png",
+      "opticalDepthBytes": 504579
     },
     {
       "id": "down",
@@ -542,7 +550,9 @@
       "detailDepth": "down-detail-depth.png",
       "detailDepthWidth": 2560,
       "detailDepthHeight": 1072,
-      "detailDepthBytes": 1379612
+      "detailDepthBytes": 1379612,
+      "opticalDepth": "down-optical-depth.png",
+      "opticalDepthBytes": 485933
     },
     {
       "id": "front",
@@ -634,7 +644,9 @@
       "detailDepth": "front-detail-depth.png",
       "detailDepthWidth": 2560,
       "detailDepthHeight": 1072,
-      "detailDepthBytes": 1405765
+      "detailDepthBytes": 1405765,
+      "opticalDepth": "front-optical-depth.png",
+      "opticalDepthBytes": 509620
     },
     {
       "id": "back",
@@ -726,7 +738,9 @@
       "detailDepth": "back-detail-depth.png",
       "detailDepthWidth": 2560,
       "detailDepthHeight": 1072,
-      "detailDepthBytes": 1456630
+      "detailDepthBytes": 1456630,
+      "opticalDepth": "back-optical-depth.png",
+      "opticalDepthBytes": 503414
     }
   ],
   "totalBytes": 15439316,
@@ -1522,5 +1536,60 @@
       }
     ],
     "totalBytes": 9836603
+  },
+  "optics": {
+    "sourceSha256": "95972b56180462cac47ec82f3a755bd9111ec18ca37a6196a319c013db994130",
+    "method": "One source-scene specular ray bounce; unfold geometric path length into capture-camera axial Z",
+    "views": [
+      {
+        "id": "center",
+        "width": 1280,
+        "height": 536,
+        "reflectedPixels": 5377,
+        "maximumVirtualZ": 64
+      },
+      {
+        "id": "left",
+        "width": 1280,
+        "height": 536,
+        "reflectedPixels": 2355,
+        "maximumVirtualZ": 64
+      },
+      {
+        "id": "right",
+        "width": 1280,
+        "height": 536,
+        "reflectedPixels": 8893,
+        "maximumVirtualZ": 64
+      },
+      {
+        "id": "up",
+        "width": 1280,
+        "height": 536,
+        "reflectedPixels": 4926,
+        "maximumVirtualZ": 64
+      },
+      {
+        "id": "down",
+        "width": 1280,
+        "height": 536,
+        "reflectedPixels": 5558,
+        "maximumVirtualZ": 64
+      },
+      {
+        "id": "front",
+        "width": 1280,
+        "height": 536,
+        "reflectedPixels": 10234,
+        "maximumVirtualZ": 64
+      },
+      {
+        "id": "back",
+        "width": 1280,
+        "height": 536,
+        "reflectedPixels": 2815,
+        "maximumVirtualZ": 64
+      }
+    ]
   }
 }

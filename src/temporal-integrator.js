@@ -20,7 +20,7 @@ export class TemporalIntegrator {
     // setRenderTarget restores that target's scissor state. Apply the subject
     // rectangle after every bind, including the accumulation target.
     const bind=target=>{renderer.setRenderTarget(target);renderer.setScissorTest(Boolean(patch));if(patch)renderer.setScissor(patch.x,patch.y,patch.width,patch.height);};
-    const drawWorld=sampleTime=>{fan.setTime(sampleTime);bind(plate);renderer.clear(true,true,true);renderer.render(owner.world,owner.camera);calls+=renderer.info.render.calls;triangles+=renderer.info.render.triangles;};
+    const drawWorld=sampleTime=>{fan.setTime(sampleTime);bind(plate);renderer.clear(true,true,true);renderer.render(owner.world,owner.camera);calls+=renderer.info.render.calls;triangles+=renderer.info.render.triangles;if(optical)owner.resolveLensDepth?.(patch);};
     const lensImage=()=>{
       if(!optical)return plate.texture;
       owner.uniforms.plate.value=plate.texture;owner.uniforms.lensOnly.value=true;owner.uniforms.skipLens.value=false;

@@ -83,7 +83,9 @@ test('spot metering follows real image regions and fill flash lights the scene',
   await page.locator('#metering').selectOption('spot');
   const image=page.locator('#image'),box=await image.boundingBox();
   await image.click({position:{x:box.width*.12,y:box.height*.65}});await waitFrame(page);const left=Number(await image.getAttribute('data-ev'));
-  await image.click({position:{x:box.width*.9,y:box.height*.6}});await waitFrame(page);const right=Number(await image.getAttribute('data-ev'));
+  // Compare the lit marble with the foreground chair's shaded lower corner.
+  // The two similarly lit walls can legitimately choose the same ISO stop.
+  await image.click({position:{x:box.width*.9,y:box.height*.9}});await waitFrame(page);const right=Number(await image.getAttribute('data-ev'));
   expect(Math.abs(left-right)).toBeGreaterThan(.2);
   await page.locator('#metering').selectOption('matrix');await waitFrame(page);
   const unlit=await stats(page);await range(page,'flash',2);const lit=await stats(page);expect(lit.brightness).toBeGreaterThan(unlit.brightness*1.01);

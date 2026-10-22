@@ -2,6 +2,9 @@ import * as T from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {MeshoptDecoder} from 'three/addons/libs/meshopt_decoder.module.js';
 import {roomLighting} from './lighting.js';
+import {reflectPoint} from './mirror-optics.js';
+import {HDRLoader} from 'three/addons/loaders/HDRLoader.js';
+import {decodeRadianceTexture} from './linear-radiance.js';
 
 const vertex=`varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}`;
 const fragment=`
@@ -12,9 +15,9 @@ uniform vec2 resolution;uniform float focus;uniform float focal;uniform float ap
 uniform float exposure;uniform float iso;uniform float wb;uniform float time;uniform bool zebra;
 uniform float sensorWidth;uniform float nearClip;uniform float farClip;uniform float radianceScale;
 uniform bool meteringPass;uniform bool lensOnly;uniform bool skipLens;
-uniform bool agx;
+uniform bool agx;uniform bool linearDepth;
 #include <tonemapping_pars_fragment>
-float depthAt(vec2 p){float d=texture2D(sceneDepth,p).x;return nearClip*farClip/(farClip-(farClip-nearClip)*d);}
+float depthAt(vec2 p){float d=texture2D(sceneDepth,p).x;return linearDepth?d:nearClip*farClip/(farClip-(farClip-nearClip)*d);}
 float coc(float z){
   float f=focal/1000.;
   return min(resolution.x*.08,abs(f*f*(z-focus)/(aperture*max(.05,z)*max(.01,focus-f)))*1000./sensorWidth*resolution.x*.5);
@@ -104,7 +107,7 @@ export class Renderer {
     canvas.dataset.samples=String(this.target.samples);
     this.analysisTarget=new T.WebGLRenderTarget(1,1,{type:T.UnsignedByteType,depthBuffer:false});
     this.meterTarget=new T.WebGLRenderTarget(1,1,{type:T.FloatType,depthBuffer:false});
-    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,resolution:new T.Vector2(1,1),focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,radianceScale:1,meteringPass:false,lensOnly:false,skipLens:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
+    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,linearDepth:false,resolution:new T.Vector2(1,1),focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,radianceScale:1,meteringPass:false,lensOnly:false,skipLens:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
     this.postScene=new T.Scene();this.postCamera=new T.Camera();
     this.postScene.add(new T.Mesh(new T.PlaneGeometry(2,2),new T.ShaderMaterial({vertexShader:vertex,fragmentShader:fragment,uniforms:this.uniforms,depthTest:false,depthWrite:false})));
     this.loadVersion=0;
@@ -113,20 +116,32 @@ export class Renderer {
     const version=++this.loadVersion;
     const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
     const gltf=await loader.loadAsync(`${import.meta.env.BASE_URL}scenes/${scene.id}/scene.glb`,e=>onProgress(e.loaded,e.total));
-    const baked=new Set();gltf.scene.traverse(o=>{for(const m of [o.material].flat().filter(Boolean))if(m.userData.bakedIndirect)baked.add(m);});
+    const baked=new Set();gltf.scene.traverse(o=>{for(const m of [o.material].flat().filter(Boolean))if(m.userData.bakedIndirect||m.userData.bakedDiffuse)baked.add(m);});
+    const maps=new Map(),sourceDiffuse=[...baked].some(m=>m.userData.bakedDiffuse);
     await Promise.all([...baked].map(async m=>{
-      m.lightMap=await new T.TextureLoader().loadAsync(`${import.meta.env.BASE_URL}scenes/${scene.id}/${m.userData.bakedIndirect}`);
-      m.lightMap.channel=m.map?.channel??m.userData.bakedIndirectUV??1;m.lightMapIntensity=Math.PI;
-      // This atlas stores indirect diffuse light, not another ambient fill.
-      // Keep direct lights and flash, and retain environment specular separately.
+      const file=m.userData.bakedDiffuse||m.userData.bakedIndirect;
+      if(!maps.has(file)){
+        const encoding=m.userData.bakedDiffuseEncoding;
+        const task=(m.userData.bakedDiffuse&&!encoding?new HDRLoader():new T.TextureLoader()).loadAsync(`${import.meta.env.BASE_URL}scenes/${scene.id}/${file}`);
+        maps.set(file,encoding?task.then(texture=>decodeRadianceTexture(texture,encoding,Math.min(4,this.renderer.capabilities.getMaxAnisotropy()))):task);
+      }
+      m.lightMap=(await maps.get(file)).clone();
+      m.lightMap.channel=m.userData.bakedDiffuseUV??m.map?.channel??m.userData.bakedIndirectUV??1;m.lightMapIntensity=Math.PI;
+      if(m.userData.bakedDiffuse)m.lightMap.flipY=false;
+      const coordinateMap=m.userData.bakedDiffuse?(m.roughnessMap||m.map):m.map;
+      if(coordinateMap){coordinateMap.updateMatrix();m.lightMap.matrixAutoUpdate=false;m.lightMap.matrix.copy(coordinateMap.matrix);}
+      if(m.userData.bakedDiffuseMatte){m.roughnessMap=null;m.roughness=1;}
+      // Source diffuse atlases contain static direct and indirect light.
+      // Flash remains dynamic; the room probe supplies environment specular.
       m.onBeforeCompile=shader=>{shader.fragmentShader=shader.fragmentShader.replace('#include <lights_fragment_maps>','irradiance = vec3(0.0);\n#include <lights_fragment_maps>\niblIrradiance = vec3(0.0);');};
       m.customProgramCacheKey=()=> 'baked-indirect-v1';
     }));
     if(version!==this.loadVersion){disposeScene(gltf.scene);return false;}
+    this.sourceDiffuse=sourceDiffuse;
     this.releaseLighting();if(this.world)disposeScene(this.world);
     this.scene=scene;this.restoredLighting=baked.size>0;
     const lighting=scene.bakedLighting??{};
-    this.exposureOffset=this.restoredLighting?(lighting.exposureOffset??0):0;
+    this.exposureOffset=this.sourceDiffuse?0:this.restoredLighting?(lighting.exposureOffset??0):0;
     this.world=new T.Scene();this.world.background=new T.Color('#b5c2c9');
     const source=gltf.scene;source.updateMatrixWorld(true);
     const cam=gltf.cameras.find(c=>c.name===scene.camera)||gltf.cameras[0];
@@ -144,7 +159,7 @@ export class Renderer {
     source.traverse(o=>{
       // glTF punctual lights are photometric (candela). The source bake is
       // radiometric; use one unit conversion, preserving original light ratios.
-      if(o.isLight)o.intensity=this.restoredLighting?o.intensity*(lighting.lightScale??(1/683)):Math.min(o.intensity,scene.lightCap??30);
+      if(o.isLight)o.intensity=this.sourceDiffuse?0:this.restoredLighting?o.intensity*(lighting.lightScale??(1/683)):Math.min(o.intensity,scene.lightCap??30);
       if(o.isMesh){o.frustumCulled=true;for(const m of [o.material].flat()){
         o.castShadow=this.restoredLighting;o.receiveShadow=this.restoredLighting;
         if(!this.restoredLighting&&m.transmission>0){m.transmission=0;m.opacity=.22;m.transparent=true;m.depthWrite=false;}
@@ -155,14 +170,15 @@ export class Renderer {
     // Bound shadow cost by choosing the strongest original directional/spot keys.
     const keys=[];source.traverse(o=>{if(o.isSpotLight||o.isDirectionalLight)keys.push(o);});
     if(this.restoredLighting)keys.sort((a,b)=>b.intensity-a.intensity).slice(0,2).forEach(light=>{light.castShadow=true;light.shadow.mapSize.set(1024,1024);light.shadow.normalBias=.025;light.shadow.bias=-.0001;});
-    this.world.add(new T.HemisphereLight(0xdceaff,0x807060,this.restoredLighting ? (lighting.fill??0) : (scene.fill??1.5)*.7));
-    const sun=new T.DirectionalLight(0xffead1,this.restoredLighting ? (lighting.sunlight??0) : (scene.sunlight??1));sun.position.set(-3,8,5);this.world.add(sun);
+    this.world.add(new T.HemisphereLight(0xdceaff,0x807060,this.sourceDiffuse?0:this.restoredLighting ? (lighting.fill??0) : (scene.fill??1.5)*.7));
+    const sun=new T.DirectionalLight(0xffead1,this.sourceDiffuse?0:this.restoredLighting ? (lighting.sunlight??0) : (scene.sunlight??1));sun.position.set(-3,8,5);this.world.add(sun);
     if(!this.restoredLighting){
       sun.target.position.copy(this.anchor).add(new T.Vector3(0,0,-3).applyQuaternion(this.anchorRotation));sun.position.copy(sun.target.position).add(new T.Vector3(-3,8,5));this.world.add(sun.target);
       sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-8,right:8,top:8,bottom:-8,near:.1,far:30});sun.shadow.bias=-.0002;sun.shadow.normalBias=.015;
     }
     roomLighting(this,source);
-    this.flashLight=new T.PointLight(0xffffff,0,25,2);this.world.add(this.flashLight);
+    this.flashLight=new T.SpotLight(0xffffff,0,25,1.2,.15,2);this.world.add(this.flashLight,this.flashLight.target);
+    this.flashLight.castShadow=true;this.flashLight.shadow.mapSize.set(512,512);this.flashLight.shadow.camera.near=.05;this.flashLight.shadow.normalBias=.008;
     this.ballGroup=new T.Group();this.world.add(this.ballGroup);
     const ballGeometry=new T.SphereGeometry(.12,20,12);
     this.balls=Array.from({length:24},(_,i)=>{
@@ -171,6 +187,7 @@ export class Renderer {
     this.ready=true;this.frameStats={};return true;
   }
   releaseLighting(){
+    this.mirrorOptics?.dispose();this.mirrorOptics=null;
     for(const reflection of this.reflections||[])reflection.dispose();this.reflections=[];
     this.environmentTarget?.dispose();this.environmentTarget=null;
   }
@@ -253,12 +270,15 @@ export class Renderer {
   }
   renderPlate(s,exposure,time,flash=true,integrate=true){
     this.geometry(s);this.updateMotion(s,integrate?exposure:{...exposure,shutter:0},time);
-    this.flashLight.position.copy(this.camera.position);
+    this.flashLight.position.copy(this.camera.position).addScaledVector(new T.Vector3(0,1,0).applyQuaternion(this.camera.quaternion),.08);
+    this.flashLight.target.position.copy(this.flashLight.position).add(this.camera.getWorldDirection(new T.Vector3()));
     // Inverse duration preserves flash energy when ambient shutter time changes.
-    this.flashLight.intensity=flash?s.flash*.08/exposure.shutter:0;
+    this.flashLight.intensity=flash?s.flash*(1000/Math.PI)*.01/exposure.shutter:0;
     this.setRadianceScale(this.flashLight.intensity);
     this.renderer.setRenderTarget(this.target);this.renderer.render(this.world,this.camera);
-    this.frameStats={triangles:this.renderer.info.render.triangles,calls:this.renderer.info.render.calls,textures:this.renderer.info.memory.textures};
+    const stats={triangles:this.renderer.info.render.triangles,calls:this.renderer.info.render.calls,textures:this.renderer.info.memory.textures};
+    this.uniforms.sceneDepth.value=this.target.depthTexture;this.uniforms.linearDepth.value=false;this.mirrorOptics?.render(this);
+    this.frameStats=stats;
   }
   readPlate(s,exposure,time){
     // The meter observes current ambient light before choosing the exposure.
@@ -285,12 +305,24 @@ export class Renderer {
   }
   hitAt(x,y){
     this.raycaster.setFromCamera(new T.Vector2(x*2-1,y*2-1),this.camera);
-    const hits=this.raycaster.intersectObjects(this.world.children,true).filter(h=>h.object.visible&&h.object.material?.opacity!==.22&&!h.object.material?.userData.cameraInvisible&&!(h.object.material?.transmission>0));
+    const visible=h=>h.object.visible&&h.object.material?.visible!==false&&h.object.material?.opacity!==.22&&!h.object.material?.userData.cameraInvisible&&!(h.object.material?.transmission>0);
+    const hits=this.raycaster.intersectObjects(this.world.children,true).filter(visible);
     const hit=hits.find(h=>!this.balls.slice(1).includes(h.object)&&(!this.balls.includes(h.object)||this.ballGroup.visible));
     if(!hit)return null;
+    if(hit.object.userData.opticalMirror){
+      const mirror=hit.object,normal=new T.Vector3(0,0,1).applyQuaternion(mirror.quaternion),direction=this.raycaster.ray.direction.clone().reflect(normal);
+      this.raycaster.set(hit.point.clone().addScaledVector(direction,.002),direction);
+      const reflected=this.raycaster.intersectObjects(this.world.children,true).find(h=>visible(h)&&h.object!==mirror&&!this.balls.slice(1).includes(h.object)&&(!this.balls.includes(h.object)||this.ballGroup.visible));
+      if(reflected){const point=reflectPoint(reflected.point,mirror);return {z:-point.clone().applyMatrix4(this.camera.matrixWorldInverse).z,point,track:{mirror,object:reflected.object,localPoint:reflected.object.worldToLocal(reflected.point.clone())}};}
+    }
     const z=-hit.point.clone().applyMatrix4(this.camera.matrixWorldInverse).z;
     return {z,point:hit.point,ball:hit.object===this.balls[0]};
   }
   depthAt(x,y){return this.hitAt(x,y)?.z||65;}
+  projectTrack(track,time){
+    if(track.ball)return this.ballPosition(time);
+    let point=track.object?track.object.localToWorld(track.localPoint.clone()):track.point;
+    if(track.mirror)point=reflectPoint(point,track.mirror);return this.project(point);
+  }
   project(point){const p=point.clone().project(this.camera);return{x:p.x*.5+.5,y:p.y*.5+.5,z:-point.clone().applyMatrix4(this.camera.matrixWorldInverse).z};}
 }

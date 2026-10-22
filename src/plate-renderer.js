@@ -7,6 +7,7 @@ import {HDRLoader} from 'three/addons/loaders/HDRLoader.js';
 import {decodeRadianceTexture} from './linear-radiance.js';
 import {createBallSubject} from './practice-ball.js';
 import {tabletopLighting} from './lighting.js';
+import {PlateOptics} from './plate-optics.js';
 
 function readSourceDepth(depth){
   depth.colorSpace=T.NoColorSpace;depth.minFilter=T.NearestFilter;depth.magFilter=T.NearestFilter;depth.generateMipmaps=false;
@@ -25,6 +26,7 @@ export class PlateRenderer extends Renderer {
     ++this.moveVersion;
     this.ready=false;this.plate=null;this.entry=null;this.pack=null;this.packBase=null;this.canvas.dataset.detailWidth='';this.canvas.dataset.detailDepthWidth='';
     this.integrator?.dispose();this.integrator=null;this.fan=null;this.motionSubject=null;this.subjectEnvironment?.dispose();this.subjectEnvironment=null;
+    this.plateOptics?.dispose();this.plateOptics=null;
     this.uniforms.plate.value=this.target.texture;
     this.plateMode=Boolean(scene.platePack);
     this.canvas.dataset.reflections='0';this.canvas.dataset.environment='baked';
@@ -58,6 +60,7 @@ export class PlateRenderer extends Renderer {
     const geometry=new T.SphereGeometry(.12,24,16);
     this.balls=Array.from({length:24},(_,i)=>{const ball=new T.Mesh(geometry,new T.MeshStandardMaterial({color:0xe96522,roughness:.5,transparent:true,opacity:i?1/24:1,depthWrite:!i}));this.ballGroup.add(ball);return ball;});
     this.integrator=new TemporalIntegrator();this.motionSubject=createBallSubject(this);
+    this.plateOptics=new PlateOptics(this);
     if(new URLSearchParams(location.search).get('subject')!=='none'&&this.pack.subjects){
       const response=await fetch(base+this.pack.subjects);if(!response.ok)throw Error(`Subject pack ${response.status}`);
       const subjects=await response.json();if(version!==this.loadVersion)return false;const config=subjects.find(subject=>subject.type==='desk-fan');
@@ -111,9 +114,9 @@ export class PlateRenderer extends Renderer {
     const cacheKey=base+id;let resource=this.cache.get(cacheKey);
     if(!resource){
       const loader=new T.TextureLoader();
-      resource=this.trackLayer(Promise.all([loader.loadAsync(base+entry.file,e=>onProgress(e.loaded,e.total)),loader.loadAsync(base+entry.depth)]).then(([image,depth])=>{
+      resource=this.trackLayer(Promise.all([loader.loadAsync(base+entry.file,e=>onProgress(e.loaded,e.total)),loader.loadAsync(base+entry.depth),entry.opticalDepth?loader.loadAsync(base+entry.opticalDepth):null]).then(([image,depth,optical])=>{
         image=decodeRadianceTexture(image,encoding,Math.min(4,this.renderer.capabilities.getMaxAnisotropy()));
-        return {image,...readSourceDepth(depth)};
+        return {image,...readSourceDepth(depth),optical:optical?readSourceDepth(optical):null};
       }).catch(error=>{this.cache.delete(cacheKey);throw error;}));
       this.cache.set(cacheKey,resource);
     }else{this.cache.delete(cacheKey);this.cache.set(cacheKey,resource);}
@@ -125,14 +128,15 @@ export class PlateRenderer extends Renderer {
     this.canvas.dataset.position=id;this.canvas.dataset.cameraPosition=JSON.stringify(entry.position);
     this.canvas.dataset.detailWidth=String(loaded.image.image.width);this.canvas.dataset.detailDepthWidth=String(loaded.width);
     // Only the selected position downloads. Keep at most three decoded views.
-    while(this.cache.size>3){const [old,promise]=this.cache.entries().next().value;this.cache.delete(old);promise.then(r=>{r.image.dispose();r.depth.dispose();r.flash?.dispose();},()=>{});}
+    while(this.cache.size>3){const [old,promise]=this.cache.entries().next().value;this.cache.delete(old);promise.then(r=>{r.image.dispose();r.depth.dispose();r.flash?.dispose();r.optical?.depth.dispose();},()=>{});}
     this.trimDecodedCache();
   }
   async trimDecodedCache(){
     const resources=await Promise.all([...this.cache].map(async([key,promise])=>({key,promise,resource:await promise.catch(()=>null)})));
-    let bytes=resources.reduce((sum,{resource:r})=>sum+(r?(r.image.image.width*r.image.image.height+(r.flash?r.flash.image.width*r.flash.image.height:0))*8*4/3+r.width*r.height*8:0),0);
+    const footprint=r=>(r.image.image.width*r.image.image.height+(r.flash?r.flash.image.width*r.flash.image.height:0))*8*4/3+r.width*r.height*8+(r.optical?r.optical.width*r.optical.height*8:0);
+    let bytes=resources.reduce((sum,{resource:r})=>sum+(r?footprint(r):0),0);
     for(const {key,promise,resource:r}of resources){if(bytes<=160*1024*1024&&this.cache.size<=3)break;if(!r||r===this.plate)continue;
-      if(this.cache.get(key)===promise&&this.cache.delete(key)){bytes-=(r.image.image.width*r.image.image.height+(r.flash?r.flash.image.width*r.flash.image.height:0))*8*4/3+r.width*r.height*8;r.image.dispose();r.depth.dispose();r.flash?.dispose();}
+      if(this.cache.get(key)===promise&&this.cache.delete(key)){bytes-=footprint(r);r.image.dispose();r.depth.dispose();r.flash?.dispose();r.optical?.depth.dispose();}
     }
   }
   ensureDetail(s,width=this.canvas.width){
@@ -203,6 +207,7 @@ export class PlateRenderer extends Renderer {
   renderPlate(s,exposure,time,flash=true,integrate=true){
     if(!this.plateMode)return super.renderPlate(s,exposure,time,flash,integrate);
     this.geometry(s);this.fan?.setQuality(this.camera,this.target.width,this.target.height);this.updateMotion(s,exposure,time);
+    this.uniforms.sceneDepth.value=this.target.depthTexture;this.uniforms.linearDepth.value=false;
     if(flash&&s.flash>0)this.ensureFlash();
     const amount=flash?s.flash*(this.pack.flash?.referenceDuration??.01)/exposure.shutter:0;
     this.setRadianceScale(amount);
@@ -226,9 +231,12 @@ export class PlateRenderer extends Renderer {
     this.raycaster.setFromCamera(new T.Vector2(x*2-1,y*2-1),this.camera);
     const radial=z/this.raycaster.ray.direction.dot(this.camera.getWorldDirection(new T.Vector3()));
     const point=this.raycaster.ray.at(radial,new T.Vector3());
+    const optical=p.optical;
+    if(optical){const col=Math.min(optical.width-1,Math.floor(uv.x*optical.width)),row=Math.min(optical.height-1,Math.floor((1-uv.y)*optical.height)),i=(row*optical.width+col)*4;const virtualZ=(optical.pixels[i]*256+optical.pixels[i+1])/65535*64/uv.depthScale;this.raycaster.ray.at(radial*virtualZ/z,point);}
     let hit={z:-point.clone().applyMatrix4(this.camera.matrixWorldInverse).z,point,ball:false};
     if(this.fan){const fan=this.raycaster.intersectObject(this.fan.group,true).find(hit=>hit.object.visible&&hit.object.userData.focusable!==false);if(fan&&fan.distance<radial)hit={z:-fan.point.clone().applyMatrix4(this.camera.matrixWorldInverse).z,point:fan.point,ball:false,track:{object:fan.object,localPoint:fan.object.worldToLocal(fan.point.clone())}};}
     if(this.ballGroup.visible){const ball=this.raycaster.intersectObject(this.balls[0])[0];if(ball&&ball.distance<radial)hit={z:-ball.point.clone().applyMatrix4(this.camera.matrixWorldInverse).z,point:ball.point,ball:true};}
     return hit;
   }
+  resolveLensDepth(patch){if(this.plate?.optical)this.plateOptics.render(this,patch);}
 }
