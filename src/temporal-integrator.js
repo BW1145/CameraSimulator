@@ -23,6 +23,7 @@ export class TemporalIntegrator {
     const drawWorld=sampleTime=>{fan.setTime(sampleTime);bind(plate);renderer.clear(true,true,true);renderer.render(owner.world,owner.camera);calls+=renderer.info.render.calls;triangles+=renderer.info.render.triangles;if(optical)owner.resolveLensDepth?.(patch);};
     const lensImage=()=>{
       if(!optical)return plate.texture;
+      if(owner.libraryDof)return owner.libraryDof.render(owner,plate);
       owner.uniforms.plate.value=plate.texture;owner.uniforms.lensOnly.value=true;owner.uniforms.skipLens.value=false;
       bind(this.lensTarget);renderer.render(owner.postScene,owner.postCamera);
       owner.uniforms.lensOnly.value=false;
@@ -43,7 +44,7 @@ export class TemporalIntegrator {
     }
     if(bounds&&optical){
       // Defocused blades spread outside the instantaneous rotor silhouette.
-      const pad=Math.ceil(owner.uniforms.lensRadiusLimit.value),right=Math.min(width,bounds.x+bounds.width+pad),top=Math.min(height,bounds.y+bounds.height+pad);
+      const limit=owner.uniforms.lensRadiusLimit.value,pad=owner.libraryDof?.supportRadius(limit)??Math.ceil(limit),right=Math.min(width,bounds.x+bounds.width+pad),top=Math.min(height,bounds.y+bounds.height+pad);
       bounds={x:Math.max(0,bounds.x-pad),y:Math.max(0,bounds.y-pad),width:0,height:0};bounds.width=right-bounds.x;bounds.height=top-bounds.y;
     }
     owner.uniforms.skipLens.value=false;

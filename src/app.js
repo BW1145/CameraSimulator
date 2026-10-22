@@ -115,6 +115,7 @@ async function loadScene(id){
   try{
     const loaded=await renderer.load(next,(bytes,total)=>{if(version===loadVersion)loading.textContent=total?`正在加载${next.name} ${Math.round(bytes/total*100)}%`:`正在加载${next.name} ${(bytes/1048576).toFixed(1)} MB`;});
     if(!loaded||version!==loadVersion)return;
+    await renderer.prepareDofTrial();if(version!==loadVersion)return;
     scene=next;s.focus=scene.focus;s.focal=renderer.plateMode?Math.max(renderer.pack.referenceFocal,renderer.pack.minimumFocal||0):sourceView&&scene.id==='barbershop'?18.8027323:scene.focal;clock=0;resetView();resize();ready=true;loading.hidden=true;$('capture').disabled=false;
     for(const key of ['x','y','z','yaw','pitch','roll']){
       const bounds=renderer.plateMode?{min:renderer.pack.bounds[key][0],max:renderer.pack.bounds[key][1],step:key==='y'?.2:['x','z'].includes(key)?.3:1}:originalBounds[key];
@@ -167,7 +168,7 @@ function magnify(now=performance.now()){
   const box=view.getBoundingClientRect(),width=magnifier.clientWidth,height=magnifier.clientHeight;
   magnifier.style.left=`${clamp(hover.x*box.width-width-10,0,Math.max(0,box.width-width-2))}px`;
   magnifier.style.top=`${clamp(hover.y*box.height-height-10,0,Math.max(0,box.height-height-2))}px`;
-  const region=detailRegion(box.width,box.height,hover.x,hover.y,width,height,2.5,window.devicePixelRatio);
+  const region=detailRegion(box.width,box.height,hover.x,hover.y,width,height,2.5,window.devicePixelRatio,renderer.libraryDof?.kernelSupport);
   const key=JSON.stringify([displayedSerial,region]);
   if(key===magnifierKey||now-lastMagnifierAt<1000/30)return;
   lastMagnifierAt=now;

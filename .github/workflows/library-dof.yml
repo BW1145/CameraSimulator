@@ -1,0 +1,35 @@
+name: Isolated library DOF comparison
+on:
+  push:
+    branches: [prototype/reuse-dof, 'prototype/reuse-dof-*']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: library-dof-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  compare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --prefer-offline
+      - run: npm test
+      - run: npm run audit:assets
+      - run: node tools/audit-scene-plates.mjs public/scenes/barbershop-plates public/scenes/classroom-plates public/scenes/kitchen-plates public/scenes/apartment-plates
+      - run: npm run build && node tools/build-library-dof-fixture.mjs
+      - run: npx playwright install --with-deps chromium
+      - name: Compare actual package and unchanged canonical lens
+        env:
+          DOF_TRIAL_COMPARE: '1'
+        run: npx playwright test tests/browser/library-dof.spec.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: isolated-library-dof-${{ github.sha }}
+          path: test-results/

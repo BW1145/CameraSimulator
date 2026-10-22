@@ -193,9 +193,18 @@ export class Renderer {
     this.ready=true;this.frameStats={};return true;
   }
   releaseLighting(){
+    this.libraryDof?.dispose();this.libraryDof=null;
     this.mirrorOptics?.dispose();this.mirrorOptics=null;
     for(const reflection of this.reflections||[])reflection.dispose();this.reflections=[];
     this.environmentTarget?.dispose();this.environmentTarget=null;
+  }
+  async prepareDofTrial(){
+    // An opt-in isolated experiment, never the default photographic path.
+    if(new URLSearchParams(location.search).get('dof')!=='library'||this.sourceView)return;
+    const version=this.loadVersion;
+    const {LibraryDof}=await import('./library-dof.js');
+    if(version!==this.loadVersion)return;
+    this.libraryDof??=new LibraryDof(this);this.canvas.dataset.dof='postprocessing-6.39.5';
   }
   resize(width,height){
     width=Math.round(width);height=Math.round(height);
@@ -322,7 +331,12 @@ export class Renderer {
     for(const [key,value]of Object.entries(values))this.uniforms[key].value=value;
     this.uniforms.pixelOrigin.value.set(this.detailView?.originX??0,this.detailView?.originY??0);
     this.uniforms.skipLens.value=false;this.uniforms.lensOnly.value=false;
+    if(this.libraryDof)this.uniforms.plate.value=this.target.texture;
     this.renderPlate(s,exposure,time);
+    if(this.libraryDof&&!this.uniforms.skipLens.value){
+      this.uniforms.plate.value=this.libraryDof.render(this,{texture:this.uniforms.plate.value,width:this.target.width,height:this.target.height});
+      this.uniforms.skipLens.value=true;
+    }
     if(analyse){
       this.renderer.setRenderTarget(this.analysisTarget);this.renderer.render(this.postScene,this.postCamera);
       this.renderer.readRenderTargetPixels(this.analysisTarget,0,0,this.analysisWidth,this.analysisHeight,this.pixels);
