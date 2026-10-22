@@ -1,0 +1,8 @@
+[
+ {"id":"whole","rect":[0,0,2048,858],"kind":"all"},
+ {"id":"cabinet","rect":[20,150,200,490],"kind":"ordinary"},
+ {"id":"metal-cans","rect":[320,495,195,95],"kind":"ordinary"},
+ {"id":"chair","rect":[1420,410,355,420],"kind":"ordinary"},
+ {"id":"bright-window","rect":[1410,195,350,180],"kind":"highlight"},
+ {"id":"mirror","rect":[250,270,520,225],"kind":"mirror-no-optical-map"}
+]

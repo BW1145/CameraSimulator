@@ -78,6 +78,15 @@ jobs:
             --pack-dir "$GITHUB_WORKSPACE/candidate/diagnostics/matched-reference" \
             --out "$GITHUB_WORKSPACE/photographic-parity-evidence/matched-background" \
             --focus 1.4 --serve
+      - name: Measure same-source processing stages (no fan or original JPEG)
+        env:
+          PARITY_TIMEOUT_MS: '180000'
+        run: |
+          node candidate/tools/capture-processing-stages.mjs \
+            --candidate-root "$GITHUB_WORKSPACE/candidate" \
+            --out "$GITHUB_WORKSPACE/photographic-parity-evidence/processing-stages" --serve
+          node candidate/tools/analyze-processing-stages.mjs \
+            --evidence "$GITHUB_WORKSPACE/photographic-parity-evidence/processing-stages"
       - name: Check bounded real-browser control regressions
         working-directory: candidate
         env:

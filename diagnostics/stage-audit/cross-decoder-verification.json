@@ -1,0 +1,39 @@
+{
+  "method": "JavaScript EXRLoader vs independent Blender 4.5 image loader; decoded WebP RGB vs independently NumPy-generated log quantization codes.",
+  "actual": {
+    "rgbaFloat32LETopLeftSHA256": "d101e1b2c6831070e5d2fdebee6fce7691174226cda81a267789b45a60b22ba1",
+    "logMin16Max8RGBUint8SHA256": "5a5572ced58930c6521ed31670af022ec81e4168e4a033c1c667d19403f3eebb"
+  },
+  "independent": {
+    "method": "Blender image loader, factory-empty scene, no render, independent of JavaScript EXRLoader. Top-left RGBA float32 and independently quantized RGB code hashes.",
+    "blenderVersion": "4.5.14 LTS",
+    "file": "matched-64spp-oidn.exr",
+    "imageColorSpace": "Linear Rec.709",
+    "dimensions": [
+      2048,
+      858
+    ],
+    "rgbaFloat32LETopLeftSHA256": "d101e1b2c6831070e5d2fdebee6fce7691174226cda81a267789b45a60b22ba1",
+    "logMin16Max8RGBUint8SHA256": "5a5572ced58930c6521ed31670af022ec81e4168e4a033c1c667d19403f3eebb",
+    "minimumRGB": [
+      0,
+      0,
+      0
+    ],
+    "maximumRGB": [
+      119.06956481933594,
+      151.486083984375,
+      172.5228729248047
+    ],
+    "meanRGB": [
+      0.1696456367984107,
+      0.11971327784687319,
+      0.09350371397006284
+    ],
+    "nonfiniteChannels": 0
+  },
+  "checks": {
+    "exactDecodedEXRValues": true,
+    "exactWebPCodesVersusBlenderAndNumPy": true
+  }
+}

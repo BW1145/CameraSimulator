@@ -1,0 +1,848 @@
+{
+  "method": "Exact per-texel EXR RGB -> independently recomputed log2[-16,8] uint8 -> decoded lossless WebP -> actual production decodeRadiancePixels half-float. Original JPEG not used. Display estimates are NON-PRODUCTION SENSITIVITY ONLY: explicitly defined ACES approximation then IEC sRGB, exposure0/WB5000, no noise/filtering/DOF. Production restoredLighting uses AgX and is audited separately.",
+  "source": {
+    "file": "matched-64spp-oidn.exr",
+    "sha256": "5c8e64275f94169a24a002796d7ee31e7b3dedb385b6ed4919b0f0fc870801aa",
+    "dimensions": [
+      2048,
+      858
+    ]
+  },
+  "transport": {
+    "file": "center.webp",
+    "sha256": "0278500506210f26cd015e86774e7f7a5297ddb90df89dd0941992649429072e",
+    "bytes": 1044492,
+    "metadata": {
+      "format": "webp",
+      "space": "srgb",
+      "channels": 3,
+      "hasAlpha": false,
+      "hasIccProfile": false,
+      "orientation": null
+    }
+  },
+  "encoding": {
+    "min": -16,
+    "max": 8,
+    "minimum": 0.0000152587890625,
+    "maximum": 256,
+    "stepEV": 0.09411764705882353,
+    "maximumIdealQuantizationEV": 0.047058823529411764,
+    "maximumAdditionalHalfFloatEV": 0.0033599512093626877,
+    "maximumCombinedNonClampedEV": 0.05041877473877445,
+    "maximumIdealRelativeErrorPercent": 3.315651209143411
+  },
+  "acceptance": {
+    "losslessTransportExact": true,
+    "noUpperClipping": true,
+    "finiteNonnegative": true,
+    "quantizationWithinMathematicalBound": true,
+    "blackFloorAffectsBelowOneTenthPercentOfChannels": true
+  },
+  "maximumAbsEVLocation": {
+    "x": 648,
+    "y": 450,
+    "channel": "G",
+    "source": 0.000017951599147636443,
+    "code": 2,
+    "decoded": 0.000017344951629638672,
+    "ev": -0.04959654924378895
+  },
+  "hypotheticalCanonicalRange": {
+    "label": "Hypothetical encoding of this same matched-camera EXR using canonical log2[-16,6]. This is NOT a measurement of the different-camera canonical source.",
+    "maximum": 64,
+    "clippedPixels": 125,
+    "clippedChannels": 355,
+    "excessRadianceSumRGB": [
+      4824.298889160156,
+      7546.279640197754,
+      9929.047813415527
+    ],
+    "sourceRadianceSumRGB": [
+      298098.5986519785,
+      210358.25642008003,
+      164303.2301287709
+    ],
+    "maximumSource": 172.5228729248047,
+    "clippedPixelPercent": 0.007113654574592075,
+    "removedRadiancePercentRGB": [
+      1.6183567822780631,
+      3.587346543283772,
+      6.043123927407722
+    ]
+  },
+  "regions": {
+    "whole": {
+      "rectXYXY": [
+        0,
+        0,
+        2048,
+        858
+      ],
+      "pixelCount": 1757184,
+      "channels": 5271552,
+      "zeros": 158,
+      "belowEncodingFloor": 1044,
+      "aboveEncodingCeiling": 0,
+      "nonfinite": 0,
+      "negative": 0,
+      "decodedCodeMismatches": 0,
+      "sourceMaximum": 172.5228729248047,
+      "decodedMaximum": 173,
+      "meanRGBSource": [
+        0.1696456367984107,
+        0.11971327784687319,
+        0.09350371397006284
+      ],
+      "meanRGBDecoded": [
+        0.16962526809123762,
+        0.1198015910345561,
+        0.09348710319983186
+      ],
+      "meanChannelRelativeShiftPercent": [
+        -0.012006620127380518,
+        0.07377058691508953,
+        -0.017764824011479163
+      ],
+      "absoluteLinearError": {
+        "count": 5271552,
+        "mean": 0.0021338490670876654,
+        "rms": 0.023584658063153022,
+        "minimum": 0,
+        "maximum": 5.1578216552734375,
+        "meanAbsolute": 0.0021338490670876654,
+        "p50Absolute": 0.0006491206586360931,
+        "p95Absolute": 0.007932037115097046,
+        "p99Absolute": 0.02112787961959839,
+        "maxAbsolute": 5.1578216552734375
+      },
+      "nonClampedChannelEVError": {
+        "count": 5270508,
+        "mean": -0.00046462448788064405,
+        "rms": 0.02721700608925262,
+        "minimum": -0.04959654924378895,
+        "maximum": 0.047055467329826184,
+        "meanAbsolute": 0.02358062645205596,
+        "p50Absolute": 0.023605646077992953,
+        "p95Absolute": 0.04471493934063247,
+        "p99Absolute": 0.046687237941049925,
+        "maxAbsolute": 0.04959654924378895
+      },
+      "additionalHalfFloatEVError": {
+        "count": 5271552,
+        "mean": -0.0004864376122635884,
+        "rms": 0.0005833240863876419,
+        "minimum": -0.0033599512093626877,
+        "maximum": 0,
+        "meanAbsolute": 0.0004864376122584074,
+        "p50Absolute": 0.0004577777894383517,
+        "p95Absolute": 0.00105620633711576,
+        "p99Absolute": 0.0012991621467285121,
+        "maxAbsolute": 0.0033599512093626877
+      },
+      "luminanceEVError": {
+        "count": 1756887,
+        "mean": -0.00026681301462618397,
+        "rms": 0.019679515126622422,
+        "minimum": -0.047344873360796624,
+        "maximum": 0.5361261619294915,
+        "meanAbsolute": 0.016510682543864896,
+        "p50Absolute": 0.015330654070703487,
+        "p95Absolute": 0.03586128762845053,
+        "p99Absolute": 0.04117283698349392,
+        "maxAbsolute": 0.5361261619294915
+      },
+      "displayChannelErrorIn8BitCodeUnits": {
+        "count": 5271552,
+        "mean": 0.6986124247074862,
+        "rms": 0.9184523200307114,
+        "minimum": 0,
+        "maximum": 2.4063956615165747,
+        "meanAbsolute": 0.698612424707444,
+        "p50Absolute": 0.5413296114248212,
+        "p95Absolute": 1.8958908612434722,
+        "p99Absolute": 2.2079851520651053,
+        "maxAbsolute": 2.4063956615165747
+      },
+      "displayMaxPixelErrorIn8BitCodeUnits": {
+        "count": 1757184,
+        "mean": 1.1086445990968565,
+        "rms": 1.2727742417006482,
+        "minimum": 0,
+        "maximum": 2.4063956615165747,
+        "meanAbsolute": 1.1086445990968656,
+        "p50Absolute": 1.0835207986692574,
+        "p95Absolute": 2.1350679797614696,
+        "p99Absolute": 2.2926844378358497,
+        "maxAbsolute": 2.4063956615165747
+      },
+      "displayPixelsOver1Code": 952715,
+      "displayPixelsOver2Codes": 166649,
+      "displayPixelsOver3Codes": 0,
+      "displayPixelsOver4Codes": 0
+    },
+    "cabinet": {
+      "rectXYXY": [
+        20,
+        150,
+        220,
+        640
+      ],
+      "pixelCount": 98000,
+      "channels": 294000,
+      "zeros": 2,
+      "belowEncodingFloor": 219,
+      "aboveEncodingCeiling": 0,
+      "nonfinite": 0,
+      "negative": 0,
+      "decodedCodeMismatches": 0,
+      "sourceMaximum": 0.9579429030418396,
+      "decodedMaximum": 0.9365234375,
+      "meanRGBSource": [
+        0.04728923360872959,
+        0.025276109477658362,
+        0.018455802137968044
+      ],
+      "meanRGBDecoded": [
+        0.04728133314665483,
+        0.025269626953772138,
+        0.01845166857449376
+      ],
+      "meanChannelRelativeShiftPercent": [
+        -0.016706682413436535,
+        -0.025646842097892808,
+        -0.022397094655568495
+      ],
+      "absoluteLinearError": {
+        "count": 294000,
+        "mean": 0.0004948697223581194,
+        "rms": 0.0007420609192168838,
+        "minimum": 5.238689482212067e-10,
+        "maximum": 0.025540411472320557,
+        "meanAbsolute": 0.0004948697223581194,
+        "p50Absolute": 0.0003510713577270508,
+        "p95Absolute": 0.0015204548835754395,
+        "p99Absolute": 0.002227783203125,
+        "maxAbsolute": 0.025540411472320557
+      },
+      "nonClampedChannelEVError": {
+        "count": 293781,
+        "mean": -0.0005515654774436717,
+        "rms": 0.027172549243302268,
+        "minimum": -0.048714194368769594,
+        "maximum": 0.04702383982084764,
+        "meanAbsolute": 0.023534068407968765,
+        "p50Absolute": 0.023539541138710315,
+        "p95Absolute": 0.04467173540146196,
+        "p99Absolute": 0.04670711112245231,
+        "maxAbsolute": 0.048714194368769594
+      },
+      "additionalHalfFloatEVError": {
+        "count": 294000,
+        "mean": -0.0005340354114624062,
+        "rms": 0.0006365067355850831,
+        "minimum": -0.0033599512093626877,
+        "maximum": 0,
+        "meanAbsolute": 0.000534035411462901,
+        "p50Absolute": 0.00048306747534056167,
+        "p95Absolute": 0.0012835993768071884,
+        "p99Absolute": 0.0012991621467285121,
+        "maxAbsolute": 0.0033599512093626877
+      },
+      "luminanceEVError": {
+        "count": 97951,
+        "mean": -0.000360498296649545,
+        "rms": 0.019243498158610844,
+        "minimum": -0.04733221905432025,
+        "maximum": 0.2568153810717146,
+        "meanAbsolute": 0.01597567176017526,
+        "p50Absolute": 0.0145295051971143,
+        "p95Absolute": 0.035442651113916736,
+        "p99Absolute": 0.04093858713057278,
+        "maxAbsolute": 0.2568153810717146
+      },
+      "displayChannelErrorIn8BitCodeUnits": {
+        "count": 294000,
+        "mean": 0.5075461348574759,
+        "rms": 0.6598759807901292,
+        "minimum": 4.021484941308783e-7,
+        "maximum": 2.385381381087603,
+        "meanAbsolute": 0.5075461348574682,
+        "p50Absolute": 0.426031030461717,
+        "p95Absolute": 1.3506708897237911,
+        "p99Absolute": 1.7145969839049637,
+        "maxAbsolute": 2.385381381087603
+      },
+      "displayMaxPixelErrorIn8BitCodeUnits": {
+        "count": 98000,
+        "mean": 0.8347924942700409,
+        "rms": 0.9507204413262406,
+        "minimum": 0.000041836172487218855,
+        "maximum": 2.385381381087603,
+        "meanAbsolute": 0.834792494270036,
+        "p50Absolute": 0.8198221716324371,
+        "p95Absolute": 1.6124249839805136,
+        "p99Absolute": 1.8850802628433514,
+        "maxAbsolute": 2.385381381087603
+      },
+      "displayPixelsOver1Code": 33987,
+      "displayPixelsOver2Codes": 544,
+      "displayPixelsOver3Codes": 0,
+      "displayPixelsOver4Codes": 0
+    },
+    "metal-cans": {
+      "rectXYXY": [
+        320,
+        495,
+        515,
+        590
+      ],
+      "pixelCount": 18525,
+      "channels": 55575,
+      "zeros": 0,
+      "belowEncodingFloor": 0,
+      "aboveEncodingCeiling": 0,
+      "nonfinite": 0,
+      "negative": 0,
+      "decodedCodeMismatches": 0,
+      "sourceMaximum": 2.125734806060791,
+      "decodedMaximum": 2.1875,
+      "meanRGBSource": [
+        0.0950884398782573,
+        0.07489599089710702,
+        0.06310368436219312
+      ],
+      "meanRGBDecoded": [
+        0.09513061152778657,
+        0.0749104738943329,
+        0.06312252309801768
+      ],
+      "meanChannelRelativeShiftPercent": [
+        0.044349922643860396,
+        0.019337479953729364,
+        0.02985362267666769
+      ],
+      "absoluteLinearError": {
+        "count": 55575,
+        "mean": 0.0012696382973908296,
+        "rms": 0.0023179460882339375,
+        "minimum": 8.381903171539307e-9,
+        "maximum": 0.061765193939208984,
+        "meanAbsolute": 0.0012696382973908296,
+        "p50Absolute": 0.0007250569760799408,
+        "p95Absolute": 0.004113823175430298,
+        "p99Absolute": 0.007259845733642578,
+        "maxAbsolute": 0.061765193939208984
+      },
+      "nonClampedChannelEVError": {
+        "count": 55575,
+        "mean": -0.0002646338291587821,
+        "rms": 0.027103181959518798,
+        "minimum": -0.04833126930536864,
+        "maximum": 0.0470258831501965,
+        "meanAbsolute": 0.02344978736690712,
+        "p50Absolute": 0.02342398595019417,
+        "p95Absolute": 0.04465017619284782,
+        "p99Absolute": 0.046671868506406144,
+        "maxAbsolute": 0.04833126930536864
+      },
+      "additionalHalfFloatEVError": {
+        "count": 55575,
+        "mean": -0.0005056591226322617,
+        "rms": 0.0005995931253508508,
+        "minimum": -0.0012991621467285121,
+        "maximum": 0,
+        "meanAbsolute": 0.0005056591226323566,
+        "p50Absolute": 0.00047668652973396767,
+        "p95Absolute": 0.00105620633711576,
+        "p99Absolute": 0.0012991621467285121,
+        "maxAbsolute": 0.0012991621467285121
+      },
+      "luminanceEVError": {
+        "count": 18525,
+        "mean": -0.00005897698054548811,
+        "rms": 0.019794080654799227,
+        "minimum": -0.04673964398085031,
+        "maximum": 0.04611860574511202,
+        "meanAbsolute": 0.016734120386502568,
+        "p50Absolute": 0.015834737787036205,
+        "p95Absolute": 0.035724286337877095,
+        "p99Absolute": 0.04093661894229014,
+        "maxAbsolute": 0.04673964398085031
+      },
+      "displayChannelErrorIn8BitCodeUnits": {
+        "count": 55575,
+        "mean": 0.777711584858906,
+        "rms": 0.9676176259909643,
+        "minimum": 0.00000972966617250777,
+        "maximum": 2.404964789124551,
+        "meanAbsolute": 0.7777115848588947,
+        "p50Absolute": 0.6721095985912334,
+        "p95Absolute": 1.9122006624111965,
+        "p99Absolute": 2.2181569164592885,
+        "maxAbsolute": 2.404964789124551
+      },
+      "displayMaxPixelErrorIn8BitCodeUnits": {
+        "count": 18525,
+        "mean": 1.1899178916764506,
+        "rms": 1.315839427566762,
+        "minimum": 0.00817593473750242,
+        "maximum": 2.404964789124551,
+        "meanAbsolute": 1.1899178916764497,
+        "p50Absolute": 1.16143487891066,
+        "p95Absolute": 2.152261745065911,
+        "p99Absolute": 2.302540576686372,
+        "maxAbsolute": 2.404964789124551
+      },
+      "displayPixelsOver1Code": 11203,
+      "displayPixelsOver2Codes": 1843,
+      "displayPixelsOver3Codes": 0,
+      "displayPixelsOver4Codes": 0
+    },
+    "chair": {
+      "rectXYXY": [
+        1420,
+        410,
+        1775,
+        830
+      ],
+      "pixelCount": 149100,
+      "channels": 447300,
+      "zeros": 0,
+      "belowEncodingFloor": 0,
+      "aboveEncodingCeiling": 0,
+      "nonfinite": 0,
+      "negative": 0,
+      "decodedCodeMismatches": 0,
+      "sourceMaximum": 4.812065124511719,
+      "decodedMaximum": 4.78515625,
+      "meanRGBSource": [
+        0.24156784738327478,
+        0.09738251678213523,
+        0.05812037185871092
+      ],
+      "meanRGBDecoded": [
+        0.2415238663528207,
+        0.09738122126466071,
+        0.05811573340699307
+      ],
+      "meanChannelRelativeShiftPercent": [
+        -0.018206491853323126,
+        -0.0013303388712082587,
+        -0.007980767447823833
+      ],
+      "absoluteLinearError": {
+        "count": 447300,
+        "mean": 0.0021523425439614443,
+        "rms": 0.004533467505972132,
+        "minimum": 4.656612873077393e-10,
+        "maximum": 0.1281576156616211,
+        "meanAbsolute": 0.0021523425439614443,
+        "p50Absolute": 0.0008515790104866028,
+        "p95Absolute": 0.009061276912689209,
+        "p99Absolute": 0.01876765489578247,
+        "maxAbsolute": 0.1281576156616211
+      },
+      "nonClampedChannelEVError": {
+        "count": 447300,
+        "mean": -0.00046677081941612445,
+        "rms": 0.0271473953223881,
+        "minimum": -0.048344448638676915,
+        "maximum": 0.047047474584471186,
+        "meanAbsolute": 0.023498359925385612,
+        "p50Absolute": 0.023486915881351652,
+        "p95Absolute": 0.044698374708873084,
+        "p99Absolute": 0.04667767327528233,
+        "maxAbsolute": 0.048344448638676915
+      },
+      "additionalHalfFloatEVError": {
+        "count": 447300,
+        "mean": -0.00048411945882168695,
+        "rms": 0.0005822922126849655,
+        "minimum": -0.0012991621467285121,
+        "maximum": 0,
+        "meanAbsolute": 0.00048411945882286423,
+        "p50Absolute": 0.0004577777894346666,
+        "p95Absolute": 0.0010933620967308148,
+        "p99Absolute": 0.0012991621467285121,
+        "maxAbsolute": 0.0012991621467285121
+      },
+      "luminanceEVError": {
+        "count": 149100,
+        "mean": -0.0003184479909114146,
+        "rms": 0.01941178732807438,
+        "minimum": -0.04723033847919887,
+        "maximum": 0.04609783789539431,
+        "meanAbsolute": 0.01614831067366731,
+        "p50Absolute": 0.014707678290310073,
+        "p95Absolute": 0.03598333975184382,
+        "p99Absolute": 0.041424819304356264,
+        "maxAbsolute": 0.04723033847919887
+      },
+      "displayChannelErrorIn8BitCodeUnits": {
+        "count": 447300,
+        "mean": 0.7497586871170744,
+        "rms": 0.9576034616894995,
+        "minimum": 6.787431387246523e-7,
+        "maximum": 2.4062649893914028,
+        "meanAbsolute": 0.7497586871170681,
+        "p50Absolute": 0.607638661748219,
+        "p95Absolute": 1.8996531343700351,
+        "p99Absolute": 2.2132480726193333,
+        "maxAbsolute": 2.4062649893914028
+      },
+      "displayMaxPixelErrorIn8BitCodeUnits": {
+        "count": 149100,
+        "mean": 1.2627045282953342,
+        "rms": 1.3766673008089017,
+        "minimum": 0.015886449850140375,
+        "maximum": 2.4062649893914028,
+        "meanAbsolute": 1.262704528295313,
+        "p50Absolute": 1.2804743531017546,
+        "p95Absolute": 2.143554210251789,
+        "p99Absolute": 2.29481801342998,
+        "maxAbsolute": 2.4062649893914028
+      },
+      "displayPixelsOver1Code": 99556,
+      "displayPixelsOver2Codes": 14860,
+      "displayPixelsOver3Codes": 0,
+      "displayPixelsOver4Codes": 0
+    },
+    "bright-window": {
+      "rectXYXY": [
+        1410,
+        195,
+        1760,
+        375
+      ],
+      "pixelCount": 63000,
+      "channels": 189000,
+      "zeros": 0,
+      "belowEncodingFloor": 0,
+      "aboveEncodingCeiling": 0,
+      "nonfinite": 0,
+      "negative": 0,
+      "decodedCodeMismatches": 0,
+      "sourceMaximum": 3.3433172702789307,
+      "decodedMaximum": 3.453125,
+      "meanRGBSource": [
+        0.821731409418441,
+        0.699923776044732,
+        0.5298567467068159
+      ],
+      "meanRGBDecoded": [
+        0.8223238283187624,
+        0.7017921781994048,
+        0.528692870609344
+      ],
+      "meanChannelRelativeShiftPercent": [
+        0.07209398272127743,
+        0.26694366138424463,
+        -0.21965863503781158
+      ],
+      "absoluteLinearError": {
+        "count": 189000,
+        "mean": 0.01190471749015586,
+        "rms": 0.015103052651933298,
+        "minimum": 5.960464477539063e-8,
+        "maximum": 0.10980772972106934,
+        "meanAbsolute": 0.01190471749015586,
+        "p50Absolute": 0.010362803936004639,
+        "p95Absolute": 0.027499735355377197,
+        "p99Absolute": 0.03820598125457764,
+        "maxAbsolute": 0.10980772972106934
+      },
+      "nonClampedChannelEVError": {
+        "count": 189000,
+        "mean": 0.00014164795826120377,
+        "rms": 0.028340258089460706,
+        "minimum": -0.04820930769483992,
+        "maximum": 0.047048093438503344,
+        "meanAbsolute": 0.024893981584248197,
+        "p50Absolute": 0.02553721391875175,
+        "p95Absolute": 0.04503869813560073,
+        "p99Absolute": 0.046764115017262,
+        "maxAbsolute": 0.04820930769483992
+      },
+      "additionalHalfFloatEVError": {
+        "count": 189000,
+        "mean": -0.00048357632984902715,
+        "rms": 0.000551981024130387,
+        "minimum": -0.0012991621467285121,
+        "maximum": 0,
+        "meanAbsolute": 0.00048357632984866725,
+        "p50Absolute": 0.0004577777894346666,
+        "p95Absolute": 0.0009576539410948217,
+        "p99Absolute": 0.0010933620967308148,
+        "maxAbsolute": 0.0012991621467285121
+      },
+      "luminanceEVError": {
+        "count": 63000,
+        "mean": 0.002267254511923914,
+        "rms": 0.021053000161652714,
+        "minimum": -0.04661872480550996,
+        "maximum": 0.04596429832348472,
+        "meanAbsolute": 0.01804694148169238,
+        "p50Absolute": 0.017477954134473072,
+        "p95Absolute": 0.03748433158845317,
+        "p99Absolute": 0.042184631545275346,
+        "maxAbsolute": 0.04661872480550996
+      },
+      "displayChannelErrorIn8BitCodeUnits": {
+        "count": 189000,
+        "mean": 0.7080045685127057,
+        "rms": 0.8550950925614295,
+        "minimum": 0.0000018246594285509232,
+        "maximum": 2.4041415348849355,
+        "meanAbsolute": 0.7080045685127004,
+        "p50Absolute": 0.6534194521608427,
+        "p95Absolute": 1.689102038048516,
+        "p99Absolute": 2.1553365646413307,
+        "maxAbsolute": 2.4041415348849355
+      },
+      "displayMaxPixelErrorIn8BitCodeUnits": {
+        "count": 63000,
+        "mean": 1.071732534037581,
+        "rms": 1.161194864287018,
+        "minimum": 0.00765066064612796,
+        "maximum": 2.4041415348849355,
+        "meanAbsolute": 1.0717325340375847,
+        "p50Absolute": 0.9851106015616656,
+        "p95Absolute": 2.0345529934666673,
+        "p99Absolute": 2.269655649355529,
+        "maxAbsolute": 2.4041415348849355
+      },
+      "displayPixelsOver1Code": 30292,
+      "displayPixelsOver2Codes": 3554,
+      "displayPixelsOver3Codes": 0,
+      "displayPixelsOver4Codes": 0
+    },
+    "mirror": {
+      "rectXYXY": [
+        250,
+        270,
+        770,
+        495
+      ],
+      "pixelCount": 117000,
+      "channels": 351000,
+      "zeros": 146,
+      "belowEncodingFloor": 745,
+      "aboveEncodingCeiling": 0,
+      "nonfinite": 0,
+      "negative": 0,
+      "decodedCodeMismatches": 0,
+      "sourceMaximum": 172.5228729248047,
+      "decodedMaximum": 173,
+      "meanRGBSource": [
+        0.31731990657605524,
+        0.2967217895416429,
+        0.28556727955413796
+      ],
+      "meanRGBDecoded": [
+        0.3169913047307577,
+        0.29716656269884517,
+        0.2860735327015575
+      ],
+      "meanChannelRelativeShiftPercent": [
+        -0.10355538322296409,
+        0.14989568440164636,
+        0.17727981588435693
+      ],
+      "absoluteLinearError": {
+        "count": 351000,
+        "mean": 0.005285397998390417,
+        "rms": 0.08874764014305421,
+        "minimum": 1.546140993013978e-10,
+        "maximum": 5.1578216552734375,
+        "meanAbsolute": 0.005285397998390418,
+        "p50Absolute": 0.0004696417599916458,
+        "p95Absolute": 0.011689752340316772,
+        "p99Absolute": 0.028768420219421387,
+        "maxAbsolute": 5.1578216552734375
+      },
+      "nonClampedChannelEVError": {
+        "count": 350255,
+        "mean": -0.0005721366019154942,
+        "rms": 0.027188214225612184,
+        "minimum": -0.04959654924378895,
+        "maximum": 0.04705255145040989,
+        "meanAbsolute": 0.023545500746258996,
+        "p50Absolute": 0.023550811502907155,
+        "p95Absolute": 0.044695594257871896,
+        "p99Absolute": 0.04666745274280645,
+        "maxAbsolute": 0.04959654924378895
+      },
+      "additionalHalfFloatEVError": {
+        "count": 351000,
+        "mean": -0.00046388110795579635,
+        "rms": 0.0005668740641635193,
+        "minimum": -0.0033599512093626877,
+        "maximum": 0,
+        "meanAbsolute": 0.0004638811079557173,
+        "p50Absolute": 0.00041691617523216225,
+        "p95Absolute": 0.0010933620967308148,
+        "p99Absolute": 0.0012991621467285121,
+        "maxAbsolute": 0.0033599512093626877
+      },
+      "luminanceEVError": {
+        "count": 116769,
+        "mean": -0.0005059413257170263,
+        "rms": 0.0201567214556655,
+        "minimum": -0.04687073563065339,
+        "maximum": 0.5361261619294915,
+        "meanAbsolute": 0.016912956794833584,
+        "p50Absolute": 0.015839186184896683,
+        "p95Absolute": 0.03635261989303404,
+        "p99Absolute": 0.04146157859775579,
+        "maxAbsolute": 0.5361261619294915
+      },
+      "displayChannelErrorIn8BitCodeUnits": {
+        "count": 351000,
+        "mean": 0.5806477375412659,
+        "rms": 0.8279401176716067,
+        "minimum": 0,
+        "maximum": 2.4033901440204253,
+        "meanAbsolute": 0.5806477375412631,
+        "p50Absolute": 0.3676789655723661,
+        "p95Absolute": 1.8082094898530687,
+        "p99Absolute": 2.1740307673337744,
+        "maxAbsolute": 2.4033901440204253
+      },
+      "displayMaxPixelErrorIn8BitCodeUnits": {
+        "count": 117000,
+        "mean": 0.9079259760718869,
+        "rms": 1.1310060360794632,
+        "minimum": 0,
+        "maximum": 2.4033901440204253,
+        "meanAbsolute": 0.9079259760718805,
+        "p50Absolute": 0.801688862344299,
+        "p95Absolute": 2.079229721415045,
+        "p99Absolute": 2.2817233602474896,
+        "maxAbsolute": 2.4033901440204253
+      },
+      "displayPixelsOver1Code": 50287,
+      "displayPixelsOver2Codes": 8235,
+      "displayPixelsOver3Codes": 0,
+      "displayPixelsOver4Codes": 0
+    },
+    "darkShelf": {
+      "rectXYXY": [
+        240,
+        12,
+        660,
+        225
+      ],
+      "pixelCount": 89460,
+      "channels": 268380,
+      "zeros": 0,
+      "belowEncodingFloor": 4,
+      "aboveEncodingCeiling": 0,
+      "nonfinite": 0,
+      "negative": 0,
+      "decodedCodeMismatches": 0,
+      "sourceMaximum": 0.26516208052635193,
+      "decodedMaximum": 0.271240234375,
+      "meanRGBSource": [
+        0.02721941298992863,
+        0.015544413761496784,
+        0.011369775774214878
+      ],
+      "meanRGBDecoded": [
+        0.027214755984379252,
+        0.015542631493887592,
+        0.011368051457799523
+      ],
+      "meanChannelRelativeShiftPercent": [
+        -0.017109132923254222,
+        -0.011465646994079925,
+        -0.015165790861637607
+      ],
+      "absoluteLinearError": {
+        "count": 268380,
+        "mean": 0.00029382266735179953,
+        "rms": 0.0005245764409165912,
+        "minimum": 0,
+        "maximum": 0.007096379995346069,
+        "meanAbsolute": 0.00029382266735179953,
+        "p50Absolute": 0.00011170003563165665,
+        "p95Absolute": 0.001162312924861908,
+        "p99Absolute": 0.001960858702659607,
+        "maxAbsolute": 0.007096379995346069
+      },
+      "nonClampedChannelEVError": {
+        "count": 268376,
+        "mean": -0.0004839625265158962,
+        "rms": 0.02714669084420245,
+        "minimum": -0.04841958944933759,
+        "maximum": 0.047055467329826184,
+        "meanAbsolute": 0.023494494127596494,
+        "p50Absolute": 0.023446096800834933,
+        "p95Absolute": 0.04469560601999125,
+        "p99Absolute": 0.04671259926589331,
+        "maxAbsolute": 0.04841958944933759
+      },
+      "additionalHalfFloatEVError": {
+        "count": 268380,
+        "mean": -0.0004945984683335476,
+        "rms": 0.0005917927652017458,
+        "minimum": -0.0033599512093626877,
+        "maximum": 0,
+        "meanAbsolute": 0.0004945984683333615,
+        "p50Absolute": 0.00047423357602567254,
+        "p95Absolute": 0.00105620633711576,
+        "p99Absolute": 0.0012835993768071884,
+        "maxAbsolute": 0.0033599512093626877
+      },
+      "luminanceEVError": {
+        "count": 89460,
+        "mean": -0.0003544229153729749,
+        "rms": 0.01919743405211606,
+        "minimum": -0.047344873360796624,
+        "maximum": 0.045914079551988694,
+        "meanAbsolute": 0.015975969412834818,
+        "p50Absolute": 0.014543866199125536,
+        "p95Absolute": 0.03557018350578746,
+        "p99Absolute": 0.04119535602746192,
+        "maxAbsolute": 0.047344873360796624
+      },
+      "displayChannelErrorIn8BitCodeUnits": {
+        "count": 268380,
+        "mean": 0.3116684586091304,
+        "rms": 0.4922658687436546,
+        "minimum": 0,
+        "maximum": 2.3815596605687546,
+        "meanAbsolute": 0.3116684586091329,
+        "p50Absolute": 0.14324374100645768,
+        "p95Absolute": 1.1351053660658825,
+        "p99Absolute": 1.5831363741446176,
+        "maxAbsolute": 2.3815596605687546
+      },
+      "displayMaxPixelErrorIn8BitCodeUnits": {
+        "count": 89460,
+        "mean": 0.524180236209229,
+        "rms": 0.7089139902669059,
+        "minimum": 0.0003040538418982273,
+        "maximum": 2.3815596605687546,
+        "meanAbsolute": 0.5241802362092307,
+        "p50Absolute": 0.3781491313187162,
+        "p95Absolute": 1.4428713079222208,
+        "p99Absolute": 1.8134718274937032,
+        "maxAbsolute": 2.3815596605687546
+      },
+      "displayPixelsOver1Code": 16840,
+      "displayPixelsOver2Codes": 257,
+      "displayPixelsOver3Codes": 0,
+      "displayPixelsOver4Codes": 0
+    }
+  },
+  "limitations": [
+    "EXR decoded source values were independently cross-checked with Blender; see cross-decoder-verification.json.",
+    "Luminance EV includes pixels with below-floor channels: its extreme near-black ratios are not the non-clamped per-channel bound.",
+    "Offline WebP decode verifies file coding, not browser Canvas/ICC behavior. Browser extraction must compare bytes or the transformed image separately.",
+    "The auxiliary ACES images are a sensitivity check, not the active production AgX display or a comparison to Blender AgX.",
+    "An 8-bit log encoding is quantized: this audit does not call 3.3% maximum relative per-channel error lossless radiance.",
+    "Display estimates isolate transport/half-float only, not GPU filtering, projection, display noise, color management, DOF, or subject compositing.",
+    "Source is a 64-spp OIDN diagnostic. This says nothing about missing source texture contributions or original-reference settings."
+  ]
+}
