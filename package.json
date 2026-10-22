@@ -7,7 +7,7 @@
     "start": "vite --host 127.0.0.1 --port 8000",
     "build": "vite build --base=./ && node tools/copy-legacy.mjs",
     "preview": "vite preview --host 127.0.0.1 --port 8000",
-    "test": "node --test tests/camera.test.mjs tests/temporal-exposure.test.mjs tests/detail-region.test.mjs tests/detail-pass.test.mjs tests/subject-lighting.test.mjs tests/view-encoding.test.mjs tests/desk-fan.test.mjs",
+    "test": "node --test tests/camera.test.mjs tests/temporal-exposure.test.mjs tests/detail-region.test.mjs tests/detail-pass.test.mjs tests/subject-lighting.test.mjs tests/view-encoding.test.mjs tests/desk-fan.test.mjs tests/lens-support.test.mjs",
     "audit:assets": "node tools/audit-assets.mjs",
     "test:browser": "playwright test",
     "pretest:browser": "npm run build"

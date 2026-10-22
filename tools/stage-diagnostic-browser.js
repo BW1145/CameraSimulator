@@ -1,7 +1,8 @@
 // Diagnostic-only controller. It imports the unchanged production renderer;
 // there is deliberately no duplicate plate, lens, tone-map, or decode shader.
 import * as T from 'three';
-import {PlateRenderer} from '../src/plate-renderer.js';
+const variant=new URLSearchParams(location.search).get('rendererVariant')==='baseline'?'baseline':'candidate';
+const {PlateRenderer}=await import(/* @vite-ignore */ variant==='baseline'?'/diagnostics/stage-audit/__baseline-src/plate-renderer.js':'/src/plate-renderer.js');
 import {SCENES} from '../src/scenes.js';
 
 const owner = new PlateRenderer(document.querySelector('#image'));
@@ -24,8 +25,8 @@ function read(target, Type) {
   return topDown(data);
 }
 function uniforms() {
-  const names = ['lensRadiusLimit','focus','focal','aperture','exposure','iso','wb','time','zebra','sensorWidth','nearClip','farClip','radianceScale','meteringPass','lensOnly','skipLens','agx','linearDepth','toneMappingExposure'];
-  return Object.fromEntries(names.map(name => [name, owner.uniforms[name].value]));
+  const names = ['lensRadiusLimit','focus','focal','aperture','exposure','iso','wb','time','zebra','sensorWidth','nearClip','farClip','radianceScale','meteringPass','lensOnly','skipLens','agx','linearDepth','toneMappingExposure','foregroundSupportRadius'];
+  return Object.fromEntries(names.map(name => [name, owner.uniforms[name]?.value??null]));
 }
 function renderPost(target) { owner.renderer.setRenderTarget(target); owner.renderer.render(owner.postScene, owner.postCamera); }
 
@@ -39,7 +40,7 @@ window.stageAudit = {
     linearTarget = new T.WebGLRenderTarget(width,height,{type:T.HalfFloatType,depthBuffer:false});
     depthTarget = new T.WebGLRenderTarget(width,height,{type:T.FloatType,depthBuffer:false});
     const gl = owner.renderer.getContext(), ext = gl.getExtension('WEBGL_debug_renderer_info');
-    return {width,height,state,sourceView:owner.sourceView,subjectPresent:Boolean(owner.fan),opticalDepthPresent:Boolean(owner.plate.optical),pack:owner.pack,gpu:{vendor:gl.getParameter(ext?.UNMASKED_VENDOR_WEBGL??gl.VENDOR),renderer:gl.getParameter(ext?.UNMASKED_RENDERER_WEBGL??gl.RENDERER),version:gl.getParameter(gl.VERSION)},webglSamples:owner.target.samples,texture:{type:owner.plate.image.type,colorSpace:owner.plate.image.colorSpace,flipY:owner.plate.image.flipY,minFilter:owner.plate.image.minFilter,magFilter:owner.plate.image.magFilter,generateMipmaps:owner.plate.image.generateMipmaps},notes:['No UI state injection: diagnostic directly exercises unchanged production classes at explicit settings.','iso=0 disables stochastic display noise, not scene radiance; photographic gain is the explicit exposureEV.','All binary artifacts are RGBA, row-major, top-left origin; float16/float32 files are little-endian.','Single-view source pack has no mirror optical-distance metadata. Mirrors are excluded from ordinary-surface DOF equivalence.']};
+    return {width,height,state,variant,sourceView:owner.sourceView,subjectPresent:Boolean(owner.fan),opticalDepthPresent:Boolean(owner.plate.optical),pack:owner.pack,gpu:{vendor:gl.getParameter(ext?.UNMASKED_VENDOR_WEBGL??gl.VENDOR),renderer:gl.getParameter(ext?.UNMASKED_RENDERER_WEBGL??gl.RENDERER),version:gl.getParameter(gl.VERSION)},webglSamples:owner.target.samples,texture:{type:owner.plate.image.type,colorSpace:owner.plate.image.colorSpace,flipY:owner.plate.image.flipY,minFilter:owner.plate.image.minFilter,magFilter:owner.plate.image.magFilter,generateMipmaps:owner.plate.image.generateMipmaps},notes:['No UI state injection: diagnostic directly exercises unchanged production classes at explicit settings.','iso=0 disables stochastic display noise, not scene radiance; photographic gain is the explicit exposureEV.','All binary artifacts are RGBA, row-major, top-left origin; float16/float32 files are little-endian.','Single-view source pack has no mirror optical-distance metadata. Mirrors are excluded from ordinary-surface DOF equivalence.']};
   },
   async transport() {
     const image = await new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=reject;img.src=owner.packBase+owner.entry.file;});
@@ -62,13 +63,13 @@ window.stageAudit = {
     owner.renderer.setRenderTarget(null);owner.renderer.render(owner.postScene,owner.postCamera);
     return {id,requested:{exposureEV,wb,lens,aperture,focus:current.focus},state:current,exposure,uniforms:actual,camera:{position:owner.camera.position.toArray(),quaternion:owner.camera.quaternion.toArray(),projectionMatrix:owner.camera.projectionMatrix.toArray(),rayToCapture:owner.plateUniforms.rayToCapture.value.toArray(),filmWidth:owner.filmWidth},frameStats:owner.frameStats,display,radiance};
   },
-  synthetic({id,whiteSide}) {
+  synthetic({id,whiteSide,nearZ=.9,farZ=3,focus=1.4,aperture=1.4,shape='step',orientation='vertical'}) {
     if(!['left','right'].includes(whiteSide))throw Error('Unsupported synthetic edge');
     const source=new Float32Array(width*height*4),depth=new Float32Array(width*height*4);
     for(let y=0;y<height;y++)for(let x=0;x<width;x++){
-      const i=(y*width+x)*4,near=whiteSide==='left'?x<width/2:x>=width/2;
+      const i=(y*width+x)*4,distance=orientation==='horizontal'?y+.5-height/2:orientation==='diagonal'?(x+.5-width/2+y+.5-height/2)/Math.SQRT2:x+.5-width/2,near=shape==='thin-strip'?Math.abs(x-width/2)<1.5:(whiteSide==='left'?distance:-distance)<(orientation==='diagonal'?.123:0);
       source[i]=source[i+1]=source[i+2]=near?1:0;source[i+3]=1;
-      depth[i]=depth[i+1]=depth[i+2]=near ? .9 : 3;depth[i+3]=1;
+      depth[i]=depth[i+1]=depth[i+2]=near ? nearZ : farZ;depth[i+3]=1;
     }
     const colorTexture=new T.DataTexture(source,width,height,T.RGBAFormat,T.FloatType),depthTexture=new T.DataTexture(depth,width,height,T.RGBAFormat,T.FloatType);
     colorTexture.colorSpace=T.LinearSRGBColorSpace;colorTexture.minFilter=colorTexture.magFilter=T.LinearFilter;
@@ -76,12 +77,22 @@ window.stageAudit = {
     for(const texture of [colorTexture,depthTexture]){texture.flipY=true;texture.generateMipmaps=false;texture.needsUpdate=true;}
     const saved=Object.fromEntries(Object.entries(owner.uniforms).map(([key,u])=>[key,u.value]));
     try{
-      const overrides={plate:colorTexture,sceneDepth:depthTexture,linearDepth:true,lensOnly:true,skipLens:false,meteringPass:false,lensRadiusLimit:width*.08,focus:1.4,focal:owner.pack.referenceFocal,aperture:1.4,exposure:0,iso:0,wb:5000,time:0,zebra:false,sensorWidth:36,radianceScale:1,agx:true,toneMappingExposure:1};
+      const overrides={plate:colorTexture,sceneDepth:depthTexture,linearDepth:true,lensOnly:true,skipLens:false,meteringPass:false,lensRadiusLimit:width*.08,focus,focal:owner.pack.referenceFocal,aperture,exposure:0,iso:0,wb:5000,time:0,zebra:false,sensorWidth:36,radianceScale:1,agx:true,toneMappingExposure:1};
+      if(owner.uniforms.foregroundSupportRadius){
+        const f=owner.pack.referenceFocal/1000;
+        overrides.foregroundSupportRadius=nearZ>=focus?0:Math.min(width*.08,Math.abs(f*f*(nearZ-focus)/(aperture*Math.max(.05,nearZ)*Math.max(.01,focus-f)))*1000/36*width*.5);
+      }
       for(const [key,value]of Object.entries(overrides))owner.uniforms[key].value=value;
       renderPost(linearTarget);const radiance=base64(read(linearTarget,Uint16Array));
       owner.uniforms.lensOnly.value=false;renderPost(displayTarget);const display=base64(read(displayTarget,Uint8Array));
-      return {id,synthetic:{whiteSide,edgeColumn:width/2,foreground:{linearRGB:[1,1,1],z:.9},background:{linearRGB:[0,0,0],z:3},textureFilter:{color:'linear',depth:'nearest'},truth:'Exact planar near/far step; mirror-paired inputs test kernel reflection symmetry, not a Cycles scene.'},uniforms:uniforms(),display,radiance};
+      return {id,synthetic:{whiteSide,shape,orientation,mirrorOperation:orientation==='horizontal'?'flip-y':orientation==='diagonal'?'rotate-180':'flip-x',planeOffset:orientation==='diagonal'?.123:0,edgeColumn:width/2,foreground:{linearRGB:[1,1,1],z:nearZ},background:{linearRGB:[0,0,0],z:farZ},textureFilter:{color:'linear',depth:'nearest'},truth:'Exact planar near/far step; mirror-paired inputs test kernel reflection symmetry, not a Cycles scene.'},uniforms:uniforms(),display,radiance};
     }finally{for(const [key,value]of Object.entries(saved))owner.uniforms[key].value=value;colorTexture.dispose();depthTexture.dispose();}
+  },
+  benchmark({aperture,focus=1.4,warmup=1,iterations=3}) {
+    const current={...state,aperture,focus},exposure={aperture,shutter:current.shutter,iso:0,ev:owner.scene.baseEV+owner.exposureOffset};
+    const gl=owner.renderer.getContext(),durations=[];
+    for(let i=0;i<warmup+iterations;i++){const start=performance.now();owner.draw(current,exposure,0,false,displayTarget);gl.finish();const elapsed=performance.now()-start;if(i>=warmup)durations.push(elapsed);}
+    return {variant,width,height,aperture,focus,warmup,iterations,durationsMs:durations,uniforms:uniforms(),note:'Synchronous gl.finish wall timing on this CI software browser only; not user-device FPS.'};
   },
   rawFrame() {
     const raw=base64(read(owner.target,Uint16Array));

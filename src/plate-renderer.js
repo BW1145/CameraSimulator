@@ -9,12 +9,14 @@ import {createBallSubject} from './practice-ball.js';
 import {tabletopLighting} from './lighting.js';
 import {PlateOptics} from './plate-optics.js';
 import {DetailPass} from './detail-pass.js';
+import {minimumPackedDepth,projectedMinimumDepth,minimumWorldBoxDepth,minimumSphereDepth,foregroundSupportRadius} from './lens-support.js';
 
-function readSourceDepth(depth){
+function readSourceDepth(depth,optical=false){
   depth.colorSpace=T.NoColorSpace;depth.minFilter=T.NearestFilter;depth.magFilter=T.NearestFilter;depth.generateMipmaps=false;
   const canvas=document.createElement('canvas');canvas.width=depth.image.width;canvas.height=depth.image.height;
   const context=canvas.getContext('2d',{willReadFrequently:true});context.drawImage(depth.image,0,0);
-  return {depth,pixels:context.getImageData(0,0,canvas.width,canvas.height).data,width:canvas.width,height:canvas.height};
+  const pixels=context.getImageData(0,0,canvas.width,canvas.height).data;
+  return {depth,pixels,minimumDepth:minimumPackedDepth(pixels,64,optical?2:null),width:canvas.width,height:canvas.height};
 }
 
 export class PlateRenderer extends Renderer {
@@ -154,7 +156,7 @@ export class PlateRenderer extends Renderer {
       const loader=new T.TextureLoader();
       resource=this.trackLayer(Promise.all([loader.loadAsync(base+entry.file,e=>onProgress(e.loaded,e.total)),loader.loadAsync(base+entry.depth),entry.opticalDepth?loader.loadAsync(base+entry.opticalDepth):null]).then(([image,depth,optical])=>{
         image=decodeRadianceTexture(image,encoding,Math.min(4,this.renderer.capabilities.getMaxAnisotropy()));
-        return {image,...readSourceDepth(depth),optical:optical?readSourceDepth(optical):null};
+        return {image,...readSourceDepth(depth),optical:optical?readSourceDepth(optical,true):null};
       }).catch(error=>{this.cache.delete(cacheKey);throw error;}));
       this.cache.set(cacheKey,resource);
     }else{this.cache.delete(cacheKey);this.cache.set(cacheKey,resource);}
@@ -249,6 +251,33 @@ export class PlateRenderer extends Renderer {
     const p=this.fan.center(),view=p.clone().applyMatrix4(this.camera.matrixWorldInverse),uv=p.project(this.camera);
     return {x:uv.x*.5+.5,y:uv.y*.5+.5,z:-view.z};
   }
+  updateForegroundSupport(samples,time){
+    const p=this.plateUniforms,u=this.uniforms;
+    let minimum=projectedMinimumDepth(this.plate.minimumDepth,p.rayToCapture.value,p.tanHalfFov.value,p.viewShift.value,this.camera.near);
+    const include=value=>{if(value===null||!Number.isFinite(value))minimum=null;else if(minimum!==null)minimum=Math.min(minimum,value);};
+    // Only B-mask-valid virtual depths can replace physical depths. Do not
+    // assume every imported optical pack places reflections behind the surface.
+    if(this.plate.optical&&this.plate.optical.minimumDepth!==Infinity){
+      const optical=projectedMinimumDepth(this.plate.optical.minimumDepth,p.rayToCapture.value,p.tanHalfFov.value,p.viewShift.value,0);
+      // PlateOptics does not clamp virtual Z to the camera near plane. Reject
+      // sub-near/roundoff-ambiguous metadata rather than certify a tighter bound.
+      include(optical===null||optical-Math.max(.001,optical/1024)<this.camera.near?null:optical);
+    }
+    if(this.fan){
+      // Whole static fan, not merely its head's screen rectangle. The explicit
+      // head envelope contains every rotor phase, including a flash end phase.
+      this.fan.group.updateMatrixWorld(true);
+      const box=new T.Box3().setFromObject(this.fan.group);
+      if(this.fan.head)for(const x of [-.21,.21])for(const y of [-.21,.21])for(const z of [-.07,.125])box.expandByPoint(new T.Vector3(x,y,z).applyMatrix4(this.fan.head.matrixWorld));
+      else include(null);
+      include(minimumWorldBoxDepth(box,this.camera.matrixWorldInverse));
+    }else if(this.ballGroup.visible){
+      // Bounds cover all integrated shutter positions and the flash end time.
+      const radius=this.scene.ballDistance*.055;
+      for(const sampleTime of [...samples.map(sample=>sample.time),time])include(minimumSphereDepth(this.ballWorld(sampleTime),radius,this.camera.matrixWorldInverse));
+    }
+    u.foregroundSupportRadius.value=foregroundSupportRadius(minimum,{focus:u.focus.value,focal:u.focal.value,aperture:u.aperture.value,sensorWidth:this.filmWidth,width:u.resolution.value.x,limit:u.lensRadiusLimit.value,nearClip:this.camera.near});
+  }
   renderPlate(s,exposure,time,flash=true,integrate=true){
     if(!this.plateMode)return super.renderPlate(s,exposure,time,flash,integrate);
     this.geometry(s);this.fan?.setQuality(this.detailView?this.detailFullCamera:this.camera,this.detailView?.fullWidth??this.target.width,this.detailView?.fullHeight??this.target.height);this.updateMotion(s,exposure,time);
@@ -261,11 +290,13 @@ export class PlateRenderer extends Renderer {
     this.flashLight.position.copy(this.camera.position).addScaledVector(new T.Vector3(0,0,-1).applyQuaternion(this.anchorRotation),this.pack.flash?.originOffsetForward??0);this.flashLight.intensity=flash?s.flash*(this.pack.flash?.referenceEnergy??1000)/Math.PI*(this.pack.flash?.referenceDuration??.01)/exposure.shutter:0;
     if(!this.fan){
       const samples=integrate&&s.motion?this.motionSubject.exposure(time,exposure.shutter):[{time,weight:1}];
+      this.updateForegroundSupport(samples,time);
       this.integrator.render(this,samples,time,integrate&&flash&&!this.sourceView);return;
     }
     const bounds=this.fan.bounds(this.detailView?this.detailFullCamera:this.camera,this.detailView?.fullWidth??this.target.width,this.detailView?.fullHeight??this.target.height);
     const radius=bounds?Math.max(bounds.width,bounds.height)/2:0;
     const samples=integrate&&s.motion?periodicExposureSamples(time,exposure.shutter,this.fan.period,24,radius*2*Math.PI/3):[{time:s.motion?time:0,weight:1}];
+    this.updateForegroundSupport(samples,s.motion?time:0);
     this.integrator.render(this,samples,s.motion?time:0,integrate&&flash&&!this.sourceView);
   }
   hitAt(x,y){

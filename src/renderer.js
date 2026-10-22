@@ -11,7 +11,7 @@ const fragment=`
 precision highp float;
 varying vec2 vUv;
 uniform sampler2D plate;uniform sampler2D sceneDepth;
-uniform float lensRadiusLimit;uniform vec2 resolution;uniform vec2 pixelOrigin;uniform float focus;uniform float focal;uniform float aperture;
+uniform float lensRadiusLimit;uniform float foregroundSupportRadius;uniform vec2 resolution;uniform vec2 pixelOrigin;uniform float focus;uniform float focal;uniform float aperture;
 uniform float exposure;uniform float iso;uniform float wb;uniform float time;uniform bool zebra;
 uniform float sensorWidth;uniform float nearClip;uniform float farClip;uniform float radianceScale;
 uniform bool meteringPass;uniform bool lensOnly;uniform bool skipLens;
@@ -30,26 +30,56 @@ void main(){
   vec3 center=texture2D(plate,vUv).rgb;
   vec3 c=center;float count=1.;
   if(!skipLens){
+  // A nonnegative support is certified from the current plate and live subjects.
+  // Legacy geometry mode retains its prior kernel until it has a depth bound.
+  bool boundedForeground=foregroundSupportRadius>=0.;
+  bool splitForeground=boundedForeground&&z>=focus&&foregroundSupportRadius>1.;
   // A sharp foreground surface occludes a defocused background. Use a soft,
   // relative depth comparison instead of a fixed 10 cm discontinuity.
   if(radius>.35){
     for(int i=0;i<32;i++){
-      float angle=float(i)*2.399963;float r=sqrt((float(i)+.5)/32.);
-      vec2 offset=vec2(cos(angle),sin(angle))*r*radius;
+      float index=boundedForeground?floor(float(i)*.5):float(i);
+      float angle=index*2.399963;
+      float r=sqrt((index+.5)/(boundedForeground?16.:32.));
+      float direction=boundedForeground?(mod(float(i),2.)*2.-1.):1.;
+      vec2 offset=direction*vec2(cos(angle),sin(angle))*r*radius;
       vec2 sampleUV=clamp(vUv+offset/resolution,vec2(0.),vec2(1.));
       float sampleZ=depthAt(sampleUV);float sampleRadius=coc(sampleZ);
       float separation=smoothstep(max(.02,z*.01),max(.04,z*.025),abs(sampleZ-z));
       float coverage=smoothstep(length(offset)-.75,length(offset)+.75,sampleRadius);
       float weight=sampleZ<z?mix(1.,coverage,separation):mix(1.,smoothstep(.35,2.,radius),separation);
+      // This near layer is composited separately, never counted twice.
+      if(splitForeground&&sampleZ<min(z,focus)-.02&&sampleRadius>1.)weight=0.;
       c+=texture2D(plate,sampleUV).rgb*weight;count+=weight;
     }
   }
   c/=count;
+  if(splitForeground){
+    vec3 foreground=vec3(0.);float coverage=0.;
+    float searchRadius=min(lensRadiusLimit,foregroundSupportRadius);
+    float pairs=searchRadius<16.?16.:24.;
+    // Antipodal uniform-area samples preserve mirrored-edge symmetry. The
+    // support is scene-derived, not the much larger absolute lens safety cap.
+    for(int i=0;i<48;i++){
+      if(float(i)>=2.*pairs)break;
+      float index=floor(float(i)*.5);float angle=index*2.399963;
+      float r=sqrt((index+.5)/pairs);float direction=mod(float(i),2.)*2.-1.;
+      vec2 offset=direction*vec2(cos(angle),sin(angle))*r*searchRadius;
+      vec2 p=clamp(vUv+offset/resolution,vec2(0.),vec2(1.));
+      float sampleZ=depthAt(p);float sampleRadius=coc(sampleZ);
+      if(sampleZ<min(z,focus)-.02&&sampleRadius>1.){
+        float disc=1.-smoothstep(sampleRadius-.5,sampleRadius+.5,length(offset));
+        float w=disc*searchRadius*searchRadius/max(1.,sampleRadius*sampleRadius)/(2.*pairs);
+        foreground+=texture2D(plate,p).rgb*w;coverage+=w;
+      }
+    }
+    if(coverage>0.)c=mix(c,foreground/coverage,clamp(coverage,0.,1.));
+  }
   // Foreground coverage is gathered independently of the centre CoC, so a
   // defocused near silhouette can soften into an otherwise focused background.
   // Radially concentrated taps retain small discs without a discontinuous
   // neighbour-probe gate. A soft disc edge suppresses sparse-sample rings.
-  if(z>=focus){
+  if(!boundedForeground&&z>=focus){
     vec3 foreground=vec3(0.);float coverage=0.;
     float searchRadius=lensRadiusLimit;
     for(int i=0;i<24;i++){
@@ -108,7 +138,7 @@ export class Renderer {
     this.analysisTarget=new T.WebGLRenderTarget(1,1,{type:T.UnsignedByteType,depthBuffer:false});
     this.meterTarget=new T.WebGLRenderTarget(1,1,{type:T.FloatType,depthBuffer:false});
     this.meterSceneTarget=new T.WebGLRenderTarget(1,1,{type:T.HalfFloatType,depthTexture:new T.DepthTexture(1,1,T.UnsignedIntType)});
-    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,linearDepth:false,resolution:new T.Vector2(1,1),pixelOrigin:new T.Vector2(),lensRadiusLimit:.08,focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,radianceScale:1,meteringPass:false,lensOnly:false,skipLens:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
+    this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,linearDepth:false,resolution:new T.Vector2(1,1),pixelOrigin:new T.Vector2(),lensRadiusLimit:.08,foregroundSupportRadius:-1,focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,radianceScale:1,meteringPass:false,lensOnly:false,skipLens:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
     this.postScene=new T.Scene();this.postCamera=new T.Camera();
     this.postScene.add(new T.Mesh(new T.PlaneGeometry(2,2),new T.ShaderMaterial({vertexShader:vertex,fragmentShader:fragment,uniforms:this.uniforms,depthTest:false,depthWrite:false})));
     this.loadVersion=0;
@@ -318,7 +348,7 @@ export class Renderer {
   draw(s,exposure,time,analyse=false,output=null){
     if(!this.ready)return;
     this.geometry(s);
-    const values={lensRadiusLimit:(this.detailView?.fullWidth??this.target.width)*.08,focus:s.focus,focal:s.focal,aperture:this.sourceView?1000000:exposure.aperture,exposure:this.scene.baseEV+this.exposureOffset-exposure.ev,iso:this.sourceView?0:exposure.iso,wb:s.wb,time,zebra:false,sensorWidth:this.filmWidth,agx:this.restoredLighting};
+    const values={lensRadiusLimit:(this.detailView?.fullWidth??this.target.width)*.08,foregroundSupportRadius:-1,focus:s.focus,focal:s.focal,aperture:this.sourceView?1000000:exposure.aperture,exposure:this.scene.baseEV+this.exposureOffset-exposure.ev,iso:this.sourceView?0:exposure.iso,wb:s.wb,time,zebra:false,sensorWidth:this.filmWidth,agx:this.restoredLighting};
     for(const [key,value]of Object.entries(values))this.uniforms[key].value=value;
     this.uniforms.pixelOrigin.value.set(this.detailView?.originX??0,this.detailView?.originY??0);
     this.uniforms.skipLens.value=false;this.uniforms.lensOnly.value=false;

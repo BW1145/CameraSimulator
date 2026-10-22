@@ -84,6 +84,7 @@ jobs:
         run: |
           node candidate/tools/capture-processing-stages.mjs \
             --candidate-root "$GITHUB_WORKSPACE/candidate" \
+            --baseline-root "$GITHUB_WORKSPACE/baseline" \
             --out "$GITHUB_WORKSPACE/photographic-parity-evidence/processing-stages" --serve
           node candidate/tools/analyze-processing-stages.mjs \
             --evidence "$GITHUB_WORKSPACE/photographic-parity-evidence/processing-stages"

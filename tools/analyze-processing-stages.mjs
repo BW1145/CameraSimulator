@@ -30,7 +30,29 @@ if(run.syntheticCaptures?.length){
  for(let x=center-20;x<center+20;x++){const i=(mid*width+x)*4;profile.push({x,relativeCenter:x+.5-center,idealCircularCoverage:coverage(x+.5-center),left:left[i],rightMirrored:mirror[i]});}
  report.synthetic={description:'Mirror-paired opaque white foreground against constant black background through production lensOnly shader. Ideal circular footprint and reflection symmetry do not require hidden background colors.',physicalForegroundRadiusPixels:radius,gatherFirstTapRadiusPixels:width*.08*.5/24,gatherSecondTapRadiusPixels:width*.08*1.5/24,mirrorSymmetryEdgeLinear:metrics(left,mirror,width,height,[center-20,Math.floor(height/4),40,Math.floor(height/2)]),profile,note:'Diagnostic only; physical-model residual is reported separately from transport/display implementation gates.'};
 }
-report.passed=report.transport.passed&&report.cases.every(c=>c.passed);
+report.foregroundRegression={enabled:run.syntheticCaptures?.some(c=>Number.isFinite(c.uniforms.foregroundSupportRadius)&&c.uniforms.foregroundSupportRadius>=0)??false,cases:[],acceptance:{mirrorMAE:.003,mirrorMax:.015,primaryDiskMAE:.05},note:'Only the certified bounded plate path is gated. Legacy unbounded GLTF remains explicitly outside this correction.'};
+if(report.foregroundRegression.enabled){
+ for(const stem of ['synthetic-white','synthetic-focus-bg','synthetic-f56','synthetic-sharp-near','synthetic-horizontal','synthetic-diagonal']){
+  const left=decodeHalfBuffer(await bytes(`${stem}-left/linear.rgba16f`)),right=decodeHalfBuffer(await bytes(`${stem}-right/linear.rgba16f`)),mirror=new Float32Array(right.length);
+  const horizontal=stem==='synthetic-horizontal',diagonal=stem==='synthetic-diagonal';
+  for(let y=0;y<height;y++)for(let x=0;x<width;x++)for(let c=0;c<4;c++)mirror[(y*width+x)*4+c]=right[((horizontal||diagonal?height-1-y:y)*width+(horizontal?x:width-1-x))*4+c];
+  const rect=horizontal?[Math.floor(width/4),height/2-24,Math.floor(width/2),48]:diagonal?[width/2-60,height/2-60,120,120]:[width/2-24,Math.floor(height/4),48,Math.floor(height/2)],delta=metrics(left,mirror,width,height,rect);
+  const result={id:stem,mirrorOperation:horizontal?'flip-y':diagonal?'rotate-180':'flip-x',mirrorLinear:delta,passed:delta.mae<=.003&&delta.max<=.015};
+  if(horizontal||diagonal){
+    const radius=report.synthetic.physicalForegroundRadiusPixels,profile=[];
+    for(let k=-20;k<20;k++){const x=width/2+(horizontal?0:k),y=height/2+(horizontal?k:0),distance=horizontal?k+.5:(k+1)/Math.SQRT2-.123,t=Math.max(-1,Math.min(1,distance/radius)),ideal=.5-(t*Math.sqrt(Math.max(0,1-t*t))+Math.asin(t))/Math.PI;profile.push({x,y,normalDistance:distance,idealCircularCoverage:ideal,value:left[(y*width+x)*4]});}
+    result.diskProfile=profile;result.diskMAE=profile.reduce((sum,p)=>sum+Math.abs(p.value-p.idealCircularCoverage),0)/profile.length;
+  }
+  report.foregroundRegression.cases.push(result);
+ }
+ const p=report.synthetic.profile;report.foregroundRegression.primaryDiskMAE=p.reduce((a,x)=>a+Math.abs(x.left-x.idealCircularCoverage),0)/p.length;
+ const strip=decodeHalfBuffer(await bytes('synthetic-thin-strip/linear.rgba16f')),y=Math.floor(height/2),profile=[];let rowEnergy=0;
+ for(let x=width/2-32;x<width/2+32;x++){const value=strip[(y*width+x)*4];rowEnergy+=value;profile.push({x,value});}
+ report.foregroundRegression.thinStrip={inputWidthPixels:3,rowEnergy,profile,note:'Energy/shape recorded separately: image-space visibility and bilinear edge filtering are not exact finite-aperture rendering.'};
+ report.foregroundRegression.passed=report.foregroundRegression.cases.every(c=>c.passed)&&report.foregroundRegression.primaryDiskMAE<=.05;
+}
+report.timing=run.timing??{note:'No same-run baseline supplied.'};
+report.passed=report.transport.passed&&report.cases.every(c=>c.passed)&&(!report.foregroundRegression.enabled||report.foregroundRegression.passed);
 await writeFile(join(out,'processing-analysis.json'),JSON.stringify(report,null,2)+'\n');
 console.log(JSON.stringify({passed:report.passed,transport:report.transport,plateProjection:report.plateProjection,cases:report.cases.map(({id,delta8bit,passed})=>({id,delta8bit,passed}))},null,2));
 if(!report.passed)process.exitCode=1;

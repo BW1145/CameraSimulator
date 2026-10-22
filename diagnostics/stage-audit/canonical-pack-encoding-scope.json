@@ -1,0 +1,1134 @@
+{
+  "scope": "Read-only local canonical manifests; metadata claims not fresh raw audit for84layers. Root must bind local assets to deployedtree before calling production evidence.",
+  "packs": [
+    {
+      "scene": "kitchen-plates",
+      "manifestSha256": "919046744d79ef1185e49d2620f305b192e867c86834e16d24606496b3fc400a",
+      "layers": [
+        {
+          "layer": "base",
+          "view": "center",
+          "range": [
+            -16,
+            8
+          ],
+          "maxRadiance": 97.80798457191598,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "left",
+          "range": [
+            -16,
+            8
+          ],
+          "maxRadiance": 82.82353210449219,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "right",
+          "range": [
+            -16,
+            8
+          ],
+          "maxRadiance": 92.86274719238281,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "up",
+          "range": [
+            -16,
+            8
+          ],
+          "maxRadiance": 85.83529663085938,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "down",
+          "range": [
+            -16,
+            8
+          ],
+          "maxRadiance": 108.42353057861328,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "front",
+          "range": [
+            -16,
+            8
+          ],
+          "maxRadiance": 94.87059020996094,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "back",
+          "range": [
+            -16,
+            8
+          ],
+          "maxRadiance": 89.85098266601562,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "center",
+          "range": [
+            -16,
+            8
+          ],
+          "maxRadiance": 147.61911010742188,
+          "clampedChannels": 0,
+          "sourceExrSha256": "9cdb6e888c506219dc409db77226b6125f466c4ff8a4d6f721834f0e4c1fde6c",
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "left",
+          "range": [
+            -16,
+            7
+          ],
+          "maxRadiance": 93.36470794677734,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "right",
+          "range": [
+            -16,
+            7
+          ],
+          "maxRadiance": 85.33333587646484,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "up",
+          "range": [
+            -16,
+            7
+          ],
+          "maxRadiance": 93.36470794677734,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "down",
+          "range": [
+            -16,
+            7
+          ],
+          "maxRadiance": 88.84706115722656,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "front",
+          "range": [
+            -16,
+            7
+          ],
+          "maxRadiance": 100.89411926269531,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "back",
+          "range": [
+            -16,
+            7
+          ],
+          "maxRadiance": 92.36078643798828,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "center",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 4.512051105499268,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "left",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 5.533568859100342,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "right",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 48.50545120239258,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "up",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 6.8685736656188965,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "down",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 9.068411827087402,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "front",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 5.269567012786865,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "back",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 13.641080856323242,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        }
+      ]
+    },
+    {
+      "scene": "classroom-plates",
+      "manifestSha256": "d5f900ff2198d68491ad56d2cc194fab8817497d581d1aa6c8f989dc503e7840",
+      "layers": [
+        {
+          "layer": "base",
+          "view": "center",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.1927348375320435,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "left",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 4.580392360687256,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "right",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 4.8313727378845215,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "up",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 4.6745100021362305,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "down",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.113725662231445,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "front",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.396078586578369,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "back",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.082353115081787,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "center",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.5443949699401855,
+          "clampedChannels": 0,
+          "sourceExrSha256": "7607b63c490d9fa9684bbfaa64fc0a6105d762c737bd3b411c4455f4ab59b224",
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "left",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.20784330368042,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "right",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.1450982093811035,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "up",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 4.86274528503418,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "down",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.521568775177002,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "front",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.364706039428711,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "back",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.270588397979736,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "center",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 3.9864652156829834,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "left",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 1.0769275426864624,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "right",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 2.7898364067077637,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "up",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 0.9303551316261292,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "down",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 4.387752056121826,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "front",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 0.9099966287612915,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "back",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 2.809251070022583,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        }
+      ]
+    },
+    {
+      "scene": "apartment-plates",
+      "manifestSha256": "60cae9b354ec595ac4ba361d7b97d9e06b8138f3d368e99a3dda6700dca30d9d",
+      "layers": [
+        {
+          "layer": "base",
+          "view": "center",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 4.863728274549345,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "left",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 7.1529412269592285,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "right",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 6.305882453918457,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "up",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 6.713725566864014,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "down",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 6.8392157554626465,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "front",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.960784435272217,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "back",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 7.247058868408203,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "center",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.650686740875244,
+          "clampedChannels": 0,
+          "sourceExrSha256": "1e6b2f76c11e8100bd70a3ddc80fbac19fee6463ca6aaef02920ebcf15afad39",
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "left",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 6.023529529571533,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "right",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 6.43137264251709,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "up",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.615686416625977,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "down",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.364706039428711,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "front",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.960784435272217,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "back",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 5.960784435272217,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "center",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 1.9853627681732178,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "left",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 1.6898369789123535,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "right",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 1.7521418333053589,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "up",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 1.5946284532546997,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "down",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 1.719583511352539,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "front",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 2.155548334121704,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "back",
+          "range": [
+            -16,
+            12
+          ],
+          "maxRadiance": 1.8577663898468018,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        }
+      ]
+    },
+    {
+      "scene": "barbershop-plates",
+      "manifestSha256": "57de4315d2f0b5539e5227584b81248263b4587dc7aa4fdd978b2f611b77f7da",
+      "layers": [
+        {
+          "layer": "base",
+          "view": "center",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 46.85928885097536,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "left",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 49.443138122558594,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "right",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 47.1843147277832,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "up",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 48.94117736816406,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "down",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 49.69411849975586,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "front",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 49.19215774536133,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "base",
+          "view": "back",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 49.945098876953125,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "center",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 49.6563720703125,
+          "clampedChannels": 0,
+          "sourceExrSha256": "03faff34cfdb4e92b22640caa8e2ae2e747457ed3a5add2b34a298a9ae116de1",
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "left",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 49.945098876953125,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "right",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 50.19607925415039,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "up",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 51.45098114013672,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "down",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 51.701961517333984,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "front",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 50.19607925415039,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "detail",
+          "view": "back",
+          "range": [
+            -16,
+            6
+          ],
+          "maxRadiance": 50.94902038574219,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "center",
+          "range": [
+            -16,
+            13
+          ],
+          "maxRadiance": 2641.44580078125,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "left",
+          "range": [
+            -16,
+            13
+          ],
+          "maxRadiance": 2840.83642578125,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "right",
+          "range": [
+            -16,
+            13
+          ],
+          "maxRadiance": 4602.9560546875,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "up",
+          "range": [
+            -16,
+            13
+          ],
+          "maxRadiance": 3882.007080078125,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "down",
+          "range": [
+            -16,
+            13
+          ],
+          "maxRadiance": 3306.025146484375,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "front",
+          "range": [
+            -16,
+            13
+          ],
+          "maxRadiance": 2635.927734375,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        },
+        {
+          "layer": "flash",
+          "view": "back",
+          "range": [
+            -16,
+            13
+          ],
+          "maxRadiance": 1999.5506591796875,
+          "clampedChannels": 0,
+          "sourceExrSha256": null,
+          "withinRange": true
+        }
+      ]
+    }
+  ],
+  "centerRawBindings": [
+    {
+      "scene": "kitchen-plates",
+      "wantedRawSha": "9cdb6e888c506219dc409db77226b6125f466c4ff8a4d6f721834f0e4c1fde6c",
+      "matches": [
+        {
+          "validation": "camera-render-work/kitchen-center-256/validation.json",
+          "file": "center-256spp-oidn.exr",
+          "sha256": "9cdb6e888c506219dc409db77226b6125f466c4ff8a4d6f721834f0e4c1fde6c",
+          "maximumRadiance": 147.61911010742188,
+          "channelsOver64": 23,
+          "channelsOverExistingUpperBound": 2,
+          "existingSharedEncoding": {
+            "type": "log2-rgb",
+            "min": -16,
+            "max": 7,
+            "losslessContainer": "WebP",
+            "maximumChannelQuantizationEV": 0.045098039215686274,
+            "sourceMaximumRadiance": 100.89411926269531
+          },
+          "boundToManifestSource": true
+        }
+      ]
+    },
+    {
+      "scene": "classroom-plates",
+      "wantedRawSha": "7607b63c490d9fa9684bbfaa64fc0a6105d762c737bd3b411c4455f4ab59b224",
+      "matches": [
+        {
+          "validation": "camera-render-work/classroom-center-256/validation.json",
+          "file": "center-256spp-oidn.exr",
+          "sha256": "7607b63c490d9fa9684bbfaa64fc0a6105d762c737bd3b411c4455f4ab59b224",
+          "maximumRadiance": 5.5443949699401855,
+          "channelsOver64": 0,
+          "channelsOverExistingUpperBound": 0,
+          "existingSharedEncoding": {
+            "type": "log2-rgb",
+            "min": -16,
+            "max": 6,
+            "losslessContainer": "WebP",
+            "maximumChannelQuantizationEV": 0.043137254901960784,
+            "sourceMaximumRadiance": 5.521568775177002
+          },
+          "boundToManifestSource": true
+        }
+      ]
+    },
+    {
+      "scene": "apartment-plates",
+      "wantedRawSha": "1e6b2f76c11e8100bd70a3ddc80fbac19fee6463ca6aaef02920ebcf15afad39",
+      "matches": [
+        {
+          "validation": "camera-render-work/apartment-center-256/validation.json",
+          "file": "center-256spp-oidn.exr",
+          "sha256": "1e6b2f76c11e8100bd70a3ddc80fbac19fee6463ca6aaef02920ebcf15afad39",
+          "maximumRadiance": 5.650686740875244,
+          "channelsOver64": 0,
+          "channelsOverExistingUpperBound": 0,
+          "existingSharedEncoding": {
+            "type": "log2-rgb",
+            "min": -16,
+            "max": 6,
+            "losslessContainer": "WebP",
+            "maximumChannelQuantizationEV": 0.043137254901960784,
+            "sourceMaximumRadiance": 6.43137264251709
+          },
+          "boundToManifestSource": true
+        }
+      ]
+    },
+    {
+      "scene": "barbershop-plates",
+      "wantedRawSha": "03faff34cfdb4e92b22640caa8e2ae2e747457ed3a5add2b34a298a9ae116de1",
+      "matches": [
+        {
+          "validation": "camera-render-work/full-center-256-relit-15w/validation.json",
+          "file": "center-256spp-oidn.exr",
+          "sha256": "03faff34cfdb4e92b22640caa8e2ae2e747457ed3a5add2b34a298a9ae116de1",
+          "maximumRadiance": 49.6563720703125,
+          "channelsOver64": 0,
+          "channelsOverExistingUpperBound": null,
+          "existingSharedEncoding": {
+            "type": "log2-rgb",
+            "min": -16,
+            "max": 6
+          },
+          "boundToManifestSource": true
+        }
+      ]
+    }
+  ],
+  "deployedTreeBinding": {
+    "verifiedBy": "parent /root via GitHub git/commits plus localgit",
+    "localCommit": "92ea92e208c815fc220bac2eb95f988be10faae9",
+    "remoteDeployedCommit": "9fd67cfcf0730c3946f32510d008c5b09f384687",
+    "identicalTree": "2ad102c345e7cb8c1cdef719c77fc1768dad3634"
+  }
+}

@@ -1,0 +1,639 @@
+{
+  "baselineRemoteCommit": "9669c2c5d5551416053bbc4002a1d3d8b214f254",
+  "baselineTree": "5c503b9586546c031abe86a0a7bf5d1d6dcc63d8",
+  "githubActionsRun": 39857430609,
+  "independentVerification": "ci-monitor/camera-parity/head9669c2c/verification.json",
+  "transport": {
+    "encodedMismatchedBytes": 0,
+    "decodedHalfMismatchedBytes": 0,
+    "passed": true
+  },
+  "displayCases": [
+    {
+      "id": "neutral",
+      "delta8bit": {
+        "pixels": 1757184,
+        "channels": 5271552,
+        "nonfinite": 0,
+        "mae": 8.953719891219891e-05,
+        "rmse": 0.009462409783569875,
+        "p95": 0,
+        "p99": 0,
+        "max": 1,
+        "fractionOver1": 0,
+        "fractionOver2": 0,
+        "signedMeanRGB": [
+          0.00010300571824009324,
+          7.967293123543123e-06,
+          -5.121831293706294e-06
+        ],
+        "meanRGBReference": [
+          92.49338088669144,
+          73.07952382903555,
+          62.63237372978584
+        ],
+        "meanRGBTest": [
+          92.49348389240967,
+          73.07953179632867,
+          62.63236860795455
+        ]
+      },
+      "passed": true
+    },
+    {
+      "id": "ev-minus2",
+      "delta8bit": {
+        "pixels": 1757184,
+        "channels": 5271552,
+        "nonfinite": 0,
+        "mae": 2.959280303030303e-05,
+        "rmse": 0.005439926748615558,
+        "p95": 0,
+        "p99": 0,
+        "max": 1,
+        "fractionOver1": 0,
+        "fractionOver2": 0,
+        "signedMeanRGB": [
+          -2.6178248834498836e-05,
+          -9.105477855477855e-06,
+          7.967293123543123e-06
+        ],
+        "meanRGBReference": [
+          43.80733036494755,
+          31.94359042650058,
+          25.940049533799534
+        ],
+        "meanRGBTest": [
+          43.807304186698715,
+          31.943581321022727,
+          25.940057501092657
+        ]
+      },
+      "passed": true
+    },
+    {
+      "id": "ev-plus2",
+      "delta8bit": {
+        "pixels": 1757184,
+        "channels": 5271552,
+        "nonfinite": 0,
+        "mae": 0.0007671365093240094,
+        "rmse": 0.027697229271607827,
+        "p95": 0,
+        "p99": 0,
+        "max": 1,
+        "fractionOver1": 0,
+        "fractionOver2": 0,
+        "signedMeanRGB": [
+          -2.9023710664335664e-05,
+          0.0019229631046037295,
+          -7.170563811188811e-05
+        ],
+        "meanRGBReference": [
+          149.99957659527973,
+          126.8035202915574,
+          113.90490125109265
+        ],
+        "meanRGBTest": [
+          149.99954757156905,
+          126.80544325466201,
+          113.90482954545455
+        ]
+      },
+      "passed": true
+    },
+    {
+      "id": "wb3500",
+      "delta8bit": {
+        "pixels": 1757184,
+        "channels": 5271552,
+        "nonfinite": 0,
+        "mae": 6.41177398989899e-05,
+        "rmse": 0.008007355362352161,
+        "p95": 0,
+        "p99": 0,
+        "max": 1,
+        "fractionOver1": 0,
+        "fractionOver2": 0,
+        "signedMeanRGB": [
+          2.3332787004662004e-05,
+          5.69092365967366e-06,
+          -5.6340144230769234e-05
+        ],
+        "meanRGBReference": [
+          86.3279696377841,
+          73.18564760434877,
+          67.13914934349505
+        ],
+        "meanRGBTest": [
+          86.3279929705711,
+          73.18565329527243,
+          67.13909300335082
+        ]
+      },
+      "passed": true
+    },
+    {
+      "id": "wb6500",
+      "delta8bit": {
+        "pixels": 1757184,
+        "channels": 5271552,
+        "nonfinite": 0,
+        "mae": 8.005232614607614e-05,
+        "rmse": 0.00894719655233281,
+        "p95": 0,
+        "p99": 0,
+        "max": 1,
+        "fractionOver1": 0,
+        "fractionOver2": 0,
+        "signedMeanRGB": [
+          -1.138184731934732e-06,
+          -3.3007357226107227e-05,
+          -3.414554195804196e-05
+        ],
+        "meanRGBReference": [
+          98.95227477600524,
+          73.14683607408217,
+          58.68324148182547
+        ],
+        "meanRGBTest": [
+          98.95227363782051,
+          73.14680306672494,
+          58.68320733628351
+        ]
+      },
+      "passed": true
+    },
+    {
+      "id": "dof-f14-neutral",
+      "delta8bit": {
+        "pixels": 1757184,
+        "channels": 5271552,
+        "nonfinite": 0,
+        "mae": 0.005598920393842269,
+        "rmse": 0.07482593396571986,
+        "p95": 0,
+        "p99": 0,
+        "max": 1,
+        "fractionOver1": 0,
+        "fractionOver2": 0,
+        "signedMeanRGB": [
+          -3.7560096153846156e-05,
+          -8.593294726107227e-05,
+          -6.373834498834498e-05
+        ],
+        "meanRGBReference": [
+          94.28766993098048,
+          74.88467627749854,
+          64.43923288625437
+        ],
+        "meanRGBTest": [
+          94.28763237088432,
+          74.88459034455128,
+          64.43916914790938
+        ]
+      },
+      "passed": true
+    },
+    {
+      "id": "dof-f56-neutral",
+      "delta8bit": {
+        "pixels": 1757184,
+        "channels": 5271552,
+        "nonfinite": 0,
+        "mae": 0.004643414311383061,
+        "rmse": 0.06814260276349195,
+        "p95": 0,
+        "p99": 0,
+        "max": 1,
+        "fractionOver1": 0,
+        "fractionOver2": 0,
+        "signedMeanRGB": [
+          -6.829108391608392e-06,
+          9.048568618881119e-05,
+          6.2600160256410254e-06
+        ],
+        "meanRGBReference": [
+          92.99448606406614,
+          73.58134037186771,
+          63.13669996995192
+        ],
+        "meanRGBTest": [
+          92.99447923495775,
+          73.5814308575539,
+          63.13670622996795
+        ]
+      },
+      "passed": true
+    },
+    {
+      "id": "photo-f14-iso200",
+      "delta8bit": {
+        "pixels": 1757184,
+        "channels": 5271552,
+        "nonfinite": 0,
+        "mae": 0.006130262966200466,
+        "rmse": 0.07829599585036559,
+        "p95": 0,
+        "p99": 0,
+        "max": 1,
+        "fractionOver1": 0,
+        "fractionOver2": 0,
+        "signedMeanRGB": [
+          6.260016025641025e-05,
+          -8.991659382284383e-05,
+          -3.528372668997669e-05
+        ],
+        "meanRGBReference": [
+          125.04273542212995,
+          103.08638480659965,
+          91.0811366368007
+        ],
+        "meanRGBTest": [
+          125.04279802229021,
+          103.08629489000583,
+          91.081101353074
+        ]
+      },
+      "passed": true
+    },
+    {
+      "id": "photo-f56-iso3200",
+      "delta8bit": {
+        "pixels": 1757184,
+        "channels": 5271552,
+        "nonfinite": 0,
+        "mae": 0.005186138731060606,
+        "rmse": 0.07201485076746744,
+        "p95": 0,
+        "p99": 0,
+        "max": 1,
+        "fractionOver1": 0,
+        "fractionOver2": 0,
+        "signedMeanRGB": [
+          -1.4796401515151516e-05,
+          -2.0487325174825176e-05,
+          9.67457022144522e-06
+        ],
+        "meanRGBReference": [
+          123.4955536813447,
+          101.44347603893502,
+          89.37621956494027
+        ],
+        "meanRGBTest": [
+          123.49553888494319,
+          101.44345555160984,
+          89.3762292395105
+        ]
+      },
+      "passed": true
+    }
+  ],
+  "synthetic": {
+    "description": "Mirror-paired opaque white foreground against constant black background through production lensOnly shader. Ideal circular footprint and reflection symmetry do not require hidden background colors.",
+    "physicalForegroundRadiusPixels": 5.094951281312722,
+    "gatherFirstTapRadiusPixels": 3.4133333333333336,
+    "gatherSecondTapRadiusPixels": 10.24,
+    "mirrorSymmetryEdgeLinear": {
+      "pixels": 17160,
+      "channels": 51480,
+      "nonfinite": 0,
+      "mae": 0.05527076721191406,
+      "rmse": 0.19538674041789053,
+      "p95": 0.58251953125,
+      "p99": 0.8348388671875,
+      "max": 0.8348388671875,
+      "fractionOver1": 0,
+      "fractionOver2": 0,
+      "signedMeanRGB": [
+        0.053207015991210936,
+        0.053207015991210936,
+        0.053207015991210936
+      ],
+      "meanRGBReference": [
+        0.4977741241455078,
+        0.4977741241455078,
+        0.4977741241455078
+      ],
+      "meanRGBTest": [
+        0.5509811401367187,
+        0.5509811401367187,
+        0.5509811401367187
+      ]
+    },
+    "profile": [
+      {
+        "x": 1004,
+        "relativeCenter": -19.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1005,
+        "relativeCenter": -18.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1006,
+        "relativeCenter": -17.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1007,
+        "relativeCenter": -16.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1008,
+        "relativeCenter": -15.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1009,
+        "relativeCenter": -14.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1010,
+        "relativeCenter": -13.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1011,
+        "relativeCenter": -12.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1012,
+        "relativeCenter": -11.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1013,
+        "relativeCenter": -10.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1014,
+        "relativeCenter": -9.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1015,
+        "relativeCenter": -8.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1016,
+        "relativeCenter": -7.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1017,
+        "relativeCenter": -6.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1018,
+        "relativeCenter": -5.5,
+        "idealCircularCoverage": 1,
+        "left": 1,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1019,
+        "relativeCenter": -4.5,
+        "idealCircularCoverage": 0.9764734189648989,
+        "left": 0.9794921875,
+        "rightMirrored": 0.96533203125
+      },
+      {
+        "x": 1020,
+        "relativeCenter": -3.5,
+        "idealCircularCoverage": 0.8999563907376398,
+        "left": 0.90185546875,
+        "rightMirrored": 0.90087890625
+      },
+      {
+        "x": 1021,
+        "relativeCenter": -2.5,
+        "idealCircularCoverage": 0.7993456867140746,
+        "left": 0.7890625,
+        "rightMirrored": 0.8203125
+      },
+      {
+        "x": 1022,
+        "relativeCenter": -1.5,
+        "idealCircularCoverage": 0.684682723016361,
+        "left": 0.69580078125,
+        "rightMirrored": 0.68359375
+      },
+      {
+        "x": 1023,
+        "relativeCenter": -0.5,
+        "idealCircularCoverage": 0.5623751241260513,
+        "left": 0.556640625,
+        "rightMirrored": 0.57421875
+      },
+      {
+        "x": 1024,
+        "relativeCenter": 0.5,
+        "idealCircularCoverage": 0.43762487587394866,
+        "left": 0.41748046875,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1025,
+        "relativeCenter": 1.5,
+        "idealCircularCoverage": 0.315317276983639,
+        "left": 0.30078125,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1026,
+        "relativeCenter": 2.5,
+        "idealCircularCoverage": 0.20065431328592542,
+        "left": 0.1651611328125,
+        "rightMirrored": 1
+      },
+      {
+        "x": 1027,
+        "relativeCenter": 3.5,
+        "idealCircularCoverage": 0.10004360926236028,
+        "left": 0.08477783203125,
+        "rightMirrored": 0.08892822265625
+      },
+      {
+        "x": 1028,
+        "relativeCenter": 4.5,
+        "idealCircularCoverage": 0.02352658103510108,
+        "left": 0.0199127197265625,
+        "rightMirrored": 0.0059814453125
+      },
+      {
+        "x": 1029,
+        "relativeCenter": 5.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1030,
+        "relativeCenter": 6.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1031,
+        "relativeCenter": 7.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1032,
+        "relativeCenter": 8.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1033,
+        "relativeCenter": 9.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1034,
+        "relativeCenter": 10.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1035,
+        "relativeCenter": 11.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1036,
+        "relativeCenter": 12.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1037,
+        "relativeCenter": 13.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1038,
+        "relativeCenter": 14.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1039,
+        "relativeCenter": 15.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1040,
+        "relativeCenter": 16.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1041,
+        "relativeCenter": 17.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1042,
+        "relativeCenter": 18.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      },
+      {
+        "x": 1043,
+        "relativeCenter": 19.5,
+        "idealCircularCoverage": 0,
+        "left": 0,
+        "rightMirrored": 0
+      }
+    ],
+    "note": "Diagnostic only; physical-model residual is reported separately from transport/display implementation gates."
+  },
+  "controlledSourceBefore": [
+    {
+      "aperture": 1.4,
+      "regionsMAE8bit": {
+        "whole": 1.8087382994609558,
+        "cabinet": 0.7381224489795918,
+        "metal-cans": 2.2789203778677463,
+        "chair": 1.7174223116476637,
+        "bright-window": 0.8897037037037037,
+        "mirror": 8.513068376068375,
+        "far-blind-interior": 0.7651035897435897,
+        "far-wall-portraits": 1.2278601398601399,
+        "near-cabinet-interior": 0.8300908455625436
+      }
+    },
+    {
+      "aperture": 5.6,
+      "regionsMAE8bit": {
+        "whole": 1.3510909121260684,
+        "cabinet": 0.6152142857142857,
+        "metal-cans": 2.1980566801619434,
+        "chair": 1.5035591325732172,
+        "bright-window": 1.2446772486772486,
+        "mirror": 3.2594985754985757,
+        "far-blind-interior": 1.1664984615384615,
+        "far-wall-portraits": 1.3629090909090908,
+        "near-cabinet-interior": 0.6528092243186583
+      }
+    }
+  ],
+  "scope": "Normal exposure, focus, aperture and WB controls are not defects. This measured issue is unintended direction-dependent foreground coverage under fixed controls. Not the sole cause of all visual differences. Missing diagnostic mirror optical-depth metadata, hidden surfaces and finite sampling/denoising remain distinct."
+}
