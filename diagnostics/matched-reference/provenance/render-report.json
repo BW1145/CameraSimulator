@@ -1,0 +1,651 @@
+{
+  "status": "complete",
+  "scope": "One manually landmark-inferred original-camera diagnostic,64samples is NOT final256-sample production. Not exact original camera recovery. No canonical seven-view replacement.",
+  "sourceSha256": "95972b56180462cac47ec82f3a755bd9111ec18ca37a6196a319c013db994130",
+  "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/barbershop_interior.blend",
+  "sourceBytes": 287574804,
+  "sourceAttribution": "Blender Foundation / Blender Studio \u2014 CC BY",
+  "cameraInferenceFile": "/workspace/scratch/33cf95385f89/camera-parity-work/reference/inferred-original-camera.json",
+  "cameraInferenceSha256": "fc365d72a5bf10a5e44bf50d0bde74613c261a1a292813a809432d1ba8071bac",
+  "cameraInference": {
+    "label": "Approximate original CameraSimulator background camera, manually landmark-inferred. NOT claimed recovered exact camera.",
+    "referenceFilename": "F56-S120-ISO3200-1.jpg",
+    "exposureEquivalentDefaultFilename": "F14-S120-ISO200-1.jpg",
+    "resolution": [
+      2048,
+      858
+    ],
+    "displayAspect": 2.386946386946387,
+    "fullFrameEquivalentFocalMm": 24.913603768064135,
+    "sourceSensorWidthMm": 24.889999389648438,
+    "sourceLensMmForSameHFOV": 17.224988405029425,
+    "suggestedSensorFit": "HORIZONTAL",
+    "lensShift": [
+      0,
+      0
+    ],
+    "fitCameraLocalTranslationMetres": [
+      -0.667997833853602,
+      -0.367123344223725,
+      -1.479647953091285
+    ],
+    "fitLocalEulerYXZDegrees": [
+      32.771119581533135,
+      1.2900433253342642,
+      1.3457259307037241
+    ],
+    "threeWorldMatrixRowMajor": [
+      [
+        -0.9598710363659012,
+        -0.00477369552900808,
+        -0.2804001235162285,
+        3.1970900119165746
+      ],
+      [
+        -0.010052285938080715,
+        0.9997981251166524,
+        0.017390047739273717,
+        1.1067816790848803
+      ],
+      [
+        0.28026058361778017,
+        0.01951087818501381,
+        -0.9597253751693888,
+        -8.366010502286521
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "blenderWorldMatrixRowMajor": [
+      [
+        -0.9598710363659012,
+        -0.00477369552900808,
+        -0.2804001235162285,
+        3.1970900119165746
+      ],
+      [
+        -0.28026058361778017,
+        -0.01951087818501381,
+        0.9597253751693888,
+        8.366010502286521
+      ],
+      [
+        -0.010052285938080715,
+        0.9997981251166524,
+        0.017390047739273717,
+        1.1067816790848803
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "threeWorldPosition": [
+      3.1970900119165746,
+      1.1067816790848803,
+      -8.366010502286521
+    ],
+    "blenderWorldPosition": [
+      3.1970900119165746,
+      8.366010502286521,
+      1.1067816790848803
+    ],
+    "coordinateTransform": {
+      "BlenderToThree": "(x,y,z) -> (x,z,-y); homogeneous C supplied",
+      "C": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          -1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "poseFormula": "M_three = M_anchor * Translate(localX,localY,localZ) * Ry(yaw) * Rx(pitch) * Rz(roll). M_blender = inverse(C) * M_three. Matrices in this file are ROW-MAJOR rows; manifest flat cameraMatrix uses COLUMN-MAJOR. Camera local axes +X right,+Y up,-Z forward preserved.",
+      "positiveTranslation": "localX positive camera-right, localY positive camera-up, localZ positive camera-back; fitted negative localZ means forward. UI z is negative localZ.",
+      "appEuler": "Three.js Euler YXZ. scipy Rotation.from_euler(\"YXZ\",degrees=True) uses intrinsic YXZ and matches Ry*Rx*Rz."
+    },
+    "nearClip": {
+      "existingSourceNear": 1.100000023841858,
+      "important": "Current 1.1m near clip would hide portions of near foreground cabinet at inferred pose. For an offline background-only comparison use clip_start0.05m (or0.1m), recording the intentional difference. Do not label clipping loss as visual model deficit. Any new foreground fan must be checked separately.",
+      "inferredLandmarkAxialDepths": [
+        {
+          "name": "window surround top-left",
+          "axialDepth": 7.118915830098891
+        },
+        {
+          "name": "window surround top-right",
+          "axialDepth": 6.662509569871058
+        },
+        {
+          "name": "window surround bottom-left",
+          "axialDepth": 7.142297721981057
+        },
+        {
+          "name": "window surround bottom-right",
+          "axialDepth": 6.682596663802552
+        },
+        {
+          "name": "door outer top-left",
+          "axialDepth": 6.614635658214288
+        },
+        {
+          "name": "door glass center",
+          "axialDepth": 6.608357519933076
+        },
+        {
+          "name": "pendant bottom-center",
+          "axialDepth": 3.6368443446817595
+        },
+        {
+          "name": "spotlight center",
+          "axialDepth": 5.3613862810066255
+        },
+        {
+          "name": "near drawer upper brass knob",
+          "axialDepth": 0.8988719377166715
+        },
+        {
+          "name": "near drawer lower brass knob",
+          "axialDepth": 0.9067474247639101
+        }
+      ]
+    },
+    "confidence": {
+      "coordinateRmsPixels": 5.960304169347642,
+      "interpretation": "Small residuals support a materially translated camera (roughly0.67m left/0.37m down/1.48m forward), not exact original intrinsics. Pixels hand-picked, first-surface depth may pick trim/glass/knob edge; original could differ in sensor fit/lens shift. Treat focal about25mm and pose as a useful first sample, not calibration truth. Do not present 6px residual as pixel-perfect source parity."
+    },
+    "evidence": "alignment-translation-fit.json contains all10correspondences, source depths, predictions and residuals; fit-translation.py reproduces inference."
+  },
+  "sourceFrame": 1,
+  "sourceSubframe": 0.0,
+  "sourceScene": "Scene",
+  "sourceCamera": {
+    "type": "PERSP",
+    "lens": 13.0,
+    "sensor_width": 24.889999389648438,
+    "sensor_height": 18.65999984741211,
+    "sensor_fit": "HORIZONTAL",
+    "shift_x": 0.0,
+    "shift_y": 0.0,
+    "clip_start": 1.100000023841858,
+    "clip_end": 100.0
+  },
+  "camera": {
+    "name": "InferredOriginalDiagnosticCamera",
+    "lens": 17.22498893737793,
+    "sensorWidth": 24.889999389648438,
+    "sensorHeight": 18.65999984741211,
+    "sensorFit": "HORIZONTAL",
+    "aspect": 2.386946386946387,
+    "nativeResolution": [
+      2048,
+      858
+    ],
+    "near": 0.05000000074505806,
+    "far": 100.0,
+    "shiftX": 0.0,
+    "shiftY": 0.0,
+    "matrix": [
+      [
+        -0.9598710536956787,
+        -0.004773695487529039,
+        -0.2804001271724701,
+        3.197089910507202
+      ],
+      [
+        -0.2802605926990509,
+        -0.01951087825000286,
+        0.9597253799438477,
+        8.366010665893555
+      ],
+      [
+        -0.010052286088466644,
+        0.9997981190681458,
+        0.017390048131346703,
+        1.1067817211151123
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ]
+  },
+  "captureLens": 17.22498893737793,
+  "samples": 64,
+  "sourceCounts": {
+    "objects": 1819,
+    "meshObjects": 1155,
+    "materials": 547,
+    "lightObjects": 15
+  },
+  "sourceMissingImages": [
+    {
+      "image": "agent_face_bruises_color",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/chars/maps/agent_face_bruises_color.png"
+    },
+    {
+      "image": "agent_face_bump",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/chars/maps/agent_face_bump.png"
+    },
+    {
+      "image": "agent_face_color",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/chars/maps/agent_face_color.png"
+    },
+    {
+      "image": "agent_face_spec",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/chars/maps/agent_face_spec.png"
+    },
+    {
+      "image": "Dirt_Patch_512.png",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/maps/brushes/Dirt_Patch_512.png"
+    },
+    {
+      "image": "generic_scratches.png",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/chars/maps/generic_scratches.png"
+    },
+    {
+      "image": "guilder_ornament.png",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/maps/brushes/guilder_ornament.png"
+    }
+  ],
+  "sourceMissingImageAudit": "../missing-image-usage.json:7 unavailable source image datablocks preserved unchanged;2 image names are referenced by scene materials. This is not an asset-complete claim.",
+  "sourceLights": [
+    {
+      "name": "LGT-counter.001",
+      "data": "Point.003",
+      "type": "AREA",
+      "energy": 3.9269907474517822,
+      "color": [
+        0.43360620737075806,
+        0.5492836833000183,
+        0.6038274168968201
+      ],
+      "hideRender": false,
+      "useNodes": false
+    },
+    {
+      "name": "LGT-window_key.001",
+      "data": "Area.003",
+      "type": "SPOT",
+      "energy": 1.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hideRender": false,
+      "useNodes": true
+    },
+    {
+      "name": "LGT-chair_02",
+      "data": "Point.004",
+      "type": "SPOT",
+      "energy": 50.0,
+      "color": [
+        1.0,
+        0.5036599040031433,
+        0.26350849866867065
+      ],
+      "hideRender": false,
+      "useNodes": false
+    },
+    {
+      "name": "LGT-wall_front",
+      "data": "Point.002",
+      "type": "SPOT",
+      "energy": 15.0,
+      "color": [
+        0.6038274168968201,
+        0.417868435382843,
+        0.2382553368806839
+      ],
+      "hideRender": false,
+      "useNodes": false
+    },
+    {
+      "name": "LGT-chair_01",
+      "data": "Point",
+      "type": "SPOT",
+      "energy": 150.0,
+      "color": [
+        1.0,
+        0.5036599040031433,
+        0.26350849866867065
+      ],
+      "hideRender": false,
+      "useNodes": false
+    },
+    {
+      "name": "LGT-window_key",
+      "data": "Area",
+      "type": "AREA",
+      "energy": 0.7853981852531433,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hideRender": false,
+      "useNodes": true
+    },
+    {
+      "name": "LGT-window_key.004",
+      "data": "Area.006",
+      "type": "AREA",
+      "energy": 0.7853981852531433,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hideRender": false,
+      "useNodes": true
+    },
+    {
+      "name": "LGT-window_key.003",
+      "data": "Area.005",
+      "type": "SPOT",
+      "energy": 1.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hideRender": false,
+      "useNodes": true
+    },
+    {
+      "name": "LGT-window_key.002",
+      "data": "Area.004",
+      "type": "AREA",
+      "energy": 0.7853981852531433,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hideRender": false,
+      "useNodes": true
+    },
+    {
+      "name": "LGT-chandelier.001",
+      "data": "Point.006",
+      "type": "POINT",
+      "energy": 1.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hideRender": false,
+      "useNodes": true
+    },
+    {
+      "name": "LGT-chandelier",
+      "data": "Point.006",
+      "type": "POINT",
+      "energy": 1.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hideRender": false,
+      "useNodes": true
+    },
+    {
+      "name": "LGT-Fill",
+      "data": "Point.007",
+      "type": "POINT",
+      "energy": 1.0,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hideRender": false,
+      "useNodes": true
+    },
+    {
+      "name": "LGT-Window_door.002",
+      "data": "Area.007",
+      "type": "AREA",
+      "energy": 0.7853981852531433,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hideRender": false,
+      "useNodes": true
+    },
+    {
+      "name": "LGT-Window_large.001",
+      "data": "Area.002",
+      "type": "AREA",
+      "energy": 0.7853981852531433,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hideRender": false,
+      "useNodes": true
+    },
+    {
+      "name": "Point.006",
+      "data": "Point.000",
+      "type": "AREA",
+      "energy": 0.7853981852531433,
+      "color": [
+        1.0,
+        1.0,
+        1.0
+      ],
+      "hideRender": false,
+      "useNodes": true
+    }
+  ],
+  "sourceSettings": {
+    "cycles": {
+      "device": "CPU",
+      "samples": 800,
+      "use_adaptive_sampling": false,
+      "adaptive_threshold": 0.009999999776482582,
+      "max_bounces": 2,
+      "diffuse_bounces": 2,
+      "glossy_bounces": 2,
+      "transmission_bounces": 2,
+      "transparent_max_bounces": 16,
+      "volume_bounces": 0,
+      "caustics_reflective": false,
+      "caustics_refractive": false,
+      "sample_clamp_direct": 0.0,
+      "sample_clamp_indirect": 10.0,
+      "blur_glossy": 2.0,
+      "use_light_tree": false,
+      "pixel_filter_type": "BLACKMAN_HARRIS",
+      "filter_width": 1.5,
+      "use_denoising": false,
+      "denoiser": "OPENIMAGEDENOISE",
+      "seed": 0
+    },
+    "render": {
+      "use_simplify": false,
+      "simplify_subdivision_render": 6,
+      "use_motion_blur": false,
+      "film_transparent": false,
+      "pixel_aspect_x": 1.0,
+      "pixel_aspect_y": 1.0
+    },
+    "display": {
+      "view_transform": "Standard",
+      "look": "None",
+      "exposure": 0.0,
+      "gamma": 1.0
+    }
+  },
+  "sourcePreservation": "No geometry, materials, lights, world, bounces, source simplification, light clamping, caustics, filter, animation or source asset saved/changed. Separate in-memory camera only.",
+  "intentionalChanges": [
+    "Landmark-inferred camera extrinsics/intrinsics",
+    "Near clip1.1m ->0.05m to avoid erasing foreground at inferred0.90m depth",
+    "Depth of field disabled to isolate background framing",
+    "64 exact samples, CPU OIDN High/Accurate with albedo+normal guides",
+    "Output-only Combined+raw-Z passes and compositor",
+    "AgX/None exposure0 gamma1 for preview only; no exposure/look normalization to reference"
+  ],
+  "displayTransform": {
+    "view": "AgX",
+    "look": "None",
+    "exposure": 0,
+    "gamma": 1
+  },
+  "renderSettings": {
+    "device": "CPU",
+    "samples": 64,
+    "use_adaptive_sampling": false,
+    "adaptive_threshold": 0.009999999776482582,
+    "max_bounces": 2,
+    "diffuse_bounces": 2,
+    "glossy_bounces": 2,
+    "transmission_bounces": 2,
+    "transparent_max_bounces": 16,
+    "volume_bounces": 0,
+    "caustics_reflective": false,
+    "caustics_refractive": false,
+    "sample_clamp_direct": 0.0,
+    "sample_clamp_indirect": 10.0,
+    "blur_glossy": 2.0,
+    "use_light_tree": false,
+    "pixel_filter_type": "BLACKMAN_HARRIS",
+    "filter_width": 1.5,
+    "use_denoising": true,
+    "denoiser": "OPENIMAGEDENOISE",
+    "seed": 17,
+    "time_limit": 0.0,
+    "use_layer_samples": "IGNORE",
+    "use_sample_subset": false,
+    "denoising_prefilter": "ACCURATE",
+    "denoising_input_passes": "RGB_ALBEDO_NORMAL",
+    "denoising_quality": "HIGH",
+    "debug_use_compact_bvh": true,
+    "tile_size": 256
+  },
+  "blender": "4.5.14 LTS",
+  "blenderBuildHash": "62c1db4208e8",
+  "renderThreads": 8,
+  "renderResolution": [
+    2048,
+    858
+  ],
+  "views": [
+    {
+      "id": "center",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "near": 0.05000000074505806,
+      "position": [
+        3.197089910507202,
+        1.1067817211151123,
+        -8.366010665893555
+      ],
+      "matrix": [
+        -1.328547716140747,
+        -0.015771066769957542,
+        0.28068092465400696,
+        0.2804003655910492,
+        -0.013913273811340332,
+        3.3030803203582764,
+        -0.017407460138201714,
+        -0.017390061169862747,
+        0.3879057765007019,
+        0.06445899605751038,
+        0.960686206817627,
+        0.9597259759902954,
+        7.5081095695495605,
+        -3.0661027431488037,
+        7.058964729309082,
+        7.151859283447266
+      ],
+      "cameraMatrix": [
+        -0.9598710536956787,
+        -0.010052286088466644,
+        0.2802605926990509,
+        0.0,
+        -0.004773695487529039,
+        0.9997981190681458,
+        0.01951087825000286,
+        0.0,
+        -0.2804001271724701,
+        0.017390048131346703,
+        -0.9597253799438477,
+        0.0,
+        3.197089910507202,
+        1.1067817211151123,
+        -8.366010665893555,
+        1.0
+      ],
+      "projectionMatrix": [
+        1.3840889930725098,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        3.303746223449707,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0010005235671997,
+        -1.0,
+        0.0,
+        0.0,
+        -0.10005002468824387,
+        0.0
+      ],
+      "file": "matched-64spp-oidn.exr",
+      "depth": "matched-depth.exr",
+      "width": 2048,
+      "height": 858,
+      "samples": 64
+    }
+  ],
+  "depthConvention": "Raw Cycles Depth/Z pass, not denoised. Capture-camera axial Z meters; preexisting independent3-point source raycast/PNG comparison in prototype/docs/visual-review/depth-axis-groundtruth.json established max0.70mm quantization error. Same Cycles source-camera projection convention.",
+  "renderSeconds": 239.67639839200274,
+  "peakRssMiB": 5464.91015625,
+  "cameraMatrixMaxDelta": 1.862645149230957e-07,
+  "effectiveSeedAfterRender": 17,
+  "exr": "matched-64spp-oidn.exr",
+  "png": "matched-64spp-oidn.png",
+  "depth": "matched-depth.exr",
+  "renderSceneObjectCount": 1820
+}

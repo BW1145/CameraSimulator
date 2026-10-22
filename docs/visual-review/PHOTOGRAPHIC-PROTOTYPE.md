@@ -1,28 +1,35 @@
 # Isolated photographic-appearance prototype
 
-Status: **unaccepted experiment awaiting browser pixels**, not a production release.
+Status: **second bounded iteration awaiting browser pixels**, not a production release.
+The first browser-tested candidate was rejected: its enlarged guard clipped the
+left edge, and the bright, highly cambered blades looked spoon-like rather than
+photographic. The cleaner sparse black guard was useful even in the placement
+ablation; enlargement itself was not accepted as an improvement.
 The worktree starts at `92ea92e`; its starting tree equals deployed main
 `9fd67cfcf0730c3946f32510d008c5b09f384687`. No original JPEG is used by the renderer.
 
 ## What changed
 
 - The live fan uses black dielectric enamel with a restrained clearcoat instead
-  of green metal, and broader cambered/twisted steel blades.
+  of green metal, and broader, thin stamped steel blades with only 4 mm of camber.
+  The second iteration moderates anisotropy, increases material roughness, and
+  reduces enamel clearcoat rather than changing global exposure or image contrast.
 - A sparse swept front/rear guard, rounded badge, and cage clips give the appliance
   a less diagrammatic silhouette. The wires remain actual tubes, not a photograph
   or opaque grille image. They participate in the existing tabletop shadow map.
-- A larger head and nearer tabletop position separate the foreground subject from
-  the room. Configuration parameters are internal; no new controls or feature
-  reductions were introduced. The rotor remains threefold periodic and animated.
+- The second iteration restores the original certified tabletop position and
+  uses a modest 1.15× head, instead of the rejected 1.8× nearer head. Configuration
+  parameters are internal; no new controls or feature reductions were introduced.
+  The rotor remains threefold periodic and animated. The existing approximate
+  contact footprint is tighter and darker; it is not baked into the room image.
 - Motion/receiver bounds include the swept cage and scale with the head transform.
 
-The current experiment uses position `[3.800, 0.8165531, -7.600]`, head scale `1.8`,
-head height `0.42 m`, head tilt `-0.12 rad`, and yaw offset `0.26 rad`. Targeted BVH raycasts against source `GEO-Dresser_marble.001` certify the
-center plus 24 points at 11 cm radius on horizontal tabletop at
-`y = 0.816553 ± 0.000001 m`. The unchanged elliptical base fits inside that circle.
-This is table-only geometry proof: neighboring props and visual collision checks
-remain pending. A closer-to-edge candidate was rejected after source raycasts
-found bevel/missing support, despite the depth map suggesting a plausible fit.
+The current experiment uses position `[3.8000004, 0.8165531, -6.9500003]`, head
+scale `1.15`, head height `0.435 m`, head tilt `-0.09 rad`, and yaw offset `0.12 rad`.
+Targeted source-table BVH raycasts against `GEO-Dresser_marble.001` independently
+rechecked the original position at 11 and 14 cm radius; all 25 points hit horizontal
+tabletop. The unchanged elliptical 11 cm × 9.13 cm base fits inside that support.
+This certifies tabletop support, not a complete neighboring-prop collision test.
 
 ## Honest comparison protocol
 
@@ -41,15 +48,19 @@ transform, and rendering settings are not recovered metadata. Landmark-based cam
 estimates are estimates, not exact reconstruction.
 
 The original image has a different camera position/perspective. Current seven-view
-coverage cannot exactly recreate it merely by cropping or yawing. An optional
-separate matched-camera diagnostic may be added; it must not silently replace one
-canonical camera while leaving six unrelated neighbor transforms.
+coverage cannot exactly recreate it merely by cropping or yawing. A separate, **background-only** matched-camera diagnostic is stored outside
+`public/` and routed only by its evidence runner; it does not replace any canonical
+view. It tests the approximate inferred camera, room tone, and depth-based lens
+blur. The original fan is absent, so the whole image is not a fan-quality score.
+Its 64-sample source render retains original room lighting, unlike the refined
+center-view fill; focal 24.9136 mm, MF1.4 m and WB5000 K are stated assumptions.
+The original camera fit has about 6 px landmark RMS, not recovered source metadata.
 
 ## Remaining approximations
 
-- The source HDR probe is still captured at the original small-fan placement.
-  Direct lights evaluate the new live geometry position, but local reflections
-  and indirect lighting do not move with the fan.
+- The fixed HDR probe is again near the restored fan position, but it is still one
+  point sample: reflections and indirect lighting do not vary over the appliance.
+  Area lights do not reproduce source-room occlusion of the procedural fan.
 - The live subject does not contribute new global illumination to the baked room.
   Existing contact shadow, planar reflection, and shadow-map receiver are bounded
   approximations, not one coherent path-traced scene.
@@ -58,9 +69,9 @@ canonical camera while leaving six unrelated neighbor transforms.
 - The procedural appliance is newly modeled from appearance cues, not a recovered
   original fan model. Exact surface texture/aging and blade shape remain different.
 
-## Validation before the first pixel experiment
+## Validation and first pixel experiment
 
-- 32 unit tests pass, including finite blade geometry, materials, period, explicit
+- 33 unit tests pass, including finite blade geometry, materials, period, explicit
   placement defaults, and scaled bounds.
 - Production build passes; existing asset audit passes.
 - Local browser QA has **not run**. Headless Chromium with SwiftShader failed before
@@ -70,5 +81,10 @@ canonical camera while leaving six unrelated neighbor transforms.
   or modified. The supported cloud browser independently could not reach the
   isolated local preview server (`ERR_CONNECTION_REFUSED`). These are launch/network
   blockers, not evidence of unsupported WebGL or a visual pass.
-- Authorized branch-only GitHub CI will provide first rendered evidence. Its
-  workflow has read-only contents permission and no merge or deployment action.
+- First authorized branch-only GitHub CI (`f62b9cc`) produced all eight captures
+  successfully. All four baseline/candidate pairs had identical actual controls,
+  clean pinned source hashes, no readiness/settings mismatches and no page errors.
+  Visual inspection nevertheless rejected that first candidate, as described above.
+- The second branch-only run adds two isolated background diagnostics and focused
+  browser regression coverage. Passing automated capture is not aesthetic acceptance.
+  The workflow has read-only contents permission and no merge/deployment action.

@@ -1,0 +1,225 @@
+{
+  "version": 1,
+  "id": "barbershop-matched-reference-64",
+  "title": "Barbershop — inferred original-camera diagnostic",
+  "sourceSha256": "95972b56180462cac47ec82f3a755bd9111ec18ca37a6196a319c013db994130",
+  "attribution": "Blender Foundation / Blender Studio — CC BY",
+  "method": "ONE independently rendered background camera inferred from10 manually marked correspondences. This is NOT exact recovered original pose, NOT canonical seven-view replacement, and64spp is NOT final256 quality.",
+  "encoding": {
+    "type": "log2-rgb",
+    "min": -16,
+    "max": 8,
+    "losslessContainer": "WebP",
+    "sourceMaximumRadiance": 172.5228729248047,
+    "maximumChannelQuantizationEV": 0.047058823529411764
+  },
+  "depth": {
+    "type": "uint16-rg",
+    "space": "capture-camera-z",
+    "range": 64,
+    "rawSource": "matched-depth.exr",
+    "notes": "Raw Cycles Depth/Z pass, not denoised. Capture-camera axial Z meters; preexisting independent3-point source raycast/PNG comparison in prototype/docs/visual-review/depth-axis-groundtruth.json established max0.70mm quantization error. Same Cycles source-camera projection convention."
+  },
+  "camera": {
+    "name": "InferredOriginalDiagnosticCamera",
+    "lens": 17.22498893737793,
+    "sensorWidth": 24.889999389648438,
+    "sensorHeight": 18.65999984741211,
+    "sensorFit": "HORIZONTAL",
+    "aspect": 2.386946386946387,
+    "nativeResolution": [
+      2048,
+      858
+    ],
+    "near": 0.05000000074505806,
+    "far": 100,
+    "shiftX": 0,
+    "shiftY": 0,
+    "matrix": [
+      [
+        -0.9598710536956787,
+        -0.004773695487529039,
+        -0.2804001271724701,
+        3.197089910507202
+      ],
+      [
+        -0.2802605926990509,
+        -0.01951087825000286,
+        0.9597253799438477,
+        8.366010665893555
+      ],
+      [
+        -0.010052286088466644,
+        0.9997981190681458,
+        0.017390048131346703,
+        1.1067817211151123
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ]
+  },
+  "referenceFocal": 24.913603768064135,
+  "minimumFocal": 24.913603768064135,
+  "captureLens": 17.22498893737793,
+  "bounds": {
+    "x": [
+      0,
+      0
+    ],
+    "y": [
+      0,
+      0
+    ],
+    "z": [
+      0,
+      0
+    ],
+    "yaw": [
+      0,
+      0
+    ],
+    "pitch": [
+      0,
+      0
+    ],
+    "roll": [
+      0,
+      0
+    ]
+  },
+  "samples": 64,
+  "views": [
+    {
+      "id": "center",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "near": 0.05000000074505806,
+      "position": [
+        3.197089910507202,
+        1.1067817211151123,
+        -8.366010665893555
+      ],
+      "matrix": [
+        -1.328547716140747,
+        -0.015771066769957542,
+        0.28068092465400696,
+        0.2804003655910492,
+        -0.013913273811340332,
+        3.3030803203582764,
+        -0.017407460138201714,
+        -0.017390061169862747,
+        0.3879057765007019,
+        0.06445899605751038,
+        0.960686206817627,
+        0.9597259759902954,
+        7.5081095695495605,
+        -3.0661027431488037,
+        7.058964729309082,
+        7.151859283447266
+      ],
+      "cameraMatrix": [
+        -0.9598710536956787,
+        -0.010052286088466644,
+        0.2802605926990509,
+        0,
+        -0.004773695487529039,
+        0.9997981190681458,
+        0.01951087825000286,
+        0,
+        -0.2804001271724701,
+        0.017390048131346703,
+        -0.9597253799438477,
+        0,
+        3.197089910507202,
+        1.1067817211151123,
+        -8.366010665893555,
+        1
+      ],
+      "projectionMatrix": [
+        1.3840889930725098,
+        0,
+        0,
+        0,
+        0,
+        3.303746223449707,
+        0,
+        0,
+        0,
+        0,
+        -1.0010005235671997,
+        -1,
+        0,
+        0,
+        -0.10005002468824387,
+        0
+      ],
+      "file": "center.webp",
+      "depth": "center-depth.png",
+      "width": 2048,
+      "height": 858,
+      "samples": 64,
+      "depthWidth": 2048,
+      "depthHeight": 858,
+      "bytes": 1044492,
+      "depthBytes": 616134,
+      "maximumRadiance": 172.5228729248047,
+      "minimumDepth": 0.7707481384277344,
+      "maximumDepth": 7.570474147796631
+    }
+  ],
+  "initialBytes": 1660626,
+  "totalBytes": 1660626,
+  "cameraInference": {
+    "label": "Approximate original CameraSimulator background camera, manually landmark-inferred. NOT claimed recovered exact camera.",
+    "coordinateRmsPixels": 5.960304169347642,
+    "evidence": "../capture/inferred-original-camera.json"
+  },
+  "intentionalNearClipChange": {
+    "from": 1.100000023841858,
+    "to": 0.05000000074505806,
+    "reason": "Inferred camera near cabinet has axial depth~0.90m; source1.1m clips it away."
+  },
+  "sourceAssetWarnings": [
+    {
+      "image": "agent_face_bruises_color",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/chars/maps/agent_face_bruises_color.png"
+    },
+    {
+      "image": "agent_face_bump",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/chars/maps/agent_face_bump.png"
+    },
+    {
+      "image": "agent_face_color",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/chars/maps/agent_face_color.png"
+    },
+    {
+      "image": "agent_face_spec",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/chars/maps/agent_face_spec.png"
+    },
+    {
+      "image": "Dirt_Patch_512.png",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/maps/brushes/Dirt_Patch_512.png"
+    },
+    {
+      "image": "generic_scratches.png",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/chars/maps/generic_scratches.png"
+    },
+    {
+      "image": "guilder_ornament.png",
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/__/lib/maps/brushes/guilder_ornament.png"
+    }
+  ],
+  "limitations": [
+    "Background-only: original reference includes a separately modelled fan; source scene does not.",
+    "No flash layers or subject assets are present; compare flash0 and attach current authorized subject config separately if desired.",
+    "Exact source geometry/material/light settings preserved; original color pipeline unknown. Display preview is only AgX/None exposure0, not claimed matching original exposure or tone response.",
+    "No source texture substitution; missing image datablocks audit retained, shader contribution not established."
+  ]
+}

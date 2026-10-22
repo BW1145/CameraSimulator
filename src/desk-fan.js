@@ -14,12 +14,12 @@ export function createDeskFan(config,lookToward){
   const finish=new T.CanvasTexture(finishCanvas);finish.wrapS=finish.wrapT=T.RepeatWrapping;finish.repeat.set(3,3);finish.colorSpace=T.NoColorSpace;
   // Black enamel is a dielectric paint over steel, not a green-tinted metal.
   // Its broad clearcoat reflects the room while shadow-facing paint stays dark.
-  const shell=new T.MeshPhysicalMaterial({color:0x161917,metalness:.04,roughness:.42,clearcoat:.3,clearcoatRoughness:.24,bumpMap:finish,bumpScale:.000035,roughnessMap:finish,envMapIntensity:1});
+  const shell=new T.MeshPhysicalMaterial({color:0x141713,metalness:.04,roughness:.50,specularIntensity:.65,clearcoat:.08,clearcoatRoughness:.32,bumpMap:finish,bumpScale:.000035,roughnessMap:finish,envMapIntensity:1});
   // Painted steel wire has a broad, restrained highlight. Chrome-like F0 on
   // subpixel tubes produced white specular beads instead of a resolved grille.
-  const wire=new T.MeshPhysicalMaterial({color:0x101311,metalness:.08,roughness:.34,clearcoat:.22,clearcoatRoughness:.23,envMapIntensity:1});
+  const wire=new T.MeshPhysicalMaterial({color:0x101311,metalness:.08,roughness:.43,specularIntensity:.7,clearcoat:.06,clearcoatRoughness:.3,envMapIntensity:1});
   const hardware=new T.MeshStandardMaterial({color:0x85857e,metalness:.9,roughness:.4,bumpMap:finish,bumpScale:.000025,roughnessMap:finish,envMapIntensity:1});
-  const bladeMetal=new T.MeshPhysicalMaterial({color:0x747671,metalness:.92,roughness:.4,anisotropy:.55,anisotropyRotation:Math.PI/2,bumpMap:finish,bumpScale:.000018,roughnessMap:finish,envMapIntensity:1});
+  const bladeMetal=new T.MeshPhysicalMaterial({color:0x595b55,metalness:.92,roughness:.53,anisotropy:.28,anisotropyRotation:Math.PI/2,bumpMap:finish,bumpScale:.000018,roughnessMap:finish,envMapIntensity:1});
   const darkMetal=new T.MeshStandardMaterial({color:0x333c34,metalness:.65,roughness:.4});
   const rubber=new T.MeshStandardMaterial({color:0x242722,roughness:.94});
   const add=(parent,geometry,material,x=0,y=0,z=0)=>{const mesh=new T.Mesh(geometry,material);mesh.position.set(x,y,z);parent.add(mesh);return mesh;};
@@ -77,9 +77,11 @@ export function createDeskFan(config,lookToward){
   // extruded shape has one face normal, making its entire face a painted disc.
   const positions=[],uvs=[],indices=[],rows=20,columns=16;
   for(let side=0;side<2;side++)for(let i=0;i<=rows;i++)for(let j=0;j<=columns;j++){
-    const t=i/rows,v=j/columns,u=v*2-1,r=.027+.157*t;
-    const angle=-.46+.68*t+u*(.07+.68*Math.pow(Math.sin(Math.PI*t),.55));
-    positions.push(r*Math.cos(angle),r*Math.sin(angle),.012+.031*u*t+.021*Math.sin(Math.PI*t)*(1-u*u)+(side?-.001:.001));uvs.push(t,v);
+    const t=i/rows,v=j/columns,u=v*2-1,r=.028+t*(.159-.018*u*u);
+    // Broad rounded outer edge, modest pitch, and only 4 mm of camber:
+    // an actual thin stamped sheet, rather than the inflated spoon-like first try.
+    const angle=-.25+.65*t+u*(.06+.62*Math.sin(t*Math.PI/2));
+    positions.push(r*Math.cos(angle),r*Math.sin(angle),.012+.024*u*t+.004*Math.sin(Math.PI*t)*(1-u*u)+(side?-.001:.001));uvs.push(t,v);
   }
   const layer=(rows+1)*(columns+1),stride=columns+1;
   for(let side=0;side<2;side++)for(let i=0;i<rows;i++)for(let j=0;j<columns;j++){
@@ -98,10 +100,10 @@ export function createDeskFan(config,lookToward){
   // A soft contact shadow anchors the small base to the sampled real tabletop.
   const shadowCanvas=document.createElement('canvas');shadowCanvas.width=128;shadowCanvas.height=128;
   const context=shadowCanvas.getContext('2d'),gradient=context.createRadialGradient(64,64,0,64,64,63);
-  gradient.addColorStop(0,'rgba(0,0,0,.22)');gradient.addColorStop(.38,'rgba(0,0,0,.17)');gradient.addColorStop(.7,'rgba(0,0,0,.055)');gradient.addColorStop(1,'rgba(0,0,0,0)');context.fillStyle=gradient;context.fillRect(0,0,128,128);
+  gradient.addColorStop(0,'rgba(0,0,0,.42)');gradient.addColorStop(.38,'rgba(0,0,0,.34)');gradient.addColorStop(.65,'rgba(0,0,0,.22)');gradient.addColorStop(1,'rgba(0,0,0,0)');context.fillStyle=gradient;context.fillRect(0,0,128,128);
   // Slightly above the table's millimetre-quantized Z avoids stippled z-fighting.
   // The darker central area is naturally covered by the solid base.
-  const shadow=add(group,new T.PlaneGeometry(.34,.29),new T.MeshBasicMaterial({map:new T.CanvasTexture(shadowCanvas),transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1}),.012,.003,.007);shadow.rotation.x=-Math.PI/2;shadow.renderOrder=2;
+  const shadow=add(group,new T.PlaneGeometry(.30,.26),new T.MeshBasicMaterial({map:new T.CanvasTexture(shadowCanvas),transparent:true,depthWrite:false,polygonOffset:true,polygonOffsetFactor:-1,polygonOffsetUnits:-1}),.012,.003,.007);shadow.rotation.x=-Math.PI/2;shadow.renderOrder=2;
   shadow.userData.focusable=false;
   return {group,rotor,head,period:1/(3*config.rotationsPerSecond),setTime(time){rotor.rotation.z=time*Math.PI*2*config.rotationsPerSecond;},
     setQuality(camera,width,height){

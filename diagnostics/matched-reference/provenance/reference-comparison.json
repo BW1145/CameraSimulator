@@ -1,0 +1,91 @@
+{
+  "referenceFile": "repos/camera-simulator/Images/Original Renders/F56-S120-ISO3200-1.jpg",
+  "renderFile": "capture/matched-64spp-oidn.png",
+  "resolution": [
+    2048,
+    858
+  ],
+  "comparisonCaveats": [
+    "Original fan excluded from new source-background diagnostic; pixel differences there are expected.",
+    "Original display/color pipeline unknown, so display RGB metrics are not physical exposure errors or scene-material proof.",
+    "Differences include manual camera inference error, disabled sourceDOF,64spp diagnostic vs final quality, and presentation transforms."
+  ],
+  "regions": {
+    "far-window": {
+      "rectXYXY": [
+        1410,
+        180,
+        1785,
+        415
+      ],
+      "referenceMeanRGB": [
+        0.7351040840148926,
+        0.7040237784385681,
+        0.6566992998123169
+      ],
+      "diagnosticMeanRGB": [
+        0.6725457906723022,
+        0.6416392922401428,
+        0.604157567024231
+      ],
+      "displaySpaceMeanAbsDifference": 0.06808200478553772
+    },
+    "backwall-chairs": {
+      "rectXYXY": [
+        1330,
+        420,
+        1840,
+        820
+      ],
+      "referenceMeanRGB": [
+        0.48520010709762573,
+        0.31188273429870605,
+        0.22763827443122864
+      ],
+      "diagnosticMeanRGB": [
+        0.44303208589553833,
+        0.2853722870349884,
+        0.21052414178848267
+      ],
+      "displaySpaceMeanAbsDifference": 0.06661856919527054
+    },
+    "near-cabinet": {
+      "rectXYXY": [
+        0,
+        200,
+        210,
+        650
+      ],
+      "referenceMeanRGB": [
+        0.22494052350521088,
+        0.15081852674484253,
+        0.12026336044073105
+      ],
+      "diagnosticMeanRGB": [
+        0.19785945117473602,
+        0.13303954899311066,
+        0.10358771681785583
+      ],
+      "displaySpaceMeanAbsDifference": 0.04992341250181198
+    },
+    "countertop": {
+      "rectXYXY": [
+        1060,
+        500,
+        1280,
+        760
+      ],
+      "referenceMeanRGB": [
+        0.3411448299884796,
+        0.25891876220703125,
+        0.21227680146694183
+      ],
+      "diagnosticMeanRGB": [
+        0.3098035156726837,
+        0.2384212166070938,
+        0.1951865702867508
+      ],
+      "displaySpaceMeanAbsDifference": 0.06233429163694382
+    }
+  }
+}

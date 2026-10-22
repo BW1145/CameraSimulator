@@ -1,0 +1,173 @@
+{
+  "label": "Approximate original CameraSimulator background camera, manually landmark-inferred. NOT claimed recovered exact camera.",
+  "referenceFilename": "F56-S120-ISO3200-1.jpg",
+  "exposureEquivalentDefaultFilename": "F14-S120-ISO200-1.jpg",
+  "resolution": [
+    2048,
+    858
+  ],
+  "displayAspect": 2.386946386946387,
+  "fullFrameEquivalentFocalMm": 24.913603768064135,
+  "sourceSensorWidthMm": 24.889999389648438,
+  "sourceLensMmForSameHFOV": 17.224988405029425,
+  "suggestedSensorFit": "HORIZONTAL",
+  "lensShift": [
+    0,
+    0
+  ],
+  "fitCameraLocalTranslationMetres": [
+    -0.667997833853602,
+    -0.367123344223725,
+    -1.479647953091285
+  ],
+  "fitLocalEulerYXZDegrees": [
+    32.771119581533135,
+    1.2900433253342642,
+    1.3457259307037241
+  ],
+  "threeWorldMatrixRowMajor": [
+    [
+      -0.9598710363659012,
+      -0.00477369552900808,
+      -0.2804001235162285,
+      3.1970900119165746
+    ],
+    [
+      -0.010052285938080715,
+      0.9997981251166524,
+      0.017390047739273717,
+      1.1067816790848803
+    ],
+    [
+      0.28026058361778017,
+      0.01951087818501381,
+      -0.9597253751693888,
+      -8.366010502286521
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "blenderWorldMatrixRowMajor": [
+    [
+      -0.9598710363659012,
+      -0.00477369552900808,
+      -0.2804001235162285,
+      3.1970900119165746
+    ],
+    [
+      -0.28026058361778017,
+      -0.01951087818501381,
+      0.9597253751693888,
+      8.366010502286521
+    ],
+    [
+      -0.010052285938080715,
+      0.9997981251166524,
+      0.017390047739273717,
+      1.1067816790848803
+    ],
+    [
+      0.0,
+      0.0,
+      0.0,
+      1.0
+    ]
+  ],
+  "threeWorldPosition": [
+    3.1970900119165746,
+    1.1067816790848803,
+    -8.366010502286521
+  ],
+  "blenderWorldPosition": [
+    3.1970900119165746,
+    8.366010502286521,
+    1.1067816790848803
+  ],
+  "coordinateTransform": {
+    "BlenderToThree": "(x,y,z) -> (x,z,-y); homogeneous C supplied",
+    "C": [
+      [
+        1.0,
+        0.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        1.0,
+        0.0
+      ],
+      [
+        0.0,
+        -1.0,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "poseFormula": "M_three = M_anchor * Translate(localX,localY,localZ) * Ry(yaw) * Rx(pitch) * Rz(roll). M_blender = inverse(C) * M_three. Matrices in this file are ROW-MAJOR rows; manifest flat cameraMatrix uses COLUMN-MAJOR. Camera local axes +X right,+Y up,-Z forward preserved.",
+    "positiveTranslation": "localX positive camera-right, localY positive camera-up, localZ positive camera-back; fitted negative localZ means forward. UI z is negative localZ.",
+    "appEuler": "Three.js Euler YXZ. scipy Rotation.from_euler(\"YXZ\",degrees=True) uses intrinsic YXZ and matches Ry*Rx*Rz."
+  },
+  "nearClip": {
+    "existingSourceNear": 1.100000023841858,
+    "important": "Current 1.1m near clip would hide portions of near foreground cabinet at inferred pose. For an offline background-only comparison use clip_start0.05m (or0.1m), recording the intentional difference. Do not label clipping loss as visual model deficit. Any new foreground fan must be checked separately.",
+    "inferredLandmarkAxialDepths": [
+      {
+        "name": "window surround top-left",
+        "axialDepth": 7.118915830098891
+      },
+      {
+        "name": "window surround top-right",
+        "axialDepth": 6.662509569871058
+      },
+      {
+        "name": "window surround bottom-left",
+        "axialDepth": 7.142297721981057
+      },
+      {
+        "name": "window surround bottom-right",
+        "axialDepth": 6.682596663802552
+      },
+      {
+        "name": "door outer top-left",
+        "axialDepth": 6.614635658214288
+      },
+      {
+        "name": "door glass center",
+        "axialDepth": 6.608357519933076
+      },
+      {
+        "name": "pendant bottom-center",
+        "axialDepth": 3.6368443446817595
+      },
+      {
+        "name": "spotlight center",
+        "axialDepth": 5.3613862810066255
+      },
+      {
+        "name": "near drawer upper brass knob",
+        "axialDepth": 0.8988719377166715
+      },
+      {
+        "name": "near drawer lower brass knob",
+        "axialDepth": 0.9067474247639101
+      }
+    ]
+  },
+  "confidence": {
+    "coordinateRmsPixels": 5.960304169347642,
+    "interpretation": "Small residuals support a materially translated camera (roughly0.67m left/0.37m down/1.48m forward), not exact original intrinsics. Pixels hand-picked, first-surface depth may pick trim/glass/knob edge; original could differ in sensor fit/lens shift. Treat focal about25mm and pose as a useful first sample, not calibration truth. Do not present 6px residual as pixel-perfect source parity."
+  },
+  "evidence": "alignment-translation-fit.json contains all10correspondences, source depths, predictions and residuals; fit-translation.py reproduces inference."
+}

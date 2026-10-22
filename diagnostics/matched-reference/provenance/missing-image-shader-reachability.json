@@ -1,0 +1,2475 @@
+{
+  "scope": "Topological source material audit with constant MixRGB/MixShader pruning only. Does not prove per-pixel visual impact; muted nodes and nested groups may need deeper analysis.",
+  "materials": [
+    {
+      "material": "wood_floor",
+      "activeOutputNodes": [
+        "Material Output"
+      ],
+      "reachableNodeNames": [
+        "Attribute",
+        "ColorRamp",
+        "ColorRamp.001",
+        "ColorRamp.002",
+        "ColorRamp.003",
+        "ColorRamp.004",
+        "ColorRamp.005",
+        "ColorRamp.006",
+        "ColorRamp.007",
+        "Displacement",
+        "Geometry",
+        "Geometry.001",
+        "Group",
+        "Group.001",
+        "Group.002",
+        "Hue Saturation Value",
+        "Image Texture",
+        "Image Texture.001",
+        "Image Texture.002",
+        "Material Output",
+        "Mix",
+        "Mix.001",
+        "Mix.002",
+        "Mix.003",
+        "Mix.004",
+        "Mix.005",
+        "Mix.006",
+        "Mix.007",
+        "Mix.008",
+        "Mix.009",
+        "Noise Texture",
+        "Object Info",
+        "RGB Curves",
+        "Reroute",
+        "Texture Coordinate",
+        "UV Map"
+      ],
+      "prunedKnownConstantMixBranches": [],
+      "imageNodes": [
+        {
+          "name": "Image Texture",
+          "image": "wood_solid_03-color.jpg.002",
+          "hasData": false,
+          "size": [
+            512,
+            512
+          ],
+          "topologicallyReachableAfterConstantMixPruning": true,
+          "mute": false
+        },
+        {
+          "name": "Image Texture.001",
+          "image": "generic_scratches.png",
+          "hasData": false,
+          "size": [
+            0,
+            0
+          ],
+          "topologicallyReachableAfterConstantMixPruning": true,
+          "mute": false
+        },
+        {
+          "name": "Image Texture.002",
+          "image": "grunge_scratches_generic.png.005",
+          "hasData": false,
+          "size": [
+            512,
+            434
+          ],
+          "topologicallyReachableAfterConstantMixPruning": true,
+          "mute": false
+        }
+      ],
+      "nodes": [
+        {
+          "name": "Image Texture",
+          "type": "ShaderNodeTexImage",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Mix.003",
+                  "fromSocket": "Result"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Noise Texture",
+          "type": "ShaderNodeTexNoise",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Mix.002",
+                  "fromSocket": "Result"
+                }
+              ]
+            },
+            {
+              "name": "W",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "Scale",
+              "default": 0.18000009655952454,
+              "links": []
+            },
+            {
+              "name": "Detail",
+              "default": 7.299999713897705,
+              "links": []
+            },
+            {
+              "name": "Roughness",
+              "default": 0.5,
+              "links": []
+            },
+            {
+              "name": "Lacunarity",
+              "default": 2.0,
+              "links": []
+            },
+            {
+              "name": "Offset",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "Gain",
+              "default": 1.0,
+              "links": []
+            },
+            {
+              "name": "Distortion",
+              "default": 0.0,
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Mix.001",
+          "type": "ShaderNodeMix",
+          "mute": false,
+          "blendType": "ADD",
+          "inputs": [
+            {
+              "name": "Factor",
+              "default": 1.0,
+              "links": []
+            },
+            {
+              "name": "Factor",
+              "default": [
+                0.5,
+                0.5,
+                0.5
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Texture Coordinate",
+                  "fromSocket": "Generated"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "UV Map",
+                  "fromSocket": "UV"
+                }
+              ]
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Object Info",
+          "type": "ShaderNodeObjectInfo",
+          "mute": false,
+          "blendType": null,
+          "inputs": []
+        },
+        {
+          "name": "Geometry",
+          "type": "ShaderNodeNewGeometry",
+          "mute": false,
+          "blendType": null,
+          "inputs": []
+        },
+        {
+          "name": "RGB Curves",
+          "type": "ShaderNodeRGBCurve",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Fac",
+              "default": 1.0,
+              "links": []
+            },
+            {
+              "name": "Color",
+              "default": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Image Texture",
+                  "fromSocket": "Color"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mix",
+          "type": "ShaderNodeMix",
+          "mute": false,
+          "blendType": "MULTIPLY",
+          "inputs": [
+            {
+              "name": "Factor",
+              "default": 1.0,
+              "links": []
+            },
+            {
+              "name": "Factor",
+              "default": [
+                0.5,
+                0.5,
+                0.5
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Hue Saturation Value",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "ColorRamp",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Hue Saturation Value",
+          "type": "ShaderNodeHueSaturation",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Hue",
+              "default": 0.5,
+              "links": []
+            },
+            {
+              "name": "Saturation",
+              "default": 0.20000000298023224,
+              "links": []
+            },
+            {
+              "name": "Value",
+              "default": 1.0,
+              "links": []
+            },
+            {
+              "name": "Fac",
+              "default": 1.0,
+              "links": []
+            },
+            {
+              "name": "Color",
+              "default": [
+                0.800000011920929,
+                0.800000011920929,
+                0.800000011920929,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "RGB Curves",
+                  "fromSocket": "Color"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ColorRamp",
+          "type": "ShaderNodeValToRGB",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Fac",
+              "default": 0.5,
+              "links": [
+                {
+                  "fromNode": "Noise Texture",
+                  "fromSocket": "Fac"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Texture Coordinate",
+          "type": "ShaderNodeTexCoord",
+          "mute": false,
+          "blendType": null,
+          "inputs": []
+        },
+        {
+          "name": "UV Map",
+          "type": "ShaderNodeUVMap",
+          "mute": false,
+          "blendType": null,
+          "inputs": []
+        },
+        {
+          "name": "Mix.002",
+          "type": "ShaderNodeMix",
+          "mute": false,
+          "blendType": "ADD",
+          "inputs": [
+            {
+              "name": "Factor",
+              "default": 1.0,
+              "links": []
+            },
+            {
+              "name": "Factor",
+              "default": [
+                0.5,
+                0.5,
+                0.5
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Mix.001",
+                  "fromSocket": "Result"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Geometry",
+                  "fromSocket": "Position"
+                }
+              ]
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Mix.003",
+          "type": "ShaderNodeMix",
+          "mute": false,
+          "blendType": "ADD",
+          "inputs": [
+            {
+              "name": "Factor",
+              "default": 1.0,
+              "links": []
+            },
+            {
+              "name": "Factor",
+              "default": [
+                0.5,
+                0.5,
+                0.5
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "UV Map",
+                  "fromSocket": "UV"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Object Info",
+                  "fromSocket": "Random"
+                }
+              ]
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Surface",
+              "default": null,
+              "links": [
+                {
+                  "fromNode": "Group",
+                  "fromSocket": "Shader"
+                }
+              ]
+            },
+            {
+              "name": "Volume",
+              "default": null,
+              "links": []
+            },
+            {
+              "name": "Displacement",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Displacement",
+                  "fromSocket": "Displacement"
+                }
+              ]
+            },
+            {
+              "name": "Thickness",
+              "default": 0.0,
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Group.001",
+          "type": "ShaderNodeGroup",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Base Color",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Reroute",
+                  "fromSocket": "Output"
+                }
+              ]
+            },
+            {
+              "name": "Blend Color",
+              "default": [
+                0.06265208125114441,
+                0.037388063967227936,
+                0.023194456472992897,
+                1.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Mix.007",
+          "type": "ShaderNodeMix",
+          "mute": false,
+          "blendType": "SUBTRACT",
+          "inputs": [
+            {
+              "name": "Factor",
+              "default": 1.0,
+              "links": []
+            },
+            {
+              "name": "Factor",
+              "default": [
+                0.5,
+                0.5,
+                0.5
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "ColorRamp.002",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "ColorRamp.005",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "ColorRamp.002",
+          "type": "ShaderNodeValToRGB",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Fac",
+              "default": 0.5,
+              "links": [
+                {
+                  "fromNode": "Mix.006",
+                  "fromSocket": "Result"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mix.006",
+          "type": "ShaderNodeMix",
+          "mute": false,
+          "blendType": "SUBTRACT",
+          "inputs": [
+            {
+              "name": "Factor",
+              "default": 0.20000000298023224,
+              "links": []
+            },
+            {
+              "name": "Factor",
+              "default": [
+                0.5,
+                0.5,
+                0.5
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Mix.005",
+                  "fromSocket": "Result"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Image Texture.001",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "ColorRamp.001",
+          "type": "ShaderNodeValToRGB",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Fac",
+              "default": 0.5,
+              "links": [
+                {
+                  "fromNode": "Reroute",
+                  "fromSocket": "Output"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Image Texture.001",
+          "type": "ShaderNodeTexImage",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Attribute",
+          "type": "ShaderNodeAttribute",
+          "mute": false,
+          "blendType": null,
+          "inputs": []
+        },
+        {
+          "name": "ColorRamp.004",
+          "type": "ShaderNodeValToRGB",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Fac",
+              "default": 0.5,
+              "links": [
+                {
+                  "fromNode": "Attribute",
+                  "fromSocket": "Fac"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "ColorRamp.003",
+          "type": "ShaderNodeValToRGB",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Fac",
+              "default": 0.5,
+              "links": [
+                {
+                  "fromNode": "Noise Texture",
+                  "fromSocket": "Fac"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Reroute",
+          "type": "NodeReroute",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Input",
+              "default": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Mix.009",
+                  "fromSocket": "Result"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mix.004",
+          "type": "ShaderNodeMix",
+          "mute": false,
+          "blendType": "ADD",
+          "inputs": [
+            {
+              "name": "Factor",
+              "default": 0.10000000149011612,
+              "links": []
+            },
+            {
+              "name": "Factor",
+              "default": [
+                0.5,
+                0.5,
+                0.5
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Reroute",
+                  "fromSocket": "Output"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "ColorRamp.003",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Mix.009",
+          "type": "ShaderNodeMix",
+          "mute": false,
+          "blendType": "ADD",
+          "inputs": [
+            {
+              "name": "Factor",
+              "default": 0.15000000596046448,
+              "links": []
+            },
+            {
+              "name": "Factor",
+              "default": [
+                0.5,
+                0.5,
+                0.5
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Mix",
+                  "fromSocket": "Result"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "ColorRamp.007",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Group",
+          "type": "ShaderNodeGroup",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Diffuse Color",
+              "default": [
+                0.800000011920929,
+                0.800000011920929,
+                0.800000011920929,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Group.001",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "Glossy Color",
+              "default": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Mix.007",
+                  "fromSocket": "Result"
+                }
+              ]
+            },
+            {
+              "name": "IOR",
+              "default": 1.4500000476837158,
+              "links": []
+            },
+            {
+              "name": "Reflectivity",
+              "default": -0.5,
+              "links": []
+            },
+            {
+              "name": "Roughness",
+              "default": 0.4000000059604645,
+              "links": []
+            },
+            {
+              "name": "Bump",
+              "default": 0.0,
+              "links": [
+                {
+                  "fromNode": "ColorRamp.001",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "Bump Factor",
+              "default": 0.03999999910593033,
+              "links": []
+            },
+            {
+              "name": "Normal",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Group.002",
+          "type": "ShaderNodeGroup",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Base Color",
+              "default": [
+                0.0,
+                0.0,
+                0.0,
+                1.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Blend Color",
+              "default": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "ColorRamp.005",
+          "type": "ShaderNodeValToRGB",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Fac",
+              "default": 0.5,
+              "links": [
+                {
+                  "fromNode": "Group.002",
+                  "fromSocket": "Color"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mix.005",
+          "type": "ShaderNodeMix",
+          "mute": false,
+          "blendType": "ADD",
+          "inputs": [
+            {
+              "name": "Factor",
+              "default": 0.20000000298023224,
+              "links": []
+            },
+            {
+              "name": "Factor",
+              "default": [
+                0.5,
+                0.5,
+                0.5
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Mix.004",
+                  "fromSocket": "Result"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "ColorRamp.004",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Geometry.001",
+          "type": "ShaderNodeNewGeometry",
+          "mute": false,
+          "blendType": null,
+          "inputs": []
+        },
+        {
+          "name": "ColorRamp.006",
+          "type": "ShaderNodeValToRGB",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Fac",
+              "default": 0.5,
+              "links": [
+                {
+                  "fromNode": "Geometry.001",
+                  "fromSocket": "Pointiness"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mix.008",
+          "type": "ShaderNodeMix",
+          "mute": false,
+          "blendType": "SUBTRACT",
+          "inputs": [
+            {
+              "name": "Factor",
+              "default": 0.7901639342308044,
+              "links": []
+            },
+            {
+              "name": "Factor",
+              "default": [
+                0.5,
+                0.5,
+                0.5
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "A",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "ColorRamp.006",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "B",
+              "default": [
+                0.5,
+                0.5,
+                0.5,
+                1.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Image Texture.002",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "A",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "B",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "ColorRamp.007",
+          "type": "ShaderNodeValToRGB",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Fac",
+              "default": 0.5,
+              "links": [
+                {
+                  "fromNode": "Mix.008",
+                  "fromSocket": "Result"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Image Texture.002",
+          "type": "ShaderNodeTexImage",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Mix.003",
+                  "fromSocket": "Result"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Displacement",
+          "type": "ShaderNodeDisplacement",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Height",
+              "default": 0.0,
+              "links": [
+                {
+                  "fromNode": "Group",
+                  "fromSocket": "Displacement"
+                }
+              ]
+            },
+            {
+              "name": "Midlevel",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "Scale",
+              "default": 0.10000000149011612,
+              "links": []
+            },
+            {
+              "name": "Normal",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "material": "cash_register_paper_red",
+      "activeOutputNodes": [
+        "Material Output"
+      ],
+      "reachableNodeNames": [
+        "Glossy BSDF",
+        "Group",
+        "Image Texture",
+        "Mapping",
+        "Material Output",
+        "Mix Shader",
+        "Texture Coordinate",
+        "Vector Math",
+        "Vector Math.001"
+      ],
+      "prunedKnownConstantMixBranches": [],
+      "imageNodes": [
+        {
+          "name": "Image Texture",
+          "image": "guilder_ornament.png",
+          "hasData": false,
+          "size": [
+            0,
+            0
+          ],
+          "topologicallyReachableAfterConstantMixPruning": true,
+          "mute": false
+        }
+      ],
+      "nodes": [
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Surface",
+              "default": null,
+              "links": [
+                {
+                  "fromNode": "Mix Shader",
+                  "fromSocket": "Shader"
+                }
+              ]
+            },
+            {
+              "name": "Volume",
+              "default": null,
+              "links": []
+            },
+            {
+              "name": "Displacement",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Thickness",
+              "default": 0.0,
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Group",
+          "type": "ShaderNodeGroup",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Diffuse Color",
+              "default": [
+                0.15958304703235626,
+                0.06639010459184647,
+                0.05566776543855667,
+                1.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Glossy Color",
+              "default": [
+                0.8538750410079956,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "links": []
+            },
+            {
+              "name": "IOR",
+              "default": 1.4500000476837158,
+              "links": []
+            },
+            {
+              "name": "Reflectivity",
+              "default": 0.019999999552965164,
+              "links": []
+            },
+            {
+              "name": "Roughness",
+              "default": 0.0299999937415123,
+              "links": []
+            },
+            {
+              "name": "Bump",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "Bump Factor",
+              "default": 1.0,
+              "links": []
+            },
+            {
+              "name": "Normal",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Image Texture",
+          "type": "ShaderNodeTexImage",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Vector Math",
+                  "fromSocket": "Vector"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mapping",
+          "type": "ShaderNodeMapping",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Texture Coordinate",
+                  "fromSocket": "UV"
+                }
+              ]
+            },
+            {
+              "name": "Location",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Rotation",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Scale",
+              "default": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Texture Coordinate",
+          "type": "ShaderNodeTexCoord",
+          "mute": false,
+          "blendType": null,
+          "inputs": []
+        },
+        {
+          "name": "Mix Shader",
+          "type": "ShaderNodeMixShader",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Fac",
+              "default": 0.5,
+              "links": [
+                {
+                  "fromNode": "Image Texture",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "Shader",
+              "default": null,
+              "links": [
+                {
+                  "fromNode": "Group",
+                  "fromSocket": "Shader"
+                }
+              ]
+            },
+            {
+              "name": "Shader",
+              "default": null,
+              "links": [
+                {
+                  "fromNode": "Glossy BSDF",
+                  "fromSocket": "BSDF"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Glossy BSDF",
+          "type": "ShaderNodeBsdfAnisotropic",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Color",
+              "default": [
+                0.007040041033178568,
+                0.007040041033178568,
+                0.007040041033178568,
+                1.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Roughness",
+              "default": 0.1414213478565216,
+              "links": []
+            },
+            {
+              "name": "Anisotropy",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "Rotation",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "Normal",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Tangent",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Weight",
+              "default": 0.0,
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Vector Math",
+          "type": "ShaderNodeVectorMath",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Vector Math.001",
+                  "fromSocket": "Vector"
+                }
+              ]
+            },
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Scale",
+              "default": 1.0,
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Vector Math.001",
+          "type": "ShaderNodeVectorMath",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Mapping",
+                  "fromSocket": "Vector"
+                }
+              ]
+            },
+            {
+              "name": "Vector",
+              "default": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Scale",
+              "default": 1.0,
+              "links": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "material": "cash_register_paper_white",
+      "activeOutputNodes": [
+        "Material Output"
+      ],
+      "reachableNodeNames": [
+        "Glossy BSDF",
+        "Group",
+        "Image Texture",
+        "Mapping",
+        "Material Output",
+        "Mix Shader",
+        "Texture Coordinate",
+        "Vector Math",
+        "Vector Math.001"
+      ],
+      "prunedKnownConstantMixBranches": [],
+      "imageNodes": [
+        {
+          "name": "Image Texture",
+          "image": "guilder_ornament.png",
+          "hasData": false,
+          "size": [
+            0,
+            0
+          ],
+          "topologicallyReachableAfterConstantMixPruning": true,
+          "mute": false
+        }
+      ],
+      "nodes": [
+        {
+          "name": "Image Texture",
+          "type": "ShaderNodeTexImage",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Vector Math",
+                  "fromSocket": "Vector"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mapping",
+          "type": "ShaderNodeMapping",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Texture Coordinate",
+                  "fromSocket": "UV"
+                }
+              ]
+            },
+            {
+              "name": "Location",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Rotation",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Scale",
+              "default": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Texture Coordinate",
+          "type": "ShaderNodeTexCoord",
+          "mute": false,
+          "blendType": null,
+          "inputs": []
+        },
+        {
+          "name": "Material Output",
+          "type": "ShaderNodeOutputMaterial",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Surface",
+              "default": null,
+              "links": [
+                {
+                  "fromNode": "Mix Shader",
+                  "fromSocket": "Shader"
+                }
+              ]
+            },
+            {
+              "name": "Volume",
+              "default": null,
+              "links": []
+            },
+            {
+              "name": "Displacement",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Thickness",
+              "default": 0.0,
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Group",
+          "type": "ShaderNodeGroup",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Diffuse Color",
+              "default": [
+                0.6798803806304932,
+                0.6798803806304932,
+                0.6798803806304932,
+                1.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Glossy Color",
+              "default": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              "links": []
+            },
+            {
+              "name": "IOR",
+              "default": 1.4500000476837158,
+              "links": []
+            },
+            {
+              "name": "Reflectivity",
+              "default": 0.019999999552965164,
+              "links": []
+            },
+            {
+              "name": "Roughness",
+              "default": 0.0299999937415123,
+              "links": []
+            },
+            {
+              "name": "Bump",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "Bump Factor",
+              "default": 1.0,
+              "links": []
+            },
+            {
+              "name": "Normal",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Glossy BSDF",
+          "type": "ShaderNodeBsdfAnisotropic",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Color",
+              "default": [
+                0.007040041033178568,
+                0.007040041033178568,
+                0.007040041033178568,
+                1.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Roughness",
+              "default": 0.1414213478565216,
+              "links": []
+            },
+            {
+              "name": "Anisotropy",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "Rotation",
+              "default": 0.0,
+              "links": []
+            },
+            {
+              "name": "Normal",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Tangent",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Weight",
+              "default": 0.0,
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Mix Shader",
+          "type": "ShaderNodeMixShader",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Fac",
+              "default": 0.5,
+              "links": [
+                {
+                  "fromNode": "Image Texture",
+                  "fromSocket": "Color"
+                }
+              ]
+            },
+            {
+              "name": "Shader",
+              "default": null,
+              "links": [
+                {
+                  "fromNode": "Group",
+                  "fromSocket": "Shader"
+                }
+              ]
+            },
+            {
+              "name": "Shader",
+              "default": null,
+              "links": [
+                {
+                  "fromNode": "Glossy BSDF",
+                  "fromSocket": "BSDF"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Vector Math",
+          "type": "ShaderNodeVectorMath",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Vector Math.001",
+                  "fromSocket": "Vector"
+                }
+              ]
+            },
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Scale",
+              "default": 1.0,
+              "links": []
+            }
+          ]
+        },
+        {
+          "name": "Vector Math.001",
+          "type": "ShaderNodeVectorMath",
+          "mute": false,
+          "blendType": null,
+          "inputs": [
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": [
+                {
+                  "fromNode": "Mapping",
+                  "fromSocket": "Vector"
+                }
+              ]
+            },
+            {
+              "name": "Vector",
+              "default": [
+                1.0,
+                1.0,
+                1.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Vector",
+              "default": [
+                0.0,
+                0.0,
+                0.0
+              ],
+              "links": []
+            },
+            {
+              "name": "Scale",
+              "default": 1.0,
+              "links": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

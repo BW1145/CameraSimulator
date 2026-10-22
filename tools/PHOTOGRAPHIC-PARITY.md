@@ -55,3 +55,8 @@ node --check camera-parity-work/prototype/tools/capture-photographic-parity.mjs
 node --test camera-parity-work/runner/capture-parity.test.mjs
 node camera-parity-work/prototype/tools/capture-photographic-parity.mjs --plan
 ```
+
+
+## Bounded second prototype-only pass
+
+After the first eight matched captures, the isolated workflow now runs the two background-only inferred-camera captures from `tools/capture-matched-background.mjs`, using `diagnostics/matched-reference/` outside public assets. It then runs exactly three selected browser tests on a separate production preview server: existing rotor/static-background exposure conservation; existing real-detail paused-fan magnifier/edge crops/main-frame preservation; and `photographic-parity-regression.spec.js` for actual flash0→1→0, focus-dependent pixels, classroom/back, and left/center position flows. The workflow runs candidate `npm test` first and always uploads `test-results/` with the capture evidence. These tests establish functional behavior, not aesthetic/photographic acceptance.

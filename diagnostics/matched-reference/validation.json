@@ -1,0 +1,65 @@
+{
+  "dimensions": [
+    2048,
+    858
+  ],
+  "samples": 64,
+  "samplingLogVerification": {
+    "zeroBasedCompletedMaxTile": 31,
+    "tileTotal": 32,
+    "uniqueCompletedTiles": 32,
+    "exact64SampleEndEntries": 63,
+    "finished": true
+  },
+  "radiance": {
+    "minimum": 0,
+    "maximum": 172.5228729248047,
+    "nonfiniteChannels": 0,
+    "negativeChannels": 0,
+    "meanChannels": [
+      0.16964563679841088,
+      0.11971327784687334,
+      0.09350371397006238
+    ],
+    "meanLuminance": 0.12843656684806448
+  },
+  "depth": {
+    "minimumMeters": 0.7707481384277344,
+    "maximumMeters": 7.570474147796631,
+    "nonfinitePixels": 0,
+    "backgroundPixels": 2112,
+    "finitePixelsBeyond64": 0,
+    "encoding": "uint16 RG0..64m axial camera Z"
+  },
+  "cameraMatrixMaxDelta": 1.862645149230957e-7,
+  "renderSeconds": 239.67639839200274,
+  "peakRssMiB": 5464.91015625,
+  "files": [
+    {
+      "file": "matched-64spp-oidn.exr",
+      "bytes": 20087141,
+      "sha256": "5c8e64275f94169a24a002796d7ee31e7b3dedb385b6ed4919b0f0fc870801aa"
+    },
+    {
+      "file": "matched-64spp-oidn.png",
+      "bytes": 8372520,
+      "sha256": "61c297d553ee9cd4328f498dbe363e7f84db182f119ed60947fce88961aa6f52"
+    },
+    {
+      "file": "matched-depth.exr",
+      "bytes": 5571878,
+      "sha256": "5fc4a96084769bb23a237ea9e7e4de297df2fb1f895c8660e512f649a1bcc66e"
+    },
+    {
+      "file": "center.webp",
+      "bytes": 1044492,
+      "sha256": "0278500506210f26cd015e86774e7f7a5297ddb90df89dd0941992649429072e"
+    },
+    {
+      "file": "center-depth.png",
+      "bytes": 616134,
+      "sha256": "9d675738c85046f242c747af89179b5fd93a2be01fbf52aa1ab8050512d7aeee"
+    }
+  ],
+  "sourceSha256": "95972b56180462cac47ec82f3a755bd9111ec18ca37a6196a319c013db994130"
+}

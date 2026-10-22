@@ -3,9 +3,9 @@
     "id": "tabletop-fan",
     "type": "desk-fan",
     "position": [
-      3.8,
+      3.8000004,
       0.8165531,
-      -7.6
+      -6.9500003
     ],
     "rotationsPerSecond": 4,
     "environment": "fan-room.hdr",
@@ -56,7 +56,7 @@
     ],
     "sourceSurface": "GEO-Dresser_marble.001",
     "tabletopLighting": true,
-    "placementEvidence": "Prototype: targeted BVH raycasts against source GEO-Dresser_marble.001 certify center [3.80,0.8165531,-7.60] plus24points at11cm radius on horizontal tabletop y0.816553\u00b10.000001m. Existing elliptical base11cm by9.13cm radii fits checked circle. Neighboring props and browser visual collision QA not yet checked. HeadScale1.8/headHeight0.42 keeps guard above tabletop. Fixed HDR probe remains at original placement; direct lights evaluate new geometry position.",
+    "placementEvidence": "Second prototype restores original source-certified tabletop placement [3.8000004,0.8165531,-6.9500003]. Original center+24points at6/8/10/12cm radius raycast to same flat tabletop; independent source BVH recheck at11/14cm also passed. Modest headScale1.15 preserves comfortable wide-frame margin; first scale1.8/nearer placement rejected after actual screenshots clipped the guard. Same11cm by9.13cm base. Source HDR again sampled near the actual head location.",
     "license": "MIT \u2014 procedural subject authored for CameraSimulator",
     "viewLighting": {
       "center": {
@@ -86,9 +86,9 @@
         ]
       }
     },
-    "headScale": 1.8,
-    "headHeight": 0.42,
-    "headTilt": -0.12,
-    "yawOffset": 0.26
+    "headScale": 1.15,
+    "headHeight": 0.435,
+    "headTilt": -0.09,
+    "yawOffset": 0.12
   }
 ]

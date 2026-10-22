@@ -53,6 +53,9 @@ jobs:
       - name: Install deterministic software-browser dependencies
         working-directory: candidate
         run: npx playwright install --with-deps chromium
+      - name: Run candidate unit tests
+        working-directory: candidate
+        run: npm test
       - name: Capture baseline and candidate photographs
         env:
           INCLUDE_ALIGNED: ${{ inputs.include_aligned || 'false' }}
@@ -66,11 +69,32 @@ jobs:
             --candidate-root "$GITHUB_WORKSPACE/candidate" \
             --out "$GITHUB_WORKSPACE/photographic-parity-evidence" \
             --build --serve "${extra[@]}"
+      - name: Capture isolated inferred-camera background diagnostic
+        env:
+          PARITY_TIMEOUT_MS: '180000'
+        run: |
+          node candidate/tools/capture-matched-background.mjs \
+            --candidate-root "$GITHUB_WORKSPACE/candidate" \
+            --pack-dir "$GITHUB_WORKSPACE/candidate/diagnostics/matched-reference" \
+            --out "$GITHUB_WORKSPACE/photographic-parity-evidence/matched-background" \
+            --focus 1.4 --serve
+      - name: Check bounded real-browser control regressions
+        working-directory: candidate
+        env:
+          CI: '1'
+        run: >-
+          npx playwright test
+          tests/browser/fan.spec.js
+          tests/browser/magnifier.spec.js
+          tests/browser/photographic-parity-regression.spec.js
+          --grep 'default photographic fan|paused fan magnifier|prototype photographic controls'
       - name: Preserve photographs, exact settings, errors and source hashes
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: photographic-parity-${{ github.sha }}
-          path: photographic-parity-evidence/
+          path: |
+            photographic-parity-evidence/
+            candidate/test-results/
           if-no-files-found: warn
           retention-days: 14
