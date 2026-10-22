@@ -188,14 +188,14 @@
       ],
       "file": "center.webp",
       "seconds": 27.36,
-      "bytes": 1783598,
+      "bytes": 1488888,
       "depth": "center-depth.png",
       "width": 2560,
       "height": 2411,
       "depthWidth": 1280,
       "depthHeight": 1205,
       "depthBytes": 862188,
-      "maximumRadiance": 89.3490219116211,
+      "maximumRadiance": 97.80798457191598,
       "clampedChannels": 0,
       "minimumDepth": 8.908967971801758,
       "maximumDepth": 100.4297103881836,
@@ -204,13 +204,28 @@
       "flashWidth": 1280,
       "flashHeight": 1205,
       "detailFile": "center-detail.webp",
-      "detailBytes": 2461580,
-      "detailWidth": 3072,
-      "detailHeight": 2893,
+      "detailBytes": 3340114,
+      "detailWidth": 4096,
+      "detailHeight": 3857,
       "detailDepth": "center-detail-depth.png",
       "detailDepthWidth": 1536,
       "detailDepthHeight": 1446,
-      "detailDepthBytes": 1071417
+      "detailDepthBytes": 1071417,
+      "detailEncoding": {
+        "type": "log2-rgb",
+        "min": -16,
+        "max": 8,
+        "losslessContainer": "WebP",
+        "maximumChannelQuantizationEV": 0.047058823529411764,
+        "sourceMaximumRadiance": 147.61911010742188
+      },
+      "radianceCapture": {
+        "samples": 256,
+        "blender": "4.5.14 LTS",
+        "denoising": "OPENIMAGEDENOISE",
+        "sourceExrSha256": "9cdb6e888c506219dc409db77226b6125f466c4ff8a4d6f721834f0e4c1fde6c",
+        "maximumRadiance": 147.61911010742188
+      }
     },
     {
       "id": "left",
@@ -771,8 +786,8 @@
       "detailDepthBytes": 1037980
     }
   ],
-  "totalBytes": 18526274,
-  "initialBytes": 2645786,
+  "totalBytes": 18231564,
+  "initialBytes": 2351076,
   "flash": {
     "method": "Cycles isolated CameraFlash light group; denoised using source-scene auxiliary normals/albedo. No ambient subtraction.",
     "sourceSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
@@ -1144,12 +1159,11 @@
       ]
     },
     "captureLens": 75,
-    "samples": 32,
     "views": [
       {
         "id": "center",
         "file": "center-detail.webp",
-        "bytes": 2461580,
+        "bytes": 3340114,
         "offset": [
           0,
           0,
@@ -1175,9 +1189,21 @@
         ],
         "cameraMatrixVerification": "Actual captured camera matrix",
         "near": 0.10000000149011612,
-        "maximumRadiance": 83.32549285888672,
+        "maximumRadiance": 147.61911010742188,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 256,
+        "blender": "4.5.14 LTS",
+        "denoising": "OPENIMAGEDENOISE",
+        "sourceExrSha256": "9cdb6e888c506219dc409db77226b6125f466c4ff8a4d6f721834f0e4c1fde6c",
+        "encoding": {
+          "type": "log2-rgb",
+          "min": -16,
+          "max": 8,
+          "losslessContainer": "WebP",
+          "maximumChannelQuantizationEV": 0.047058823529411764,
+          "sourceMaximumRadiance": 147.61911010742188
+        }
       },
       {
         "id": "left",
@@ -1210,7 +1236,8 @@
         "near": 0.10000000149011612,
         "maximumRadiance": 93.36470794677734,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "right",
@@ -1243,7 +1270,8 @@
         "near": 0.10000000149011612,
         "maximumRadiance": 85.33333587646484,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "up",
@@ -1276,7 +1304,8 @@
         "near": 0.10000000149011612,
         "maximumRadiance": 93.36470794677734,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "down",
@@ -1309,7 +1338,8 @@
         "near": 0.10000000149011612,
         "maximumRadiance": 88.84706115722656,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "front",
@@ -1342,7 +1372,8 @@
         "near": 0.10000000149011612,
         "maximumRadiance": 100.89411926269531,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "back",
@@ -1375,7 +1406,8 @@
         "near": 0.10000000149011612,
         "maximumRadiance": 92.36078643798828,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       }
     ],
     "derivations": [
@@ -1407,7 +1439,7 @@
       "maximumChannelQuantizationEV": 0.045098039215686274,
       "sourceMaximumRadiance": 100.89411926269531
     },
-    "totalBytes": 17202550
+    "totalBytes": 18081084
   },
   "detailDepth": {
     "sourceSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
@@ -1620,5 +1652,6 @@
       }
     ],
     "totalBytes": 7498560
-  }
+  },
+  "initialWithSubjectBytes": 2351076
 }

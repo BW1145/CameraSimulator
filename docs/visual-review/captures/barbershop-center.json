@@ -1,0 +1,664 @@
+{
+  "method": "Existing center camera re-rendered at 256 samples with selected 15 W rectangular fill and increased indirect bounces. Metadata covers center only; legacy views retain their original lighting.",
+  "sourceSha256": "95972b56180462cac47ec82f3a755bd9111ec18ca37a6196a319c013db994130",
+  "sourceUrl": "https://svn.blender.org/svnroot/bf-blender/trunk/lib/benchmarks/cycles/barbershop_interior/barbershop_interior.blend",
+  "sourceAttribution": "Blender Foundation / Blender Studio \u2014 CC BY",
+  "camera": {
+    "name": "Camera",
+    "lens": 13.0,
+    "sourceProjection": "PERSP",
+    "sourceLens": 13.0,
+    "sourceOrthoScale": 6.0,
+    "sensorWidth": 24.889999389648438,
+    "sensorHeight": 18.65999984741211,
+    "sensorFit": "HORIZONTAL",
+    "shiftX": 0.0,
+    "shiftY": 0.0,
+    "aspect": 2.386946386946387,
+    "nativeResolution": [
+      2048,
+      858
+    ],
+    "near": 1.100000023841858,
+    "far": 100.0,
+    "sourceFar": 100.0,
+    "matrix": [
+      [
+        -0.95885169506073,
+        -0.02099541947245598,
+        0.2831304371356964,
+        2.9678049087524414
+      ],
+      [
+        0.2838309705257416,
+        -0.04768788814544678,
+        0.9576877951622009,
+        9.9551420211792
+      ],
+      [
+        -0.00660517904907465,
+        0.9986416697502136,
+        0.0516846626996994,
+        1.545469045639038
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "sourceScale": [
+      0.9999997019767761,
+      0.9999998807907104,
+      0.9999997615814209
+    ],
+    "sourceClippingMethod": "Source camera near plane."
+  },
+  "captureLens": 10.833333015441895,
+  "samples": 256,
+  "views": [
+    {
+      "id": "center",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "near": 1.100000023841858,
+      "position": [
+        2.9678049087524414,
+        1.545469045639038,
+        -9.9551420211792
+      ],
+      "matrix": [
+        -0.8346772193908691,
+        -0.0436248704791069,
+        -0.28942859172821045,
+        -0.2831304371356964,
+        -0.005749773699790239,
+        2.0750069618225098,
+        -0.052834466099739075,
+        -0.05168475583195686,
+        -0.2470739483833313,
+        0.09908710420131683,
+        0.9789913296699524,
+        0.9576878547668457,
+        0.026389019563794136,
+        -2.0909626483917236,
+        8.462149620056152,
+        10.454071044921875
+      ],
+      "cameraMatrix": [
+        -0.95885169506073,
+        -0.00660517904907465,
+        -0.2838309705257416,
+        0.0,
+        -0.02099541947245598,
+        0.9986416697502136,
+        0.04768788814544678,
+        0.0,
+        0.2831304371356964,
+        0.0516846626996994,
+        -0.9576877951622009,
+        0.0,
+        2.9678049087524414,
+        1.545469045639038,
+        -9.9551420211792,
+        1.0
+      ],
+      "projectionMatrix": [
+        0.8704968690872192,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.077829360961914,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0222446918487549,
+        -1.0,
+        0.0,
+        0.0,
+        -2.2244691848754883,
+        0.0
+      ],
+      "file": "center-256spp-oidn.exr",
+      "width": 5120,
+      "height": 2145,
+      "samples": 256,
+      "cameraMatrixVerification": "Camera initialized from current detail manifest; production renderer checks actual post-render pose stays within 1e-5 of this matrix.",
+      "seconds": 5714.300030711998,
+      "bytes": 124554158,
+      "maximumRadiance": 49.6563720703125,
+      "negativeChannels": 0,
+      "nonfiniteChannels": 0,
+      "channelsOver64": 0
+    }
+  ],
+  "derivations": [
+    {
+      "type": "selected-center-lighting",
+      "settings": {
+        "variant": "soft-fill-15w-rect",
+        "originalBounces": {
+          "max_bounces": 2,
+          "diffuse_bounces": 2,
+          "glossy_bounces": 2,
+          "transmission_bounces": 2
+        },
+        "effectiveBounces": {
+          "max_bounces": 8,
+          "diffuse_bounces": 6,
+          "glossy_bounces": 6,
+          "transmission_bounces": 8
+        },
+        "fill": {
+          "positionBlender": [
+            2.9685792922973633,
+            8.563234329223633,
+            2.1799702644348145
+          ],
+          "directionBlender": [
+            -0.36883971095085144,
+            -0.8846008777618408,
+            -0.28537455201148987
+          ],
+          "powerWatts": 15.0,
+          "shape": "RECTANGLE",
+          "sizeX": 2.0,
+          "sizeY": 2.0,
+          "color": [
+            1.0,
+            0.949999988079071,
+            0.8600000143051147
+          ],
+          "rotationEulerBlender": [
+            1.281399130821228,
+            7.70482984080445e-08,
+            2.7465548515319824
+          ],
+          "normalize": true,
+          "sceneUnitScale": 1.0
+        },
+        "exposure": 0
+      }
+    }
+  ],
+  "blender": "4.5.14 LTS",
+  "device": "CPU",
+  "denoising": "OpenImageDenoise, full-frame after internal tile rendering",
+  "seed": 17,
+  "pixelAspect": [
+    1.0,
+    1.0
+  ],
+  "renderSettings": {
+    "device": "CPU",
+    "threads": 8,
+    "denoise": true,
+    "seed": 17,
+    "adaptiveSampling": false,
+    "adaptiveThreshold": 0.009999999776482582,
+    "maxBounces": 8,
+    "diffuseBounces": 6,
+    "glossyBounces": 6,
+    "transmissionBounces": 8,
+    "simplify": false,
+    "filterWidth": 1.5,
+    "memoryMitigations": [
+      "skip viewport depsgraph on file load",
+      "combined pass only",
+      "compact BVH",
+      "256 px tiles",
+      "persistent cache disabled"
+    ],
+    "view": "AgX",
+    "exposure": 0
+  },
+  "scope": [
+    "center"
+  ],
+  "status": "complete",
+  "lightingVariant": {
+    "variant": "soft-fill-15w-rect",
+    "originalBounces": {
+      "max_bounces": 2,
+      "diffuse_bounces": 2,
+      "glossy_bounces": 2,
+      "transmission_bounces": 2
+    },
+    "effectiveBounces": {
+      "max_bounces": 8,
+      "diffuse_bounces": 6,
+      "glossy_bounces": 6,
+      "transmission_bounces": 8
+    },
+    "fill": {
+      "positionBlender": [
+        2.9685792922973633,
+        8.563234329223633,
+        2.1799702644348145
+      ],
+      "directionBlender": [
+        -0.36883971095085144,
+        -0.8846008777618408,
+        -0.28537455201148987
+      ],
+      "powerWatts": 15.0,
+      "shape": "RECTANGLE",
+      "sizeX": 2.0,
+      "sizeY": 2.0,
+      "color": [
+        1.0,
+        0.949999988079071,
+        0.8600000143051147
+      ],
+      "rotationEulerBlender": [
+        1.281399130821228,
+        7.70482984080445e-08,
+        2.7465548515319824
+      ],
+      "normalize": true,
+      "sceneUnitScale": 1.0
+    },
+    "exposure": 0
+  },
+  "projectionProvenance": "Copied from validated original full-center-256 projection after verifying exact equality of source hash, native camera matrix, lens, near plane, full resolution and crop. No projection setting changed.",
+  "subjectLighting": {
+    "probeFile": "fan-room-refined.hdr",
+    "probePosition": [
+      3.8,
+      1.2515531,
+      -6.95
+    ],
+    "runtimeEnvironmentRotationY": 1.5707963267948966,
+    "scope": "center only",
+    "probeValidation": {
+      "exr": {
+        "dimensions": [
+          256,
+          128
+        ],
+        "minimumRadiance": 0.00017298413149546832,
+        "maximumRadiance": 5.167081356048584,
+        "meanLuminance": 0.12327333526268316,
+        "negativeChannels": 0,
+        "nonfiniteChannels": 0,
+        "channelsOver64": 0
+      },
+      "hdr": {
+        "dimensions": [
+          256,
+          128
+        ],
+        "minimumRadiance": 0.000171661376953125,
+        "maximumRadiance": 5.15625,
+        "meanLuminance": 0.1227995296769077,
+        "negativeChannels": 0,
+        "nonfiniteChannels": 0,
+        "channelsOver64": 0
+      },
+      "maximumRgbEQuantizationRelativeToPixelPeak": 0.007801137864589691,
+      "meanAbsoluteRgbEQuantizationError": 0.00047293203533627093,
+      "hdrSceneLinearVerified": true,
+      "files": {
+        "fan-room-refined.exr": {
+          "bytes": 387995,
+          "sha256": "5f331f5790217dd3a7533c8ed47a3da2af9646a75bb179294c73e65dd9236f25"
+        },
+        "fan-room-refined.hdr": {
+          "bytes": 111383,
+          "sha256": "2598fa0c8e5cac36d4ed61e52352755290a78fe9a0e4f84b022905422f844c52"
+        },
+        "fan-room-refined-preview.png": {
+          "bytes": 170418,
+          "sha256": "1ec13045b602b40dbdff93ed4e37103c1f7b4cf07c340883d6790152f7d75180"
+        }
+      },
+      "originalProbe": {
+        "file": "public/scenes/barbershop-plates/fan-room.hdr",
+        "bytes": 111198,
+        "sha256": "203672015a3988dad3c63b3002bbf7d703ed326d73ed773cee7d43645292fefc"
+      }
+    },
+    "probeProvenance": {
+      "sourceSha256": "95972b56180462cac47ec82f3a755bd9111ec18ca37a6196a319c013db994130",
+      "sourceUrl": "https://svn.blender.org/svnroot/bf-blender/trunk/lib/benchmarks/cycles/barbershop_interior/barbershop_interior.blend",
+      "sourceAttribution": "Blender Foundation / Blender Studio, CC BY",
+      "blender": "4.5.14 LTS",
+      "blenderBuildHash": "62c1db4208e8",
+      "sourceFrame": 1,
+      "samples": 64,
+      "threads": 2,
+      "adaptiveSampling": false,
+      "denoiser": "OPENIMAGEDENOISE",
+      "denoisingQuality": "HIGH",
+      "positionRuntime": [
+        3.8,
+        1.2515531,
+        -6.95
+      ],
+      "positionBlender": [
+        3.799999952316284,
+        6.949999809265137,
+        1.2515530586242676
+      ],
+      "rotationEulerBlender": [
+        1.5707963705062866,
+        0.0,
+        0.0
+      ],
+      "panoramaType": "EQUIRECTANGULAR",
+      "width": 256,
+      "height": 128,
+      "longitudeRange": [
+        -3.1415927410125732,
+        3.1415927410125732
+      ],
+      "latitudeRange": [
+        -1.5707963705062866,
+        1.5707963705062866
+      ],
+      "near": 0.009999999776482582,
+      "runtimeEnvironmentRotationY": 1.5707963267948966,
+      "orientationConvention": "Same as existing capture-subject-probe.py: Blender Euler (pi/2,0,0), runtime environmentRotation.y=pi/2.",
+      "lighting": {
+        "variant": "soft-fill-15w-rect",
+        "originalBounces": {
+          "max_bounces": 2,
+          "diffuse_bounces": 2,
+          "glossy_bounces": 2,
+          "transmission_bounces": 2
+        },
+        "effectiveBounces": {
+          "max_bounces": 8,
+          "diffuse_bounces": 6,
+          "glossy_bounces": 6,
+          "transmission_bounces": 8
+        },
+        "fill": {
+          "positionBlender": [
+            2.9685792922973633,
+            8.563234329223633,
+            2.1799702644348145
+          ],
+          "directionBlender": [
+            -0.36883971095085144,
+            -0.8846008777618408,
+            -0.28537455201148987
+          ],
+          "powerWatts": 15.0,
+          "shape": "RECTANGLE",
+          "sizeX": 2.0,
+          "sizeY": 2.0,
+          "color": [
+            1.0,
+            0.949999988079071,
+            0.8600000143051147
+          ],
+          "rotationEulerBlender": [
+            1.281399130821228,
+            7.70482984080445e-08,
+            2.7465548515319824
+          ],
+          "normalize": true,
+          "sceneUnitScale": 1.0
+        },
+        "exposure": 0
+      },
+      "fillVisibleCamera": false,
+      "fillGeometry": "AREA light object only; no emissive mesh geometry.",
+      "runtimeFill": {
+        "width": 2,
+        "height": 2,
+        "radiance": 1.1936620731892151,
+        "position": [
+          2.9685792922973633,
+          2.1799702644348145,
+          -8.563234329223633
+        ],
+        "direction": [
+          -0.36883971095085144,
+          -0.28537455201148987,
+          0.8846008777618408
+        ],
+        "color": [
+          1.0,
+          0.949999988079071,
+          0.8600000143051147
+        ]
+      },
+      "scope": "Refined center-view subject lighting only; preserve the original probe for legacy views.",
+      "renderSeconds": 50.21242283600077,
+      "peakRssMiB": 7017.81640625,
+      "cameraMatrixBlender": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          3.799999952316284
+        ],
+        [
+          0.0,
+          -4.371138828673793e-08,
+          -1.0,
+          6.949999809265137
+        ],
+        [
+          0.0,
+          1.0,
+          -4.371138828673793e-08,
+          1.2515530586242676
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "fillMatrixBlender": [
+        [
+          -0.9229820370674133,
+          -0.10982448607683182,
+          0.3688397705554962,
+          2.9685792922973633
+        ],
+        [
+          0.3848430812358856,
+          -0.2633955478668213,
+          0.884600818157196,
+          8.563234329223633
+        ],
+        [
+          -7.70482984080445e-08,
+          0.9584161043167114,
+          0.28537455201148987,
+          2.1799702644348145
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "effectiveSeed": 17,
+      "effectiveSampling": {
+        "samples": 64,
+        "use_adaptive_sampling": false,
+        "time_limit": 0.0,
+        "use_layer_samples": "IGNORE",
+        "use_sample_subset": false,
+        "use_animated_seed": true,
+        "sample_offset": 0
+      },
+      "effectiveBounces": {
+        "max_bounces": 8,
+        "diffuse_bounces": 6,
+        "glossy_bounces": 6,
+        "transmission_bounces": 8
+      },
+      "postRenderInvariantsVerified": true,
+      "files": {
+        "fan-room-refined.exr": {
+          "bytes": 387995,
+          "sha256": "5f331f5790217dd3a7533c8ed47a3da2af9646a75bb179294c73e65dd9236f25"
+        },
+        "fan-room-refined.hdr": {
+          "bytes": 111383,
+          "sha256": "2598fa0c8e5cac36d4ed61e52352755290a78fe9a0e4f84b022905422f844c52"
+        },
+        "fan-room-refined-preview.png": {
+          "bytes": 170418,
+          "sha256": "1ec13045b602b40dbdff93ed4e37103c1f7b4cf07c340883d6790152f7d75180"
+        }
+      }
+    },
+    "runtimeFill": {
+      "width": 2,
+      "height": 2,
+      "radiance": 1.1936620731892151,
+      "position": [
+        2.9685792922973633,
+        2.1799702644348145,
+        -8.563234329223633
+      ],
+      "direction": [
+        -0.36883971095085144,
+        -0.28537455201148987,
+        0.8846008777618408
+      ],
+      "color": [
+        1.0,
+        0.949999988079071,
+        0.8600000143051147
+      ]
+    }
+  },
+  "validation": {
+    "dimensions": [
+      5120,
+      2145
+    ],
+    "minimumRadiance": 0.0,
+    "maximumRadiance": 49.6563720703125,
+    "meanLuminance": 0.09741535370509502,
+    "negativeChannels": 0,
+    "nonfiniteChannels": 0,
+    "channelsOver64": 0,
+    "samples": 256,
+    "verified256SampleTiles": 180,
+    "existingSharedEncoding": {
+      "type": "log2-rgb",
+      "min": -16,
+      "max": 6
+    },
+    "sharedEncodingFitsWithoutUpperClamp": true,
+    "renderSeconds": 5714.300030711998,
+    "peakRssMiB": 7060.2109375,
+    "validatedAt": "2026-10-22T13:27:00.022283+00:00",
+    "files": {
+      "center-256spp-oidn.exr": {
+        "bytes": 124554158,
+        "sha256": "03faff34cfdb4e92b22640caa8e2ae2e747457ed3a5add2b34a298a9ae116de1"
+      },
+      "center-256spp-oidn.png": {
+        "bytes": 51591606,
+        "sha256": "17e337441974457653ddb83af737c0cb1bc38381c077847cfe24e24c13ec7685"
+      }
+    },
+    "lightingComparison": {
+      "referenceSha256": "1014e3ae871561461a3c081d16d77e57d6dd2e540929261cf114011713c8cf29",
+      "referenceStats": {
+        "dimensions": [
+          5120,
+          2145
+        ],
+        "minimumRadiance": 0.0,
+        "maximumRadiance": 49.542484283447266,
+        "meanLuminance": 0.07783078170840126,
+        "negativeChannels": 0,
+        "nonfiniteChannels": 0,
+        "channelsOver64": 0
+      },
+      "regions": {
+        "whole_frame": {
+          "xywh": [
+            0,
+            0,
+            5120,
+            2145
+          ],
+          "meanLuminance": 0.09741535370509502,
+          "referenceMeanLuminance": 0.07783078170840126,
+          "differencePercent": 25.16301592610082,
+          "differenceEV": 0.3238083272677537
+        },
+        "left_counter": {
+          "xywh": [
+            384,
+            1056,
+            1312,
+            897
+          ],
+          "meanLuminance": 0.06674391800183127,
+          "referenceMeanLuminance": 0.04884158637064071,
+          "differencePercent": 36.65387011661822,
+          "differenceEV": 0.4505263183974499
+        },
+        "back_sofa": {
+          "xywh": [
+            1712,
+            1105,
+            592,
+            288
+          ],
+          "meanLuminance": 0.1559373431791155,
+          "referenceMeanLuminance": 0.15189336503473833,
+          "differencePercent": 2.662379718463881,
+          "differenceEV": 0.037907607783030255
+        },
+        "central_floor": {
+          "xywh": [
+            2160,
+            1409,
+            576,
+            624
+          ],
+          "meanLuminance": 0.16399914839330082,
+          "referenceMeanLuminance": 0.1592426433786767,
+          "differencePercent": 2.986954319335955,
+          "differenceEV": 0.04246159827448984
+        },
+        "foreground_cash_register": {
+          "xywh": [
+            3968,
+            1201,
+            832,
+            768
+          ],
+          "meanLuminance": 0.044568221134760555,
+          "referenceMeanLuminance": 0.027765233268269487,
+          "differencePercent": 60.51808642895058,
+          "differenceEV": 0.6827358626514357
+        },
+        "right_cabinet_shadow": {
+          "xywh": [
+            4576,
+            944,
+            512,
+            785
+          ],
+          "meanLuminance": 0.019654517461393187,
+          "referenceMeanLuminance": 0.01251449908961462,
+          "differencePercent": 57.05396852602627,
+          "differenceEV": 0.6512603982619641
+        }
+      }
+    }
+  }
+}

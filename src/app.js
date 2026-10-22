@@ -4,6 +4,7 @@ import {SCENES} from './scenes.js';
 import {Renderer} from './renderer.js';
 import {PlateRenderer} from './plate-renderer.js';
 import {previewSize,captureSize} from './render-size.js';
+import {detailRegion} from './detail-region.js';
 
 const $=id=>document.getElementById(id);
 const canvas=$('image'),view=$('viewfinder'),loading=$('loading');
@@ -19,7 +20,7 @@ if(sourceView||usePlates){
 }
 let dirty=true,meterDirty=true,ready=false,lastFrame=0,lastAnalysis=0,clock=0,lastClock=performance.now(),track=null,point={x:.5,y:.5},loadVersion=0;
 let pointer=null,hover=null;
-let frameRevision=0;
+let frameRevision=0,displayedFrame=null,displayedSerial=0,lastMagnifierAt=0,magnifierKey=null;
 const tables={aperture:APERTURES,shutter:SHUTTERS,iso:ISOS};
 const numeric=['wb','focal','focus','compensation','flash','x','y','z','yaw','pitch','roll'];
 const selects=['mode','metering','af','crop','sensor'];
@@ -33,7 +34,7 @@ for(const button of document.querySelectorAll('button[data-position]'))button.ad
 let positionVersion=0;
 async function changePosition(){
   if(!renderer.plateMode||!renderer.ready)return;
-  const version=++positionVersion;ready=false;canvas.dataset.ready='false';loading.hidden=false;loading.textContent='正在加载选定的拍摄机位…';$('capture').disabled=true;
+  const version=++positionVersion;discardDisplayedFrame();ready=false;canvas.dataset.ready='false';loading.hidden=false;loading.textContent='正在加载选定的拍摄机位…';$('capture').disabled=true;
   try{
     await renderer.setPosition(s);if(version!==positionVersion)return;
     track=null;ready=true;loading.hidden=true;$('capture').disabled=false;$('hint').textContent='点击对焦 · 拖动取景';invalidate();
@@ -44,7 +45,8 @@ async function changePosition(){
 }
 for(const item of SCENES)$('scene').add(new Option(item.name,item.id));
 
-function invalidate(geometry=true){dirty=true;canvas.dataset.ready='false';canvas.dataset.requestedFrame=String(++frameRevision);if(geometry)meterDirty=true;}
+function discardDisplayedFrame(){displayedFrame=null;magnifierKey=null;$('magnifier').hidden=true;}
+function invalidate(geometry=true){discardDisplayedFrame();dirty=true;canvas.dataset.ready='false';canvas.dataset.requestedFrame=String(++frameRevision);if(geometry)meterDirty=true;}
 if(renderer){renderer.onTextureUpdate=()=>{canvas.dataset.ready='false';invalidate();$('hint').textContent=renderer.plateMode?'点击对焦 · 拖动取景':'点击对焦 · 拖动转向 · WASD 移动';};renderer.onLayerError=(name,retry)=>{$('hint').textContent=`${name}加载失败 `;const button=document.createElement('button');button.textContent='重试';button.onclick=retry;$('hint').append(button);};}
 function resetView(){for(const key of ['x','y','z','yaw','pitch','roll'])s[key]=0;track=null;point={x:.5,y:.5};invalidate();sync();if(ready&&renderer.plateMode)changePosition();}
 function sync(){
@@ -108,7 +110,7 @@ new ResizeObserver(resize).observe(view);
 async function loadScene(id){
   if(!renderer)return;
   ++positionVersion;
-  const version=++loadVersion;ready=false;canvas.dataset.ready='false';loading.hidden=false;loading.textContent='正在加载完整场景…';$('capture').disabled=true;
+  const version=++loadVersion;discardDisplayedFrame();ready=false;canvas.dataset.ready='false';loading.hidden=false;loading.textContent='正在加载完整场景…';$('capture').disabled=true;
   const next=SCENES.find(item=>item.id===id);
   try{
     const loaded=await renderer.load(next,(bytes,total)=>{if(version===loadVersion)loading.textContent=total?`正在加载${next.name} ${Math.round(bytes/total*100)}%`:`正在加载${next.name} ${(bytes/1048576).toFixed(1)} MB`;});
@@ -150,7 +152,7 @@ canvas.addEventListener('pointermove',e=>{
   const box=canvas.getBoundingClientRect();hover={x:(e.clientX-box.left)/box.width,y:(e.clientY-box.top)/box.height};
   if(pointer){const dx=e.clientX-pointer.x,dy=e.clientY-pointer.y;if(Math.hypot(dx,dy)>4)pointer.dragged=true;
     if(pointer.dragged){s.yaw=clamp(pointer.yaw-dx*.16,-180,180);s.pitch=clamp(pointer.pitch-dy*.16,-80,80);renderer.constrain?.(s,'yaw');invalidate();sync();}
-  }else magnify();
+  }
 });
 canvas.addEventListener('pointerup',e=>{const box=canvas.getBoundingClientRect();if(pointer&&!pointer.dragged)focusAt((e.clientX-box.left)/box.width,1-(e.clientY-box.top)/box.height);pointer=null;});
 canvas.addEventListener('pointercancel',()=>{pointer=null;});
@@ -159,15 +161,29 @@ canvas.addEventListener('keydown',e=>{
   const movements={w:['z',.15],s:['z',-.15],a:['x',-.15],d:['x',.15],q:['y',-.15],e:['y',.15],ArrowLeft:['yaw',3],ArrowRight:['yaw',-3],ArrowUp:['pitch',3],ArrowDown:['pitch',-3]};
   const move=movements[e.key];if(!move)return;e.preventDefault();const [key,amount]=move,input=$(key);s[key]=clamp(s[key]+(renderer.plateMode&&['x','y','z'].includes(key)?Math.sign(amount)*Number(input.step):amount),Number(input.min),Number(input.max));renderer.constrain?.(s,key);invalidate();sync();if(['x','y','z'].includes(key))changePosition();
 });
-function magnify(){
-  const magnifier=$('magnifier');magnifier.hidden=!hover||!s.magnifier||pointer?.dragged||!ready;
-  if(magnifier.hidden)return;
-  const ctx=magnifier.getContext('2d'),box=view.getBoundingClientRect();
-  const x=clamp(hover.x*canvas.width-40,0,canvas.width-80),y=clamp(hover.y*canvas.height-30,0,canvas.height-60);
-  ctx.drawImage(canvas,x,y,80,60,0,0,200,150);
-  magnifier.style.left=`${clamp(hover.x*box.width-210,0,Math.max(0,box.width-202))}px`;
-  magnifier.style.top=`${clamp(hover.y*box.height-160,0,Math.max(0,box.height-152))}px`;
+function magnify(now=performance.now()){
+  const magnifier=$('magnifier');magnifier.hidden=!hover||!s.magnifier||pointer?.dragged||!ready||!displayedFrame;
+  if(magnifier.hidden){magnifierKey=null;return;}
+  const box=view.getBoundingClientRect(),width=magnifier.clientWidth,height=magnifier.clientHeight;
+  magnifier.style.left=`${clamp(hover.x*box.width-width-10,0,Math.max(0,box.width-width-2))}px`;
+  magnifier.style.top=`${clamp(hover.y*box.height-height-10,0,Math.max(0,box.height-height-2))}px`;
+  const region=detailRegion(box.width,box.height,hover.x,hover.y,width,height,2.5,window.devicePixelRatio);
+  const key=JSON.stringify([displayedSerial,region]);
+  if(key===magnifierKey||now-lastMagnifierAt<1000/30)return;
+  lastMagnifierAt=now;
+  const frame=displayedFrame;
+  if(renderer.drawDetail?.(frame.settings,frame.exposure,frame.time,region,magnifier)){
+    magnifier.dataset.source='detail-render';
+  }else{
+    magnifier.width=region.outputWidth;magnifier.height=region.outputHeight;
+    const sx=(region.centerX-region.spanX+1)*.5*canvas.width+region.readX/region.fullWidth*canvas.width;
+    const sy=(1-region.centerY-region.spanY)*.5*canvas.height+(region.height-region.readY-region.outputHeight)/region.fullHeight*canvas.height;
+    magnifier.getContext('2d').drawImage(canvas,sx,sy,region.outputWidth/region.fullWidth*canvas.width,region.outputHeight/region.fullHeight*canvas.height,0,0,magnifier.width,magnifier.height);
+    magnifier.dataset.source='preview';
+  }
+  magnifierKey=key;
 }
+
 function drawHistogram(pixels){
   const bins=histogram(pixels),ctx=$('histogram-view').getContext('2d'),max=Math.max(...bins,1);
   ctx.clearRect(0,0,180,76);ctx.fillStyle='#e8eaed';
@@ -187,12 +203,12 @@ function animate(now){
   if(document.hidden||!ready)return;
   const moving=s.motion&&!s.pause;
   if(moving)clock+=elapsed;
-  if((!dirty&&!moving)||now-lastFrame<1000/30)return;
+  if((!dirty&&!moving)||now-lastFrame<1000/30){magnify(now);return;}
   lastFrame=now;
   const analyse=dirty||now-lastAnalysis>300;
   resolveCurrentFrame(analyse);
   if(analyse)lastAnalysis=now;
-  magnify();dirty=false;canvas.dataset.frame=String(frameRevision);canvas.dataset.ready='true';
+  magnify(now);dirty=false;canvas.dataset.frame=String(frameRevision);canvas.dataset.ready='true';
   canvas.dataset.triangles=renderer.frameStats.triangles;canvas.dataset.drawCalls=renderer.frameStats.calls;
   if(s.motion){const ball=renderer.ballPosition(clock);canvas.dataset.ballX=ball.x;canvas.dataset.ballY=ball.y;}
 }
@@ -206,6 +222,7 @@ function resolveCurrentFrame(analyse=true){
   }
   resolved=resolveExposure(s,meterEV);resolved.ev=ev100(resolved.aperture,resolved.shutter,resolved.iso);
   const p=renderer.draw(s,resolved,clock,analyse);
+  displayedFrame={settings:{...s},exposure:{...resolved},time:clock};displayedSerial++;
   if(analyse){if(s.histogram)drawHistogram(p);sync();}
 }
 $('capture').addEventListener('click',async()=>{

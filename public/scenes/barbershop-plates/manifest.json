@@ -152,19 +152,19 @@
       ],
       "file": "center.webp",
       "seconds": 0,
-      "bytes": 1711794,
+      "bytes": 1700366,
       "depth": "center-depth.png",
       "width": 2560,
       "height": 1072,
       "depthWidth": 1280,
       "depthHeight": 536,
       "depthBytes": 501951,
-      "maximumRadiance": 48.43921661376953,
+      "maximumRadiance": 46.85928885097536,
       "clampedChannels": 0,
       "minimumDepth": 1.2854547500610352,
       "maximumDepth": 9.719538688659668,
       "detailFile": "center-detail.webp",
-      "detailBytes": 6042580,
+      "detailBytes": 5857156,
       "detailWidth": 5120,
       "detailHeight": 2145,
       "flash": "center-flash.webp",
@@ -176,7 +176,14 @@
       "detailDepthHeight": 1072,
       "detailDepthBytes": 1402489,
       "opticalDepth": "center-optical-depth.png",
-      "opticalDepthBytes": 503536
+      "opticalDepthBytes": 503536,
+      "radianceCapture": {
+        "samples": 256,
+        "blender": "4.5.14 LTS",
+        "denoising": "OpenImageDenoise, full-frame after internal tile rendering",
+        "sourceExrSha256": "03faff34cfdb4e92b22640caa8e2ae2e747457ed3a5add2b34a298a9ae116de1",
+        "maximumRadiance": 49.6563720703125
+      }
     },
     {
       "id": "left",
@@ -743,10 +750,10 @@
       "opticalDepthBytes": 504305
     }
   ],
-  "totalBytes": 15439316,
-  "initialBytes": 2213745,
-  "subjectBytes": 112199,
-  "initialWithSubjectBytes": 2325944,
+  "totalBytes": 15427888,
+  "initialBytes": 2202317,
+  "subjectBytes": 224725,
+  "initialWithSubjectBytes": 2315844,
   "detail": {
     "method": "Seven independently rendered source cameras. XYZ selects actual positions; pan and focal length reframe each capture.",
     "sourceSha256": "95972b56180462cac47ec82f3a755bd9111ec18ca37a6196a319c013db994130",
@@ -825,24 +832,23 @@
       ]
     },
     "captureLens": 10.833333015441895,
-    "samples": 32,
     "views": [
       {
         "id": "center",
         "file": "center-detail.webp",
-        "bytes": 6042580,
+        "bytes": 5857156,
         "cameraMatrix": [
           -0.95885169506073,
-          -0.006605171598494053,
-          -0.28383105993270874,
+          -0.00660517904907465,
+          -0.2838309705257416,
           0,
-          -0.020995352417230606,
-          0.9986416101455688,
-          0.047687627375125885,
+          -0.02099541947245598,
+          0.9986416697502136,
+          0.04768788814544678,
           0,
-          0.2831304967403412,
-          0.051684487611055374,
-          -0.9576877355575562,
+          0.2831304371356964,
+          0.0516846626996994,
+          -0.9576877951622009,
           0,
           2.9678049087524414,
           1.545469045639038,
@@ -850,9 +856,13 @@
           1
         ],
         "near": 1.100000023841858,
-        "maximumRadiance": 52.70588302612305,
+        "maximumRadiance": 49.6563720703125,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 256,
+        "blender": "4.5.14 LTS",
+        "denoising": "OpenImageDenoise, full-frame after internal tile rendering",
+        "sourceExrSha256": "03faff34cfdb4e92b22640caa8e2ae2e747457ed3a5add2b34a298a9ae116de1"
       },
       {
         "id": "left",
@@ -879,7 +889,8 @@
         "near": 1.100000023841858,
         "maximumRadiance": 49.945098876953125,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "right",
@@ -906,7 +917,8 @@
         "near": 1.100000023841858,
         "maximumRadiance": 50.19607925415039,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "up",
@@ -933,7 +945,8 @@
         "near": 1.100000023841858,
         "maximumRadiance": 51.45098114013672,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "down",
@@ -960,7 +973,8 @@
         "near": 1.100000023841858,
         "maximumRadiance": 51.701961517333984,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "front",
@@ -987,7 +1001,8 @@
         "near": 1.100000023841858,
         "maximumRadiance": 50.19607925415039,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "back",
@@ -1014,7 +1029,8 @@
         "near": 1.100000023841858,
         "maximumRadiance": 50.94902038574219,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       }
     ],
     "derivations": [],
@@ -1024,9 +1040,9 @@
       "max": 6,
       "losslessContainer": "WebP",
       "maximumChannelQuantizationEV": 0.043137254901960784,
-      "sourceMaximumRadiance": 52.70588302612305
+      "sourceMaximumRadiance": 51.701961517333984
     },
-    "totalBytes": 42207542
+    "totalBytes": 42022118
   },
   "flash": {
     "method": "Cycles isolated CameraFlash light group; denoised using source-scene auxiliary normals/albedo. No ambient subtraction.",
@@ -1592,5 +1608,6 @@
       }
     ],
     "maskChannel": "blue"
-  }
+  },
+  "initialSubjectBytes": 113527
 }

@@ -161,14 +161,14 @@
       ],
       "file": "center.webp",
       "seconds": 16.58,
-      "bytes": 2355216,
+      "bytes": 2528914,
       "depth": "center-depth.png",
       "width": 2560,
       "height": 1440,
       "depthWidth": 1280,
       "depthHeight": 720,
       "depthBytes": 420187,
-      "maximumRadiance": 5.050980567932129,
+      "maximumRadiance": 5.1927348375320435,
       "clampedChannels": 0,
       "minimumDepth": 0.5615906715393066,
       "maximumDepth": 9.172855377197266,
@@ -177,13 +177,19 @@
       "flashWidth": 1280,
       "flashHeight": 720,
       "detailFile": "center-detail.webp",
-      "detailBytes": 5527890,
-      "detailWidth": 4096,
-      "detailHeight": 2304,
+      "detailBytes": 8431454,
+      "detailWidth": 5120,
+      "detailHeight": 2880,
       "detailDepth": "center-detail-depth.png",
       "detailDepthWidth": 2048,
       "detailDepthHeight": 1152,
-      "detailDepthBytes": 812126
+      "detailDepthBytes": 812126,
+      "radianceCapture": {
+        "samples": 256,
+        "blender": "4.5.14 LTS",
+        "sourceExrSha256": "7607b63c490d9fa9684bbfaa64fc0a6105d762c737bd3b411c4455f4ab59b224",
+        "maximumRadiance": 5.5443949699401855
+      }
     },
     {
       "id": "left",
@@ -738,8 +744,8 @@
       "detailDepthBytes": 826258
     }
   ],
-  "totalBytes": 19570624,
-  "initialBytes": 2775403,
+  "totalBytes": 19744322,
+  "initialBytes": 2949101,
   "flash": {
     "method": "Cycles isolated CameraFlash light group; denoised using source-scene auxiliary normals/albedo. No ambient subtraction.",
     "sourceSha256": "5c526ea3f280566e80253673c9955640527cd0f247ea41b1742620b5bc39f7a4",
@@ -1111,12 +1117,11 @@
       ]
     },
     "captureLens": 20.83333396911621,
-    "samples": 32,
     "views": [
       {
         "id": "center",
         "file": "center-detail.webp",
-        "bytes": 5527890,
+        "bytes": 8431454,
         "offset": [
           0,
           0,
@@ -1142,9 +1147,12 @@
         ],
         "cameraMatrixVerification": "Actual captured camera matrix",
         "near": 0.10000000149011612,
-        "maximumRadiance": 5.082353115081787,
+        "maximumRadiance": 5.5443949699401855,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 256,
+        "blender": "4.5.14 LTS",
+        "sourceExrSha256": "7607b63c490d9fa9684bbfaa64fc0a6105d762c737bd3b411c4455f4ab59b224"
       },
       {
         "id": "left",
@@ -1177,7 +1185,8 @@
         "near": 0.10000000149011612,
         "maximumRadiance": 5.20784330368042,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "right",
@@ -1210,7 +1219,8 @@
         "near": 0.10000000149011612,
         "maximumRadiance": 5.1450982093811035,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "up",
@@ -1243,7 +1253,8 @@
         "near": 0.10000000149011612,
         "maximumRadiance": 4.86274528503418,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "down",
@@ -1276,7 +1287,8 @@
         "near": 0.10000000149011612,
         "maximumRadiance": 5.521568775177002,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "front",
@@ -1309,7 +1321,8 @@
         "near": 0.10000000149011612,
         "maximumRadiance": 5.364706039428711,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       },
       {
         "id": "back",
@@ -1342,7 +1355,8 @@
         "near": 0.10000000149011612,
         "maximumRadiance": 5.270588397979736,
         "clampedChannels": 0,
-        "negativeChannels": 0
+        "negativeChannels": 0,
+        "samples": 32
       }
     ],
     "derivations": [],
@@ -1352,9 +1366,9 @@
       "max": 6,
       "losslessContainer": "WebP",
       "maximumChannelQuantizationEV": 0.043137254901960784,
-      "sourceMaximumRadiance": 5.521568775177002
+      "sourceMaximumRadiance": 5.5443949699401855
     },
-    "totalBytes": 38701706
+    "totalBytes": 41605270
   },
   "detailDepth": {
     "sourceSha256": "5c526ea3f280566e80253673c9955640527cd0f247ea41b1742620b5bc39f7a4",
@@ -1567,5 +1581,6 @@
       }
     ],
     "totalBytes": 5599152
-  }
+  },
+  "initialWithSubjectBytes": 2949101
 }

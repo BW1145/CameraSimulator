@@ -1,0 +1,378 @@
+{
+  "method": "One existing center view re-rendered; metadata does not claim other views were upgraded.",
+  "sceneId": "classroom",
+  "sourceSha256": "5c526ea3f280566e80253673c9955640527cd0f247ea41b1742620b5bc39f7a4",
+  "sourceUrl": "https://download.blender.org/demo/test/classroom.zip",
+  "sourceAttribution": "Christophe Seux / CC0",
+  "sourceBytes": 32045332,
+  "camera": {
+    "name": "renderCam",
+    "lens": 25,
+    "sourceProjection": "PERSP",
+    "sourceLens": 25,
+    "sourceOrthoScale": 6,
+    "sensorWidth": 32,
+    "aspect": 1.7777777777777777,
+    "nativeResolution": [
+      1920,
+      1080
+    ],
+    "near": 0.10000000149011612,
+    "far": 100,
+    "matrix": [
+      [
+        0.967710018157959,
+        0.0028259819373488426,
+        0.2520502507686615,
+        2.576395273208618
+      ],
+      [
+        0.25206607580184937,
+        -0.01083637960255146,
+        -0.9676493406295776,
+        -4.465750694274902
+      ],
+      [
+        -3.2474868021381553e-06,
+        0.9999372959136963,
+        -0.011198807507753372,
+        1.094475507736206
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "sourceScale": [
+      0.6405100226402283,
+      0.640510082244873,
+      0.6405102014541626
+    ],
+    "sourceFar": 100,
+    "shiftX": 0,
+    "shiftY": 0,
+    "sensorFit": "AUTO",
+    "sourceClippingMethod": "Source camera near plane.",
+    "sensorHeight": 18.0
+  },
+  "captureLens": 20.83333396911621,
+  "samples": 256,
+  "scope": [
+    "center"
+  ],
+  "effectiveSampling": "Exactly 256 samples per pixel: adaptive sampling disabled and time limit cleared.",
+  "views": [
+    {
+      "id": "center",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "near": 0.10000000149011612,
+      "position": [
+        2.576395273208618,
+        1.094475507736206,
+        4.465750694274902
+      ],
+      "matrix": [
+        1.2600390911102295,
+        0.0065416255965828896,
+        -0.25255486369132996,
+        -0.2520502507686615,
+        -4.228240868542343e-06,
+        2.3146698474884033,
+        0.01122122723609209,
+        0.011198807507753372,
+        -0.32821109890937805,
+        0.02508421428501606,
+        -0.9695865511894226,
+        -0.9676493406295776,
+        -1.780645489692688,
+        -2.6622233390808105,
+        4.768131732940674,
+        4.958405017852783
+      ],
+      "cameraMatrix": [
+        0.967710018157959,
+        -3.2474868021381553e-06,
+        -0.25206607580184937,
+        0.0,
+        0.0028259819373488426,
+        0.9999372959136963,
+        0.01083637960255146,
+        0.0,
+        0.2520502507686615,
+        -0.011198807507753372,
+        0.9676493406295776,
+        0.0,
+        2.576395273208618,
+        1.094475507736206,
+        4.465750694274902,
+        1.0
+      ],
+      "projectionMatrix": [
+        1.3020833730697632,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        2.314815044403076,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0020020008087158,
+        -1.0,
+        0.0,
+        0.0,
+        -0.20020020008087158,
+        0.0
+      ],
+      "file": "center-256spp-oidn.exr",
+      "width": 5120,
+      "height": 2880,
+      "samples": 256,
+      "seconds": 4060.6719264540006,
+      "bytes": 164690815,
+      "cameraMatrixVerification": "Initialized from actual existing capture and checked after render within 1e-5.",
+      "maximumRadiance": 5.5443949699401855,
+      "nonfiniteChannels": 0,
+      "negativeChannels": 0,
+      "channelsOverExistingUpperBound": 0,
+      "effectiveSeed": 1
+    }
+  ],
+  "derivations": [],
+  "blender": "4.5.14 LTS",
+  "blenderBuildHash": "62c1db4208e8",
+  "sourceScene": "_mainScene",
+  "sourceFrame": 1,
+  "sourceViewLayers": [
+    {
+      "name": "interior",
+      "enabled": true
+    }
+  ],
+  "sourceObjectCount": 305,
+  "sourceLibraries": [
+    {
+      "name": "lib",
+      "path": "//assets/lamps/lamps.blend"
+    },
+    {
+      "name": "lib.001",
+      "path": "//assets/chairs/chairs.blend"
+    },
+    {
+      "name": "lib.002",
+      "path": "//assets/coatStand/coatStand.blend"
+    },
+    {
+      "name": "lib.003",
+      "path": "//assets/desks/desks.blend"
+    },
+    {
+      "name": "lib.004",
+      "path": "//assets/dustBin/dustBin.blend"
+    },
+    {
+      "name": "lib.005",
+      "path": "//assets/radiator/radiator.blend"
+    },
+    {
+      "name": "lib.006",
+      "path": "//assets/suitcase/suitcase.blend"
+    },
+    {
+      "name": "lib.007",
+      "path": "//assets/wallClock/wallClock.blend"
+    },
+    {
+      "name": "lib.008",
+      "path": "//assets/wastes/wastes.blend"
+    },
+    {
+      "name": "lib.009",
+      "path": "//assets/books/books.blend"
+    },
+    {
+      "name": "lib.010",
+      "path": "//assets/officeSupplies/officeSupplies.blend"
+    }
+  ],
+  "sourceSettings": {
+    "cycles": {
+      "samples": 300,
+      "use_adaptive_sampling": false,
+      "adaptive_threshold": 0.009999999776482582,
+      "adaptive_min_samples": 0,
+      "time_limit": 0.0,
+      "max_bounces": 8,
+      "diffuse_bounces": 2,
+      "glossy_bounces": 3,
+      "transmission_bounces": 6,
+      "transparent_max_bounces": 8,
+      "volume_bounces": 1,
+      "caustics_reflective": true,
+      "caustics_refractive": true,
+      "sample_clamp_direct": 5.5,
+      "sample_clamp_indirect": 3.0,
+      "blur_glossy": 1.2000000476837158,
+      "use_light_tree": false,
+      "pixel_filter_type": "GAUSSIAN",
+      "filter_width": 1.5,
+      "use_denoising": false,
+      "denoiser": "OPENIMAGEDENOISE",
+      "denoising_prefilter": "ACCURATE",
+      "denoising_input_passes": "RGB_ALBEDO_NORMAL",
+      "denoising_quality": "HIGH",
+      "denoising_use_gpu": false
+    },
+    "render": {
+      "use_simplify": false,
+      "simplify_subdivision_render": 6,
+      "use_motion_blur": false,
+      "film_transparent": true,
+      "pixel_aspect_x": 1.0,
+      "pixel_aspect_y": 1.0
+    }
+  },
+  "renderSettings": {
+    "samples": 256,
+    "use_adaptive_sampling": false,
+    "adaptive_threshold": 0.009999999776482582,
+    "adaptive_min_samples": 0,
+    "time_limit": 0.0,
+    "max_bounces": 8,
+    "diffuse_bounces": 2,
+    "glossy_bounces": 3,
+    "transmission_bounces": 6,
+    "transparent_max_bounces": 8,
+    "volume_bounces": 1,
+    "caustics_reflective": true,
+    "caustics_refractive": true,
+    "sample_clamp_direct": 5.5,
+    "sample_clamp_indirect": 3.0,
+    "blur_glossy": 1.2000000476837158,
+    "use_light_tree": false,
+    "pixel_filter_type": "GAUSSIAN",
+    "filter_width": 1.5,
+    "use_denoising": true,
+    "denoiser": "OPENIMAGEDENOISE",
+    "denoising_prefilter": "ACCURATE",
+    "denoising_input_passes": "RGB_ALBEDO_NORMAL",
+    "denoising_quality": "HIGH",
+    "denoising_use_gpu": false,
+    "device": "CPU",
+    "seed": 1,
+    "use_auto_tile": true,
+    "tile_size": 256
+  },
+  "requestedSeed": 17,
+  "pixelAspect": [
+    1.0,
+    1.0
+  ],
+  "displayTransform": {
+    "view": "AgX",
+    "look": "None",
+    "exposure": 0,
+    "gamma": 1
+  },
+  "existingSharedEncoding": {
+    "type": "log2-rgb",
+    "min": -16,
+    "max": 6,
+    "losslessContainer": "WebP",
+    "maximumChannelQuantizationEV": 0.043137254901960784,
+    "sourceMaximumRadiance": 5.521568775177002
+  },
+  "status": "complete",
+  "renderSeconds": 4060.6719264540006,
+  "peakRssMiB": 4740.609375,
+  "cameraMatrixMaxDelta": 5.960464477539063e-08,
+  "effectiveSeedAfterRender": 1,
+  "exr": "center-256spp-oidn.exr",
+  "png": "center-256spp-oidn.png",
+  "validation": {
+    "dimensions": [
+      5120,
+      2880
+    ],
+    "samples": 256,
+    "effectiveSampling": "Exactly 256 samples per pixel: adaptive sampling disabled and time limit cleared.",
+    "minimumRadiance": 0.0,
+    "maximumRadiance": 5.5443949699401855,
+    "meanLuminance": 0.2179813849886533,
+    "nonfiniteChannels": 0,
+    "negativeChannels": 0,
+    "channelsOverExistingUpperBound": 0,
+    "channelsOver64": 0,
+    "positiveChannelsBelowEncodingMinimum": 8603,
+    "existingSharedEncoding": {
+      "type": "log2-rgb",
+      "min": -16,
+      "max": 6,
+      "losslessContainer": "WebP",
+      "maximumChannelQuantizationEV": 0.043137254901960784,
+      "sourceMaximumRadiance": 5.521568775177002
+    },
+    "sharedEncodingFitsWithoutUpperClamp": true,
+    "renderSeconds": 4060.6719264540006,
+    "peakRssMiB": 4740.609375,
+    "effectiveSeed": 1,
+    "files": {
+      "center-256spp-oidn.exr": {
+        "sha256": "7607b63c490d9fa9684bbfaa64fc0a6105d762c737bd3b411c4455f4ab59b224",
+        "bytes": 164690815
+      },
+      "center-256spp-oidn.png": {
+        "sha256": "9f3bf19a4303b9f3751a3d159e6e872a237f67e143e3b74e4cedcc5221ca7234",
+        "bytes": 69795944
+      }
+    },
+    "validatedAt": "2026-10-22T11:12:09.784847+00:00"
+  },
+  "samplingSupplement": {
+    "use_layer_samples": "USE",
+    "use_sample_subset": false,
+    "sample_subset_length": 2048,
+    "use_animated_seed": false,
+    "sample_offset": 0,
+    "viewLayerSamples": [
+      {
+        "name": "interior",
+        "samples": 0
+      }
+    ],
+    "note": "Verified from identical original source after production. Running script did not alter these properties."
+  },
+  "samplingLogVerification": {
+    "sampleTargets": [
+      256
+    ],
+    "tileTotals": [
+      240
+    ],
+    "tileIndicesWith256Completed": 240,
+    "finished": true
+  },
+  "comparison": {
+    "existingDimensions": [
+      4096,
+      2304
+    ],
+    "newDimensions": [
+      5120,
+      2880
+    ],
+    "existingMeanLuminance": 0.21795340546471545,
+    "newMeanLuminance": 0.2179813849886533,
+    "meanExposureDeltaEV": 0.0001851924708510039,
+    "note": "Existing decoded log2 plate compared to float EXR at greater resolution; an exposure consistency check, not accuracy ground truth."
+  },
+  "visualQA": "Full preview and native detail inspected; source layout and exposure preserved, fine lettering/material texture clear, no obvious tile seams."
+}

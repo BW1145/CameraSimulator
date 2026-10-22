@@ -1,0 +1,384 @@
+{
+  "method": "One existing center view re-rendered; metadata does not claim other views were upgraded.",
+  "sceneId": "kitchen",
+  "sourceSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+  "sourceUrl": "https://download.blender.org/demo/splash/blender-3.5-splash.blend",
+  "sourceAttribution": "Nicole Morena / CC BY-SA; adaptation CC BY-SA 4.0",
+  "sourceBytes": 7685702,
+  "camera": {
+    "name": "CAM-wide",
+    "lens": 90,
+    "sourceProjection": "ORTHO",
+    "sourceLens": 50,
+    "sourceOrthoScale": 3.9542860984802246,
+    "sensorWidth": 36,
+    "aspect": 1.062,
+    "nativeResolution": [
+      2655,
+      2500
+    ],
+    "near": 0.10000000149011612,
+    "far": 1000,
+    "matrix": [
+      [
+        0.6371816992759705,
+        -0.1989787518978119,
+        0.7445850372314453,
+        8.406328201293945
+      ],
+      [
+        0.7707021236419678,
+        0.16974382102489471,
+        -0.6141703128814697,
+        -6.935248851776123
+      ],
+      [
+        -0.004181867465376854,
+        0.9651914238929749,
+        0.26151102781295776,
+        4.93189811706543
+      ],
+      [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+      ]
+    ],
+    "sourceScale": [
+      1,
+      1,
+      1
+    ],
+    "sourceFar": 100,
+    "shiftX": 0,
+    "shiftY": 0,
+    "sensorFit": "AUTO",
+    "sourceClippingMethod": "Source camera near plane.",
+    "sensorHeight": 24.0
+  },
+  "captureLens": 75.0,
+  "samples": 256,
+  "scope": [
+    "center"
+  ],
+  "effectiveSampling": "Exactly 256 samples per pixel: adaptive sampling disabled and time limit cleared.",
+  "views": [
+    {
+      "id": "center",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "near": 0.10000000149011612,
+      "position": [
+        8.406328201293945,
+        4.93189811706543,
+        6.935248851776123
+      ],
+      "matrix": [
+        2.6549243927001953,
+        -0.8804520964622498,
+        -0.7447338104248047,
+        -0.7445849776268005,
+        -0.017424456775188446,
+        4.270832538604736,
+        -0.2615633010864258,
+        -0.26151102781295776,
+        -3.211259365081787,
+        -0.7510918378829956,
+        -0.614293098449707,
+        -0.6141703128814697,
+        0.03865531459450722,
+        -8.45293140411377,
+        11.610736846923828,
+        11.808396339416504
+      ],
+      "cameraMatrix": [
+        0.6371816992759705,
+        -0.004181867465376854,
+        -0.7707021236419678,
+        0.0,
+        -0.1989787518978119,
+        0.9651914238929749,
+        -0.16974382102489471,
+        0.0,
+        0.7445850372314453,
+        0.26151102781295776,
+        0.6141703128814697,
+        0.0,
+        8.406328201293945,
+        4.93189811706543,
+        6.935248851776123,
+        1.0
+      ],
+      "projectionMatrix": [
+        4.166666507720947,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        4.4248552322387695,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0001999139785767,
+        -1.0,
+        0.0,
+        0.0,
+        -0.20002000033855438,
+        0.0
+      ],
+      "file": "center-256spp-oidn.exr",
+      "width": 4096,
+      "height": 3857,
+      "samples": 256,
+      "seconds": 1840.284534100003,
+      "bytes": 172552986,
+      "cameraMatrixVerification": "Initialized from actual existing capture and checked after render within 1e-5.",
+      "maximumRadiance": 147.61911010742188,
+      "nonfiniteChannels": 0,
+      "negativeChannels": 0,
+      "channelsOverExistingUpperBound": 2,
+      "effectiveSeed": 17
+    }
+  ],
+  "derivations": [
+    {
+      "type": "extend-ground",
+      "object": "Plane",
+      "scaleXY": 32,
+      "sourceDimensions": [
+        16.50721549987793,
+        16.50721549987793,
+        0
+      ],
+      "derivedDimensions": [
+        528.2308959960938,
+        528.2308959960938,
+        0
+      ],
+      "materials": [
+        "Material.110"
+      ],
+      "method": "Extend source ground mesh XY in memory with the same material; source blend unchanged.",
+      "vertexCount": 4,
+      "verification": "Same source mesh; each local X/Y multiplied by recorded scale, Z and material unchanged."
+    }
+  ],
+  "blender": "4.5.14 LTS",
+  "blenderBuildHash": "62c1db4208e8",
+  "sourceScene": "Main",
+  "sourceFrame": 1,
+  "sourceViewLayers": [
+    {
+      "name": "ViewLayer",
+      "enabled": true,
+      "samples": 0
+    }
+  ],
+  "sourceObjectCount": 1078,
+  "sourceLibraries": [],
+  "sourceSettings": {
+    "cycles": {
+      "samples": 128,
+      "use_adaptive_sampling": true,
+      "adaptive_threshold": 0.009999999776482582,
+      "adaptive_min_samples": 0,
+      "time_limit": 0.0,
+      "max_bounces": 12,
+      "diffuse_bounces": 4,
+      "glossy_bounces": 4,
+      "transmission_bounces": 12,
+      "transparent_max_bounces": 8,
+      "volume_bounces": 0,
+      "caustics_reflective": true,
+      "caustics_refractive": true,
+      "sample_clamp_direct": 0.0,
+      "sample_clamp_indirect": 10.0,
+      "blur_glossy": 1.0,
+      "use_light_tree": false,
+      "pixel_filter_type": "BLACKMAN_HARRIS",
+      "filter_width": 1.5,
+      "use_denoising": true,
+      "denoiser": "OPENIMAGEDENOISE",
+      "denoising_prefilter": "ACCURATE",
+      "denoising_input_passes": "RGB_ALBEDO_NORMAL",
+      "denoising_quality": "HIGH",
+      "denoising_use_gpu": false,
+      "use_layer_samples": "USE",
+      "use_sample_subset": false,
+      "sample_subset_length": 2048,
+      "use_animated_seed": false,
+      "sample_offset": 0
+    },
+    "render": {
+      "use_simplify": false,
+      "simplify_subdivision_render": 6,
+      "use_motion_blur": false,
+      "film_transparent": false,
+      "pixel_aspect_x": 1.0,
+      "pixel_aspect_y": 1.0
+    }
+  },
+  "renderSettings": {
+    "samples": 256,
+    "use_adaptive_sampling": false,
+    "adaptive_threshold": 0.009999999776482582,
+    "adaptive_min_samples": 0,
+    "time_limit": 0.0,
+    "max_bounces": 12,
+    "diffuse_bounces": 4,
+    "glossy_bounces": 4,
+    "transmission_bounces": 12,
+    "transparent_max_bounces": 8,
+    "volume_bounces": 0,
+    "caustics_reflective": true,
+    "caustics_refractive": true,
+    "sample_clamp_direct": 0.0,
+    "sample_clamp_indirect": 10.0,
+    "blur_glossy": 1.0,
+    "use_light_tree": false,
+    "pixel_filter_type": "BLACKMAN_HARRIS",
+    "filter_width": 1.5,
+    "use_denoising": true,
+    "denoiser": "OPENIMAGEDENOISE",
+    "denoising_prefilter": "ACCURATE",
+    "denoising_input_passes": "RGB_ALBEDO_NORMAL",
+    "denoising_quality": "HIGH",
+    "denoising_use_gpu": false,
+    "use_layer_samples": "IGNORE",
+    "use_sample_subset": false,
+    "sample_subset_length": 2048,
+    "use_animated_seed": false,
+    "sample_offset": 0,
+    "device": "CPU",
+    "seed": 17,
+    "use_auto_tile": true,
+    "tile_size": 256
+  },
+  "requestedSeed": 17,
+  "pixelAspect": [
+    1.0,
+    1.0
+  ],
+  "displayTransform": {
+    "view": "AgX",
+    "look": "None",
+    "exposure": 0,
+    "gamma": 1
+  },
+  "existingSharedEncoding": {
+    "type": "log2-rgb",
+    "min": -16,
+    "max": 7,
+    "losslessContainer": "WebP",
+    "maximumChannelQuantizationEV": 0.045098039215686274,
+    "sourceMaximumRadiance": 100.89411926269531
+  },
+  "status": "complete",
+  "renderSeconds": 1840.284534100003,
+  "peakRssMiB": 4942.08203125,
+  "cameraMatrixMaxDelta": 5.960464477539063e-08,
+  "effectiveSeedAfterRender": 17,
+  "exr": "center-256spp-oidn.exr",
+  "png": "center-256spp-oidn.png",
+  "validation": {
+    "dimensions": [
+      4096,
+      3857
+    ],
+    "samples": 256,
+    "effectiveSampling": "Exactly 256 samples per pixel: adaptive sampling disabled and time limit cleared.",
+    "samplingLogVerification": {
+      "completedTileCount": 256,
+      "expectedTileCount": 256,
+      "observedSampleGoal": [
+        256
+      ],
+      "samplesPerPixel": 256,
+      "allTilesReachedRequestedSamples": true,
+      "adaptiveSampling": false,
+      "timeLimit": 0.0,
+      "layerSampleMode": "IGNORE",
+      "sampleSubset": false
+    },
+    "minimumRadiance": 2.7912651603401173e-06,
+    "maximumRadiance": 147.61911010742188,
+    "meanLuminance": 0.38062623457711403,
+    "nonfiniteChannels": 0,
+    "negativeChannels": 0,
+    "channelsOverExistingUpperBound": 2,
+    "channelsOver64": 23,
+    "positiveChannelsBelowEncodingMinimum": 6,
+    "existingSharedEncoding": {
+      "type": "log2-rgb",
+      "min": -16,
+      "max": 7,
+      "losslessContainer": "WebP",
+      "maximumChannelQuantizationEV": 0.045098039215686274,
+      "sourceMaximumRadiance": 100.89411926269531
+    },
+    "sharedEncodingFitsWithoutUpperClamp": false,
+    "renderSeconds": 1840.284534100003,
+    "peakRssMiB": 4942.08203125,
+    "effectiveSeed": 17,
+    "files": {
+      "center-256spp-oidn.exr": {
+        "sha256": "9cdb6e888c506219dc409db77226b6125f466c4ff8a4d6f721834f0e4c1fde6c",
+        "bytes": 172552986
+      },
+      "center-256spp-oidn.png": {
+        "sha256": "535f4e5d4b414841b04ac6918930ce5461b8ee3d0201a7e0612e926fd701594d",
+        "bytes": 58683894
+      }
+    },
+    "validatedAt": "2026-10-22T14:04:35.416991+00:00",
+    "comparisonWithExisting": {
+      "existingMeanLuminance": 0.3806796313087478,
+      "meanLuminanceDifferenceEV": -0.000202376478380188,
+      "existingSourceDimensions": [
+        3072,
+        2893
+      ]
+    },
+    "validationScriptSha256": "12af22c0ced3eb6fc9d424e6e224a498e42ea8eabb3729bf8f28d2c0d9cda517",
+    "radianceOutliers": {
+      "encodingCeiling": 128,
+      "affectedPixelCount": 2,
+      "pixelCount": 15798272,
+      "affectedPixelFraction": 1.2659612393051593e-07,
+      "coordinateConvention": "top-left, zero-based",
+      "pixels": [
+        {
+          "x": 1380,
+          "y": 2450,
+          "rgb": [
+            139.80796813964844,
+            41.68152618408203,
+            11.68996524810791
+          ],
+          "channelsAboveCeiling": [
+            "R"
+          ]
+        },
+        {
+          "x": 1378,
+          "y": 2449,
+          "rgb": [
+            147.61911010742188,
+            44.91157531738281,
+            12.264372825622559
+          ],
+          "channelsAboveCeiling": [
+            "R"
+          ]
+        }
+      ],
+      "hypotheticalUpperClippingRGBEnergyFraction": 1.8029553657767905e-06,
+      "note": "Analysis only. Source EXR and display PNG are unchanged and unclipped."
+    }
+  }
+}

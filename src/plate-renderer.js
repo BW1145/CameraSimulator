@@ -8,6 +8,7 @@ import {decodeRadianceTexture} from './linear-radiance.js';
 import {createBallSubject} from './practice-ball.js';
 import {tabletopLighting} from './lighting.js';
 import {PlateOptics} from './plate-optics.js';
+import {DetailPass} from './detail-pass.js';
 
 function readSourceDepth(depth){
   depth.colorSpace=T.NoColorSpace;depth.minFilter=T.NearestFilter;depth.magFilter=T.NearestFilter;depth.generateMipmaps=false;
@@ -17,15 +18,49 @@ function readSourceDepth(depth){
 }
 
 export class PlateRenderer extends Renderer {
-  constructor(canvas){super(canvas);this.cache=new Map();this.moveVersion=0;this.pendingLayers=0;this.canvas.dataset.pendingLayers='0';}
+  constructor(canvas){super(canvas);this.cache=new Map();this.subjectEnvironments=new Map();this.subjectViewLights=new Map();this.moveVersion=0;this.pendingLayers=0;this.canvas.dataset.pendingLayers='0';}
   trackLayer(task){
     this.canvas.dataset.pendingLayers=String(++this.pendingLayers);
     return task.finally(()=>{this.canvas.dataset.pendingLayers=String(--this.pendingLayers);});
   }
+  releaseSubjectLighting(){
+    if(this.world)this.world.environment=null;
+    for(const resource of this.subjectEnvironments?.values()||[])resource.target?.dispose();
+    // Replacing the map also invalidates HDR requests still in flight.
+    this.subjectEnvironments=new Map();this.subjectViewLights=new Map();this.subjectEnvironment=null;this.subjectConfig=null;this.subjectFallbackLights=[];
+  }
+  releaseLighting(){this.releaseSubjectLighting();super.releaseLighting();}
+  async createSubjectEnvironment(url,isCurrent){
+    const hdr=await new HDRLoader().loadAsync(url);
+    try{
+      if(!isCurrent())return null;
+      hdr.mapping=T.EquirectangularReflectionMapping;
+      const pmrem=new T.PMREMGenerator(this.renderer);
+      try{return pmrem.fromEquirectangular(hdr);}finally{pmrem.dispose();}
+    }finally{hdr.dispose();}
+  }
+  loadSubjectEnvironment(file){
+    if(!file)return Promise.resolve(null);
+    const cache=this.subjectEnvironments,url=this.packBase+file;
+    if(cache.has(url))return cache.get(url).promise;
+    const resource={target:null,promise:null};
+    resource.promise=this.trackLayer(this.createSubjectEnvironment(url,()=>cache===this.subjectEnvironments).then(target=>{
+      if(cache!==this.subjectEnvironments){target?.dispose();return null;}
+      resource.target=target;return target;
+    }).catch(error=>{if(cache.get(url)===resource)cache.delete(url);throw error;}));
+    cache.set(url,resource);return resource.promise;
+  }
+  applySubjectLighting(id,environment){
+    this.subjectEnvironment=environment;this.world.environment=environment?.texture??null;
+    this.world.environmentRotation.y=environment?Math.PI/2:0;
+    for(const {light,intensity}of this.subjectFallbackLights||[])light.intensity=environment?0:intensity;
+    for(const [view,group]of this.subjectViewLights)group.visible=view===id;
+  }
   async load(scene,onProgress){
     ++this.moveVersion;
+    this.releaseSubjectLighting();
     this.ready=false;this.plate=null;this.entry=null;this.pack=null;this.packBase=null;this.canvas.dataset.detailWidth='';this.canvas.dataset.detailDepthWidth='';
-    this.integrator?.dispose();this.integrator=null;this.fan=null;this.motionSubject=null;this.subjectEnvironment?.dispose();this.subjectEnvironment=null;
+    this.detailPass?.dispose();this.detailPass=null;this.integrator?.dispose();this.integrator=null;this.fan=null;this.motionSubject=null;
     this.plateOptics?.dispose();this.plateOptics=null;
     this.uniforms.plate.value=this.target.texture;
     this.plateMode=Boolean(scene.platePack);
@@ -66,15 +101,16 @@ export class PlateRenderer extends Renderer {
       const subjects=await response.json();if(version!==this.loadVersion)return false;const config=subjects.find(subject=>subject.type==='desk-fan');
       if(config){
         this.fan=createDeskFan(config,this.anchor);this.world.add(this.fan.group);
-        if(config.environment){
-          const hdr=await new HDRLoader().loadAsync(base+config.environment);if(version!==this.loadVersion){hdr.dispose();return false;}hdr.mapping=T.EquirectangularReflectionMapping;
-          const pmrem=new T.PMREMGenerator(this.renderer);this.subjectEnvironment?.dispose();this.subjectEnvironment=pmrem.fromEquirectangular(hdr);this.world.environment=this.subjectEnvironment.texture;hdr.dispose();pmrem.dispose();
-          this.world.environmentRotation.y=Math.PI/2;
-          this.world.traverse(o=>{if(o.isHemisphereLight||o.isDirectionalLight)o.intensity=0;});
-        }
-        if(config.areaLights?.length){
+        this.subjectConfig=config;
+        this.world.traverse(light=>{if(light.isHemisphereLight||light.isDirectionalLight)this.subjectFallbackLights.push({light,intensity:light.intensity});});
+        // viewLighting[id] optionally overrides the HDR and adds view-only
+        // area lights. The original light list still owns the tabletop key.
+        const viewLighting=Object.entries(config.viewLighting??{});
+        if(config.areaLights?.length||viewLighting.some(([,rig])=>rig.areaLights?.length)){
           const {RectAreaLightUniformsLib}=await import('three/addons/lights/RectAreaLightUniformsLib.js');if(version!==this.loadVersion)return false;RectAreaLightUniformsLib.init();
-          for(const key of config.areaLights){const light=new T.RectAreaLight(new T.Color().fromArray(key.color),key.radiance,key.width,key.height);light.position.fromArray(key.position);light.lookAt(light.position.clone().add(new T.Vector3().fromArray(key.direction)));this.world.add(light);}
+          const addLights=(keys,parent)=>{for(const key of keys??[]){const light=new T.RectAreaLight(new T.Color().fromArray(key.color),key.radiance,key.width,key.height);light.position.fromArray(key.position);light.lookAt(light.position.clone().add(new T.Vector3().fromArray(key.direction)));parent.add(light);}};
+          addLights(config.areaLights,this.world);
+          for(const [id,rig]of viewLighting){if(!rig.areaLights?.length)continue;const group=new T.Group();group.visible=false;addLights(rig.areaLights,group);this.world.add(group);this.subjectViewLights.set(id,group);}
         }
         if(config.tabletopLighting)tabletopLighting(this,config);
       }
@@ -110,7 +146,9 @@ export class PlateRenderer extends Renderer {
     await this.selectPosition(id,onProgress);
   }
   async selectPosition(id,onProgress=()=>{}){
-    const version=++this.moveVersion,entry=this.pack.views.find(v=>v.id===id),base=this.packBase,encoding=this.pack.encoding;
+    const version=++this.moveVersion,entry=this.pack.views.find(v=>v.id===id),base=this.packBase,encoding=entry.encoding||this.pack.encoding;
+    const environmentFile=this.subjectConfig?.viewLighting?.[id]?.environment??this.subjectConfig?.environment;
+    const environment=this.loadSubjectEnvironment(environmentFile);
     const cacheKey=base+id;let resource=this.cache.get(cacheKey);
     if(!resource){
       const loader=new T.TextureLoader();
@@ -120,7 +158,9 @@ export class PlateRenderer extends Renderer {
       }).catch(error=>{this.cache.delete(cacheKey);throw error;}));
       this.cache.set(cacheKey,resource);
     }else{this.cache.delete(cacheKey);this.cache.set(cacheKey,resource);}
-    const loaded=await resource;if(version!==this.moveVersion)return;
+    // Commit the plate and its subject rig together, after both are ready.
+    const [loaded,subjectEnvironment]=await Promise.all([resource,environment]);if(version!==this.moveVersion)return;
+    this.applySubjectLighting(id,subjectEnvironment);
     this.plate=loaded;this.entry=entry;this.captureMatrix=new T.Matrix4().fromArray(entry.matrix);
     loaded.detailFailed=false;loaded.flashFailed=false;
     this.camera.near=entry.near??this.pack.camera.near;this.uniforms.nearClip.value=this.camera.near;this.plateUniforms.near.value=this.camera.near;
@@ -144,7 +184,7 @@ export class PlateRenderer extends Renderer {
     if(!entry.detailFile||resource.detailLoading||resource.detailFailed||resource.image.image.width>=entry.detailWidth)return;
     const needed=width*(s.focal/this.pack.referenceFocal)*1.2*(36/this.filmWidth);
     if(needed<resource.image.image.width*1.15||entry.detailWidth>this.renderer.capabilities.maxTextureSize)return;
-    resource.detailLoading=true;const base=this.packBase,encoding=this.pack.detail?.encoding||this.pack.encoding;
+    resource.detailLoading=true;const base=this.packBase,encoding=entry.detailEncoding||this.pack.detail?.encoding||this.pack.encoding;
     const loader=new T.TextureLoader();
     resource.detailTask=this.trackLayer(Promise.all([loader.loadAsync(base+entry.detailFile),entry.detailDepth?loader.loadAsync(base+entry.detailDepth):Promise.resolve(null)]).then(([encoded,depth])=>{
       // Only the currently selected room/position may promote a late detail map.
@@ -187,7 +227,12 @@ export class PlateRenderer extends Renderer {
     this.camera.projectionMatrix.elements[8]=shift.x;this.camera.projectionMatrix.elements[9]=shift.y;this.camera.projectionMatrixInverse.copy(this.camera.projectionMatrix).invert();this.camera.updateMatrixWorld(true);
     this.plateUniforms.rayToCapture.value.multiplyMatrices(this.captureMatrix,this.camera.matrixWorld);
     const vertical=Math.tan(this.camera.fov*Math.PI/360);this.plateUniforms.tanHalfFov.value.set(vertical*aspect,vertical);
-    this.ensureDetail(s);
+    this.ensureDetail(s,this.detailView?.fullWidth??this.canvas.width);this.applyDetailView();
+  }
+  drawDetail(s,exposure,time,region,destination){
+    if(!this.ready||!this.plateMode)return false;
+    this.detailPass??=new DetailPass(this);
+    this.detailPass.render(this,s,exposure,time,region,destination);return true;
   }
   uvAt(x,y){
     const t=this.plateUniforms.tanHalfFov.value;
@@ -206,7 +251,7 @@ export class PlateRenderer extends Renderer {
   }
   renderPlate(s,exposure,time,flash=true,integrate=true){
     if(!this.plateMode)return super.renderPlate(s,exposure,time,flash,integrate);
-    this.geometry(s);this.fan?.setQuality(this.camera,this.target.width,this.target.height);this.updateMotion(s,exposure,time);
+    this.geometry(s);this.fan?.setQuality(this.detailView?this.detailFullCamera:this.camera,this.detailView?.fullWidth??this.target.width,this.detailView?.fullHeight??this.target.height);this.updateMotion(s,exposure,time);
     this.uniforms.sceneDepth.value=this.target.depthTexture;this.uniforms.linearDepth.value=false;
     if(flash&&s.flash>0)this.ensureFlash();
     const amount=flash?s.flash*(this.pack.flash?.referenceDuration??.01)/exposure.shutter:0;
@@ -218,7 +263,7 @@ export class PlateRenderer extends Renderer {
       const samples=integrate&&s.motion?this.motionSubject.exposure(time,exposure.shutter):[{time,weight:1}];
       this.integrator.render(this,samples,time,integrate&&flash&&!this.sourceView);return;
     }
-    const bounds=this.fan.bounds(this.camera,this.target.width,this.target.height);
+    const bounds=this.fan.bounds(this.detailView?this.detailFullCamera:this.camera,this.detailView?.fullWidth??this.target.width,this.detailView?.fullHeight??this.target.height);
     const radius=bounds?Math.max(bounds.width,bounds.height)/2:0;
     const samples=integrate&&s.motion?periodicExposureSamples(time,exposure.shutter,this.fan.period,24,radius*2*Math.PI/3):[{time:s.motion?time:0,weight:1}];
     this.integrator.render(this,samples,s.motion?time:0,integrate&&flash&&!this.sourceView);
