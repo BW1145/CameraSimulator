@@ -1,6 +1,7 @@
 import * as T from 'three';
 import {GLTFLoader} from 'three/addons/loaders/GLTFLoader.js';
 import {MeshoptDecoder} from 'three/addons/libs/meshopt_decoder.module.js';
+import {roomLighting} from './lighting.js';
 
 const vertex=`varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}`;
 const fragment=`
@@ -80,7 +81,7 @@ void main(){
 
 export function disposeScene(scene){
   const geometries=new Set(),materials=new Set(),textures=new Set();
-  scene.traverse(o=>{if(o.geometry)geometries.add(o.geometry);for(const m of [o.material].flat().filter(Boolean)){materials.add(m);for(const v of Object.values(m))if(v?.isTexture)textures.add(v);}});
+  scene.traverse(o=>{o.shadow?.map?.dispose();if(o.geometry)geometries.add(o.geometry);for(const m of [o.material].flat().filter(Boolean)){materials.add(m);for(const v of Object.values(m))if(v?.isTexture)textures.add(v);}});
   geometries.forEach(g=>g.dispose());materials.forEach(m=>m.dispose());textures.forEach(t=>t.dispose());
 }
 
@@ -122,7 +123,7 @@ export class Renderer {
       m.customProgramCacheKey=()=> 'baked-indirect-v1';
     }));
     if(version!==this.loadVersion){disposeScene(gltf.scene);return false;}
-    if(this.world)disposeScene(this.world);
+    this.releaseLighting();if(this.world)disposeScene(this.world);
     this.scene=scene;this.restoredLighting=baked.size>0;
     const lighting=scene.bakedLighting??{};
     this.exposureOffset=this.restoredLighting?(lighting.exposureOffset??0):0;
@@ -139,7 +140,7 @@ export class Renderer {
     if(!this.sourceView)this.anchor.add(new T.Vector3(0,scene.startUp||0,-(scene.startForward||0)).applyQuaternion(this.anchorRotation));
     this.canvas.dataset.view=this.sourceView?'source':'free';
     this.world.add(source);
-    // Punctual lights export directly; indirect illumination uses ambient fill.
+    // Preserve source keys; the local room probe supplies reflected radiance.
     source.traverse(o=>{
       // glTF punctual lights are photometric (candela). The source bake is
       // radiometric; use one unit conversion, preserving original light ratios.
@@ -154,8 +155,13 @@ export class Renderer {
     // Bound shadow cost by choosing the strongest original directional/spot keys.
     const keys=[];source.traverse(o=>{if(o.isSpotLight||o.isDirectionalLight)keys.push(o);});
     if(this.restoredLighting)keys.sort((a,b)=>b.intensity-a.intensity).slice(0,2).forEach(light=>{light.castShadow=true;light.shadow.mapSize.set(1024,1024);light.shadow.normalBias=.025;light.shadow.bias=-.0001;});
-    this.world.add(new T.HemisphereLight(0xdceaff,0x807060,this.restoredLighting ? (lighting.fill??0) : (scene.fill??1.5)));
+    this.world.add(new T.HemisphereLight(0xdceaff,0x807060,this.restoredLighting ? (lighting.fill??0) : (scene.fill??1.5)*.7));
     const sun=new T.DirectionalLight(0xffead1,this.restoredLighting ? (lighting.sunlight??0) : (scene.sunlight??1));sun.position.set(-3,8,5);this.world.add(sun);
+    if(!this.restoredLighting){
+      sun.target.position.copy(this.anchor).add(new T.Vector3(0,0,-3).applyQuaternion(this.anchorRotation));sun.position.copy(sun.target.position).add(new T.Vector3(-3,8,5));this.world.add(sun.target);
+      sun.castShadow=true;sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-8,right:8,top:8,bottom:-8,near:.1,far:30});sun.shadow.bias=-.0002;sun.shadow.normalBias=.015;
+    }
+    roomLighting(this,source);
     this.flashLight=new T.PointLight(0xffffff,0,25,2);this.world.add(this.flashLight);
     this.ballGroup=new T.Group();this.world.add(this.ballGroup);
     const ballGeometry=new T.SphereGeometry(.12,20,12);
@@ -163,6 +169,10 @@ export class Renderer {
       const m=new T.Mesh(ballGeometry,new T.MeshStandardMaterial({color:0xe96522,roughness:.5,transparent:true,opacity:i===0?1:1/24,depthWrite:i===0}));this.ballGroup.add(m);return m;
     });
     this.ready=true;this.frameStats={};return true;
+  }
+  releaseLighting(){
+    for(const reflection of this.reflections||[])reflection.dispose();this.reflections=[];
+    this.environmentTarget?.dispose();this.environmentTarget=null;
   }
   resize(width,height){
     width=Math.round(width);height=Math.round(height);

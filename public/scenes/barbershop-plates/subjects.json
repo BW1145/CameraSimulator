@@ -11,6 +11,7 @@
       {"source":"LGT-Window_large.001","position":[2.49912,2.26508,-1.37714],"direction":[-0.087928,-0.892128,-0.443144],"color":[0.783225,0.574391,0.320917],"width":1.462,"height":0.758,"radiance":500}
     ],
     "sourceSurface": "GEO-Dresser_marble.001",
+    "tabletopLighting": true,
     "placementEvidence": "Center and 24 points at each 6/8/10/12 cm radius raycast to the same flat tabletop; source normal is world up. Procedural base fits within 12 cm radius.",
     "license": "MIT — procedural subject authored for CameraSimulator"
   }
