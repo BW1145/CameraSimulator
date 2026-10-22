@@ -1,6 +1,6 @@
 # Browser verification
 
-The 2× density check uses a real 800×700 viewport, retains the complete room, checks the same physical/CSS pixel ratio and MSAA, and exports the same 2048×1365 portrait PNG. First-frame readiness allows 90 seconds for cold software shader compilation. Independent photographic and full-geometry checks retain the 1440px desktop viewport.
+The 2× density check uses a real 800×700 viewport, retains the complete room, checks the same physical/CSS pixel ratio and MSAA, and exports the same 2048×1365 portrait PNG. Complete-scene first-frame readiness uses the shared 90-second cold software shader wait. Parameter edits retain their normal 30-second deadline and requested-frame checks. Independent photographic and full-geometry checks retain the 1440px desktop viewport.
 
 The AF-S/AF-C functional check loads a small glTF backdrop and the renderer's actual moving 3D ball. It uses genuine ray hits, frame advancement and focus distance. The 0.025 projected movement and 0.03m focus-change thresholds are retained. Full architectural geometry, camera translation, focus blur, four photographic rooms and moving subjects remain covered by their separate checks.
 

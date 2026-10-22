@@ -35,7 +35,8 @@ export function createRoomMirrors(owner,source){
     mirror.getRenderTarget().depthTexture=new T.DepthTexture(512,512,T.UnsignedIntType);
     const capture=mirror.onBeforeRender;
     mirror.onBeforeRender=function(renderer,scene,camera){
-      if(owner.reflecting)return;owner.reflecting=true;
+      if(owner.reflecting||this.userData.reflectionKey===owner.reflectionKey)return;
+      this.userData.reflectionKey=owner.reflectionKey;owner.reflecting=true;
       capture.call(this,renderer,scene,camera);owner.reflecting=false;
     };
     for(const material of plane.materials)material.visible=false;

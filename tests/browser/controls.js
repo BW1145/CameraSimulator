@@ -1,5 +1,11 @@
 import {expect} from '@playwright/test';
 
+export async function waitInitialFrame(page){
+  // Complete imported shaders can compile cold on the software GPU. Edits
+  // after this initial frame retain waitFrame's normal deadline and revision.
+  await expect(page.locator('#image')).toHaveAttribute('data-ready','true',{timeout:90000});await waitFrame(page);
+}
+
 export async function waitFrame(page){
   await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
   await expect.poll(()=>page.locator('#image').evaluate(e=>e.dataset.frame===e.dataset.requestedFrame)).toBe(true);

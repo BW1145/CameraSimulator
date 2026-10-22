@@ -2,6 +2,14 @@ import * as T from 'three';
 import {Reflector} from 'three/addons/objects/Reflector.js';
 import {createRoomMirrors,MirrorOptics} from './mirror-optics.js';
 
+export function sourceMatteMaterial(m){
+  const matte=new T.MeshLambertMaterial({color:m.color,map:m.map,lightMap:m.lightMap,lightMapIntensity:m.lightMapIntensity,
+    emissive:m.emissive,emissiveMap:m.emissiveMap,emissiveIntensity:m.emissiveIntensity,normalMap:m.normalMap,normalScale:m.normalScale,
+    bumpMap:m.bumpMap,bumpScale:m.bumpScale,aoMap:m.aoMap,aoMapIntensity:m.aoMapIntensity,side:m.side,vertexColors:m.vertexColors,
+    transparent:m.transparent,opacity:m.opacity,alphaTest:m.alphaTest,depthWrite:m.depthWrite,colorWrite:m.colorWrite,flatShading:m.flatShading});
+  matte.name=m.name;matte.userData={...m.userData};return matte;
+}
+
 // Reflections stay in linear, pre-exposed scene units. The camera's lens and
 // display curve are applied once, after reflection and temporal integration.
 export const mirrorShader={
