@@ -1,7 +1,7 @@
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
 import {SCENES} from '../../src/scenes.js';
-import {openControl} from './controls.js';
+import {openControl,waitInitialFrame} from './controls.js';
 
 function constantPlate(luminance){
   const positions=new Float32Array([-100,-100,-5,100,-100,-5,100,100,-5,-100,-100,-5,100,100,-5,-100,100,-5]);
@@ -25,7 +25,7 @@ test('dense displays receive scene pixels and mobile capture is independent of p
   // Exercise the same physical 2x density at a bounded real viewport. Complete
   // desktop scenes retain their independent 1440px visual acceptance checks.
   const context=await browser.newContext({viewport:{width:800,height:700},deviceScaleFactor:2});const page=await context.newPage();
-  await page.goto('/?renderer=gltf');await expect(page.locator('#image')).toHaveAttribute('data-ready','true',{timeout:90000});
+  await page.goto('/?renderer=gltf');await waitInitialFrame(page);
   const size=await page.locator('#image').evaluate(e=>({w:e.width,css:e.clientWidth,samples:Number(e.dataset.samples)}));
   expect(size.w).toBeGreaterThan(size.css*1.9);expect(size.samples).toBeGreaterThan(0);
   await page.setViewportSize({width:390,height:844});await openControl(page,'crop');await page.locator('#crop').selectOption('2:3');
@@ -34,7 +34,7 @@ test('dense displays receive scene pixels and mobile capture is independent of p
 });
 
 test('capture resolves an exposure edit made in the same event turn',async({page})=>{
-  await page.goto('/?renderer=gltf');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
+  await page.goto('/?renderer=gltf');await waitInitialFrame(page);
   await page.locator('#autoISO').uncheck();
   const shoot=async iso=>{
     const pending=page.waitForEvent('download');

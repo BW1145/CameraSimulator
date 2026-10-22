@@ -1,0 +1,67 @@
+{
+  "errors": [],
+  "records": [
+    {
+      "enabled": false,
+      "data": {
+        "engine": "three.js r186",
+        "samples": "4",
+        "pendingLayers": "0",
+        "focus": "6.000",
+        "iso": "100",
+        "ev": "8.000",
+        "ready": "true",
+        "requestedFrame": "16",
+        "detailWidth": "5120",
+        "detailDepthWidth": "2560",
+        "reflections": "0",
+        "environment": "baked",
+        "position": "center",
+        "cameraPosition": "[2.9678049087524414,1.545469045639038,-9.9551420211792]",
+        "view": "prerender",
+        "packInitialBytes": "2213745",
+        "scene": "barbershop",
+        "radianceScale": "1",
+        "flashReady": "false",
+        "temporalSamples": "1",
+        "temporalWeight": "1.000000000000",
+        "temporalRegion": "{\"x\":209,\"y\":102,\"width\":509,\"height\":481}",
+        "meterEv": "6.12456",
+        "frame": "16",
+        "triangles": "20380",
+        "drawCalls": "59"
+      }
+    },
+    {
+      "enabled": true,
+      "data": {
+        "engine": "three.js r186",
+        "samples": "4",
+        "pendingLayers": "0",
+        "focus": "6.000",
+        "iso": "100",
+        "ev": "8.000",
+        "ready": "true",
+        "requestedFrame": "16",
+        "detailWidth": "5120",
+        "detailDepthWidth": "2560",
+        "reflections": "1",
+        "environment": "source-hdr",
+        "position": "center",
+        "cameraPosition": "[2.9678049087524414,1.545469045639038,-9.9551420211792]",
+        "view": "prerender",
+        "packInitialBytes": "2213745",
+        "scene": "barbershop",
+        "radianceScale": "1",
+        "flashReady": "false",
+        "temporalSamples": "1",
+        "temporalWeight": "1.000000000000",
+        "temporalRegion": "{\"x\":25,\"y\":0,\"width\":721,\"height\":583}",
+        "meterEv": "6.12368",
+        "frame": "16",
+        "triangles": "2246",
+        "drawCalls": "10"
+      }
+    }
+  ]
+}

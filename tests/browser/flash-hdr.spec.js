@@ -14,6 +14,9 @@ async function instrument(page){
         const gl=this,program=gl.getParameter(gl.CURRENT_PROGRAM),value=name=>{const location=gl.getUniformLocation(program,name);return location?gl.getUniform(program,location):null;};
         const scale=value('radianceScale')??value('sceneRadianceScale');if(scale!==null)window.hdrLastScale=scale;
         if(value('sceneRadianceScale')!==null)window.hdrAudit.push({meshScale:scale});
+        // Optical depth is axial distance in metres, not radiance. Its float
+        // buffer must not participate in the photographic energy measurement.
+        if(['virtualImage','reflectionDepth','depth'].some(name=>gl.getUniformLocation(program,name)!==null))return answer;
         const readType=gl.getParameter(gl.IMPLEMENTATION_COLOR_READ_TYPE);
         if(!gl.getParameter(gl.FRAMEBUFFER_BINDING)||gl.getParameter(gl.SAMPLES)>0||![gl.FLOAT,gl.HALF_FLOAT].includes(readType))return answer;
         const viewport=gl.getParameter(gl.VIEWPORT),pixels=readType===gl.FLOAT?new Float32Array(viewport[2]*viewport[3]*4):new Uint16Array(viewport[2]*viewport[3]*4);

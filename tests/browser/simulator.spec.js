@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
-import {openControl,motionSample,waitForMotion,waitFrame,setRange} from './controls.js';
+import {openControl,motionSample,waitForMotion,waitFrame,waitInitialFrame,setRange} from './controls.js';
 import {focusRoom} from './focus-room.js';
 const range=setRange;
 const stats=async page=>{
@@ -12,7 +12,7 @@ const stats=async page=>{
 test('four complete scenes load on demand, without browser errors',async({page})=>{
   const errors=[],models=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
   page.on('request',r=>{if(r.url().endsWith('scene.glb'))models.push(r.url());});
-  await page.goto('/?renderer=gltf');await waitFrame(page);expect(models).toHaveLength(1);
+  await page.goto('/?renderer=gltf');await waitInitialFrame(page);expect(models).toHaveLength(1);
   await expect(page.locator('#more details[open]')).toHaveCount(0);
   for(const id of ['barbershop','classroom','kitchen','apartment']){
     await page.locator('#scene').selectOption(id);await expect(page.locator('#image')).toHaveAttribute('data-scene',id);await waitFrame(page);
@@ -42,7 +42,7 @@ test('exposure, white balance, focus blur, real dolly and focal length alter the
   const dolly=await stats(page);await range(page,'focal',70);expect((await stats(page)).buffer.equals(dolly.buffer)).toBe(false);
 });
 test('auto exposure compensation, assist overlays, portrait and capture work',async({page})=>{
-  await page.goto('/?renderer=gltf');await waitFrame(page);await page.locator('#mode').selectOption('A');await waitFrame(page);
+  await page.goto('/?renderer=gltf');await waitInitialFrame(page);await page.locator('#mode').selectOption('A');await waitFrame(page);
   const base=await stats(page);await range(page,'compensation',3);expect((await stats(page)).brightness).toBeGreaterThan(base.brightness*1.1);
   for(const id of ['grid-toggle','level-toggle','histogram-toggle','zebra']){await openControl(page,id);await page.locator('#'+id).check();}
   await waitFrame(page);await expect(page.locator('#grid')).toBeVisible();await expect(page.locator('#histogram-view')).toBeVisible();
@@ -83,7 +83,9 @@ test('spot metering follows real image regions and fill flash lights the scene',
   await page.locator('#metering').selectOption('spot');
   const image=page.locator('#image'),box=await image.boundingBox();
   await image.click({position:{x:box.width*.12,y:box.height*.65}});await waitFrame(page);const left=Number(await image.getAttribute('data-ev'));
-  await image.click({position:{x:box.width*.9,y:box.height*.6}});await waitFrame(page);const right=Number(await image.getAttribute('data-ev'));
+  // Compare the lit marble with the foreground chair's shaded lower corner.
+  // The two similarly lit walls can legitimately choose the same ISO stop.
+  await image.click({position:{x:box.width*.9,y:box.height*.9}});await waitFrame(page);const right=Number(await image.getAttribute('data-ev'));
   expect(Math.abs(left-right)).toBeGreaterThan(.2);
   await page.locator('#metering').selectOption('matrix');await waitFrame(page);
   const unlit=await stats(page);await range(page,'flash',2);const lit=await stats(page);expect(lit.brightness).toBeGreaterThan(unlit.brightness*1.01);

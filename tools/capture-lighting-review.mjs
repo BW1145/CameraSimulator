@@ -1,6 +1,7 @@
 import {chromium} from '@playwright/test';
 import {readFile,mkdir,writeFile} from 'node:fs/promises';
-import {setRange,waitLayers} from '../tests/browser/controls.js';
+import {setRange,setRanges,waitLayers} from '../tests/browser/controls.js';
+import {APERTURES,SHUTTERS,ISOS} from '../src/camera.js';
 
 const out=process.argv[2]||'test-results/lighting';await mkdir(out,{recursive:true});
 const browser=await chromium.launch({channel:process.env.PW_CHANNEL||undefined,headless:true});
@@ -18,6 +19,7 @@ for(const enabled of [false,true]){
   await page.mouse.move(0,0);await waitLayers(page);
   await page.locator('#image').screenshot({path:`${out}/table-${enabled?'lit':'baseline'}.png`});
   records.push({enabled,data:await page.locator('#image').evaluate(e=>({...e.dataset}))});
+  if(enabled){await setRanges(page,{aperture:APERTURES.indexOf(1.4),shutter:SHUTTERS.indexOf(1/125),iso:ISOS.indexOf(100),focus:3.2});await waitLayers(page);await page.locator('#image').screenshot({path:`${out}/close-up.png`});}
   await page.unroute('**/subjects.json');
 }
 await page.goto(base+'/?renderer=gltf');await page.waitForFunction(()=>document.querySelector('#image').dataset.ready==='true');

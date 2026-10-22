@@ -175,7 +175,7 @@ function drawHistogram(pixels){
 }
 function updateFocus(){
   if(!track){$('focus-mark').hidden=true;return;}
-  const projection=track.ball?renderer.ballPosition(clock):renderer.project(track.object?track.object.localToWorld(track.localPoint.clone()):track.point);
+  const projection=renderer.projectTrack(track,clock);
   const visible=projection.z>0&&projection.x>=0&&projection.x<=1&&projection.y>=0&&projection.y<=1;
   if(visible){point={x:projection.x,y:projection.y};if(s.af==='AF-C')s.focus=clamp(projection.z,.2,50);}
   $('focus-mark').hidden=!visible;

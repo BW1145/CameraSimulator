@@ -12,11 +12,12 @@ export function createDeskFan(config,lookToward){
   let seed=7919;for(let i=0;i<finishPixels.data.length;i+=4){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const n=180+(seed>>>27);finishPixels.data[i]=finishPixels.data[i+1]=finishPixels.data[i+2]=n;finishPixels.data[i+3]=255;}
   finishContext.putImageData(finishPixels,0,0);
   const finish=new T.CanvasTexture(finishCanvas);finish.wrapS=finish.wrapT=T.RepeatWrapping;finish.repeat.set(3,3);finish.colorSpace=T.NoColorSpace;
-  const shell=new T.MeshPhysicalMaterial({color:0x465d50,metalness:.38,roughness:.44,clearcoat:.32,clearcoatRoughness:.28,bumpMap:finish,bumpScale:.00012,roughnessMap:finish,envMapIntensity:1.1});
+  const shell=new T.MeshPhysicalMaterial({color:0x343a37,metalness:.6,roughness:.38,clearcoat:.12,clearcoatRoughness:.28,bumpMap:finish,bumpScale:.00012,roughnessMap:finish,envMapIntensity:1.1});
   // Painted steel wire has a broad, restrained highlight. Chrome-like F0 on
   // subpixel tubes produced white specular beads instead of a resolved grille.
   const wire=new T.MeshPhysicalMaterial({color:0x3e4b42,metalness:.2,roughness:.68,specularIntensity:.25,envMapIntensity:.6});
   const brass=new T.MeshStandardMaterial({color:0x9b713c,metalness:.88,roughness:.39,bumpMap:finish,bumpScale:.00005,roughnessMap:finish,envMapIntensity:1.2});
+  const bladeMetal=new T.MeshPhysicalMaterial({color:0x6b706d,metalness:.95,roughness:.32,anisotropy:.35,bumpMap:finish,bumpScale:.00005,roughnessMap:finish,envMapIntensity:1.1});
   const darkMetal=new T.MeshStandardMaterial({color:0x333c34,metalness:.65,roughness:.4});
   const rubber=new T.MeshStandardMaterial({color:0x242722,roughness:.94});
   const add=(parent,geometry,material,x=0,y=0,z=0)=>{const mesh=new T.Mesh(geometry,material);mesh.position.set(x,y,z);parent.add(mesh);return mesh;};
@@ -73,8 +74,8 @@ export function createDeskFan(config,lookToward){
   for(let i=0;i<rows;i++){close(i*stride,(i+1)*stride);close((i+1)*stride+columns,i*stride+columns);}
   for(let j=0;j<columns;j++){close(j+1,j);close(rows*stride+j,rows*stride+j+1);}
   const bladeGeometry=new T.BufferGeometry();bladeGeometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));bladeGeometry.setAttribute('uv',new T.Float32BufferAttribute(uvs,2));bladeGeometry.setIndex(indices);bladeGeometry.computeVertexNormals();
-  for(let i=0;i<3;i++){const blade=add(rotor,bladeGeometry,brass);blade.rotation.z=i*Math.PI*2/3;}
-  const hub=add(rotor,new T.SphereGeometry(.041,24,16),brass,0,0,.035);hub.scale.z=.55;
+  for(let i=0;i<3;i++){const blade=add(rotor,bladeGeometry,bladeMetal);blade.rotation.z=i*Math.PI*2/3;}
+  const hub=add(rotor,new T.SphereGeometry(.041,24,16),bladeMetal,0,0,.035);hub.scale.z=.55;
   const badge=add(head,new T.CylinderGeometry(.027,.027,.007,24),shell,0,0,.112);badge.rotation.x=Math.PI/2;
   add(head,new T.TorusGeometry(.027,.0012,6,32),brass,0,0,.116);
   for(const x of [-.012,.012]){const screw=add(head,new T.SphereGeometry(.002,8,6),brass,x,0,.117);screw.scale.z=.35;}

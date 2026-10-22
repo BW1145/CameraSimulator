@@ -1,5 +1,14 @@
 import * as T from 'three';
 import {Reflector} from 'three/addons/objects/Reflector.js';
+import {createRoomMirrors,MirrorOptics} from './mirror-optics.js';
+
+export function sourceMatteMaterial(m){
+  const matte=new T.MeshLambertMaterial({color:m.color,map:m.map,lightMap:m.lightMap,lightMapIntensity:m.lightMapIntensity,
+    emissive:m.emissive,emissiveMap:m.emissiveMap,emissiveIntensity:m.emissiveIntensity,normalMap:m.normalMap,normalScale:m.normalScale,
+    bumpMap:m.bumpMap,bumpScale:m.bumpScale,aoMap:m.aoMap,aoMapIntensity:m.aoMapIntensity,side:m.side,vertexColors:m.vertexColors,
+    transparent:m.transparent,opacity:m.opacity,alphaTest:m.alphaTest,depthWrite:m.depthWrite,colorWrite:m.colorWrite,flatShading:m.flatShading});
+  matte.name=m.name;matte.userData={...m.userData};return matte;
+}
 
 // Reflections stay in linear, pre-exposed scene units. The camera's lens and
 // display curve are applied once, after reflection and temporal integration.
@@ -11,7 +20,7 @@ export const mirrorShader={
 
 export function roomLighting(owner,source){
   const {world,renderer,anchor}=owner;
-  const materials=new Set(),mirrors=[];
+  const materials=new Set();
   source.traverse(o=>{
     if(!o.isMesh)return;
     o.castShadow=true;o.receiveShadow=true;
@@ -19,8 +28,7 @@ export function roomLighting(owner,source){
       if(!m.isMeshStandardMaterial)continue;
       materials.add(m);
       // Legacy Cycles glossy shaders were exported as diffuse materials.
-      if(m.name.endsWith('-web')&&/metal|silver|razor/i.test(m.name)){m.metalness=.8;m.roughness=.3;}
-      if(/mirror/i.test(m.name))mirrors.push(o);
+      if(m.name.endsWith('-web')&&/metal|silver|brass|chrome|steel|copper/i.test(m.name)){m.metalness=.8;m.roughness=.3;}
       if(m.transparent)o.castShadow=false;
     }
   });
@@ -30,7 +38,7 @@ export function roomLighting(owner,source){
   source.traverse(o=>{
     if(!o.isMesh)return;
     const capture=m=>{
-      if(!captureMaterials.has(m))captureMaterials.set(m,new T.MeshLambertMaterial({color:m.color,map:m.map,emissive:m.emissive,emissiveMap:m.emissiveMap,emissiveIntensity:m.emissiveIntensity,side:m.side,transparent:m.transparent,opacity:m.opacity,alphaTest:m.alphaTest,depthWrite:m.depthWrite}));
+      if(!captureMaterials.has(m))captureMaterials.set(m,new T.MeshLambertMaterial({color:m.color,map:m.map,lightMap:m.lightMap,lightMapIntensity:m.lightMapIntensity,emissive:m.emissive,emissiveMap:m.emissiveMap,emissiveIntensity:m.emissiveIntensity,side:m.side,transparent:m.transparent||m.transmission>0,opacity:m.transmission>0?.12:m.opacity,alphaTest:m.alphaTest,depthWrite:m.transmission>0?false:m.depthWrite}));
       return captureMaterials.get(m);
     };
     restore.push([o,o.material]);o.material=Array.isArray(o.material)?o.material.map(capture):capture(o.material);
@@ -40,15 +48,9 @@ export function roomLighting(owner,source){
   for(const [mesh,material]of restore)mesh.material=material;
   for(const material of captureMaterials.values())material.dispose();
   world.environment=owner.environmentTarget.texture;pmrem.dispose();
-  for(const m of materials)m.envMapIntensity=.45;
-  // One planar mirror, rendered only when it is visible. Source geometry and
-  // transforms preserve its real outline rather than covering the mirror frame.
-  owner.reflections=[];
-  for(const mesh of [...new Set(mirrors)].slice(0,1)){
-    const mirror=new Reflector(mesh.geometry,{textureWidth:512,textureHeight:512,multisample:0,clipBias:.002,shader:mirrorShader});
-    mirror.position.copy(mesh.position);mirror.quaternion.copy(mesh.quaternion);mirror.scale.copy(mesh.scale);
-    mesh.visible=false;mesh.parent.add(mirror);owner.reflections.push(mirror);
-  }
+  for(const m of materials)m.envMapIntensity=owner.sourceDiffuse?1:.45;
+  owner.reflections=createRoomMirrors(owner,source);
+  if(owner.reflections.length)owner.mirrorOptics=new MirrorOptics(owner.reflections);
   owner.canvas.dataset.reflections=String(owner.reflections.length);
   owner.canvas.dataset.environment='room-probe';
 }
