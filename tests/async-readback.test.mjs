@@ -60,3 +60,20 @@ test('scene/size invalidation discards queued histogram as well as in-flight del
   owner.latestAnalysis=request;owner.analysisReadback.invalidate();read.resolve(new Uint8Array(4));await done;
   assert.equal(calls,1);assert.equal(writes,0);assert.equal(owner.latestAnalysis,null);
 });
+
+for(const fail of [false,true])test(`aid-only histogram uses final temporal photograph bindings and restores zebra/output${fail?' on error':''}`,()=>{
+  const finalTemporalTexture={},output={},analysisTarget={},postScene={},postCamera={};let target=output,passes=0,flushed=0;
+  const owner={analysisTarget,postScene,postCamera,analysisWidth:256,analysisHeight:100,analysisReadback:{version:7},
+    uniforms:{zebra:{value:true},plate:{value:finalTemporalTexture},skipLens:{value:true}},
+    renderer:{getRenderTarget:()=>target,setRenderTarget:value=>target=value,render(scene,camera){
+      passes++;assert.equal(scene,postScene);assert.equal(camera,postCamera);assert.equal(target,analysisTarget);
+      assert.equal(owner.uniforms.plate.value,finalTemporalTexture);assert.equal(owner.uniforms.skipLens.value,true);assert.equal(owner.uniforms.zebra.value,false);
+      if(fail)throw Error('Synthetic histogram failure');
+    }},flushAnalysis(){flushed++;},
+  };
+  const request={onPixels(){}};const run=()=>Renderer.prototype.analyseCurrent.call(owner,request);
+  if(fail)assert.throws(run,/Synthetic/);else run();
+  assert.equal(passes,1);assert.equal(flushed,fail?0:1);assert.equal(target,output);assert.equal(owner.uniforms.zebra.value,true);
+  assert.equal(owner.uniforms.plate.value,finalTemporalTexture);assert.equal(owner.uniforms.skipLens.value,true);
+  if(!fail)assert.deepEqual(owner.latestAnalysis,{version:7,width:256,height:100,request});
+});

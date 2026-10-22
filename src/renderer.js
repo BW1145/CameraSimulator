@@ -7,6 +7,7 @@ import {HDRLoader} from 'three/addons/loaders/HDRLoader.js';
 import {decodeRadianceTexture} from './linear-radiance.js';
 import {AsyncReadback} from './async-readback.js';
 import {FrameDiagnostics} from './frame-diagnostics.js';
+import {FramePacer} from './frame-pacer.js';
 
 const vertex=`varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}`;
 const fragment=`
@@ -105,6 +106,9 @@ export class Renderer {
     // The scene is drawn offscreen: default-framebuffer antialiasing cannot help.
     // Resolve both colour and depth so the lens pass sees the same geometry.
     const gl=this.renderer.getContext();
+    this.framePacer=new FramePacer(gl,()=>this.onFrameError?.());
+    canvas.addEventListener('webglcontextlost',()=>{this.framePacer.clear();this.analysisReadback.invalidate();});
+    canvas.addEventListener('webglcontextrestored',()=>{this.framePacer.reset();this.onTextureUpdate?.();});
     const supported=gl.getInternalformatParameter(gl.RENDERBUFFER,gl.RGBA16F,gl.SAMPLES);
     this.target.samples=Math.max(0,...Array.from(supported).filter(n=>n<=4));
     this.target.resolveDepthBuffer=true;
@@ -329,6 +333,13 @@ export class Renderer {
     const pixels=this.analysisPixels,request=next.request;
     this.analysisReadback.start(()=>this.renderer.readRenderTargetPixelsAsync(this.analysisTarget,0,0,next.width,next.height,pixels),
       request.onPixels,request.isCurrent,request.onError,()=>this.flushAnalysis(true));
+  }
+  analyseCurrent(request){
+    const output=this.renderer.getRenderTarget(),zebra=this.uniforms.zebra.value;
+    try{
+      this.uniforms.zebra.value=false;this.renderer.setRenderTarget(this.analysisTarget);this.renderer.render(this.postScene,this.postCamera);
+      this.latestAnalysis={version:this.analysisReadback.version,width:this.analysisWidth,height:this.analysisHeight,request};this.flushAnalysis();
+    }finally{this.uniforms.zebra.value=zebra;this.renderer.setRenderTarget(output);}
   }
   draw(s,exposure,time,analyse=false,output=null){
     if(!this.ready)return;

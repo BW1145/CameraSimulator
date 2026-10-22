@@ -52,11 +52,17 @@ async function waitCommit(page,kind,before){await page.waitForFunction(({kind,be
 async function input(page,id,value,event='input'){
   return page.evaluate(({id,value,event})=>{const el=document.getElementById(id);if(!el||el.disabled)throw Error(`Missing/disabled control ${id}`);const at=performance.now();if(el.type==='checkbox')el.checked=value;else el.value=String(value);el.dispatchEvent(new Event(event,{bubbles:true}));return at;},{id,value,event});
 }
-async function latency(page,start){await ready(page);return page.evaluate(start=>performance.now()-start,start);}
+async function completedPhoto(page,start=0){
+  await ready(page);
+  const revision=await page.locator('#image').getAttribute('data-requested-frame');
+  await page.waitForFunction(({revision,start})=>window.__reusePerformance.completions.some(frame=>frame.photo&&frame.revision===revision&&frame.at>=start),{revision,start},{polling:20,timeout:180000});
+  return page.evaluate(({revision,start})=>window.__reusePerformance.completions.find(frame=>frame.photo&&frame.revision===revision&&frame.at>=start).at,{revision,start});
+}
+async function latency(page,start){return await completedPhoto(page,start)-start;}
 async function state(page){return page.evaluate(()=>{
   const c=document.getElementById('image');return {canvas:{width:c.width,height:c.height,dataset:{...c.dataset}},viewport:{width:innerWidth,height:innerHeight,dpr:devicePixelRatio},controls:Object.fromEntries([...document.querySelectorAll('input[id],select[id]')].map(e=>[e.id,e.type==='checkbox'?e.checked:e.value])),diagnostics:window.__cameraDiagnostics?.snapshot?.()??null};
 });}
-async function capturePng(page,path){const data=await page.locator('#image').evaluate(c=>c.toDataURL('image/png').split(',')[1]);await writeFile(path,Buffer.from(data,'base64'));return {path,sha256:await hash(path)};}
+async function capturePng(page,path,id='image'){const data=await page.locator('#'+id).evaluate(c=>c.toDataURL('image/png').split(',')[1]);await writeFile(path,Buffer.from(data,'base64'));return {path,sha256:await hash(path)};}
 async function runSide(browser,config,side,url,repeat){
   const id=`${repeat}-${side}`,dir=join(config.out,id);await mkdir(dir,{recursive:true});
   const record={side,repeat,url,startedAt:new Date().toISOString(),scenarios:[],errors:[],httpErrors:[],failedRequests:[],status:'running'};
@@ -69,8 +75,8 @@ async function runSide(browser,config,side,url,repeat){
   await page.addInitScript({path:join(HERE,'performance/observe-browser.js')});
   const scenario=async(id,fn)=>{await mark(page,id);const entry={id,latencies:[]};record.scenarios.push(entry);await fn(entry);entry.state=await state(page);};
   try{
-    const navStart=Date.now();await page.goto(new URL('?diagnostics=performance',url).href);await ready(page);
-    const first={id:'first-scene',latencies:[Date.now()-navStart],note:'wall-clock navigation-to-first-ready photograph; selected-layer settling recorded separately'};record.scenarios.push(first);await ready(page,true);first.state=await state(page);first.png=await capturePng(page,join(dir,'initial.png'));
+    const navStart=Date.now();await page.goto(new URL('?diagnostics=performance',url).href);const completedAt=await completedPhoto(page);
+    const first={id:'first-scene',latencies:[await page.evaluate(at=>performance.timeOrigin+at,completedAt)-navStart],note:'wall-clock navigation-to-first fence-completed photograph; selected-layer settling recorded separately'};record.scenarios.push(first);await ready(page,true);first.state=await state(page);first.png=await capturePng(page,join(dir,'initial.png'));
     await scenario('first-interaction',async e=>{e.latencies.push(await latency(page,await input(page,'wb',5100)));});
     await scenario('parameter-drag',async e=>{
       // Sequential input-to-ready samples measure response; then a real timed burst
@@ -89,6 +95,13 @@ async function runSide(browser,config,side,url,repeat){
       for(const [x,y]of [[.5,.5],[.1,.5],[.9,.5],[.5,.1],[.5,.9]]){
         const before=await countCommits(page,'magnifier'),start=await page.evaluate(()=>performance.now());await page.mouse.move(box.x+box.width*x,box.y+box.height*y);await waitCommit(page,'magnifier',before);e.latencies.push(await page.evaluate(start=>performance.now()-start,start));await ready(page,true);
       }
+      // Frozen motion=false / time=0, same source detail layer and physical crop.
+      // Re-entry requires a NEW actual detail pixel commit, not a stale attribute.
+      await page.mouse.move(0,0);await ready(page,true);
+      const currentBox=await page.locator('#image').boundingBox(),before=await countCommits(page,'magnifier');
+      await page.mouse.move(currentBox.x+currentBox.width*.5,currentBox.y+currentBox.height*.5);await waitCommit(page,'magnifier',before);
+      e.detail=await page.locator('#magnifier').evaluate(canvas=>({normalizedHover:[.5,.5],time:0,width:canvas.width,height:canvas.height,cssWidth:canvas.clientWidth,cssHeight:canvas.clientHeight,dataset:{...canvas.dataset}}));
+      e.detailPng=await capturePng(page,join(dir,'paused-detail-center.png'),'magnifier');
       e.png=await capturePng(page,join(dir,'after-magnifier.png'));
     });
     await scenario('focus',async e=>{
@@ -146,12 +159,18 @@ async function compare(sharp,baseline,candidate){
     const controlsA={...a.state.controls},controlsB={...b.state.controls};assert.deepEqual(controlsA,controlsB,`${id}: control semantics changed`);
     comparisons.push({scenario:id,baseline:a.png,candidate:b.png,settingsEqual:true,format:ar.info,...comparePixels(ar.data,br.data)});
   }
+  const a=baseline.scenarios.find(s=>s.id==='magnifier'),b=candidate.scenarios.find(s=>s.id==='magnifier');
+  assert.equal(a.state.controls.motion,false);assert.equal(b.state.controls.motion,false);
+  for(const key of ['normalizedHover','time','width','height','cssWidth','cssHeight'])assert.deepEqual(a.detail[key],b.detail[key],`detail ${key} differs`);
+  const ar=await sharp(a.detailPng.path).ensureAlpha().raw().toBuffer({resolveWithObject:true}),br=await sharp(b.detailPng.path).ensureAlpha().raw().toBuffer({resolveWithObject:true});
+  assert.deepEqual(ar.info,br.info,'detail output format/resolution changed');
+  comparisons.push({scenario:'paused-detail-center',baseline:a.detailPng,candidate:b.detailPng,settingsEqual:true,normalizedHover:[.5,.5],time:0,format:ar.info,...comparePixels(ar.data,br.data)});
   return comparisons;
 }
 export async function main(config){
   if(config.help){process.stdout.write(HELP);return;}
   if(config.plan){process.stdout.write(JSON.stringify({viewport:VIEWPORT,deviceScaleFactor:DPR,scenarios:ids,repeats:config.repeats,order:'alternating baseline/candidate, then candidate/baseline',renderer:'CI SwiftShader software only',gpu:'real EXT_disjoint_timer_query_webgl2 if available; otherwise missing',completion:'CPU submission is not GPU completion; no gl.finish timing',scope:'no deployment, same fidelity and real controls'},null,2)+'\n');return;}
-  await mkdir(config.out,{recursive:true});const manifest={schema:1,startedAt:new Date().toISOString(),viewport:VIEWPORT,deviceScaleFactor:DPR,repeats:config.repeats,rendererLabel:'software SwiftShader only; not user-device FPS',metricDefinitions:{renderedRafCpuMs:'Entire callback that issued image-context draw calls; all photographic passes + same-frame metering + synchronous magnifier/UI work, CPU submission not GPU completion',wholeRafGpuMs:'Timer-query elapsed GPU command interval enclosing entire callback only when EXT is available and non-disjoint',readbackCpuMs:'Native readPixels/getBufferSubData CPU call time; async PBO submission separately labeled, not GPU time',latency:'browser clock event/input to matching ready revision or actual overlay pixel commit; poll interval ≤50ms, not presentation timestamp'},runs:[],comparisons:[],status:'running'};
+  await mkdir(config.out,{recursive:true});const manifest={schema:1,startedAt:new Date().toISOString(),viewport:VIEWPORT,deviceScaleFactor:DPR,repeats:config.repeats,rendererLabel:'software SwiftShader only; not user-device FPS',metricDefinitions:{renderedRafCpuMs:'Entire callback that issued image-context draw calls; all photographic passes + same-frame metering + synchronous magnifier/UI work, CPU submission not GPU completion',wholeRafGpuMs:'Timer-query elapsed GPU command interval enclosing entire callback only when EXT is available and non-disjoint',readbackCpuMs:'Native readPixels/getBufferSubData CPU call time; async PBO submission separately labeled, not GPU time',latency:'browser clock event/input to independently fence-completed matching-revision photograph on BOTH builds, or actual overlay pixel commit; polling20/50ms, not display presentation timestamp'},runs:[],comparisons:[],status:'running'};
   const servers=[];let browser;
   try{
     if(config.build)for(const root of [config.baselineRoot,config.candidateRoot])await command('npm',['run','build'],root);

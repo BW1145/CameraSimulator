@@ -2,6 +2,8 @@ import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
 import {openControl,motionSample,waitForMotion,waitFrame,waitInitialFrame,setRange} from './controls.js';
 import {focusRoom} from './focus-room.js';
+import {installRuntimeDiagnostics} from './runtime-diagnostics.js';
+installRuntimeDiagnostics(test);
 const range=setRange;
 const stats=async page=>{
   await page.mouse.move(0,0);

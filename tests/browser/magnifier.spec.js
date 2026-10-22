@@ -1,5 +1,7 @@
 import {test,expect} from '@playwright/test';
 import {openControl,setRange,setRanges,waitFrame,waitInitialFrame,waitLayers} from './controls.js';
+import {installRuntimeDiagnostics} from './runtime-diagnostics.js';
+installRuntimeDiagnostics(test);
 
 test.use({viewport:{width:1000,height:800}});
 

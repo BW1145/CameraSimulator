@@ -1,6 +1,6 @@
 // Opt-in CPU submission timings, not GPU completion times or device FPS.
 // The external Playwright benchmark supplies comparable whole-RAF, long-task,
-// readback and hardware timer-query evidence for baseline AND candidate.
+// readback and timer-query evidence for baseline AND candidate.
 export class FrameDiagnostics {
   constructor(renderer,enabled=false){
     this.enabled=enabled;this.frames=[];this.current=null;this.sequence=0;this.counts={};
