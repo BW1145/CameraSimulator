@@ -61,6 +61,9 @@ const mainFrame=page=>page.locator('#image').evaluate(canvas=>({
 }));
 
 test('paused fan magnifier requests real detail, resolves edge crops, and preserves the main photograph',async({page})=>{
+  // A 2.5× crop must exceed the 2560px base plate's 15% upgrade threshold;
+  // the unmagnified preview must still fit the base, preserving lazy loading.
+  await page.setViewportSize({width:1280,height:800});
   const errors=await observeMagnifier(page),requests=[];
   page.on('request',request=>{if(request.url().endsWith('/barbershop-plates/center-detail.webp'))requests.push(request.url());});
   await page.goto('/');await waitInitialFrame(page);await waitLayers(page);
