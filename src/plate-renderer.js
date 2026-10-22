@@ -6,6 +6,7 @@ import {TemporalIntegrator} from './temporal-integrator.js';
 import {HDRLoader} from 'three/addons/loaders/HDRLoader.js';
 import {decodeRadianceTexture} from './linear-radiance.js';
 import {createBallSubject} from './practice-ball.js';
+import {tabletopLighting} from './lighting.js';
 
 function readSourceDepth(depth){
   depth.colorSpace=T.NoColorSpace;depth.minFilter=T.NearestFilter;depth.magFilter=T.NearestFilter;depth.generateMipmaps=false;
@@ -22,12 +23,13 @@ export class PlateRenderer extends Renderer {
     this.integrator?.dispose();this.integrator=null;this.fan=null;this.motionSubject=null;this.subjectEnvironment?.dispose();this.subjectEnvironment=null;
     this.uniforms.plate.value=this.target.texture;
     this.plateMode=Boolean(scene.platePack);
+    this.canvas.dataset.reflections='0';this.canvas.dataset.environment='baked';
     if(!this.plateMode)return super.load(scene,onProgress);
     const version=++this.loadVersion;this.ready=false;
     const base=`${import.meta.env.BASE_URL}${scene.platePack}/`;
     const response=await fetch(base+'manifest.json');if(!response.ok)throw Error(`Scene pack ${response.status}`);
     const pack=await response.json();if(version!==this.loadVersion)return false;
-    if(this.world)disposeScene(this.world);
+    this.releaseLighting();if(this.world)disposeScene(this.world);
     this.pack=pack;this.packBase=base;this.scene=scene;this.exposureOffset=0;this.restoredLighting=true;
     this.nativeCamera={referenceFocal:this.pack.referenceFocal};
     const matrix=new T.Matrix4().fromArray(this.pack.views[0].cameraMatrix);this.anchor.setFromMatrixPosition(matrix);this.anchorRotation.setFromRotationMatrix(matrix);
@@ -67,6 +69,7 @@ export class PlateRenderer extends Renderer {
           const {RectAreaLightUniformsLib}=await import('three/addons/lights/RectAreaLightUniformsLib.js');if(version!==this.loadVersion)return false;RectAreaLightUniformsLib.init();
           for(const key of config.areaLights){const light=new T.RectAreaLight(new T.Color().fromArray(key.color),key.radiance,key.width,key.height);light.position.fromArray(key.position);light.lookAt(light.position.clone().add(new T.Vector3().fromArray(key.direction)));this.world.add(light);}
         }
+        if(config.tabletopLighting)tabletopLighting(this,config);
       }
     }
     await this.selectPosition('center',onProgress);
