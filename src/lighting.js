@@ -99,7 +99,7 @@ export function tabletopLighting(owner,config){
     light.castShadow=true;light.shadow.mapSize.set(512,512);Object.assign(light.shadow.camera,{left:-.8,right:.8,top:.8,bottom:-.8,near:.05,far:12});light.shadow.bias=-.0002;light.shadow.normalBias=.002;
     world.add(light,light.target);
   }
-  fan.group.traverse(o=>{if(o.isMesh)o.castShadow=!o.material.transparent&&o.geometry.type!=='TorusGeometry'&&o.geometry.type!=='TubeGeometry';});
+  fan.group.traverse(o=>{if(o.isMesh)o.castShadow=!o.material.transparent;});
   const renderReflection=reflection.onBeforeRender;
   reflection.onBeforeRender=function(renderer,scene,camera){
     // Capture the live subject against transparent clear, leaving the room's
@@ -120,7 +120,7 @@ export function tabletopLighting(owner,config){
     const direction=key?new T.Vector3().fromArray(config.position).sub(new T.Vector3().fromArray(key.position)):null;
     // Only the rotor's reflected and projected-shadow footprints change during
     // integration. Static marble, fan body and base retain the initial image.
-    for(const x of [-.21,.21])for(const v of [-.21,.21])for(const z of [-.015,.06]){
+    for(const x of [-.21,.21])for(const v of [-.21,.21])for(const z of [-.07,.125]){
       const p=new T.Vector3(x,v,z).applyMatrix4(fan.head.matrixWorld),mirror=p.clone();mirror.y=2*y-p.y;project(mirror);
       if(direction&&Math.abs(direction.y)>.0001)project(p.clone().addScaledVector(direction,(y+.001-p.y)/direction.y));
     }

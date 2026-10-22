@@ -1,10 +1,10 @@
 import * as T from 'three';
 
-// A small live photographic subject. The room stays pre-rendered; only this
-// stationary tabletop appliance needs geometry and an animated rotor.
+// Live vintage fan: geometry and response to the source HDR remain physical.
+// No original rendered fan pixels are used by this model.
 export function createDeskFan(config,lookToward){
   const group=new T.Group();group.position.fromArray(config.position);
-  group.rotation.y=Math.atan2(lookToward.x-group.position.x,lookToward.z-group.position.z);
+  group.rotation.y=Math.atan2(lookToward.x-group.position.x,lookToward.z-group.position.z)+(config.yawOffset??0);
   // Fine, deterministic surface variation catches the room's reflected lights
   // without painting illumination onto the fan or changing its exposure.
   const finishCanvas=document.createElement('canvas');finishCanvas.width=128;finishCanvas.height=128;
@@ -12,12 +12,14 @@ export function createDeskFan(config,lookToward){
   let seed=7919;for(let i=0;i<finishPixels.data.length;i+=4){seed=(Math.imul(seed,1664525)+1013904223)>>>0;const n=180+(seed>>>27);finishPixels.data[i]=finishPixels.data[i+1]=finishPixels.data[i+2]=n;finishPixels.data[i+3]=255;}
   finishContext.putImageData(finishPixels,0,0);
   const finish=new T.CanvasTexture(finishCanvas);finish.wrapS=finish.wrapT=T.RepeatWrapping;finish.repeat.set(3,3);finish.colorSpace=T.NoColorSpace;
-  const shell=new T.MeshPhysicalMaterial({color:0x343a37,metalness:.6,roughness:.38,clearcoat:.12,clearcoatRoughness:.28,bumpMap:finish,bumpScale:.00012,roughnessMap:finish,envMapIntensity:1.1});
+  // Black enamel is a dielectric paint over steel, not a green-tinted metal.
+  // Its broad clearcoat reflects the room while shadow-facing paint stays dark.
+  const shell=new T.MeshPhysicalMaterial({color:0x161917,metalness:.04,roughness:.42,clearcoat:.3,clearcoatRoughness:.24,bumpMap:finish,bumpScale:.000035,roughnessMap:finish,envMapIntensity:1});
   // Painted steel wire has a broad, restrained highlight. Chrome-like F0 on
   // subpixel tubes produced white specular beads instead of a resolved grille.
-  const wire=new T.MeshPhysicalMaterial({color:0x3e4b42,metalness:.2,roughness:.68,specularIntensity:.25,envMapIntensity:.6});
-  const brass=new T.MeshStandardMaterial({color:0x9b713c,metalness:.88,roughness:.39,bumpMap:finish,bumpScale:.00005,roughnessMap:finish,envMapIntensity:1.2});
-  const bladeMetal=new T.MeshPhysicalMaterial({color:0x6b706d,metalness:.95,roughness:.32,anisotropy:.35,bumpMap:finish,bumpScale:.00005,roughnessMap:finish,envMapIntensity:1.1});
+  const wire=new T.MeshPhysicalMaterial({color:0x101311,metalness:.08,roughness:.34,clearcoat:.22,clearcoatRoughness:.23,envMapIntensity:1});
+  const hardware=new T.MeshStandardMaterial({color:0x85857e,metalness:.9,roughness:.4,bumpMap:finish,bumpScale:.000025,roughnessMap:finish,envMapIntensity:1});
+  const bladeMetal=new T.MeshPhysicalMaterial({color:0x747671,metalness:.92,roughness:.4,anisotropy:.55,anisotropyRotation:Math.PI/2,bumpMap:finish,bumpScale:.000018,roughnessMap:finish,envMapIntensity:1});
   const darkMetal=new T.MeshStandardMaterial({color:0x333c34,metalness:.65,roughness:.4});
   const rubber=new T.MeshStandardMaterial({color:0x242722,roughness:.94});
   const add=(parent,geometry,material,x=0,y=0,z=0)=>{const mesh=new T.Mesh(geometry,material);mesh.position.set(x,y,z);parent.add(mesh);return mesh;};
@@ -27,34 +29,48 @@ export function createDeskFan(config,lookToward){
   const base=add(group,new T.LatheGeometry(profile,64),shell);base.scale.z=.83;
   for(const angle of [Math.PI/2,Math.PI*7/6,Math.PI*11/6])add(group,new T.CylinderGeometry(.012,.013,.006,16),rubber,Math.cos(angle)*.073,.003,Math.sin(angle)*.061);
   const baseSeam=add(group,new T.TorusGeometry(.106,.0012,6,64),darkMetal,0,.009,0);baseSeam.rotation.x=Math.PI/2;baseSeam.scale.y=.83;
-  add(group,new T.CylinderGeometry(.019,.026,.245,32),shell,0,.168,0);
+  const headHeight=config.headHeight??.435;
+  const neckTop=headHeight-.13;
+  add(group,new T.CylinderGeometry(.023,.032,neckTop-.05,32),shell,0,(neckTop+.05)/2,0);
   add(group,new T.CylinderGeometry(.028,.029,.014,32),shell,0,.049,0);
-  add(group,new T.CylinderGeometry(.023,.023,.008,24),brass,0,.288,0);
-  add(group,new T.SphereGeometry(.035,20,12),brass,0,.30,0);
-  const head=new T.Group();head.position.set(0,.435,0);head.rotation.x=-.09;group.add(head);
+  add(group,new T.CylinderGeometry(.026,.026,.009,24),hardware,0,neckTop-.012,0);
+  add(group,new T.SphereGeometry(.038,24,16),shell,0,neckTop,0);
+  const head=new T.Group();head.position.set(0,headHeight,0);head.rotation.x=config.headTilt??-.09;head.scale.setScalar(config.headScale??1);group.add(head);
   const motor=add(head,new T.CylinderGeometry(.065,.073,.13,24),shell,0,0,-.048);motor.rotation.x=Math.PI/2;
   const motorBack=add(head,new T.SphereGeometry(.065,32,16),shell,0,0,-.113);motorBack.scale.z=.42;
   for(const z of [-.104,-.094,-.084])add(head,new T.TorusGeometry(.064,.0015,6,48),darkMetal,0,0,z);
   for(let i=0;i<8;i++){const a=i*Math.PI/4;const vent=add(head,new T.BoxGeometry(.003,.017,.001),darkMetal,Math.cos(a)*.044,Math.sin(a)*.044,-.136);vent.rotation.z=a-Math.PI/2;}
   const radius=.19;
   const grille=[];
-  for(const z of [-.026,.064]){
-    const rim=add(head,new T.TorusGeometry(radius+.012,.004,8,64),wire,0,0,z);
+  // A sparse swept safety cage follows the reference appliance's silhouette.
+  // The wires are genuine curved tubes, so highlights and occlusion change
+  // continuously with camera position instead of becoming an opaque overlay.
+  for(const z of [-.026,.056]){
+    const rim=add(head,new T.TorusGeometry(radius+.012,.0033,10,96),wire,0,0,z);
     rim.name='Fan guard rim';
   }
-  for(const r of [.055,.09,.125,.16,.193]){
-    const z=.07+.035*Math.sqrt(Math.max(0,1-(r/.205)**2));
-    grille.push({mesh:add(head,new T.TorusGeometry(r,.0015,8,64),wire,0,0,z),medium:[.09,.16,.193].includes(r)});
+  for(let i=0;i<10;i++){
+    const angle=i*Math.PI*2/10,points=[];
+    for(let j=0;j<=18;j++){
+      const t=j/18,r=.034+.167*t;
+      const swept=angle+.10*Math.sin(Math.PI*t)-.08*t;
+      const z=.056+.058*Math.cos(t*Math.PI/2);
+      points.push(new T.Vector3(Math.cos(swept)*r,Math.sin(swept)*r,z));
+    }
+    grille.push({mesh:add(head,new T.TubeGeometry(new T.CatmullRomCurve3(points),24,.0018,8,false),wire),medium:i%2===0});
+    // Rear struts make the cage read as a volume at oblique angles.
+    const back=[];for(let j=0;j<=10;j++){
+      const t=j/10,r=.065+.136*t;
+      back.push(new T.Vector3(Math.cos(angle)*r,Math.sin(angle)*r,-.027-.038*Math.sin(Math.PI*t)));
+    }
+    add(head,new T.TubeGeometry(new T.CatmullRomCurve3(back),12,.0016,8,false),wire);
   }
-  for(let i=0;i<20;i++){
-    const angle=i*Math.PI*2/20,points=[];
-    for(let j=0;j<=8;j++){const r=.035+(.17*j/8),z=.064+.04*Math.sqrt(Math.max(0,1-(r/.205)**2));points.push(new T.Vector3(Math.cos(angle)*r,Math.sin(angle)*r,z));}
-    grille.push({mesh:add(head,new T.TubeGeometry(new T.CatmullRomCurve3(points),8,.00135,6,false),wire),medium:i%2===0});
+  for(let i=0;i<5;i++){
+    const a=i*Math.PI*2/5;
+    const clip=add(head,new T.BoxGeometry(.008,.013,.085),shell,Math.cos(a)*.201,Math.sin(a)*.201,.0145);clip.rotation.z=a;
   }
-  // Below a pixel, individual wires should contribute average coverage rather
-  // than sparkle. This disk is the spatially averaged unresolved grille, with
-  // actual mesh restored as soon as the projected head can resolve it.
-  const grilleAverage=add(head,new T.CircleGeometry(.193,64),new T.MeshBasicMaterial({color:0x303b34,transparent:true,opacity:.18,depthWrite:false}),0,0,.106);
+  // Spatial coverage proxy is used only when the actual wires are unresolved.
+  const grilleAverage=add(head,new T.CircleGeometry(.193,64),new T.MeshBasicMaterial({color:0x141713,transparent:true,opacity:.045,depthWrite:false}),0,0,.114);
   grilleAverage.userData.focusable=false;
   const rotor=new T.Group();head.add(rotor);
   // A thin, closed blade with an actual cambered and twisted surface. A flat
@@ -62,8 +78,8 @@ export function createDeskFan(config,lookToward){
   const positions=[],uvs=[],indices=[],rows=20,columns=16;
   for(let side=0;side<2;side++)for(let i=0;i<=rows;i++)for(let j=0;j<=columns;j++){
     const t=i/rows,v=j/columns,u=v*2-1,r=.027+.157*t;
-    const angle=-.35+.58*t+u*(.12+.49*Math.pow(Math.sin(Math.PI*t),.65));
-    positions.push(r*Math.cos(angle),r*Math.sin(angle),.018+.025*u*t+.014*Math.sin(Math.PI*t)*(1-u*u)+(side?-.0015:.0015));uvs.push(t,v);
+    const angle=-.46+.68*t+u*(.07+.68*Math.pow(Math.sin(Math.PI*t),.55));
+    positions.push(r*Math.cos(angle),r*Math.sin(angle),.012+.031*u*t+.021*Math.sin(Math.PI*t)*(1-u*u)+(side?-.001:.001));uvs.push(t,v);
   }
   const layer=(rows+1)*(columns+1),stride=columns+1;
   for(let side=0;side<2;side++)for(let i=0;i<rows;i++)for(let j=0;j<columns;j++){
@@ -76,9 +92,9 @@ export function createDeskFan(config,lookToward){
   const bladeGeometry=new T.BufferGeometry();bladeGeometry.setAttribute('position',new T.Float32BufferAttribute(positions,3));bladeGeometry.setAttribute('uv',new T.Float32BufferAttribute(uvs,2));bladeGeometry.setIndex(indices);bladeGeometry.computeVertexNormals();
   for(let i=0;i<3;i++){const blade=add(rotor,bladeGeometry,bladeMetal);blade.rotation.z=i*Math.PI*2/3;}
   const hub=add(rotor,new T.SphereGeometry(.041,24,16),bladeMetal,0,0,.035);hub.scale.z=.55;
-  const badge=add(head,new T.CylinderGeometry(.027,.027,.007,24),shell,0,0,.112);badge.rotation.x=Math.PI/2;
-  add(head,new T.TorusGeometry(.027,.0012,6,32),brass,0,0,.116);
-  for(const x of [-.012,.012]){const screw=add(head,new T.SphereGeometry(.002,8,6),brass,x,0,.117);screw.scale.z=.35;}
+  const badge=add(head,new T.SphereGeometry(.035,32,20),shell,0,0,.113);badge.scale.z=.22;
+  add(head,new T.TorusGeometry(.034,.0008,8,48),wire,0,0,.113);
+  for(const x of [-.013,.013]){const screw=add(head,new T.SphereGeometry(.0015,10,8),hardware,x,0,.121);screw.scale.z=.25;}
   // A soft contact shadow anchors the small base to the sampled real tabletop.
   const shadowCanvas=document.createElement('canvas');shadowCanvas.width=128;shadowCanvas.height=128;
   const context=shadowCanvas.getContext('2d'),gradient=context.createRadialGradient(64,64,0,64,64,63);
@@ -91,12 +107,12 @@ export function createDeskFan(config,lookToward){
     setQuality(camera,width,height){
       const bounds=this.bounds(camera,width,height),r=bounds?Math.max(bounds.width,bounds.height)/2-3:0;
       for(const item of grille)item.mesh.visible=r>=40||(r>=12&&item.medium);
-      grilleAverage.visible=r<40;grilleAverage.material.opacity=r<12?.18:.07;
+      grilleAverage.visible=r<40;grilleAverage.material.opacity=r<12?.045:.022;
     },
     center(){group.updateMatrixWorld(true);return head.getWorldPosition(new T.Vector3());},
     bounds(camera,width,height){
       group.updateMatrixWorld(true);let minX=Infinity,minY=Infinity,maxX=-Infinity,maxY=-Infinity;
-      for(const x of [-.21,.21])for(const y of [-.21,.21])for(const z of [-.015,.045]){
+      for(const x of [-.21,.21])for(const y of [-.21,.21])for(const z of [-.07,.125]){
         const p=new T.Vector3(x,y,z).applyMatrix4(head.matrixWorld).project(camera);minX=Math.min(minX,(p.x*.5+.5)*width);maxX=Math.max(maxX,(p.x*.5+.5)*width);minY=Math.min(minY,(p.y*.5+.5)*height);maxY=Math.max(maxY,(p.y*.5+.5)*height);
       }
       const x=Math.max(0,Math.floor(minX)-3),y=Math.max(0,Math.floor(minY)-3),right=Math.min(width,Math.ceil(maxX)+3),top=Math.min(height,Math.ceil(maxY)+3);

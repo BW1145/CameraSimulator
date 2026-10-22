@@ -1,0 +1,76 @@
+name: Photographic parity evidence (isolated prototype)
+
+on:
+  push:
+    branches: [prototype/photographic-parity]
+  workflow_dispatch:
+    inputs:
+      baseline_ref:
+        description: Baseline branch or commit (resolved commit is recorded)
+        required: true
+        default: 9fd67cfcf0730c3946f32510d008c5b09f384687
+        type: string
+      include_aligned:
+        description: Include approximate constrained original-reframing pairs
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: photographic-parity-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Check out candidate, without touching main
+        uses: actions/checkout@v4
+        with:
+          path: candidate
+      - name: Check out comparison baseline
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.baseline_ref || '9fd67cfcf0730c3946f32510d008c5b09f384687' }}
+          path: baseline
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            candidate/package-lock.json
+            baseline/package-lock.json
+      - name: Install candidate dependencies
+        working-directory: candidate
+        run: npm ci --prefer-offline
+      - name: Install baseline dependencies
+        working-directory: baseline
+        run: npm ci --prefer-offline
+      - name: Install deterministic software-browser dependencies
+        working-directory: candidate
+        run: npx playwright install --with-deps chromium
+      - name: Capture baseline and candidate photographs
+        env:
+          INCLUDE_ALIGNED: ${{ inputs.include_aligned || 'false' }}
+          PARITY_TIMEOUT_MS: '180000'
+        run: |
+          set -euo pipefail
+          extra=()
+          if [ "$INCLUDE_ALIGNED" = "true" ]; then extra+=(--include-aligned); fi
+          node candidate/tools/capture-photographic-parity.mjs \
+            --baseline-root "$GITHUB_WORKSPACE/baseline" \
+            --candidate-root "$GITHUB_WORKSPACE/candidate" \
+            --out "$GITHUB_WORKSPACE/photographic-parity-evidence" \
+            --build --serve "${extra[@]}"
+      - name: Preserve photographs, exact settings, errors and source hashes
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: photographic-parity-${{ github.sha }}
+          path: photographic-parity-evidence/
+          if-no-files-found: warn
+          retention-days: 14
