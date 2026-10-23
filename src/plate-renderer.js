@@ -190,10 +190,13 @@ export class PlateRenderer extends Renderer {
       // Only the currently selected room/position may promote a late detail map.
       if(resource!==this.plate||base!==this.packBase){encoded.dispose();depth?.dispose();return;}
       const linear=decodeRadianceTexture(encoded,encoding,Math.min(4,this.renderer.capabilities.getMaxAnisotropy()));
+      const previousWidth=resource.image.image.width;
       resource.image.dispose();resource.image=linear;this.plateUniforms.image.value=linear;
       if(depth){const upgraded=readSourceDepth(depth);resource.depth.dispose();Object.assign(resource,upgraded);this.plateUniforms.depth.value=depth;this.canvas.dataset.detailDepthWidth=String(upgraded.width);}
       this.plateUniforms.flashImage.value=resource.flash||linear;
-      this.canvas.dataset.detailWidth=String(linear.image.width);this.trimDecodedCache();this.onTextureUpdate?.();
+      this.canvas.dataset.detailWidth=String(linear.image.width);this.trimDecodedCache();
+      const sameCapture=Boolean(this.pack.sourceSha256)&&this.pack.detail?.sourceSha256===this.pack.sourceSha256;
+      this.onTextureUpdate?.(sameCapture?{kind:'detail-resolution',resource,viewId:entry.id,sourceSha256:this.pack.sourceSha256,fromWidth:previousWidth,toWidth:linear.image.width}:undefined);
     }).catch(()=>{resource.detailFailed=true;if(resource===this.plate)this.onLayerError?.('高精度图',()=>{resource.detailFailed=false;this.ensureDetail(s,width);});}).finally(()=>{resource.detailLoading=false;}));
     return resource.detailTask;
   }
@@ -229,10 +232,11 @@ export class PlateRenderer extends Renderer {
     const vertical=Math.tan(this.camera.fov*Math.PI/360);this.plateUniforms.tanHalfFov.value.set(vertical*aspect,vertical);
     this.ensureDetail(s,this.detailView?.fullWidth??this.canvas.width);this.applyDetailView();
   }
-  drawDetail(s,exposure,time,region,destination){
+  drawDetail(s,exposure,time,region,destination,request){
     if(!this.ready||!this.plateMode)return false;
     this.detailPass??=new DetailPass(this);
-    this.detailPass.render(this,s,exposure,time,region,destination);return true;
+    // A busy pass is handled (not a request to upscale preview pixels).
+    this.detailPass.render(this,s,exposure,time,region,destination,request);return true;
   }
   uvAt(x,y){
     const t=this.plateUniforms.tanHalfFov.value;

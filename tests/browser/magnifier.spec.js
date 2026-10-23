@@ -1,5 +1,7 @@
 import {test,expect} from '@playwright/test';
 import {openControl,setRange,setRanges,waitFrame,waitInitialFrame,waitLayers} from './controls.js';
+import {installRuntimeDiagnostics} from './runtime-diagnostics.js';
+installRuntimeDiagnostics(test);
 
 test.use({viewport:{width:1000,height:800}});
 
@@ -32,6 +34,14 @@ async function hoverDetail(page,x=.5,y=.5){
   await expect.poll(()=>page.evaluate(()=>window.magnifierEvidence.writes),{message:'hover must produce a fresh offscreen detail image'}).toBeGreaterThan(before);
   await expect(page.locator('#magnifier')).toBeVisible();
   await expect(page.locator('#magnifier')).toHaveAttribute('data-source','detail-render');
+  // Provisional feedback is useful, but every photographic assertion below
+  // still waits for the actual selected high-resolution source to be rendered.
+  await waitLayers(page);
+  await expect(page.locator('#magnifier')).toHaveAttribute('data-state','ready');
+  await expect.poll(()=>page.locator('#magnifier').evaluate(canvas=>{
+    const image=document.getElementById('image');
+    return Number(canvas.dataset.sourceWidth)>=Number(image.dataset.detailWidth)&&Number(canvas.dataset.sourceDepthWidth)>=Number(image.dataset.detailDepthWidth);
+  })).toBe(true);
 }
 
 async function assertDetailPixels(page){

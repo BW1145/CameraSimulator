@@ -122,3 +122,16 @@ test('flash decoding remains independent of center base and detail encoding over
   assertDecoded(owner.plate.flash,owner.pack.encoding);
   assert.equal(owner.canvas.dataset.pendingLayers,'0');
 });
+
+for(const identity of ['same','different','missing'])test(`only matched same-capture resolution upgrades are tagged (${identity})`,async t=>{
+  const {owner}=fixture(t),events=[];
+  if(identity!=='missing')owner.pack.sourceSha256='capture-source';
+  if(identity!=='missing')owner.pack.detail.sourceSha256=identity==='same'?'capture-source':'other-source';
+  owner.onTextureUpdate=event=>events.push(event);
+  await owner.selectPosition('center');await owner.ensureDetail({focal:50},100);
+  assert.equal(events.length,1);
+  if(identity==='same')assert.deepEqual(events[0],{kind:'detail-resolution',resource:owner.plate,viewId:'center',sourceSha256:'capture-source',fromWidth:2,toWidth:4});
+  else assert.equal(events[0],undefined);
+  owner.ensureFlash();await owner.plate.flashTask;
+  assert.equal(events.length,2);assert.equal(events[1],undefined,'flash must not preserve old-source detail');
+});

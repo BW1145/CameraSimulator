@@ -1,0 +1,105 @@
+name: Reuse responsiveness evidence (isolated prototype)
+
+on:
+  push:
+    branches: [prototype/reuse-performance]
+  workflow_dispatch:
+    inputs:
+      baseline_ref:
+        description: Baseline commit (default deployed main has canonical tree 2ad102c)
+        required: true
+        default: 9fd67cfcf0730c3946f32510d008c5b09f384687
+        type: string
+      repeats:
+        description: Alternating before/after rounds (1–4)
+        required: true
+        default: '2'
+        type: choice
+        options: ['1', '2', '3', '4']
+
+permissions:
+  contents: read
+
+concurrency:
+  group: reuse-performance-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Check out candidate without touching main
+        uses: actions/checkout@v4
+        with:
+          path: candidate
+      - name: Check out fixed comparison baseline
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.baseline_ref || '9fd67cfcf0730c3946f32510d008c5b09f384687' }}
+          path: baseline
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: |
+            candidate/package-lock.json
+            baseline/package-lock.json
+      - name: Install pinned dependencies
+        run: |
+          npm ci --prefer-offline --prefix candidate
+          npm ci --prefer-offline --prefix baseline
+      - name: Check measurement calculations
+        working-directory: candidate
+        run: node --test tools/performance/metrics.test.mjs
+      - name: Install isolated software browser
+        working-directory: candidate
+        run: npx playwright install --with-deps chromium
+      - name: Benchmark matched production builds with the same instrumentation
+        env:
+          REPEATS: ${{ inputs.repeats || '2' }}
+        run: |
+          node candidate/tools/benchmark-reuse-performance.mjs \
+            --baseline-root "$GITHUB_WORKSPACE/baseline" \
+            --candidate-root "$GITHUB_WORKSPACE/candidate" \
+            --out "$GITHUB_WORKSPACE/reuse-performance-evidence" \
+            --repeats "$REPEATS" --build --serve
+      - name: Preserve exact source/build hashes, whole-frame metrics, image comparisons and traces
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reuse-performance-${{ github.sha }}
+          path: reuse-performance-evidence/
+          if-no-files-found: warn
+          retention-days: 14
+
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --prefer-offline
+      - run: npm test
+      - run: node --test tools/performance/metrics.test.mjs
+      - run: npm run audit:assets
+      - run: node tools/audit-scene-plates.mjs public/scenes/barbershop-plates public/scenes/classroom-plates public/scenes/kitchen-plates public/scenes/apartment-plates
+      - run: npx playwright install --with-deps chromium
+      - name: Run the complete browser regression suite in software only
+        env:
+          CI: '1'
+        run: npm run test:browser -- --shard=${{ matrix.shard }}/3
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reuse-regression-${{ matrix.shard }}-${{ github.sha }}
+          path: test-results/
+          if-no-files-found: warn
+          retention-days: 14
