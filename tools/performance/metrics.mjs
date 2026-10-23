@@ -6,7 +6,7 @@ export function distribution(values){
 export function summarize(evidence,scenarios){
   return Object.fromEntries(scenarios.map(s=>{
     const frames=evidence.frames.filter(f=>f.label===s.id),reads=evidence.reads.filter(r=>r.label===s.id),longTasks=evidence.longTasks.filter(t=>t.label===s.id);
-    return [s.id,{latencies:s.latencies,renderedRafCpuMs:distribution(frames.map(f=>f.cpuMs)),wholeRafGpuMs:distribution(frames.map(f=>f.gpuMs)),submissionToCompletionMs:distribution(frames.map(f=>f.submissionToCompletionMs)),drawCalls:distribution(frames.map(f=>f.drawCalls)),readbackCalls:reads.length,readbackCpuMs:distribution(reads.map(r=>r.cpuMs)),synchronousArrayReads:reads.filter(r=>r.mode==='synchronous-array').length,pixelPackBufferReads:reads.filter(r=>r.mode==='pixel-pack-buffer').length,longTaskMs:distribution(longTasks.map(t=>t.duration)),gpuSampleMissing:frames.filter(f=>f.gpuUnavailable).map(f=>f.gpuUnavailable)}];
+    return [s.id,{latencies:s.latencies,magnifierFirstFeedbackMs:distribution(s.firstFeedbackLatencies??[]),magnifierFinalReadyMs:distribution(s.finalReadyLatencies??[]),renderedRafCpuMs:distribution(frames.map(f=>f.cpuMs)),wholeRafGpuMs:distribution(frames.map(f=>f.gpuMs)),submissionToCompletionMs:distribution(frames.map(f=>f.submissionToCompletionMs)),drawCalls:distribution(frames.map(f=>f.drawCalls)),readbackCalls:reads.length,readbackCpuMs:distribution(reads.map(r=>r.cpuMs)),synchronousArrayReads:reads.filter(r=>r.mode==='synchronous-array').length,pixelPackBufferReads:reads.filter(r=>r.mode==='pixel-pack-buffer').length,longTaskMs:distribution(longTasks.map(t=>t.duration)),gpuSampleMissing:frames.filter(f=>f.gpuUnavailable).map(f=>f.gpuUnavailable)}];
   }));
 }
 export function comparePixels(a,b){

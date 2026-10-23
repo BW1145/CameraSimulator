@@ -14,3 +14,10 @@ test('pixel comparisons report exact equality and every differing byte',()=>{
   assert.deepEqual(comparePixels(Uint8Array.of(1,2),Uint8Array.of(3,2)),{bytes:2,meanAbsoluteByteDifference:1,maxAbsoluteByteDifference:2,changedByteFraction:.5,identical:false});
   assert.throws(()=>comparePixels(Uint8Array.of(1),Uint8Array.of(1,2)),/equal byte/);
 });
+
+test('progressive feedback and required-quality detail remain separate latency metrics',()=>{
+  const result=summarize({frames:[],reads:[],longTasks:[]},[{id:'magnifier',latencies:[2300,310],firstFeedbackLatencies:[750,310],finalReadyLatencies:[2300,310]}]).magnifier;
+  assert.deepEqual(result.latencies,[2300,310]);
+  assert.equal(result.magnifierFirstFeedbackMs.max,750);assert.equal(result.magnifierFinalReadyMs.max,2300);
+  assert.equal(result.magnifierFirstFeedbackMs.n,2);assert.equal(result.magnifierFinalReadyMs.n,2);
+});

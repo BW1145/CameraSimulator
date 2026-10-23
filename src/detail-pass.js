@@ -15,6 +15,7 @@ export class DetailPass {
   render(owner,s,exposure,time,region,destination,request={}) {
     if(!this.readback.available)return false;
     const gl=owner.renderer;
+    const sourceWidth=owner.plate?.image?.image.width??0,sourceDepthWidth=owner.plate?.width??0;
     const saved={target:owner.target,integrator:owner.integrator,optics:owner.plateOptics,stats:owner.frameStats,
       autoClear:gl.autoClear,clearColor:gl.getClearColor(new T.Color()),clearAlpha:gl.getClearAlpha(),
       flashPower:owner.flashLight.intensity,roomFlash:owner.plateUniforms.flashStrength.value,
@@ -40,7 +41,7 @@ export class DetailPass {
         this.image??=ctx.createImageData(region.outputWidth,region.outputHeight);
         const stride=region.outputWidth*4;
         for(let row=0;row<region.outputHeight;row++)this.image.data.set(pixels.subarray(row*stride,(row+1)*stride),(region.outputHeight-1-row)*stride);
-        ctx.putImageData(this.image,0,0);request.onCommit?.();
+        ctx.putImageData(this.image,0,0);request.onCommit?.({sourceWidth,sourceDepthWidth});
       },request.isCurrent,request.onError);
     } finally {
       owner.detailView=null;owner.target=saved.target;owner.integrator=saved.integrator;owner.plateOptics=saved.optics;

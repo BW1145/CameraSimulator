@@ -49,6 +49,32 @@ async function ready(page,layers=false){
 async function mark(page,id){return page.evaluate(id=>window.__reusePerformance.mark(id),id);}
 async function countCommits(page,kind){return page.evaluate(kind=>window.__reusePerformance.commits.filter(c=>c.kind===kind).length,kind);}
 async function waitCommit(page,kind,before){await page.waitForFunction(({kind,before})=>window.__reusePerformance.commits.filter(c=>c.kind===kind).length>before,{kind,before},{polling:50,timeout:180000});}
+async function hoverDetailEvidence(page,x,y){
+  const initial=await page.locator('#image').evaluate(c=>({sourceWidth:Number(c.dataset.detailWidth),sourceDepthWidth:Number(c.dataset.detailDepthWidth)}));
+  const box=await page.locator('#image').boundingBox(),before=await countCommits(page,'magnifier'),start=await page.evaluate(()=>performance.now());
+  await page.mouse.move(box.x+box.width*x,box.y+box.height*y);await waitCommit(page,'magnifier',before);
+  const first=await page.evaluate(before=>window.__reusePerformance.commits.filter(c=>c.kind==='magnifier').slice(before)[0],before);
+  assert.ok(first.at>=start,'first detail commit must follow this hover');
+  // Wait through the selected-view promotion without moving the pointer. A
+  // ready main photograph or completed download is NOT a final detail commit.
+  await ready(page,true);
+  const required=await page.locator('#image').evaluate(c=>({sourceWidth:Number(c.dataset.detailWidth),sourceDepthWidth:Number(c.dataset.detailDepthWidth)}));
+  await page.waitForFunction(({before,start,required})=>window.__reusePerformance.commits.filter(c=>c.kind==='magnifier').slice(before).some(c=>
+    c.at>=start&&c.sourceWidth>=required.sourceWidth&&c.sourceDepthWidth>=required.sourceDepthWidth&&
+    (c.metadataOrigin==='committed-snapshot'?c.state==='ready':c.sourceAtWrite.pendingLayers===0)),{before,start,required},{polling:50,timeout:180000});
+  const final=await page.evaluate(({before,start,required})=>window.__reusePerformance.commits.filter(c=>c.kind==='magnifier').slice(before).find(c=>
+    c.at>=start&&c.sourceWidth>=required.sourceWidth&&c.sourceDepthWidth>=required.sourceDepthWidth&&
+    (c.metadataOrigin==='committed-snapshot'?c.state==='ready':c.sourceAtWrite.pendingLayers===0)),{before,start,required});
+  const promoted=required.sourceWidth>first.sourceWidth||required.sourceDepthWidth>first.sourceDepthWidth;
+  if(promoted)assert.ok(final.at>first.at,'promotion requires a NEW actual high-resolution detail commit');
+  for(const row of [first,final]){
+    assert.equal(row.controlsAtWrite.motion,false,'frozen detail comparison requires motion=false');
+    assert.ok(Math.abs(row.hoverIntent.x-x)<.002&&Math.abs(row.hoverIntent.y-y)<.002,'committed crop must retain requested hover intent');
+  }
+  assert.deepEqual(first.controlsAtWrite,final.controlsAtWrite,'promotion must retain photographic settings');
+  assert.equal(first.sourceTime,final.sourceTime,'promotion must retain captured time');
+  return {normalizedHover:[x,y],start,initial,required,promoted,firstFeedbackMs:first.at-start,finalReadyMs:final.at-start,firstCommit:first,finalCommit:final};
+}
 async function input(page,id,value,event='input'){
   return page.evaluate(({id,value,event})=>{const el=document.getElementById(id);if(!el||el.disabled)throw Error(`Missing/disabled control ${id}`);const at=performance.now();if(el.type==='checkbox')el.checked=value;else el.value=String(value);el.dispatchEvent(new Event(event,{bubbles:true}));return at;},{id,value,event});
 }
@@ -91,15 +117,18 @@ async function runSide(browser,config,side,url,repeat){
       await input(page,'histogram-toggle',false,'change');await ready(page);
     });
     await scenario('magnifier',async e=>{
-      const box=await page.locator('#image').boundingBox();
+      e.hovers=[];e.firstFeedbackLatencies=[];e.finalReadyLatencies=[];
       for(const [x,y]of [[.5,.5],[.1,.5],[.9,.5],[.5,.1],[.5,.9]]){
-        const before=await countCommits(page,'magnifier'),start=await page.evaluate(()=>performance.now());await page.mouse.move(box.x+box.width*x,box.y+box.height*y);await waitCommit(page,'magnifier',before);e.latencies.push(await page.evaluate(start=>performance.now()-start,start));await ready(page,true);
+        const hover=await hoverDetailEvidence(page,x,y);e.hovers.push(hover);
+        e.firstFeedbackLatencies.push(hover.firstFeedbackMs);e.finalReadyLatencies.push(hover.finalReadyMs);
+        // Keep the generic latency field at final required quality, never the
+        // lower-resolution provisional feedback that may precede promotion.
+        e.latencies.push(hover.finalReadyMs);
       }
       // Frozen motion=false / time=0, same source detail layer and physical crop.
       // Re-entry requires a NEW actual detail pixel commit, not a stale attribute.
       await page.mouse.move(0,0);await ready(page,true);
-      const currentBox=await page.locator('#image').boundingBox(),before=await countCommits(page,'magnifier');
-      await page.mouse.move(currentBox.x+currentBox.width*.5,currentBox.y+currentBox.height*.5);await waitCommit(page,'magnifier',before);
+      e.frozenDetailEvidence=await hoverDetailEvidence(page,.5,.5);
       e.detail=await page.locator('#magnifier').evaluate(canvas=>({normalizedHover:[.5,.5],time:0,width:canvas.width,height:canvas.height,cssWidth:canvas.clientWidth,cssHeight:canvas.clientHeight,dataset:{...canvas.dataset}}));
       e.detailPng=await capturePng(page,join(dir,'paused-detail-center.png'),'magnifier');
       e.png=await capturePng(page,join(dir,'after-magnifier.png'));
@@ -170,7 +199,7 @@ async function compare(sharp,baseline,candidate){
 export async function main(config){
   if(config.help){process.stdout.write(HELP);return;}
   if(config.plan){process.stdout.write(JSON.stringify({viewport:VIEWPORT,deviceScaleFactor:DPR,scenarios:ids,repeats:config.repeats,order:'alternating baseline/candidate, then candidate/baseline',renderer:'CI SwiftShader software only',gpu:'real EXT_disjoint_timer_query_webgl2 if available; otherwise missing',completion:'CPU submission is not GPU completion; no gl.finish timing',scope:'no deployment, same fidelity and real controls'},null,2)+'\n');return;}
-  await mkdir(config.out,{recursive:true});const manifest={schema:1,startedAt:new Date().toISOString(),viewport:VIEWPORT,deviceScaleFactor:DPR,repeats:config.repeats,rendererLabel:'software SwiftShader only; not user-device FPS',metricDefinitions:{renderedRafCpuMs:'Entire callback that issued image-context draw calls; all photographic passes + same-frame metering + synchronous magnifier/UI work, CPU submission not GPU completion',wholeRafGpuMs:'Timer-query elapsed GPU command interval enclosing entire callback only when EXT is available and non-disjoint',readbackCpuMs:'Native readPixels/getBufferSubData CPU call time; async PBO submission separately labeled, not GPU time',latency:'browser clock event/input to independently fence-completed matching-revision photograph on BOTH builds, or actual overlay pixel commit; polling20/50ms, not display presentation timestamp'},runs:[],comparisons:[],status:'running'};
+  await mkdir(config.out,{recursive:true});const manifest={schema:1,startedAt:new Date().toISOString(),viewport:VIEWPORT,deviceScaleFactor:DPR,repeats:config.repeats,rendererLabel:'software SwiftShader only; not user-device FPS',metricDefinitions:{renderedRafCpuMs:'Entire callback that issued image-context draw calls; all photographic passes + same-frame metering + synchronous magnifier/UI work, CPU submission not GPU completion',wholeRafGpuMs:'Timer-query elapsed GPU command interval enclosing entire callback only when EXT is available and non-disjoint',readbackCpuMs:'Native readPixels/getBufferSubData CPU call time; async PBO submission separately labeled, not GPU time',latency:'browser clock event/input to independently fence-completed matching-revision photograph on BOTH builds, or actual overlay pixel commit; polling20/50ms, not display presentation timestamp',magnifierFirstFeedbackMs:'hover to first actual detail pixel commit, including explicitly tagged lower-source-resolution loading feedback',magnifierFinalReadyMs:'hover to NEW actual detail commit at current required settled source/depth widths, state ready for tagged candidate or synchronous baseline resource-at-write with pendingLayers0; settings/time/crop unchanged'},runs:[],comparisons:[],status:'running'};
   const servers=[];let browser;
   try{
     if(config.build)for(const root of [config.baselineRoot,config.candidateRoot])await command('npm',['run','build'],root);

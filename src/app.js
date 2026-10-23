@@ -5,6 +5,7 @@ import {Renderer} from './renderer.js';
 import {PlateRenderer} from './plate-renderer.js';
 import {previewSize,captureSize} from './render-size.js';
 import {detailRegion} from './detail-region.js';
+import {canDeliverDetail} from './detail-feedback.js';
 
 const $=id=>document.getElementById(id);
 const canvas=$('image'),view=$('viewfinder'),loading=$('loading');
@@ -21,6 +22,7 @@ if(sourceView||usePlates){
 let dirty=true,meterDirty=true,ready=false,histogramRequested=false,lastFrame=0,lastAnalysis=0,clock=0,lastClock=performance.now(),track=null,point={x:.5,y:.5},loadVersion=0;
 let pointer=null,hover=null,capturing=false;
 let frameRevision=0,displayedFrame=null,displayedSerial=0,lastMagnifierAt=0,magnifierKey=null,magnifierCommittedRegion=null;
+let photographicIntent=0,magnifierGeneration=0,magnifierCommitted=null;
 const tables={aperture:APERTURES,shutter:SHUTTERS,iso:ISOS};
 const numeric=['wb','focal','focus','compensation','flash','x','y','z','yaw','pitch','roll'];
 const selects=['mode','metering','af','crop','sensor'];
@@ -45,9 +47,17 @@ async function changePosition(){
 }
 for(const item of SCENES)$('scene').add(new Option(item.name,item.id));
 
-function discardDisplayedFrame(){displayedFrame=null;magnifierKey=null;magnifierCommittedRegion=null;$('magnifier').hidden=true;renderer?.analysisReadback.invalidate();renderer?.detailPass?.readback.invalidate();}
-function invalidate(geometry=true){discardDisplayedFrame();dirty=true;canvas.dataset.ready='false';canvas.dataset.requestedFrame=String(++frameRevision);if(geometry)meterDirty=true;}
-if(renderer){renderer.onTextureUpdate=()=>{canvas.dataset.ready='false';invalidate();$('hint').textContent=renderer.plateMode?'点击对焦 · 拖动取景':'点击对焦 · 拖动转向 · WASD 移动';};renderer.onLayerError=(name,retry)=>{$('hint').textContent=`${name}加载失败 `;const button=document.createElement('button');button.textContent='重试';button.onclick=retry;$('hint').append(button);};}
+function discardDisplayedFrame(promotion=false){
+  renderer?.analysisReadback.invalidate();
+  if(promotion)return; // keep the last valid same-intent snapshot while upgrading
+  photographicIntent++;displayedFrame=null;magnifierKey=null;magnifierCommittedRegion=null;magnifierCommitted=null;
+  $('magnifier').hidden=true;$('magnifier-status').hidden=true;renderer?.detailPass?.readback.invalidate();
+}
+function invalidate(geometry=true,promotion=false){discardDisplayedFrame(promotion);dirty=true;canvas.dataset.ready='false';canvas.dataset.requestedFrame=String(++frameRevision);if(geometry)meterDirty=true;}
+if(renderer){renderer.onTextureUpdate=event=>{
+  const promotion=event?.kind==='detail-resolution'&&event.resource===renderer.plate&&event.viewId===renderer.entry?.id&&Boolean(event.sourceSha256)&&event.sourceSha256===renderer.pack?.sourceSha256&&event.toWidth>event.fromWidth;
+  canvas.dataset.ready='false';invalidate(true,promotion);$('hint').textContent=renderer.plateMode?'点击对焦 · 拖动取景':'点击对焦 · 拖动转向 · WASD 移动';
+};renderer.onContextLost=()=>{discardDisplayedFrame();canvas.dataset.ready='false';};renderer.onLayerError=(name,retry)=>{$('hint').textContent=`${name}加载失败 `;const button=document.createElement('button');button.textContent='重试';button.onclick=retry;$('hint').append(button);};}
 if(renderer)renderer.onFrameError=()=>{$('hint').textContent='GPU 同步失败，请重新加载页面。';canvas.dataset.frameFenceError='true';};
 function resetView(){for(const key of ['x','y','z','yaw','pitch','roll'])s[key]=0;track=null;point={x:.5,y:.5};invalidate();sync();if(ready&&renderer.plateMode)changePosition();}
 function sync(){
@@ -104,7 +114,7 @@ for(const [id,key]of Object.entries(checks))$(id).addEventListener('change',()=>
   // Showing/hiding an aid changes no photographic setting. Reuse the current
   // photograph instead of queuing an otherwise identical expensive new one.
   if(key==='histogram'){renderer.analysisReadback.invalidate();histogramRequested=s.histogram;sync();return;}
-  if(key==='magnifier'){renderer.detailPass?.readback.invalidate();magnifierKey=null;$('magnifier').hidden=!s.magnifier;sync();return;}
+  if(key==='magnifier'){renderer.detailPass?.readback.invalidate();magnifierKey=null;$('magnifier').hidden=!s.magnifier;if(!s.magnifier)$('magnifier-status').hidden=true;sync();return;}
   if(key==='motion')track=null;invalidate(key==='motion');sync();
 });
 $('reset').addEventListener('click',()=>{
@@ -164,48 +174,74 @@ canvas.addEventListener('pointermove',e=>{
 });
 canvas.addEventListener('pointerup',e=>{const box=canvas.getBoundingClientRect();if(pointer&&!pointer.dragged)focusAt((e.clientX-box.left)/box.width,1-(e.clientY-box.top)/box.height);pointer=null;});
 canvas.addEventListener('pointercancel',()=>{pointer=null;});
-canvas.addEventListener('pointerleave',()=>{hover=null;magnifierKey=null;renderer.detailPass?.readback.invalidate();$('magnifier').hidden=true;});
+canvas.addEventListener('pointerleave',()=>{hover=null;magnifierKey=null;renderer.detailPass?.readback.invalidate();$('magnifier').hidden=true;$('magnifier-status').hidden=true;});
 canvas.addEventListener('keydown',e=>{
   const movements={w:['z',.15],s:['z',-.15],a:['x',-.15],d:['x',.15],q:['y',-.15],e:['y',.15],ArrowLeft:['yaw',3],ArrowRight:['yaw',-3],ArrowUp:['pitch',3],ArrowDown:['pitch',-3]};
   const move=movements[e.key];if(!move)return;e.preventDefault();const [key,amount]=move,input=$(key);s[key]=clamp(s[key]+(renderer.plateMode&&['x','y','z'].includes(key)?Math.sign(amount)*Number(input.step):amount),Number(input.min),Number(input.max));renderer.constrain?.(s,key);invalidate();sync();if(['x','y','z'].includes(key))changePosition();
 });
 function magnify(now=performance.now(),allowWork=true){
-  const magnifier=$('magnifier');magnifier.hidden=!hover||!s.magnifier||pointer?.dragged||!ready||!displayedFrame;
-  if(magnifier.hidden){magnifierKey=null;return;}
+  const magnifier=$('magnifier'),status=$('magnifier-status');magnifier.hidden=!hover||!s.magnifier||pointer?.dragged||!ready||!displayedFrame;
+  if(magnifier.hidden){magnifierKey=null;status.hidden=true;return;}
   const box=view.getBoundingClientRect(),width=magnifier.clientWidth,height=magnifier.clientHeight;
   magnifier.style.left=`${clamp(hover.x*box.width-width-10,0,Math.max(0,box.width-width-2))}px`;
   magnifier.style.top=`${clamp(hover.y*box.height-height-10,0,Math.max(0,box.height-height-2))}px`;
+  status.style.left=`${parseFloat(magnifier.style.left)+4}px`;status.style.top=`${parseFloat(magnifier.style.top)+height-24}px`;status.style.maxWidth=`${width-8}px`;
   const region=detailRegion(box.width,box.height,hover.x,hover.y,width,height,2.5,window.devicePixelRatio);
-  const regionKey=JSON.stringify([frameRevision,region]);
+  const regionKey=JSON.stringify([photographicIntent,region]);
   const key=JSON.stringify([displayedSerial,region]);
+  const current={intent:photographicIntent,regionKey,frame:displayedFrame,moving:s.motion&&!s.pause,committed:magnifierCommitted};
+  // A promotion may also change resolved AE. Even an already shown provisional
+  // image must match a frozen photograph's actual settings, exposure and time.
+  if(magnifierCommitted&&!canDeliverDetail(magnifierCommitted,current)){
+    magnifierCommitted=null;magnifierCommittedRegion=null;magnifierKey=null;
+  }
+  // Hide an invalid/changed crop before any throttled return can expose pixels
+  // retained in the canvas backing store from the previous photograph.
+  if(regionKey!==magnifierCommittedRegion)magnifier.style.visibility='hidden';
+  const updateStatus=()=>{
+    const resource=renderer.plate;
+    const loading=resource?.detailLoading||magnifierCommitted?.sourceWidth<(resource?.image.image.width??0)||magnifierCommitted?.sourceDepthWidth<(resource?.width??0);
+    magnifier.dataset.quality=resource?.detailFailed?'unavailable':loading?'provisional':'final';
+    magnifier.dataset.state=resource?.detailFailed?'error':loading?'loading':'ready';
+    status.hidden=magnifier.dataset.state==='ready';status.textContent=resource?.detailFailed?'精细图加载失败':'精细图加载中…';
+  };
+  if(magnifierCommitted&&regionKey===magnifierCommittedRegion)updateStatus();
+  else status.hidden=true;
   if(key===magnifierKey||now-lastMagnifierAt<1000/30)return;
   // Under motion, keep the last COMPLETED snapshot for this unchanged crop
   // visible while the next one waits. Requiring the newest animation serial
   // would starve both aids whenever a fence takes longer than one frame.
-  if(regionKey!==magnifierCommittedRegion)magnifier.style.visibility='hidden';
   if(!allowWork||renderer.detailPass?.readback.pending)return false;
   lastMagnifierAt=now;
-  const frame=displayedFrame,revision=frameRevision,serial=displayedSerial;
+  const frame=displayedFrame,intent=photographicIntent,serial=displayedSerial,resource=renderer.plate;
+  const snapshot={frame,intent,regionKey,generation:++magnifierGeneration,sourceWidth:resource?.image.image.width??0,sourceDepthWidth:resource?.width??0};
   const isCurrent=()=>{
-    if(!(revision===frameRevision&&displayedFrame&&ready&&s.magnifier&&hover&&!pointer?.dragged&&!document.hidden))return false;
+    if(!(displayedFrame&&resource===renderer.plate&&ready&&s.magnifier&&hover&&!pointer?.dragged&&!document.hidden))return false;
     // Pointer events can precede the next RAF. Compare the actual quantized
     // crop now, not a raw-coordinate generation or last RAF's hover cache.
     const box=view.getBoundingClientRect();
-    return regionKey===JSON.stringify([frameRevision,detailRegion(box.width,box.height,hover.x,hover.y,magnifier.clientWidth,magnifier.clientHeight,2.5,window.devicePixelRatio)]);
+    return canDeliverDetail(snapshot,{intent:photographicIntent,regionKey:JSON.stringify([photographicIntent,detailRegion(box.width,box.height,hover.x,hover.y,magnifier.clientWidth,magnifier.clientHeight,2.5,window.devicePixelRatio)]),frame:displayedFrame,moving:s.motion&&!s.pause,committed:magnifierCommitted});
   };
   const handled=renderer.diagnostics.measure('magnifier',()=>renderer.drawDetail?.(frame.settings,frame.exposure,frame.time,region,magnifier,{
     isCurrent,
-    onCommit:()=>{magnifierKey=key;magnifierCommittedRegion=regionKey;magnifier.dataset.source='detail-render';magnifier.dataset.sourceFrame=String(serial);magnifier.dataset.sourceTime=String(frame.time);magnifier.dataset.state='ready';magnifier.style.visibility='visible';},
-    onError:()=>{magnifierKey=null;magnifier.dataset.state='error';},
+    onCommit:({sourceWidth,sourceDepthWidth})=>{
+      magnifierCommitted={...snapshot,sourceWidth,sourceDepthWidth};magnifierKey=key;magnifierCommittedRegion=regionKey;
+      magnifier.dataset.source='detail-render';magnifier.dataset.sourceFrame=String(serial);magnifier.dataset.sourceTime=String(frame.time);
+      magnifier.dataset.sourceWidth=String(sourceWidth);magnifier.dataset.sourceDepthWidth=String(sourceDepthWidth);
+      updateStatus();magnifier.style.visibility='visible';
+    },
+    onError:()=>{magnifierKey=null;magnifier.dataset.state='error';status.hidden=magnifierCommittedRegion!==regionKey;status.textContent='精细图加载失败';},
   }));
   if(handled){
-    magnifier.dataset.state='pending';
+    // The badge describes the displayed source, not routine same-quality
+    // animation refresh work. Do not show a perpetual loader during motion.
+    if(magnifierCommittedRegion!==regionKey)magnifier.dataset.state='pending';
   }else{
     magnifier.width=region.outputWidth;magnifier.height=region.outputHeight;
     const sx=(region.centerX-region.spanX+1)*.5*canvas.width+region.readX/region.fullWidth*canvas.width;
     const sy=(1-region.centerY-region.spanY)*.5*canvas.height+(region.height-region.readY-region.outputHeight)/region.fullHeight*canvas.height;
     magnifier.getContext('2d').drawImage(canvas,sx,sy,region.outputWidth/region.fullWidth*canvas.width,region.outputHeight/region.fullHeight*canvas.height,0,0,magnifier.width,magnifier.height);
-    magnifier.dataset.source='preview';magnifier.style.visibility='visible';magnifierKey=key;magnifierCommittedRegion=regionKey;
+    magnifier.dataset.source='preview';magnifier.style.visibility='visible';magnifierKey=key;magnifierCommittedRegion=regionKey;status.hidden=true;
   }
   return Boolean(handled);
 }

@@ -114,6 +114,10 @@ test('both aids keep delivering during continuous motion even when every fence s
   await expect.poll(()=>page.locator('#magnifier').evaluate(canvas=>Number(canvas.dataset.sourceTime)),{timeout:90000}).toBeGreaterThan(first.detail);
   await expect.poll(()=>page.locator('#histogram-view').evaluate(canvas=>Number(canvas.dataset.sourceTime)),{timeout:90000}).toBeGreaterThan(first.histogram);
   await expect(page.locator('#magnifier')).toBeVisible();
+  await expect.poll(()=>page.locator('#magnifier').evaluate(canvas=>{
+    const image=document.getElementById('image');
+    return Number(canvas.dataset.sourceWidth)>=Number(image.dataset.detailWidth)&&canvas.dataset.quality==='final'&&document.getElementById('magnifier-status').hidden;
+  }),{message:'routine final-resolution motion updates must not display a perpetual detail loader',timeout:90000}).toBe(true);
   await page.evaluate(()=>{window.aidEvidence.motionDelayFrames=0;});await toggle(page,'motion',false);await waitLayers(page);
   await expect(page.locator('#magnifier')).toHaveAttribute('data-state','ready');
   const frozen=await photo(page),count=await previewCount(page);await page.waitForTimeout(300);

@@ -107,7 +107,7 @@ export class Renderer {
     // Resolve both colour and depth so the lens pass sees the same geometry.
     const gl=this.renderer.getContext();
     this.framePacer=new FramePacer(gl,()=>this.onFrameError?.());
-    canvas.addEventListener('webglcontextlost',()=>{this.framePacer.clear();this.analysisReadback.invalidate();});
+    canvas.addEventListener('webglcontextlost',()=>{this.framePacer.clear();this.analysisReadback.invalidate();this.detailPass?.readback.invalidate();this.onContextLost?.();});
     canvas.addEventListener('webglcontextrestored',()=>{this.framePacer.reset();this.onTextureUpdate?.();});
     const supported=gl.getInternalformatParameter(gl.RENDERBUFFER,gl.RGBA16F,gl.SAMPLES);
     this.target.samples=Math.max(0,...Array.from(supported).filter(n=>n<=4));

@@ -70,3 +70,14 @@ test('detail readback has backpressure and discards an obsolete hover/frame afte
   assert.equal(render(),false);current=false;resolve();await done;
   assert.equal(writes,0);assert.equal(t.pass.readback.available,true);
 });
+
+test('detail commit metadata retains the actual rendered color/depth source across delayed promotion',async()=>{
+  const t=setup();let resolve,metadata;
+  t.owner.plate={image:{image:{width:2560}},width:2560};
+  t.gl.readRenderTargetPixelsAsync=(target,x,y,w,h,bytes)=>new Promise(done=>{resolve=()=>done(bytes);});
+  DetailPass.prototype.render.call(t.pass,t.owner,{}, {shutter:1/125},0,t.region,t.destination,{onCommit:value=>metadata=value});
+  const done=t.pass.readback.pending.promise;
+  t.owner.plate.image.image.width=5120;t.owner.plate.width=5120;
+  resolve();await done;
+  assert.deepEqual(metadata,{sourceWidth:2560,sourceDepthWidth:2560});
+});

@@ -1,10 +1,15 @@
 /* Injected identically before baseline and candidate startup; not shipped in app. */
 (()=>{
-  const evidence=window.__reusePerformance={schema:2,label:'first-scene',frames:[],reads:[],longTasks:[],commits:[],completions:[],marks:[],gpu:{available:false,reason:'WebGL2 context not created'}};
+  const evidence=window.__reusePerformance={schema:3,label:'first-scene',frames:[],reads:[],longTasks:[],commits:[],completions:[],marks:[],gpu:{available:false,reason:'WebGL2 context not created'}};
   const push=(key,value)=>{if(evidence[key].length<10000)evidence[key].push(value);};
   let current=null,context=null,extension=null,pending=null,gpuBusy=false,serial=0,drawFramebuffer=null;
   const submissions=new WeakMap();
   const clock=()=>performance.now();
+  let hoverIntent=null;
+  document.addEventListener('pointermove',event=>{
+    const image=document.getElementById('image');if(event.target!==image)return;
+    const box=image.getBoundingClientRect();hoverIntent={x:(event.clientX-box.left)/box.width,y:(event.clientY-box.top)/box.height,at:clock()};
+  },true);
   const get=HTMLCanvasElement.prototype.getContext;
   HTMLCanvasElement.prototype.getContext=function(type,...args){
     const gl=get.call(this,type,...args);
@@ -85,10 +90,20 @@
   CanvasRenderingContext2D.prototype.putImageData=function(...args){
     const result=put.apply(this,args);
     if(this.canvas.id==='magnifier'){
-      const canvas=this.canvas,row={kind:'magnifier',label:evidence.label,at:clock(),width:canvas.width,height:canvas.height,frame:document.getElementById('image')?.dataset.frame};push('commits',row);
-      // The app annotates the committed snapshot just after writing pixels.
-      // Preserve actual write time, but do not mislabel it with the old attrs.
-      queueMicrotask(()=>{row.sourceFrame=canvas.dataset.sourceFrame??null;row.sourceTime=canvas.dataset.sourceTime??null;});
+      const canvas=this.canvas,image=document.getElementById('image');
+      // These are sampled AT THE WRITE, never substituted with a subsequently
+      // promoted resource width. The synchronous baseline has no snapshot attrs.
+      const sourceAtWrite={width:Number(image?.dataset.detailWidth)||null,depthWidth:Number(image?.dataset.detailDepthWidth)||null,pendingLayers:Number(image?.dataset.pendingLayers)||0,scene:image?.dataset.scene??null,position:image?.dataset.position??null,requestedFrame:image?.dataset.requestedFrame??null};
+      const controlsAtWrite=Object.fromEntries([...document.querySelectorAll('input[id],select[id]')].map(e=>[e.id,e.type==='checkbox'?e.checked:e.value]));
+      const row={kind:'magnifier',label:evidence.label,at:clock(),width:canvas.width,height:canvas.height,frame:image?.dataset.frame,sourceAtWrite,controlsAtWrite,hoverIntent:hoverIntent?{...hoverIntent}:null};push('commits',row);
+      // onCommit annotates the exact rendered snapshot just after putImageData.
+      // Hydrate after that callback but retain the native pixel-write timestamp.
+      queueMicrotask(()=>{
+        row.sourceFrame=canvas.dataset.sourceFrame??null;row.sourceTime=canvas.dataset.sourceTime??(controlsAtWrite.motion?null:'0');
+        row.sourceWidth=Number(canvas.dataset.sourceWidth)||sourceAtWrite.width;row.sourceDepthWidth=Number(canvas.dataset.sourceDepthWidth)||sourceAtWrite.depthWidth;
+        row.state=canvas.dataset.state??null;row.quality=canvas.dataset.quality??null;
+        row.metadataOrigin=canvas.dataset.sourceWidth?'committed-snapshot':'synchronous-resource-at-write';
+      });
     }
     return result;
   };
