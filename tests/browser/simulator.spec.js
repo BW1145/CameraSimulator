@@ -1,3 +1,4 @@
+import {captureAndDownload} from './photo-controls.js';
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
 import {openControl,motionSample,waitForMotion,waitFrame,waitInitialFrame,setRange} from './controls.js';
@@ -50,7 +51,7 @@ test('auto exposure compensation, assist overlays, portrait and capture work',as
   await waitFrame(page);await expect(page.locator('#grid')).toBeVisible();await expect(page.locator('#histogram-view')).toBeVisible();
   await openControl(page,'crop');await page.locator('#crop').selectOption('2:3');await waitFrame(page);
   const box=await page.locator('#image').boundingBox();expect(box.height).toBeGreaterThan(box.width);
-  const download=page.waitForEvent('download');await page.locator('#capture').click();expect((await download).suggestedFilename()).toBe('camera-barbershop.png');
+  const download=await captureAndDownload(page);expect(download.suggestedFilename()).toMatch(/^camera-barbershop-.*\.png$/);
   await page.setViewportSize({width:390,height:844});await waitFrame(page);
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
   await page.screenshot({path:'test-results/mobile.png',fullPage:true});
