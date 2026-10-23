@@ -1,3 +1,4 @@
+import {captureAndDownload} from './photo-controls.js';
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
 import {openControl,setRange,waitLayers} from './controls.js';
@@ -59,5 +60,5 @@ test('real position selection retries failures, ignores stale loads, and exports
   await page.route('**/barbershop-plates/left.webp',async route=>{enteredLeft();await new Promise(resolve=>{releaseLeft=resolve;});await route.continue();});
   await move('x',-.3);await entered;await move('x',0);await expect(page.locator('#image')).toHaveAttribute('data-ready','true');releaseLeft();await waitLayers(page);
   await expect(page.locator('#image')).toHaveAttribute('data-position','center');
-  await openControl(page,'crop');await page.locator('#crop').selectOption('2:3');const pending=page.waitForEvent('download');await page.locator('#capture').click();const metadata=await sharp(await (await pending).path()).metadata();expect(metadata.width).toBe(1365);expect(metadata.height).toBe(2048);
+  await openControl(page,'crop');await page.locator('#crop').selectOption('2:3');const downloaded=await captureAndDownload(page);const metadata=await sharp(await downloaded.path()).metadata();expect(metadata.width).toBe(1365);expect(metadata.height).toBe(2048);
 });

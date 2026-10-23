@@ -7,9 +7,14 @@ import {previewSize,captureSize} from './render-size.js';
 import {detailRegion} from './detail-region.js';
 import {canDeliverDetail} from './detail-feedback.js';
 import {installWheelControls} from './wheel-controls.js';
+import {installPhotoReview} from './photo-review.js';
+import {photoSnapshot,assertCaptureLayers} from './photo-snapshot.js';
+import {canvasBlob} from './photo-export.js';
 
 const $=id=>document.getElementById(id);
 const canvas=$('image'),view=$('viewfinder'),loading=$('loading');
+const photos=installPhotoReview({button:$('review-photos'),onError:error=>{$('hint').textContent=`照片处理失败：${error.message}`;}});
+let photoSequence=0;
 let renderer;
 const usePlates=new URLSearchParams(location.search).get('renderer')!=='gltf';
 try{renderer=usePlates?new PlateRenderer(canvas):new Renderer(canvas);}catch(error){loading.textContent=error.message;}
@@ -337,17 +342,27 @@ $('capture').addEventListener('click',async()=>{
     if(!(await renderer.framePacer.wait(()=>!document.hidden&&ready&&version===loadVersion&&viewVersion===positionVersion)))return;
     if(revision===frameRevision)break;
   }
+  assertCaptureLayers(renderer,s);
   workStarted=true;resolveCurrentFrame();
-  // Export the photographic frame, independently of on-screen guidance overlays.
   const zebra=s.zebra;
   const size=[canvas.width,canvas.height],aspect=size[0]/size[1];
+  const [width,height]=captureSize(aspect);
+  // Freeze after focus and automatic exposure resolve, before any asynchronous
+  // encoding callback can observe changed controls, scene, or simulation time.
+  let encoded,snapshot;
   try{
-  s.zebra=false;
-  // Export a fresh full-resolution photographic frame, even on a narrow phone.
-  renderer.resize(...captureSize(aspect));renderer.draw(s,resolved,clock);
-  canvas.toBlob(blob=>{if(!blob)return;const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=`camera-${scene.id}.png`;a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);},'image/png');
+    s.zebra=false;
+    renderer.resize(width,height);renderer.draw(s,resolved,clock);
+    snapshot=photoSnapshot({settings:{...s,zebra},resolved,scene,renderer,simulationTime:clock,focusPoint:point,width,height});
+    // toBlob snapshots this draw synchronously. Restore preview immediately,
+    // but keep capture serialization until encoding and storage are complete.
+    encoded=canvasBlob(canvas);
   }finally{s.zebra=zebra;renderer.resize(...size);}
-  }catch(error){$('hint').textContent=`保存失败：${error.message}`;canvas.dataset.captureError=error.message;
+  const blob=await encoded;
+  photos.add({id:++photoSequence,blob,width,height,snapshot});
+  delete canvas.dataset.captureError;
+  $('hint').textContent='已拍照 · 点“回看”查看参数、对比或下载';
+  }catch(error){$('hint').textContent=`拍照失败：${error.message}`;canvas.dataset.captureError=error.message;
   }finally{
     try{if(workStarted){invalidate(false);renderer.framePacer.submit();}}
     finally{capturing=false;if(ready)$('capture').disabled=false;}

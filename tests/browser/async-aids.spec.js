@@ -1,3 +1,4 @@
+import {downloadRecentPhoto} from './photo-controls.js';
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
 import {openControl,waitInitialFrame,waitFrame,waitLayers,setRanges} from './controls.js';
@@ -155,7 +156,7 @@ test('capture reprepares changed focal/flash requirements and restores preview a
     await page.locator('#focal').evaluate(input=>{input.value='70';input.dispatchEvent(new Event('input',{bubbles:true}));});
     releaseFlash();await expect.poll(()=>detailRequested).toBe(true);
     expect(downloads).toBe(0);await expect(page.locator('#capture')).toBeDisabled();
-    const downloaded=page.waitForEvent('download');releaseDetail();const download=await downloaded;
+    releaseDetail();const download=await downloadRecentPhoto(page);
     const metadata=await sharp(await download.path()).metadata();expect(Math.max(metadata.width,metadata.height)).toBe(2048);
     await waitLayers(page);expect(Number(await page.locator('#image').getAttribute('data-detail-width'))).toBeGreaterThan(2560);
     await page.locator('#flash').evaluate(input=>{input.value='0';input.dispatchEvent(new Event('input',{bubbles:true}));});await waitFrame(page);await toggle(page,'zebra',true);
@@ -168,7 +169,7 @@ test('capture reprepares changed focal/flash requirements and restores preview a
       };
     });
     await page.locator('#capture').click();await expect(page.locator('#image')).toHaveAttribute('data-capture-error','Synthetic export failure');
-    await expect(page.locator('#capture')).toBeEnabled();await waitFrame(page);
+    await expect(page.locator('#capture')).toBeEnabled();await expect(page.locator('#review-photos')).toHaveAttribute('data-count','1');await waitFrame(page);
     expect(await page.locator('#image').evaluate(canvas=>[canvas.width,canvas.height])).toEqual(size);
     await expect(page.locator('#zebra')).toBeChecked();expect((await photo(page)).pixels).toBe(original.pixels);expect(downloads).toBe(1);
   }finally{releaseFlash();releaseDetail();}

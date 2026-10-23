@@ -1,3 +1,4 @@
+import {captureAndDownload,downloadRecentPhoto} from './photo-controls.js';
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
 import {SCENES} from '../../src/scenes.js';
@@ -29,7 +30,7 @@ test('dense displays receive scene pixels and mobile capture is independent of p
   const size=await page.locator('#image').evaluate(e=>({w:e.width,css:e.clientWidth,samples:Number(e.dataset.samples)}));
   expect(size.w).toBeGreaterThan(size.css*1.9);expect(size.samples).toBeGreaterThan(0);
   await page.setViewportSize({width:390,height:844});await openControl(page,'crop');await page.locator('#crop').selectOption('2:3');
-  const pending=page.waitForEvent('download');await page.locator('#capture').click();const downloaded=await pending;const meta=await sharp(await downloaded.path()).metadata();
+  const downloaded=await captureAndDownload(page);const meta=await sharp(await downloaded.path()).metadata();
   expect(meta.height).toBe(2048);expect(meta.width).toBe(1365);await context.close();
 });
 
@@ -37,9 +38,8 @@ test('capture resolves an exposure edit made in the same event turn',async({page
   await page.goto('/?renderer=gltf');await waitInitialFrame(page);
   await page.locator('#autoISO').uncheck();
   const shoot=async iso=>{
-    const pending=page.waitForEvent('download');
     await page.evaluate(iso=>{const input=document.getElementById('iso');input.value=String(iso);input.dispatchEvent(new Event('input',{bubbles:true}));document.getElementById('capture').click();},iso);
-    const meta=await sharp(await (await pending).path()).stats();return meta.channels.slice(0,3).reduce((s,c)=>s+c.mean,0)/3;
+    const downloaded=await downloadRecentPhoto(page);const meta=await sharp(await downloaded.path()).stats();return meta.channels.slice(0,3).reduce((s,c)=>s+c.mean,0)/3;
   };
   const dark=await shoot(0),bright=await shoot(4);
   expect(bright).toBeGreaterThan(dark*1.3);
