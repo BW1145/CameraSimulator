@@ -45,12 +45,13 @@ test('AF-C tracks the clicked moving ball in each photographic room',async({page
     // Sample the current rendered ball, never coordinates retained from a prior scene.
     const point=await canvas.evaluate(e=>({x:+e.dataset.ballX,y:+e.dataset.ballY})),box=await canvas.boundingBox();await canvas.click({position:{x:point.x*box.width,y:(1-point.y)*box.height}});
     await waitFrame(page);const initial=await motionSample(page);expect(initial.focus).toBeGreaterThan(1);
+    // Prove the clicked target while paused and in frame; it may later move offscreen.
+    const initialSelection=await canvas.evaluate(canvas=>{const mark=document.getElementById('focus-mark');return {ball:{x:+canvas.dataset.ballX,y:+canvas.dataset.ballY},mark:{x:parseFloat(mark.style.left)/100,y:1-parseFloat(mark.style.top)/100},visible:!mark.hidden};});
+    expect(initialSelection.visible).toBe(true);expect(Math.hypot(initialSelection.ball.x-initialSelection.mark.x,initialSelection.ball.y-initialSelection.mark.y)).toBeLessThan(.015);
     await openControl(page,'pause');await page.locator('#pause').uncheck();await waitForMotion(page,initial);
     let tracked;await expect.poll(async()=>{tracked=await motionSample(page);return Math.abs(tracked.focus-initial.focus);},{message:`${scene} AF-C must change focus as its selected subject changes depth`,timeout:45000}).toBeGreaterThan(.05);
     await page.locator('#pause').check();await waitFrame(page);
-    const selection=await canvas.evaluate(canvas=>{const mark=document.getElementById('focus-mark');return {ball:{x:+canvas.dataset.ballX,y:+canvas.dataset.ballY},mark:{x:parseFloat(mark.style.left)/100,y:1-parseFloat(mark.style.top)/100},visible:!mark.hidden};});
-    expect(selection.visible).toBe(true);expect(Math.hypot(selection.ball.x-selection.mark.x,selection.ball.y-selection.mark.y)).toBeLessThan(.015);
-    evidence.push({scene,initial,tracked,selection});
+    evidence.push({scene,initial,tracked,initialSelection});
   }
   await test.info().attach('photographic-af-progress.json',{body:JSON.stringify(evidence,null,2),contentType:'application/json'});
 });
