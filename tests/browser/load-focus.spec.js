@@ -15,7 +15,7 @@ test('slow first load tolerates camera controls and dragging before a pack exist
 
 test('AF-C preserves an actual fan base hit instead of jumping to the rotor center',async({page})=>{
   await page.goto('/');const canvas=page.locator('#image');await expect(canvas).toHaveAttribute('data-ready','true');
-  await openControl(page,'focal');await page.locator('#focal').fill('50');await page.locator('#crop').selectOption('3:2');
+  await openControl(page,'focal');await page.locator('#focal').fill('50');await openControl(page,'crop');await page.locator('#crop').selectOption('3:2');
   await canvas.scrollIntoViewIfNeeded();const box=await canvas.boundingBox();await page.mouse.move(box.x+box.width*.6,box.y+box.height*.4);await page.mouse.down();await page.mouse.move(box.x+box.width*.6-156.25,box.y+box.height*.4+18.75,{steps:8});await page.mouse.up();
   await openControl(page,'af');await page.locator('#af').selectOption('AF-C');
   const pack=JSON.parse(await readFile('public/scenes/barbershop-plates/manifest.json','utf8'));
