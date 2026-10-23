@@ -4,6 +4,11 @@ import {openControl} from './controls.js';
 // Capture and download are deliberately separate user actions. Existing optical
 // regression tests choose PNG so JPEG compression cannot hide pixel changes.
 export async function downloadRecentPhoto(page,{format='png',longEdge=2048,close=true}={}){
+  // Before capture/review were separated, these regressions waited for download
+  // with no action timeout, bounded by the existing 180 s test deadline. Encoding
+  // now precedes review: preserve that same capture budget instead of adding an
+  // unrelated 30 s expect timeout on the full-resolution GPU/PNG operation.
+  await page.waitForFunction(()=>!document.getElementById('capture').disabled,null,{timeout:0});
   await expect(page.locator('#capture')).toBeEnabled();
   await expect(page.locator('#review-photos')).toBeEnabled();
   await page.locator('#review-photos').click();
