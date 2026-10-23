@@ -6,6 +6,7 @@ import {PlateRenderer} from './plate-renderer.js';
 import {previewSize,captureSize} from './render-size.js';
 import {detailRegion} from './detail-region.js';
 import {canDeliverDetail} from './detail-feedback.js';
+import {installWheelControls} from './wheel-controls.js';
 
 const $=id=>document.getElementById(id);
 const canvas=$('image'),view=$('viewfinder'),loading=$('loading');
@@ -39,7 +40,7 @@ async function changePosition(){
   const version=++positionVersion;discardDisplayedFrame();ready=false;canvas.dataset.ready='false';loading.hidden=false;loading.textContent='正在加载选定的拍摄机位…';$('capture').disabled=true;
   try{
     await renderer.setPosition(s);if(version!==positionVersion)return;
-    track=null;ready=true;loading.hidden=true;$('capture').disabled=false;$('hint').textContent='点击对焦 · 拖动取景';invalidate();
+    track=null;ready=true;loading.hidden=true;$('capture').disabled=false;$('hint').textContent='点击对焦 · 滚轮变焦 · WASD 机位 / QE 升降';invalidate();
   }catch(error){
     if(version!==positionVersion)return;loading.textContent=`机位加载失败：${error.message} `;
     const retry=document.createElement('button');retry.textContent='重新加载';retry.onclick=changePosition;loading.append(retry);
@@ -56,7 +57,7 @@ function discardDisplayedFrame(promotion=false){
 function invalidate(geometry=true,promotion=false){discardDisplayedFrame(promotion);dirty=true;canvas.dataset.ready='false';canvas.dataset.requestedFrame=String(++frameRevision);if(geometry)meterDirty=true;}
 if(renderer){renderer.onTextureUpdate=event=>{
   const promotion=event?.kind==='detail-resolution'&&event.resource===renderer.plate&&event.viewId===renderer.entry?.id&&Boolean(event.sourceSha256)&&event.sourceSha256===renderer.pack?.sourceSha256&&event.toWidth>event.fromWidth;
-  canvas.dataset.ready='false';invalidate(true,promotion);$('hint').textContent=renderer.plateMode?'点击对焦 · 拖动取景':'点击对焦 · 拖动转向 · WASD 移动';
+  canvas.dataset.ready='false';invalidate(true,promotion);$('hint').textContent=renderer.plateMode?'点击对焦 · 滚轮变焦 · WASD 机位 / QE 升降':'点击对焦 · 拖动转向 · 滚轮变焦 · WASD 移动';
 };renderer.onContextLost=()=>{discardDisplayedFrame();canvas.dataset.ready='false';};renderer.onLayerError=(name,retry)=>{$('hint').textContent=`${name}加载失败 `;const button=document.createElement('button');button.textContent='重试';button.onclick=retry;$('hint').append(button);};}
 if(renderer)renderer.onFrameError=()=>{$('hint').textContent='GPU 同步失败，请重新加载页面。';canvas.dataset.frameFenceError='true';};
 function resetView(){for(const key of ['x','y','z','yaw','pitch','roll'])s[key]=0;track=null;point={x:.5,y:.5};invalidate();sync();if(ready&&renderer.plateMode)changePosition();}
@@ -123,6 +124,7 @@ $('reset').addEventListener('click',()=>{
   resolved=resolveExposure(s,meterEV);track=null;clock=0;resize();sync();changePosition();
 });
 $('reset-view').addEventListener('click',resetView);
+installWheelControls({root:document.querySelector('main'),image:canvas,focal:$('focal'),enabled:()=>ready&&!capturing});
 new ResizeObserver(resize).observe(view);
 
 async function loadScene(id){
@@ -145,7 +147,7 @@ async function loadScene(id){
     $('flash-control').hidden=renderer.plateMode&&!renderer.pack.flash;$('legacy-view').hidden=renderer.plateMode;$('position-controls').hidden=!renderer.plateMode;
     $('subject-controls').hidden=!renderer.fan;
     (renderer.fan?$('subject-controls'):$('assist-tools').querySelector('.tool-content')).append($('motion-controls'));
-    $('hint').textContent=renderer.plateMode?'点击对焦 · 拖动取景':'点击对焦 · 拖动转向 · WASD 移动';
+    $('hint').textContent=renderer.plateMode?'点击对焦 · 滚轮变焦 · WASD 机位 / QE 升降':'点击对焦 · 拖动转向 · 滚轮变焦 · WASD 移动';
     $('motion').closest('label').lastChild.textContent=renderer.fan?'风扇转动':'运动练习球';
     $('pause').closest('label').lastChild.textContent=renderer.fan?'暂停播放':'暂停运动';
     $('credit').textContent=`${scene.title} — ${scene.author} · ${scene.license}。场景经过 glTF 转换、网格精简和纹理缩放。`;
@@ -176,8 +178,9 @@ canvas.addEventListener('pointerup',e=>{const box=canvas.getBoundingClientRect()
 canvas.addEventListener('pointercancel',()=>{pointer=null;});
 canvas.addEventListener('pointerleave',()=>{hover=null;magnifierKey=null;renderer.detailPass?.readback.invalidate();$('magnifier').hidden=true;$('magnifier-status').hidden=true;});
 canvas.addEventListener('keydown',e=>{
-  const movements={w:['z',.15],s:['z',-.15],a:['x',-.15],d:['x',.15],q:['y',-.15],e:['y',.15],ArrowLeft:['yaw',3],ArrowRight:['yaw',-3],ArrowUp:['pitch',3],ArrowDown:['pitch',-3]};
-  const move=movements[e.key];if(!move)return;e.preventDefault();const [key,amount]=move,input=$(key);s[key]=clamp(s[key]+(renderer.plateMode&&['x','y','z'].includes(key)?Math.sign(amount)*Number(input.step):amount),Number(input.min),Number(input.max));renderer.constrain?.(s,key);invalidate();sync();if(['x','y','z'].includes(key))changePosition();
+  if(!ready||capturing||e.target!==canvas||e.ctrlKey||e.metaKey||e.altKey||e.isComposing)return;
+  const movements={w:['z',.15],s:['z',-.15],a:['x',-.15],d:['x',.15],q:['y',.15],e:['y',-.15],ArrowLeft:['yaw',3],ArrowRight:['yaw',-3],ArrowUp:['pitch',3],ArrowDown:['pitch',-3]};
+  const move=movements[e.key.length===1?e.key.toLowerCase():e.key];if(!move)return;e.preventDefault();const [key,amount]=move,input=$(key);s[key]=clamp(s[key]+(renderer.plateMode&&['x','y','z'].includes(key)?Math.sign(amount)*Number(input.step):amount),Number(input.min),Number(input.max));renderer.constrain?.(s,key);invalidate();sync();if(['x','y','z'].includes(key))changePosition();
 });
 function magnify(now=performance.now(),allowWork=true){
   const magnifier=$('magnifier'),status=$('magnifier-status');magnifier.hidden=!hover||!s.magnifier||pointer?.dragged||!ready||!displayedFrame;

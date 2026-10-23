@@ -27,11 +27,11 @@ test('switching away during a delayed fan probe cannot replace the selected scen
 test('default photographic fan conserves static light while the shutter integrates its rotor',async({page})=>{
   const errors=[];page.on('pageerror',e=>errors.push(e.message));
   await page.goto('/?view=source');const canvas=page.locator('#image');await expect(canvas).toHaveAttribute('data-ready','true');
-  await expect(page.locator('#legacy-view')).toBeHidden();await expect(page.locator('#more details[open]')).toHaveCount(0);
+  await openControl(page,'position-controls');await expect(page.locator('#legacy-view')).toBeHidden();await expect(page.locator('#more details[open]')).toHaveCount(0);
   const range=(id,value)=>setRange(page,id,value);
   await range('focal',50);await canvas.scrollIntoViewIfNeeded();const box=await canvas.boundingBox();
   await page.mouse.move(box.x+box.width*.6,box.y+box.height*.4);await page.mouse.down();await page.mouse.move(box.x+box.width*.6-156.25,box.y+box.height*.4+18.75,{steps:8});await page.mouse.up();
-  await page.locator('#pause').check();await page.locator('#motion').check();
+  await openControl(page,'pause');await page.locator('#pause').check();await page.locator('#motion').check();
   await expect(canvas).toHaveAttribute('data-detail-width','5120');await waitFrame(page);
   await setRanges(page,{aperture:0,shutter:3,iso:4});const meter=Number(await canvas.getAttribute('data-meter-ev'));expect(Number(await canvas.getAttribute('data-temporal-samples'))).toBeGreaterThan(1);await page.mouse.move(0,0);const fast=await canvas.screenshot();
   await setRanges(page,{aperture:7,shutter:10});await expect(canvas).toHaveAttribute('data-temporal-samples','24');const slow=await canvas.screenshot();

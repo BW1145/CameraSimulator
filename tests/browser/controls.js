@@ -30,10 +30,14 @@ export async function setRanges(page,values){
 }
 
 export async function openControl(page,id){
-  const details=await page.locator('#'+id).evaluate(element=>{const d=element.closest('details');return d?{id:d.id,open:d.open}:null;});
-  if(details){
-    const panel=page.locator('#'+details.id);
-    if(!details.open)await panel.locator(':scope > summary').click();
+  // Open every ancestor from outside in through real clicks. Nested settings
+  // must not be made visible by mutating DOM open flags in a test.
+  const ids=await page.locator('#'+id).evaluate(element=>{
+    const ids=[];for(let node=element.parentElement;node;node=node.parentElement)if(node.tagName==='DETAILS')ids.unshift(node.id);return ids;
+  });
+  for(const detailId of ids){
+    const panel=page.locator('#'+detailId);
+    if(!(await panel.evaluate(node=>node.open)))await panel.locator(':scope > summary').click();
     await expect(panel).toHaveJSProperty('open',true);
   }
   await expect(page.locator('#'+id)).toBeVisible();

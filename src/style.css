@@ -5,3 +5,23 @@
 @media(max-width:850px){.secondary-controls{grid-template-columns:1fr;gap:16px}.position-layout{max-width:420px}.tool-sections{gap:16px}}@media(max-width:520px){.tool-sections{grid-template-columns:1fr;gap:0}.secondary-controls{gap:14px}.tool-content{padding:4px 0 12px}.position-pad{max-width:260px}.tool-sections summary{padding:12px 0}.assist-checks{grid-template-columns:repeat(2,1fr)}}
 
 #magnifier-status{position:absolute;z-index:5;pointer-events:none;max-width:190px;padding:2px 5px;border-radius:3px;background:#161719dd;color:#fff;font-size:11px;line-height:16px;white-space:nowrap}
+
+/* A clear shooting bar, large photograph, then always-visible essentials. */
+.toolbar{padding:0 0 12px;gap:12px}.toolbar #capture{background:#a8c7fa;border-color:#a8c7fa;color:#14233b;font-weight:600}.toolbar #capture:hover{background:#c5d9fc}
+.view-area{border:1px solid #34373c;border-radius:7px;overflow:hidden}
+.view-tools{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 0;border-bottom:1px solid #41454d}
+.view-actions,.quick-assists{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.view-actions button{font-size:12px}.quick-assists{gap:14px}.quick-assists .check{min-height:28px}
+.primary-controls{grid-template-columns:repeat(5,minmax(0,1fr));gap:24px;padding:14px 0 4px}.primary-controls input{margin:6px 0 0}
+.tool-sections summary{padding:12px 10px;background:#2b2e33;border-radius:5px}.tool-sections details[open] summary{color:var(--accent);background:#333b47}.tool-content{padding:14px 10px}
+
+@media(max-width:850px){.primary-controls{gap:16px}.primary-controls label{font-size:12px}.primary-controls label output{font-size:12px;margin-left:5px}.quick-assists{gap:10px}}
+@media(max-width:700px){.toolbar{gap:10px}.toolbar #capture{margin-left:auto}.toolbar #reset{font-size:12px}.primary-controls{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 24px}.primary-controls>label:last-child{grid-column:1/-1}.view-tools{gap:10px}.quick-assists{gap:8px 14px}.quick-assists .check{font-size:12px;min-height:30px}.primary-controls input{height:28px}}
+
+/* The photograph gets the width first; hidden settings reserve no grid height. */
+header{padding-top:9px;padding-bottom:9px}main{padding-bottom:10px}.toolbar{padding-bottom:9px}
+#viewfinder{width:min(100%,calc(max(320px,100vh - 190px) * var(--aspect,1.5)));width:min(100%,calc(max(320px,100svh - 190px) * var(--aspect,1.5)))}
+.view-caption{min-height:25px;padding:4px 10px}.view-tools{padding:6px 0;gap:8px}.view-actions button{min-height:30px}.quick-assists .check{min-height:26px}
+.primary-controls{padding:9px 0 6px}.primary-controls input{margin-top:4px}
+.more-settings{margin-top:4px}.more-settings>summary{width:100%;padding:9px 0;font-size:12px}.more-settings>summary span{margin-left:9px;font-size:11px;color:var(--muted)}
+.more-settings-content{padding-top:10px}.more-settings:not([open])>.more-settings-content{display:none}.more-settings .secondary-controls{margin-bottom:10px}.more-settings #lesson{margin-bottom:8px}
+@media(max-width:700px){#viewfinder{width:100%}.view-caption{font-size:10px}.view-tools{gap:8px}.primary-controls{padding-top:10px}.more-settings>summary span{font-size:10px}.more-settings-content{padding-top:6px}}

@@ -1,0 +1,73 @@
+name: Controls usability evidence (isolated prototype)
+on:
+  push:
+    branches: [prototype/controls-usability]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: controls-usability-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  visual:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: candidate
+      - uses: actions/checkout@v4
+        with:
+          ref: 59436f74488436019e1c926419d9c62c74064672
+          path: baseline
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+          cache-dependency-path: candidate/package-lock.json
+      - run: npm ci --prefer-offline --prefix candidate && npm ci --prefer-offline --prefix baseline
+      - run: npm run build --prefix baseline && npm run build --prefix candidate
+      - run: cd candidate && npx playwright install --with-deps chromium
+      - name: Matched before and after screenshots; no deployment
+        env:
+          CI: '1'
+          UI_BASELINE_URL: http://127.0.0.1:8001
+        run: |
+          cd baseline
+          npm run preview -- --port 8001 > ../baseline-server.log 2>&1 &
+          for attempt in $(seq 1 30); do curl -fsS http://127.0.0.1:8001/ >/dev/null && break; sleep 1; done
+          curl -fsS http://127.0.0.1:8001/ >/dev/null
+          cd ../candidate
+          npx playwright test tests/browser/controls-usability.spec.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: controls-visual-${{ github.sha }}
+          path: candidate/test-results/
+          retention-days: 14
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --prefer-offline
+      - run: npm test
+      - run: npm run audit:assets
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:browser -- --shard=${{ matrix.shard }}/3
+        env:
+          CI: '1'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: controls-regression-${{ matrix.shard }}-${{ github.sha }}
+          path: test-results/
+          retention-days: 14

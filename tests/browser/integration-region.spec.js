@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
-import {setRange,setRanges,waitLayers} from './controls.js';
+import {openControl,setRange,setRanges,waitLayers} from './controls.js';
 
 test('bounded shutter integration matches full-frame rendering of reflected and shadowed rotor motion',async({page})=>{
   await page.addInitScript(()=>{
@@ -14,7 +14,7 @@ test('bounded shutter integration matches full-frame rendering of reflected and 
   await setRange(page,'focal',50);await waitLayers(page);
   const canvas=page.locator('#image');await canvas.scrollIntoViewIfNeeded();const box=await canvas.boundingBox();
   await page.mouse.move(box.x+box.width*.6,box.y+box.height*.4);await page.mouse.down();await page.mouse.move(box.x+box.width*.6-156.25,box.y+box.height*.4+18.75,{steps:8});await page.mouse.up();
-  await page.locator('#pause').check();await page.locator('#motion').check();await setRanges(page,{aperture:7,shutter:10,iso:4});
+  await openControl(page,'pause');await page.locator('#pause').check();await page.locator('#motion').check();await setRanges(page,{aperture:7,shutter:10,iso:4});
   await page.mouse.move(0,0);const bounded=await canvas.screenshot();await expect(canvas).toHaveAttribute('data-temporal-samples','24');
   await page.evaluate(()=>{window.fullFrameIntegration=true;});await setRange(page,'wb',5000);const full=await canvas.screenshot();
   const a=await sharp(bounded).removeAlpha().raw().toBuffer(),b=await sharp(full).removeAlpha().raw().toBuffer();

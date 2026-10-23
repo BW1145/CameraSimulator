@@ -54,7 +54,7 @@ test('actual high-HDR barber flash and 4603-radiance fixture stay finite at 1/80
       await page.route('**/barbershop-plates/right-flash.webp',r=>r.fulfill({contentType:'image/webp',body:flash}));
     }
     await page.goto('/?subject=none');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
-    await page.locator('button[data-position=right]').click();await expect(page.locator('#image')).toHaveAttribute('data-position','right');
+    await openControl(page,'position-controls');await page.locator('button[data-position=right]').click();await expect(page.locator('#image')).toHaveAttribute('data-position','right');
     await page.locator('#autoISO').uncheck();await input(page,'iso',0);await input(page,'aperture',8);await input(page,'flash',2);await waitLayers(page);
     const slow=await shoot(page,6),fast=await shoot(page,0);
     console.log('high HDR flash',JSON.stringify({fixture,slow,fast}));

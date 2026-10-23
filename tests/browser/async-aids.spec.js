@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 import sharp from 'sharp';
-import {waitInitialFrame,waitFrame,waitLayers,setRanges} from './controls.js';
+import {openControl,waitInitialFrame,waitFrame,waitLayers,setRanges} from './controls.js';
 import {installRuntimeDiagnostics} from './runtime-diagnostics.js';
 installRuntimeDiagnostics(test);
 
@@ -79,6 +79,7 @@ test('scene and position races discard delayed aid images and preserve the newes
     for(const id of ['classroom','apartment','kitchen']){scene.value=id;scene.dispatchEvent(new Event('change',{bubbles:true}));}
   });
   await expect(page.locator('#image')).toHaveAttribute('data-scene','kitchen');await waitLayers(page);
+  await openControl(page,'position-controls');
   await page.evaluate(()=>{for(const id of ['left','right','down'])document.querySelector(`button[data-position=${id}]`).click();});
   await expect(page.locator('#image')).toHaveAttribute('data-position','down');await waitLayers(page);
   await page.mouse.move(0,0);await page.evaluate(()=>{window.aidEvidence.hold=false;});await page.waitForTimeout(150);

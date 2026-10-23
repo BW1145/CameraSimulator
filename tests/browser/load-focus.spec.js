@@ -15,9 +15,11 @@ test('slow first load tolerates camera controls and dragging before a pack exist
 
 test('AF-C preserves an actual fan base hit instead of jumping to the rotor center',async({page})=>{
   await page.goto('/');const canvas=page.locator('#image');await expect(canvas).toHaveAttribute('data-ready','true');
-  await openControl(page,'focal');await page.locator('#focal').fill('50');await page.locator('#crop').selectOption('3:2');
+  await openControl(page,'focal');await page.locator('#focal').fill('50');await openControl(page,'crop');await page.locator('#crop').selectOption('3:2');
   await canvas.scrollIntoViewIfNeeded();const box=await canvas.boundingBox();await page.mouse.move(box.x+box.width*.6,box.y+box.height*.4);await page.mouse.down();await page.mouse.move(box.x+box.width*.6-156.25,box.y+box.height*.4+18.75,{steps:8});await page.mouse.up();
   await openControl(page,'af');await page.locator('#af').selectOption('AF-C');
+  // Raycast against the settled camera after focal/crop and drag changes.
+  await waitFrame(page);
   const pack=JSON.parse(await readFile('public/scenes/barbershop-plates/manifest.json','utf8'));
   const camera=new T.PerspectiveCamera(2*Math.atan((36/pack.camera.aspect)/(2*50))*180/Math.PI,1.5,1.1,100);
   const matrix=new T.Matrix4().fromArray(pack.views[0].cameraMatrix);camera.position.setFromMatrixPosition(matrix);camera.quaternion.setFromRotationMatrix(matrix).multiply(new T.Quaternion().setFromEuler(new T.Euler(-3*Math.PI/180,25*Math.PI/180,0,'YXZ')));camera.updateMatrixWorld(true);

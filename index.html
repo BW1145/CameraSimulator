@@ -10,9 +10,16 @@
 <body>
   <header><h1>Camera Simulator</h1><a href="./original.html">原版风扇演示</a></header>
   <main>
+    <div class="toolbar" aria-label="拍摄设置">
+      <label>场景 <select id="scene" aria-label="场景"></select></label>
+      <label>模式 <select id="mode" aria-label="曝光模式"><option value="M">M 手动</option><option value="A">A 光圈优先</option><option value="S">S 快门优先</option><option value="P">P 程序自动</option></select></label>
+      <label class="check"><input id="autoISO" type="checkbox" checked>自动 ISO</label>
+      <button id="reset" type="button">重置参数</button><button id="capture" type="button">保存照片</button>
+    </div>
+
     <section class="view-area" aria-label="取景器">
       <div id="viewfinder">
-        <canvas id="image" tabindex="0" aria-label="相机画面。点击对焦，拖动取景。"></canvas>
+        <canvas id="image" tabindex="0" aria-label="相机画面。点击对焦，拖动取景，滚轮调整焦距。选中画面后，WASD 移动机位，Q 和 E 升降。"></canvas>
         <div id="grid" hidden aria-hidden="true"></div>
         <div id="level" hidden aria-hidden="true"><i></i></div>
         <div id="focus-mark" hidden aria-hidden="true"></div>
@@ -21,20 +28,27 @@
         <canvas id="histogram-view" width="180" height="76" hidden aria-label="亮度直方图"></canvas>
         <div id="loading" role="status">正在准备场景…</div>
       </div>
-      <div class="view-caption"><span id="hint">点击对焦 · 拖动取景</span><output id="meter" aria-label="曝光偏差"></output></div>
+      <div class="view-caption"><span id="hint">点击对焦 · 滚轮变焦 · WASD 机位 / QE 升降</span><output id="meter" aria-label="曝光偏差"></output></div>
     </section>
-    <div class="toolbar">
-      <label>场景 <select id="scene" aria-label="场景"></select></label>
-      <label>模式 <select id="mode" aria-label="曝光模式"><option value="M">M 手动</option><option value="A">A 光圈优先</option><option value="S">S 快门优先</option><option value="P">P 程序自动</option></select></label>
-      <label class="check"><input id="autoISO" type="checkbox" checked>自动 ISO</label>
-      <button id="reset" type="button">重置参数</button><button id="capture" type="button">保存照片</button>
+    <div class="view-tools" aria-label="对焦与画面辅助">
+      <div class="view-actions"><button id="focus-center" type="button">中央对焦</button><button id="reset-view" type="button">重置取景</button></div>
+      <div class="quick-assists" role="group" aria-label="画面辅助">
+        <label class="check"><input id="grid-toggle" type="checkbox">九宫格</label>
+        <label class="check"><input id="magnifier-toggle" type="checkbox" checked>局部放大镜</label>
+        <label class="check"><input id="histogram-toggle" type="checkbox">直方图</label>
+        <label class="check"><input id="zebra" type="checkbox">过曝条纹</label>
+        <label class="check"><input id="level-toggle" type="checkbox">水平线</label>
+      </div>
     </div>
-    <section class="primary-controls" aria-label="常用参数">
+    <section class="primary-controls" aria-label="常用参数" title="鼠标放在参数上，滚轮逐档调整">
       <label>光圈 <output id="aperture-value"></output><input id="aperture" type="range" min="0" max="8" step="1"></label>
       <label>快门 <output id="shutter-value"></output><input id="shutter" type="range" min="0" max="18" step="1"></label>
       <label>ISO <output id="iso-value"></output><input id="iso" type="range" min="0" max="9" step="1"></label>
       <label>白平衡 <output id="wb-value"></output><input id="wb" type="range" min="2000" max="10000" step="100"></label>
+      <label>焦距 <output id="focal-value"></output><input id="focal" type="range" min="18" max="200" step="1"></label>
     </section>
+    <details id="more-settings" class="more-settings"><summary>更多设置 <span>机位 · 对焦 · 构图 · 曝光</span></summary>
+    <div class="more-settings-content">
     <div class="secondary-controls">
       <fieldset id="position-controls" hidden><legend>机位 <output id="position-status">中心</output></legend>
         <div class="position-layout"><div class="position-pad" role="group" aria-label="选择拍摄机位">
@@ -51,14 +65,13 @@
         <details id="focus-tools" name="camera-tools"><summary>对焦</summary><div class="tool-content">
           <label>对焦距离 <output id="focus-value"></output><input id="focus" type="range" min="0.2" max="50" step="0.1"></label>
           <label>对焦方式 <select id="af"><option>AF-S</option><option>AF-C</option><option>MF</option></select></label>
-          <button id="focus-center" type="button">对焦画面中央</button>
+
           <p>点击画面选取焦点；AF-C 持续跟随所选主体。</p>
         </div></details>
         <details id="composition-tools" name="camera-tools"><summary>构图</summary><div class="tool-content">
-          <label>焦距 <output id="focal-value"></output><input id="focal" type="range" min="18" max="200" step="1"></label>
+
           <label>画幅 <select id="crop"><option value="21:9">横向 21:9</option><option value="3:2">横向 3:2</option><option value="16:9">横向 16:9</option><option value="2:3">竖向 2:3</option><option value="1:1">方形 1:1</option></select></label>
           <label>感光元件 <select id="sensor"><option value="full">全画幅</option><option value="aps-c">APS-C</option></select></label>
-          <label class="check"><input id="grid-toggle" type="checkbox">九宫格</label>
           <div id="legacy-view">
             <label>左右 <output id="x-value"></output><input id="x" type="range" min="-3" max="3" step="0.05"></label>
             <label>升降 <output id="y-value"></output><input id="y" type="range" min="-2" max="2" step="0.05"></label>
@@ -68,24 +81,19 @@
 
           </div>
           <label>倾斜 <output id="roll-value"></output><input id="roll" type="range" min="-20" max="20" step="1"></label>
-          <button id="reset-view" type="button">重置取景</button>
         </div></details>
         <details id="assist-tools" name="camera-tools"><summary>曝光与辅助</summary><div class="tool-content">
           <label>曝光补偿 <output id="compensation-value"></output><input id="compensation" type="range" min="-9" max="9" step="1"></label>
           <label>测光 <select id="metering"><option value="matrix">多区</option><option value="center">中央重点</option><option value="spot">点测光</option></select></label>
           <label id="flash-control">补光强度 <output id="flash-value"></output><input id="flash" type="range" min="0" max="2" step="0.1"></label>
           <div id="motion-controls"><label class="check"><input id="motion" type="checkbox">运动练习球</label><label class="check"><input id="pause" type="checkbox">暂停运动</label></div>
-          <div class="assist-checks">
-            <label class="check"><input id="level-toggle" type="checkbox">水平线</label>
-            <label class="check"><input id="histogram-toggle" type="checkbox">直方图</label>
-            <label class="check"><input id="zebra" type="checkbox">过曝条纹</label>
-            <label class="check"><input id="magnifier-toggle" type="checkbox" checked>局部放大镜</label>
-          </div>
         </div></details>
       </div>
     </div>
     <p id="lesson" role="status"></p>
-    <details class="about"><summary>场景与使用说明</summary><p>选择机位，拖动画面取景，点击对焦。用光圈、快门、ISO 和白平衡观察画面变化。</p><p id="credit"></p><p><a href="./ASSETS.md">场景来源与授权</a> · <a href="https://github.com/BW1145/CameraSimulator">项目源码</a> · 原版 <a href="https://github.com/leocb/CameraSimulator">leocb</a></p></details>
+    <details class="about"><summary>场景与使用说明</summary><p>点击画面后可用 WASD 前后左右移动机位，Q 升高、E 降低；展开“更多设置”也可点击机位按钮。拖动画面取景，点击对焦。画面上向上滚轮拉近、向下拉远；参数上滚轮逐档调整，与滑杆方向一致；向上对应滑杆向右。其他区域仍正常翻页，Ctrl 或 Command 加滚轮保留浏览器缩放。用光圈、快门、ISO 和白平衡观察画面变化。</p><p id="credit"></p><p><a href="./ASSETS.md">场景来源与授权</a> · <a href="https://github.com/BW1145/CameraSimulator">项目源码</a> · 原版 <a href="https://github.com/leocb/CameraSimulator">leocb</a></p></details>
+    </div>
+    </details>
   </main>
   <script type="module" src="./src/app.js"></script>
 </body>
