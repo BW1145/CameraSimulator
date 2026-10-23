@@ -15,7 +15,7 @@ test('all four photographic packs use independent real positions and load only t
     await capturePhotographicPage(page);
     const positions=[];
     for(const pose of ['center','left','right','up','down','front','back']){
-      await page.locator(`button[data-position=${pose}]`).click();await expect(canvas).toHaveAttribute('data-position',pose);await expect(canvas).toHaveAttribute('data-ready','true');positions.push(await canvas.getAttribute('data-camera-position'));await capturePhotographicPage(page);
+      await openControl(page,'position-controls');await page.locator(`button[data-position=${pose}]`).click();await expect(canvas).toHaveAttribute('data-position',pose);await expect(canvas).toHaveAttribute('data-ready','true');positions.push(await canvas.getAttribute('data-camera-position'));await capturePhotographicPage(page);
     }
     expect(new Set(positions).size).toBe(7);
     await page.mouse.move(0,0);const stats=await sharp(await canvas.screenshot()).stats();expect(stats.channels.slice(0,3).reduce((s,c)=>s+c.mean,0)/3).toBeGreaterThan(12);
@@ -41,12 +41,16 @@ test('AF-C tracks the clicked moving ball in each photographic room',async({page
     // this test about focus, while the temporal tests cover slow-shutter blur.
     await page.locator('#shutter').fill('6');
     await openControl(page,'motion');await page.locator('#pause').check();await page.locator('#motion').check();await expect(canvas).toHaveAttribute('data-ball-x',/\d/);
-    await openControl(page,'af');await page.locator('#af').selectOption('AF-C');
+    await openControl(page,'af');await page.locator('#af').selectOption('AF-C');await waitFrame(page);
+    // Sample the current rendered ball, never coordinates retained from a prior scene.
     const point=await canvas.evaluate(e=>({x:+e.dataset.ballX,y:+e.dataset.ballY})),box=await canvas.boundingBox();await canvas.click({position:{x:point.x*box.width,y:(1-point.y)*box.height}});
-    const initial=await motionSample(page);expect(initial.focus).toBeGreaterThan(1);
+    await waitFrame(page);const initial=await motionSample(page);expect(initial.focus).toBeGreaterThan(1);
     await openControl(page,'pause');await page.locator('#pause').uncheck();await waitForMotion(page,initial);
     let tracked;await expect.poll(async()=>{tracked=await motionSample(page);return Math.abs(tracked.focus-initial.focus);},{message:`${scene} AF-C must change focus as its selected subject changes depth`,timeout:45000}).toBeGreaterThan(.05);
-    await page.locator('#pause').check();evidence.push({scene,initial,tracked});
+    await page.locator('#pause').check();await waitFrame(page);
+    const selection=await canvas.evaluate(canvas=>{const mark=document.getElementById('focus-mark');return {ball:{x:+canvas.dataset.ballX,y:+canvas.dataset.ballY},mark:{x:parseFloat(mark.style.left)/100,y:1-parseFloat(mark.style.top)/100},visible:!mark.hidden};});
+    expect(selection.visible).toBe(true);expect(Math.hypot(selection.ball.x-selection.mark.x,selection.ball.y-selection.mark.y)).toBeLessThan(.015);
+    evidence.push({scene,initial,tracked,selection});
   }
   await test.info().attach('photographic-af-progress.json',{body:JSON.stringify(evidence,null,2),contentType:'application/json'});
 });

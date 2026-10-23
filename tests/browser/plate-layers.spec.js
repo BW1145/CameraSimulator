@@ -31,7 +31,7 @@ test('detail radiance is lazy and a stale pose cannot replace the selected view'
   await page.route('**/fixture-detail.webp',async r=>{requests++;await new Promise(resolve=>{release=resolve;});await r.fulfill({contentType:'image/webp',body:image});});
   await page.goto('/?subject=none');const canvas=page.locator('#image');await expect(canvas).toHaveAttribute('data-ready','true');expect(requests).toBe(0);
   await openControl(page,'focal');await page.locator('#focal').fill('100');await expect.poll(()=>requests).toBe(1);
-  await page.locator('button[data-position=right]').click();await expect(canvas).toHaveAttribute('data-position','right');release();await waitLayers(page);
+  await openControl(page,'position-controls');await page.locator('button[data-position=right]').click();await expect(canvas).toHaveAttribute('data-position','right');release();await waitLayers(page);
   await expect(canvas).toHaveAttribute('data-position','right');expect(await canvas.getAttribute('data-detail-width')).not.toBe('5120');
 });
 
@@ -43,7 +43,7 @@ test('a previous position layer failure does not remain on a healthy selected po
   await page.route('**/unavailable-detail.webp',r=>r.abort());
   await page.goto('/?subject=none');const canvas=page.locator('#image');await expect(canvas).toHaveAttribute('data-ready','true');
   await openControl(page,'focal');await page.locator('#focal').fill('100');await expect(page.locator('#hint button')).toBeVisible();
-  await page.locator('button[data-position=right]').click();await expect(canvas).toHaveAttribute('data-position','right');await expect(canvas).toHaveAttribute('data-ready','true');await expect(page.locator('#hint button')).toHaveCount(0);
+  await openControl(page,'position-controls');await page.locator('button[data-position=right]').click();await expect(canvas).toHaveAttribute('data-position','right');await expect(canvas).toHaveAttribute('data-ready','true');await expect(page.locator('#hint button')).toHaveCount(0);
 });
 
 test('returning to a failed flash position permits a new request',async({page})=>{
@@ -54,8 +54,8 @@ test('returning to a failed flash position permits a new request',async({page})=
   await page.route('**/unavailable-flash.webp',r=>{requests++;return r.abort();});
   await page.goto('/?subject=none');const canvas=page.locator('#image');await expect(canvas).toHaveAttribute('data-ready','true');
   await openControl(page,'flash');await page.locator('#flash').fill('1');await expect(page.locator('#hint button')).toBeVisible();expect(requests).toBe(1);
-  await page.locator('button[data-position=right]').click();await expect(canvas).toHaveAttribute('data-position','right');await expect(page.locator('#hint button')).toHaveCount(0);
-  await page.locator('button[data-position=center]').click();await expect(canvas).toHaveAttribute('data-position','center');await expect.poll(()=>requests).toBe(2);await expect(page.locator('#hint button')).toBeVisible();
+  await openControl(page,'position-controls');await page.locator('button[data-position=right]').click();await expect(canvas).toHaveAttribute('data-position','right');await expect(page.locator('#hint button')).toHaveCount(0);
+  await openControl(page,'position-controls');await page.locator('button[data-position=center]').click();await expect(canvas).toHaveAttribute('data-position','center');await expect.poll(()=>requests).toBe(2);await expect(page.locator('#hint button')).toBeVisible();
   await page.locator('#scene').selectOption('classroom');await expect(canvas).toHaveAttribute('data-scene','classroom');await expect(canvas).toHaveAttribute('data-ready','true');
   await page.locator('#scene').selectOption('barbershop');await expect(canvas).toHaveAttribute('data-scene','barbershop');await expect.poll(()=>requests).toBe(3);await expect(page.locator('#hint button')).toBeVisible();
 });

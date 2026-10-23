@@ -50,11 +50,11 @@ test('pre-rendered pack loads one position, meters HDR, and focuses on source de
 test('real position selection retries failures, ignores stale loads, and exports portrait crops',async({page})=>{
   await page.goto('/?renderer=plates&subject=none');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
   let fail=true;await page.route('**/barbershop-plates/right.webp',route=>fail?route.abort():route.continue());
-  const move=async(id,n)=>{const position=id==='x'?(n<0?'left':n>0?'right':'center'):id==='y'?(n<0?'down':n>0?'up':'center'):(n<0?'back':n>0?'front':'center');await page.locator(`button[data-position=${position}]`).click();};
+  const move=async(id,n)=>{const position=id==='x'?(n<0?'left':n>0?'right':'center'):id==='y'?(n<0?'down':n>0?'up':'center'):(n<0?'back':n>0?'front':'center');await openControl(page,'position-controls');await page.locator(`button[data-position=${position}]`).click();};
   await move('x',.3);await expect(page.locator('#loading')).toContainText('机位加载失败');fail=false;await page.locator('#loading button').click();
   await expect(page.locator('#image')).toHaveAttribute('data-position','right');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
   await move('y',.2);await expect(page.locator('#image')).toHaveAttribute('data-position','up');await expect(page.locator('#x')).toHaveValue('0');
-  await page.locator('button[data-position=center]').click();await expect(page.locator('#image')).toHaveAttribute('data-position','center');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
+  await openControl(page,'position-controls');await page.locator('button[data-position=center]').click();await expect(page.locator('#image')).toHaveAttribute('data-position','center');await expect(page.locator('#image')).toHaveAttribute('data-ready','true');
   let releaseLeft,enteredLeft;const entered=new Promise(resolve=>{enteredLeft=resolve;});
   await page.route('**/barbershop-plates/left.webp',async route=>{enteredLeft();await new Promise(resolve=>{releaseLeft=resolve;});await route.continue();});
   await move('x',-.3);await entered;await move('x',0);await expect(page.locator('#image')).toHaveAttribute('data-ready','true');releaseLeft();await waitLayers(page);
