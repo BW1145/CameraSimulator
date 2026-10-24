@@ -1001,6 +1001,623 @@
           }
         }
       }
+    },
+    {
+      "id": "apartment-armchair",
+      "sourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+      "deliverySha256": "80fba6c46623959274d9c8d725aa2428f14d9553e06a71436e6f0e2cde136187",
+      "specSha256": "7ea2d47c028095a2de3f64a7c66f33ca566f5e58e99c76ebc43279df3c1d67fa",
+      "files": {
+        "right-detail-depth.png": {
+          "bytes": 1293868,
+          "sha256": "6334d75fe16a9dd2fdb7a4ae63f1e7d2a36744a5b3743a1ab2eb2e6217416e92"
+        },
+        "back.webp": {
+          "bytes": 1820806,
+          "sha256": "07f846e9cbeb3f03d39950641bbad19ba5efac99a694a04e04c2384797edadc7"
+        },
+        "left-detail-depth.png": {
+          "bytes": 1282071,
+          "sha256": "a8f95ac4b9bdb4748c2e19085c8993715282f7496f1c4569f58735c2401bcb39"
+        },
+        "down.webp": {
+          "bytes": 1828852,
+          "sha256": "6ae4122a7ad596db87dcd96393d396a7d3403a824fd12d0bc9f8dfc888952c05"
+        },
+        "back-detail-depth.png": {
+          "bytes": 1310057,
+          "sha256": "ec1c2c16c1fa2dcd9d754fb9398fd7c8fd76e195b51b3d14d0da3a1836626270"
+        },
+        "back-depth.png": {
+          "bytes": 518797,
+          "sha256": "cd4909b29cf8de6aa66b00a31ce56e8ead2873970683470863fcfd774bb5f687"
+        },
+        "front-flash.webp": {
+          "bytes": 370490,
+          "sha256": "172b955ef797d4991cb0d3aebc05662e31f32a3ecc5e280841623a8a629b421d"
+        },
+        "center-flash.webp": {
+          "bytes": 370988,
+          "sha256": "5b184d209a949c0c31d1e5ec36ffbfc1a00cacd2f5b75712062ef895b801d380"
+        },
+        "left.webp": {
+          "bytes": 1806512,
+          "sha256": "67f0ba3dfc4b5b0b89cd2eeb596ee41455b5c3f4a4f76a81654cfc3b2f68c268"
+        },
+        "down-depth.png": {
+          "bytes": 509861,
+          "sha256": "272882a26c37e96a247d795a700672774cbd7840a4ed06e3cb9c79b5abf14191"
+        },
+        "right-detail.webp": {
+          "bytes": 4534940,
+          "sha256": "ed694b596d64e5f14dd852f7b2ad834e339c492268c51b9b1df0e0e8197244b2"
+        },
+        "center.webp": {
+          "bytes": 1830178,
+          "sha256": "7f8aaca42f556ede0d1984b6c0d52b2ada8a6cb1ad17a32af5728b484688deab"
+        },
+        "manifest.json": {
+          "bytes": 104663,
+          "sha256": "a95c2ba52568de51ad7ee74a54d679b300164ee86f978bfe8e211eeb36fb0c76"
+        },
+        "front-depth.png": {
+          "bytes": 494913,
+          "sha256": "955758478f1f11ce6fc482f9ee5205bb93a15fa20f01e7e456396a914aeee01d"
+        },
+        "center-detail.webp": {
+          "bytes": 6325682,
+          "sha256": "baf87c5058b8ce1fbfac499969733da7dc36a4dfd81153b8373ffd76ade6b717"
+        },
+        "left-depth.png": {
+          "bytes": 499510,
+          "sha256": "2689003978e97d6a72ecc8be20e4a1e7f0cbf19d06f538b849ba7bb5f19d772d"
+        },
+        "back-detail.webp": {
+          "bytes": 4444544,
+          "sha256": "782a1e205ce6c123e3a1521985f4ae3a07ae2cd63d3bb046d5ce98c2dedd1686"
+        },
+        "up-detail-depth.png": {
+          "bytes": 1299859,
+          "sha256": "d85dc9b21a3453778913fa21652bb99a5fcda1665886be04be912d6bc0d868ad"
+        },
+        "right.webp": {
+          "bytes": 1858338,
+          "sha256": "c28d79c34ed43f992f967fdcc2482937a040789439d431557f9263873c397f58"
+        },
+        "right-depth.png": {
+          "bytes": 514542,
+          "sha256": "2540a17314017aa2a0ca4d16b658b54a739b13ec3fc67a53f08cd9172e64e1ab"
+        },
+        "up-depth.png": {
+          "bytes": 507541,
+          "sha256": "73d4461126314e12f14aa791a1893a8d4569e0ab9e6b9b760e9f991be05b2da8"
+        },
+        "front.webp": {
+          "bytes": 1831924,
+          "sha256": "d8e84c828729d0e5c1e574684ab9cbc79817568de08db1ae411bab80dd995b4a"
+        },
+        "down-detail.webp": {
+          "bytes": 4460732,
+          "sha256": "579d8b748a8014d097b1139f31254f1f97e2f7ec44348d51d0b07dbba5c4054c"
+        },
+        "front-detail-depth.png": {
+          "bytes": 1268397,
+          "sha256": "d3d2c7fa2d0822d71f7661d5ce6fef42c2220fcf463aa8ac7430230d55c99ae4"
+        },
+        "up-detail.webp": {
+          "bytes": 4363030,
+          "sha256": "49706d3cb4df7bda7f969be54e94697fd40f896d771803125f77dd8e14616dab"
+        },
+        "back-flash.webp": {
+          "bytes": 370612,
+          "sha256": "f23f3deb51bbba983df2d3a39d5a648bf101b370781ae1c1488f6477a8b4d12d"
+        },
+        "down-flash.webp": {
+          "bytes": 370500,
+          "sha256": "514a0a4d03ddab1409c4eba8355e69c5e017514ba6288ccc6c89c2f254c2537c"
+        },
+        "front-detail.webp": {
+          "bytes": 4428784,
+          "sha256": "300aa68abd5adf6caa09e10525811496095ec90e2fe1b85f328c350700f22814"
+        },
+        "up-flash.webp": {
+          "bytes": 367292,
+          "sha256": "ff3d60a3750f8117b362ccbfcea273c073f4cd39798c663b088a924f224a001a"
+        },
+        "up.webp": {
+          "bytes": 1807824,
+          "sha256": "1654663bfee7647b6b072524e978f1849da9cd6c328eb9423096386ade006edd"
+        },
+        "down-detail-depth.png": {
+          "bytes": 1285665,
+          "sha256": "881a4dfe022de8efa00964bb5cf4c9e62e374792f379a9715b32615ee8c3e0bb"
+        },
+        "right-flash.webp": {
+          "bytes": 373898,
+          "sha256": "2f8e45f2c3836c6c7479e772919a835d5eb1be7422f73d729c692bc2b4ddfdce"
+        },
+        "left-flash.webp": {
+          "bytes": 368400,
+          "sha256": "e12224fea14acc07efc8260e06152fd1fbc9c05f927c789fa2777ab18c8d885f"
+        },
+        "left-detail.webp": {
+          "bytes": 4385468,
+          "sha256": "22d5788b9a3656ea42f80bb8759a9916eb5905f13630db64625581d5fd53caa2"
+        },
+        "center-depth.png": {
+          "bytes": 509250,
+          "sha256": "7007a947fc9c27042a4ff21e7a4e31a78ff1e890818509e4d55427c1cc0b5fc0"
+        },
+        "center-detail-depth.png": {
+          "bytes": 1293773,
+          "sha256": "089c03b90532a34d47057b15f6bac412a5830b00a778d06f1da8490ed903020e"
+        }
+      },
+      "rig": {
+        "id": "apartment-armchair",
+        "camera": "ApartmentArmchairNative_r3",
+        "cameraNotCreatedYet": false,
+        "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/source/apartment-armchair-native-r3.blend",
+        "sourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+        "sourceScene": "Scene",
+        "sourceProvenance": {
+          "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/flat.blend",
+          "originalSha256": "0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25",
+          "originalAuthor": "Flavio Della Tommasa",
+          "license": "CC BY; adaptation CC BY4.0",
+          "originalUrl": "https://download.blender.org/demo/cycles/flat-archiviz.blend",
+          "previewSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+          "previewSourceSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+          "exactGeometrySharingProof": {
+            "read-only-attempt-002/sharing-report.json": {
+              "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/read-only-attempt-002/sharing-report.json",
+              "sha256": "b07633ae12737b85fdd13977e3da5796b4058f016d7814f6de305c96f5a7e07b"
+            },
+            "dependencies-attempt-001/dependencies.json": {
+              "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/dependencies-attempt-001/dependencies.json",
+              "sha256": "121151121ff4ed3b4ea876986e088cd8b8c8c0b96384e371c40e0299468e0cd7"
+            },
+            "evaluation-attempt-001/report.json": {
+              "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/evaluation-attempt-001/report.json",
+              "sha256": "adeb8198ed0181b19cc6389d663788ed4263a20bcc9a69a03b5e69a6e82960a1"
+            },
+            "install-attempt-001/report.json": {
+              "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/install-attempt-001/report.json",
+              "sha256": "21e9462691fc5c33467fcbd7543484c104d36ca1dfe2c97333e0639642c25520"
+            },
+            "reload-attempt-001/report.json": {
+              "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/reload-attempt-001/report.json",
+              "sha256": "40c6a9c81c80ffeb59b358a91f4bca83e458a7f92e285b7eb584635c07747202"
+            }
+          },
+          "derivations": [
+            {
+              "type": "exact-evaluated-tree-geometry-sharing",
+              "source": {
+                "originalSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/flat.blend",
+                "originalSourceSha256": "0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25",
+                "derivedSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+                "derivedSourceSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+                "exactEvaluationReport": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/evaluation-attempt-001/report.json",
+                "exactEvaluationReportSha256": "adeb8198ed0181b19cc6389d663788ed4263a20bcc9a69a03b5e69a6e82960a1",
+                "reloadReport": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/reload-attempt-001/report.json",
+                "reloadReportSha256": "40c6a9c81c80ffeb59b358a91f4bca83e458a7f92e285b7eb584635c07747202",
+                "changes": "4 tree objects share exactly their original evaluated geometry, with original modifiers baked once; transforms, materials, all other objects untouched",
+                "noSimplificationBeyondOriginalSource": true
+              },
+              "evidence": {
+                "read-only-attempt-002/sharing-report.json": {
+                  "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/read-only-attempt-002/sharing-report.json",
+                  "sha256": "b07633ae12737b85fdd13977e3da5796b4058f016d7814f6de305c96f5a7e07b"
+                },
+                "dependencies-attempt-001/dependencies.json": {
+                  "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/dependencies-attempt-001/dependencies.json",
+                  "sha256": "121151121ff4ed3b4ea876986e088cd8b8c8c0b96384e371c40e0299468e0cd7"
+                },
+                "evaluation-attempt-001/report.json": {
+                  "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/evaluation-attempt-001/report.json",
+                  "sha256": "adeb8198ed0181b19cc6389d663788ed4263a20bcc9a69a03b5e69a6e82960a1"
+                },
+                "install-attempt-001/report.json": {
+                  "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/install-attempt-001/report.json",
+                  "sha256": "21e9462691fc5c33467fcbd7543484c104d36ca1dfe2c97333e0639642c25520"
+                },
+                "reload-attempt-001/report.json": {
+                  "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/reload-attempt-001/report.json",
+                  "sha256": "40c6a9c81c80ffeb59b358a91f4bca83e458a7f92e285b7eb584635c07747202"
+                }
+              },
+              "invariants": "4originaltrees preserved, their evaluated geometry/UV/cornernormals/material indices/allattributes exactequal; own originaltransforms andmaterialslots retained; no reduction beyondoriginalmodifier output. Originaltexture2048/light/clamps preserved."
+            },
+            {
+              "type": "native-perspective-camera-only",
+              "camera": "ApartmentArmchairNative_r3",
+              "cameraSha256": "a7b87fc3324b1990d3be629951e803cbb404e5f96b445e857f597a57b37cca2b",
+              "unchanged": "All original geometry/materials/lights/world and existing source cameras retained, frame3; no prop moves or studio-plane extension."
+            }
+          ],
+          "sourceFreeze": {
+            "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+            "originalSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+            "immediateParentPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+            "immediateParentSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+            "ultimateOriginalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/flat.blend",
+            "ultimateOriginalSha256": "0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25",
+            "contractSha256": "c1f9d744b13de46823d24f889f3c13f097791bbcaefb1504906af2a6a75905ae",
+            "originalCamera": "Cam Pouf Details ",
+            "derivedSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/source/apartment-armchair-native-r3.blend",
+            "derivedSourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+            "newCamera": "ApartmentArmchairNative_r3",
+            "approvedCameraSha256": "a7b87fc3324b1990d3be629951e803cbb404e5f96b445e857f597a57b37cca2b",
+            "freezeScriptSha256": "ae6712c82483f425db69818f65c6c8e056b5fcf2c1028abb0885e47b634d3559",
+            "approvalFileSha256": "9d283f7607a5b32b4b87c02bf11979446fb83f52a885847ffbce861a280012b4",
+            "planFileSha256": "1a711b883fe8671d561bb083c58d5b6ec9ba0d72e6ab0d712c37f350ea223f3f",
+            "sourceObjectCount": 525,
+            "frozenObjectCount": 526,
+            "cameraMatrixMaxDelta": 0,
+            "frame": 3,
+            "viewLayer": "View Layer",
+            "originalRenderResolution": [
+              1800,
+              1100,
+              100
+            ],
+            "frozenNativeResolution": [
+              5120,
+              2880,
+              100
+            ],
+            "originalSourceUnchanged": true,
+            "assetsMissing": []
+          }
+        },
+        "position": [
+          1.58,
+          9.37,
+          1.15
+        ],
+        "target": [
+          4.6505511661539645,
+          7.1318052953260445,
+          0.78
+        ],
+        "matrix": [
+          [
+            -0.5890435576438904,
+            0.0783190205693245,
+            -0.8042972683906555,
+            1.5800000429153442
+          ],
+          [
+            -0.8081014752388,
+            -0.057088643312454224,
+            0.5862705111503601,
+            9.369999885559082
+          ],
+          [
+            -3.724773023350281e-8,
+            0.9952925443649292,
+            0.09691724926233292,
+            1.149999976158142
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "lens": 40,
+        "captureLens": 33.333333333333336,
+        "sensorWidth": 36,
+        "sensorHeight": 24,
+        "sensorFit": "AUTO",
+        "near": 0.03,
+        "far": 1000,
+        "aspect": 1.7777777777777777,
+        "nativeResolution": [
+          5120,
+          2880
+        ],
+        "shiftX": 0,
+        "shiftY": 0,
+        "referenceFocal": 40,
+        "offsets": {
+          "center": [
+            0,
+            0,
+            0
+          ],
+          "left": [
+            -0.08,
+            0,
+            0
+          ],
+          "right": [
+            0.08,
+            0,
+            0
+          ],
+          "up": [
+            0,
+            0.05,
+            0
+          ],
+          "down": [
+            0,
+            -0.05,
+            0
+          ],
+          "front": [
+            0,
+            0,
+            -0.08
+          ],
+          "back": [
+            0,
+            0,
+            0.08
+          ]
+        },
+        "offsetsStatus": "Conservative±8cm lateral/depth,±5cm vertical, pendingactualQC/collision. Approvedcenterlocked; maytightenneighboroffsets only.",
+        "bounds": {
+          "x": [
+            -0.08,
+            0.08
+          ],
+          "y": [
+            -0.05,
+            0.05
+          ],
+          "z": [
+            -0.08,
+            0.08
+          ],
+          "yaw": [
+            -35,
+            35
+          ],
+          "pitch": [
+            -20,
+            20
+          ],
+          "roll": [
+            -5,
+            5
+          ]
+        },
+        "flashForward": 0,
+        "defaults": {
+          "focus": 3.9,
+          "baseEV": 8
+        },
+        "defaultsEvidence": {
+          "focus": {
+            "valueMetres": 3.9,
+            "method": "Reviewed opaque gray armchair pillow center at native(968/1280,457/720) has camera axial Z3.913690567m;3.9m focuses the primary chair/pillow. Seat center3.499526m and pillow sides3.885-3.923m establish actual subject depth, not a guessed look-at distance.",
+            "sourceLayer": "detail-depth/center",
+            "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail-depth/center/attempt-001/center-detail-depth.exr",
+            "sourceSha256": "176ec12b9900614c11bfca7f5530048187ed8b279778770931796d033f13406a",
+            "sampleCoordinateConvention": "u_capture=0.5+(u_native-0.5)/1.2; same for v top-down",
+            "samples": {
+              "pillow-center": {
+                "nativeNormalized": [
+                  0.75625,
+                  0.6347222222222222
+                ],
+                "nativeReferencePixel": [
+                  968,
+                  457
+                ],
+                "capturePixel": [
+                  1461,
+                  705
+                ],
+                "z": 3.9136905670166016,
+                "roi7x7": {
+                  "min": 3.9089391231536865,
+                  "max": 3.9199302196502686,
+                  "median": 3.9136905670166016
+                }
+              },
+              "seat-center": {
+                "nativeNormalized": [
+                  0.75625,
+                  0.75
+                ],
+                "nativeReferencePixel": [
+                  968,
+                  540
+                ],
+                "capturePixel": [
+                  1461,
+                  816
+                ],
+                "z": 3.499526023864746,
+                "roi7x7": {
+                  "min": 3.4862892627716064,
+                  "max": 3.5141355991363525,
+                  "median": 3.499526023864746
+                }
+              },
+              "pillow-left": {
+                "nativeNormalized": [
+                  0.71484375,
+                  0.6319444444444444
+                ],
+                "nativeReferencePixel": [
+                  915,
+                  455
+                ],
+                "capturePixel": [
+                  1391,
+                  703
+                ],
+                "z": 3.9231531620025635,
+                "roi7x7": {
+                  "min": 3.9202239513397217,
+                  "max": 3.9263741970062256,
+                  "median": 3.9231531620025635
+                }
+              },
+              "pillow-right": {
+                "nativeNormalized": [
+                  0.796875,
+                  0.6319444444444444
+                ],
+                "nativeReferencePixel": [
+                  1020,
+                  455
+                ],
+                "capturePixel": [
+                  1531,
+                  703
+                ],
+                "z": 3.8848514556884766,
+                "roi7x7": {
+                  "min": 3.8810181617736816,
+                  "max": 3.8889589309692383,
+                  "median": 3.885287284851074
+                }
+              }
+            },
+            "sourceEvidencePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/formal-center-focus-probe.json"
+          },
+          "baseEV": {
+            "value": 8,
+            "referenceCameraSettings": {
+              "aperture": 8,
+              "shutterSeconds": 0.25,
+              "ISO": 100
+            },
+            "displayTransform": {
+              "view": "AgX",
+              "look": "None",
+              "exposure": 0,
+              "gamma": 1
+            },
+            "basis": "Original apartment lights/materials/world and source render quality retained; formal native JPEG visually checked against approved R3. EV8 is the sourceplate calibration point of the existing runtime; no brightening or baked DOF."
+          }
+        },
+        "approvedComposition": {
+          "version": 1,
+          "referenceFocal": 40,
+          "aspect": 1.7777777777777777,
+          "overscan": 1.2,
+          "preview": {
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/apartment-chair-r3-preview-16spp-oidn.png",
+            "sha256": "7be06debd6bb9945733901cb4e9700f0794062879e7c3fd14842c7064ecc44a5",
+            "width": 1280,
+            "height": 720,
+            "samples": 16,
+            "actualCaptureLensMm": 40,
+            "sensorWidthMm": 36,
+            "sensorHeightMm": 24,
+            "projectionMatrix": [
+              2.222222328186035,
+              0,
+              0,
+              0,
+              0,
+              3.9506173133850098,
+              0,
+              0,
+              0,
+              0,
+              -1.0000600814819336,
+              -1,
+              0,
+              0,
+              -0.06000180169939995,
+              0
+            ],
+            "reportPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/report.json",
+            "reportSha256": "ce357c3dfb4cb8ead5049432cdf2866a3d52bd3e93d202e396bc45c03dc703e7",
+            "rendererPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/render-script-used.py",
+            "rendererSha256": "ab36779321a65e1e0fb843d01354a393dd88457eed00e31d7920e77f5a258748",
+            "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+            "sourceSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+            "sourceReportPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/report.json",
+            "sourceReportSha256": "ce357c3dfb4cb8ead5049432cdf2866a3d52bd3e93d202e396bc45c03dc703e7",
+            "captureLens": 40,
+            "sensorWidth": 36,
+            "executionPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/execution.json",
+            "executionSha256": "1dce1012197c2e3f1a4c79ed004d9354af3c15f01e69c45b0f42d92982ce9822",
+            "statePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/state.json",
+            "stateSha256": "97730a5f1a75e8e33a6d254852fe2af3fa4eb0976f69b2c4ee618c9770f5cbac",
+            "deliveredReview": {
+              "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/apartment-chair-r3-preview-16spp-oidn.png",
+              "sha256": "7be06debd6bb9945733901cb4e9700f0794062879e7c3fd14842c7064ecc44a5",
+              "width": 1280,
+              "height": 720,
+              "resized": false,
+              "colorTreatment": "Approved full40mm AgX image, no crop/regrade/sharpen/blur"
+            }
+          },
+          "captureFrame": {
+            "width": 6144,
+            "height": 3456
+          },
+          "nativeFrame": {
+            "width": 5120,
+            "height": 2880
+          },
+          "nativeCrop": {
+            "left": 512,
+            "top": 288,
+            "width": 5120,
+            "height": 2880
+          }
+        },
+        "cameraSha256": "a7b87fc3324b1990d3be629951e803cbb404e5f96b445e857f597a57b37cca2b",
+        "sourceFrame": 3,
+        "packId": "apartment-armchair",
+        "title": "Apartment — Armchair",
+        "attribution": "Flavio Della Tommasa / CC BY; adaptation CC BY 4.0"
+      },
+      "renderAcceptance": {
+        "sha256": "23cf5ae00b493f9c6d07f9d5b40f79d8782dab8d68c9049adece491498b7c2b1",
+        "evidence": {
+          "status": "complete",
+          "completedUnix": 1792844927.9291794,
+          "formalJobs": 35,
+          "allSourcePixelsValidated": true,
+          "actualVisualReview": {
+            "status": "pass",
+            "images": [
+              "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/final-review/apartment-armchair-formal-detail-7-view.jpg",
+              "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/final-review/apartment-armchair-formal-flash-7-view.jpg",
+              "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/final-review/apartment-armchair-delivered-base-depth-7-view.jpg",
+              "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/final-review/apartment-armchair-delivered-detail-depth-7-view.jpg"
+            ],
+            "findings": [
+              "Seven directions preserve chair/bookshelf/TV/lamp geometry with coherent real parallax; no visible cutaway or missing textures",
+              "Isolated flash layer consistently excludes original lamp emission and preserves diffuse source TV texture",
+              "Base and detail delivered uint16 RG depth agree in shape; display red above4m is only QA color clipping, not depth saturation",
+              "Native JPEG reviewed separately with original-pixel chair/bookshelf crops"
+            ]
+          },
+          "sourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+          "specSha256": "7ea2d47c028095a2de3f64a7c66f33ca566f5e58e99c76ebc43279df3c1d67fa",
+          "deliverySha256": "80fba6c46623959274d9c8d725aa2428f14d9553e06a71436e6f0e2cde136187",
+          "packFiles": 36,
+          "packBytes": 61012561,
+          "totalCaptureSeconds": 7010.804463386536,
+          "peakCaptureRSSMiB": 3684.48828125,
+          "defaults": {
+            "focus": 3.9,
+            "baseEV": 8
+          },
+          "freeBytes": 5885898752,
+          "repositoryChanged": false,
+          "published": false
+        },
+        "formalEvidence": {
+          "sha256": "a103099c206d959b574de5fc4d23dfb34105b42554a6f742b881f5fbe282f794",
+          "formalJobs": 35,
+          "actualCaptureReceiptsVerified": true
+        }
+      }
     }
   ]
 }

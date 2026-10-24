@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import {readFile} from 'node:fs/promises';
+import {readFile,writeFile} from 'node:fs/promises';
 import sharp from 'sharp';
 import piexif from 'piexifjs';
 import {DERIVED_VIEWPOINTS,SCENES} from '../../src/scenes.js';
@@ -19,7 +19,11 @@ for(const scene of DERIVED_VIEWPOINTS)test(`${scene.name}: real seven-view rig, 
   await expect(image).toHaveAttribute('data-view','prerender');await expect(image).toHaveAttribute('data-focus',pack.defaults.focus.toFixed(3));
   await expect(page.locator('#focal-value')).toHaveText(`${Number(pack.referenceFocal.toFixed(1))} mm`);
   expect(Number(await image.getAttribute('data-ev'))).toBeCloseTo(8,3);
-  await capturePhotographicPage(page);
+  // Persist the actual browser output, not just a nonempty-pixel assertion.
+  // Native defaults and every real capture direction remain reviewable in CI.
+  const initial=await capturePhotographicPage(page);
+  await writeFile(testInfo.outputPath(`${scene.id}-default.png`),initial.png);
+  await writeFile(testInfo.outputPath(`${scene.id}-default-metrics.json`),JSON.stringify(initial.metrics,null,2));
   for(const [axis,index]of [['x',0],['y',1],['z',2]]){
     const values=pack.views.map(v=>v.offset[index]*(axis==='z'?-1:1));
     expect(Number(await page.locator(`#${axis}`).getAttribute('min'))).toBeCloseTo(Math.min(...values),4);
@@ -30,7 +34,8 @@ for(const scene of DERIVED_VIEWPOINTS)test(`${scene.name}: real seven-view rig, 
     await openControl(page,'position-controls');await page.locator(`button[data-position=${entry.id}]`).click();
     await expect(image).toHaveAttribute('data-position',entry.id);await expect(image).toHaveAttribute('data-ready','true');
     const position=JSON.parse(await image.getAttribute('data-camera-position'));expect(position).toEqual(entry.position);positions.push(position.join(','));
-    await capturePhotographicPage(page);
+    const evidence=await capturePhotographicPage(page);
+    await writeFile(testInfo.outputPath(`${scene.id}-${entry.id}.png`),evidence.png);
   }
   expect(new Set(positions).size).toBe(7);
   await page.locator('#reset').click();await expect(image).toHaveAttribute('data-position','center');await expect(image).toHaveAttribute('data-ready','true');

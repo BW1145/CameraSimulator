@@ -8,7 +8,29 @@ import {sceneDefaults} from '../src/scenes.js';
 import {canonicalJSON,validateStagedCenter} from './classroom-processing-audit.mjs';
 import {validateApprovedComposition} from './classroom-composition-audit.mjs';
 
-export const DERIVED_VIEWPOINT_IDS=['kitchen-pastry','kitchen-tea'];
+const KITCHEN_SOURCE={
+  originalAuthor:'Nicole Morena',
+  originalSourceSha256:'5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395',
+  previewSourceSha256:'5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395',
+  sourceLicense:'CC BY-SA; adaptation CC BY-SA4.0',
+  attribution:'Nicole Morena / CC BY-SA; adaptation CC BY-SA 4.0',
+  previewSourceField:'originalSha256',focusPixelRounding:'floor',
+};
+// This allowlist is intentionally explicit. A new profile cannot grant itself
+// another scene's author, license, preview parent or source lineage.
+const SOURCE_IDENTITIES={
+  'kitchen-pastry':{...KITCHEN_SOURCE,previewViewId:'kitchen-pastry-r2'},
+  'kitchen-tea':{...KITCHEN_SOURCE,previewViewId:'kitchen-tea-r2'},
+  'apartment-armchair':{
+    originalAuthor:'Flavio Della Tommasa',
+    originalSourceSha256:'0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25',
+    previewSourceSha256:'8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2',
+    sourceLicense:'CC BY; adaptation CC BY4.0',
+    attribution:'Flavio Della Tommasa / CC BY; adaptation CC BY 4.0',
+    previewViewId:'apartment-chair-r3-preview',previewSourceField:'previewSourceSha256',focusPixelRounding:'nearest',
+  },
+};
+export const DERIVED_VIEWPOINT_IDS=Object.keys(SOURCE_IDENTITIES);
 export const VIEW_IDS=['center','left','right','up','down','front','back'];
 const sha256=bytes=>createHash('sha256').update(bytes).digest('hex');
 const finite=(value,label)=>assert.ok(Number.isFinite(value),`${label}: expected finite number`);
@@ -33,13 +55,10 @@ function radiance(record,shared,label){
 function hash(value,label){assert.match(value,/^[a-f0-9]{64}$/,label);}
 export function validateDerivedProfile(profile){
   assert.ok(profile&&DERIVED_VIEWPOINT_IDS.includes(profile.id),'explicitly reviewed derived viewpoint');
-  assert.equal(profile.deliverySchema,`${profile.id}-delivery-v1`);assert.equal(profile.previewViewId,`${profile.id}-r2`);
+  assert.equal(profile.deliverySchema,`${profile.id}-delivery-v1`);
+  const identity=SOURCE_IDENTITIES[profile.id];
+  for(const key of ['originalAuthor','originalSourceSha256','previewSourceSha256','sourceLicense','attribution','previewViewId'])assert.equal(profile[key],identity[key],`independently reviewed ${key}`);
   for(const key of ['sourceSha256','originalSourceSha256','previewSha256','previewSourceSha256','previewReportSha256','deliverySha256','specSha256','manifestSha256','rigSha256','approvedCompositionSha256','sourceProvenanceSha256','defaultsEvidenceSha256','formalFocusDepthSha256'])hash(profile[key],`approved ${key}`);
-  assert.equal(profile.originalAuthor,'Nicole Morena');
-  assert.equal(profile.originalSourceSha256,'5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395');
-  assert.equal(profile.previewSourceSha256,profile.originalSourceSha256);
-  assert.equal(profile.sourceLicense,'CC BY-SA; adaptation CC BY-SA4.0');
-  assert.equal(profile.attribution,'Nicole Morena / CC BY-SA; adaptation CC BY-SA 4.0');
   assert.ok(Number.isFinite(profile.referenceFocal)&&profile.referenceFocal>0);
   sceneDefaults({}, {referenceFocal:profile.referenceFocal,defaults:profile.defaults});assert.equal(profile.defaults.baseEV,8);
 }
@@ -88,7 +107,7 @@ export function validateDerivedRig(pack,rig,profile){
   assert.deepEqual(pack.defaults,rig.defaults,'reviewed per-rig focus/exposure defaults');
   assert.deepEqual(pack.defaultsEvidence,rig.defaultsEvidence,'formal default-focus source evidence');
   assert.deepEqual(pack.sourceProvenance,rig.sourceProvenance,'source-only camera derivation belongs to the reviewed rig');
-  validateApprovedComposition(pack,rig,{previewSourceField:'originalSha256'});
+  validateApprovedComposition(pack,rig,{previewSourceField:SOURCE_IDENTITIES[profile.id].previewSourceField});
   assert.equal(pack.id,rig.id);assert.equal(pack.camera.name,rig.camera);
   for(const field of ['lens','sensorWidth','sensorHeight','near','far','aspect'])close(pack.camera[field],rig[field],`${pack.id} source ${field}`);
   for(const axis of ['x','y','z','yaw','pitch','roll'])vector(pack.bounds[axis],rig.bounds[axis],`${pack.id} reviewed ${axis} bounds`);
@@ -112,7 +131,25 @@ export function validateDerivedManifest(pack,profile){
   assert.equal(sha256(canonicalJSON(pack.approvedComposition)),profile.approvedCompositionSha256,'independently approved native framing');
   assert.equal(sha256(canonicalJSON(pack.defaultsEvidence)),profile.defaultsEvidenceSha256,'independent formal-Z focus evidence');
   const freeze=pack.sourceProvenance.sourceFreeze;
-  assert.equal(freeze.originalSha256,profile.originalSourceSha256);assert.equal(freeze.derivedSourceSha256,profile.sourceSha256);
+  assert.equal(freeze.originalSha256,profile.previewSourceSha256,'native camera derives from the actual approved preview parent');assert.equal(freeze.derivedSourceSha256,profile.sourceSha256);
+  if(pack.id==='apartment-armchair'){
+    assert.equal(pack.sourceProvenance.previewSourceSha256,profile.previewSourceSha256);
+    assert.equal(freeze.immediateParentSha256,profile.previewSourceSha256);
+    assert.equal(freeze.ultimateOriginalSha256,profile.originalSourceSha256);
+    assert.equal(freeze.sourceObjectCount,525);assert.equal(freeze.frozenObjectCount,526);
+    const sharing=pack.sourceProvenance.derivations?.find(d=>d.type==='exact-evaluated-tree-geometry-sharing');
+    assert.ok(sharing,'exact evaluated geometry sharing must be disclosed separately from the camera-only change');
+    assert.equal(sharing.source.originalSourceSha256,profile.originalSourceSha256);
+    assert.equal(sharing.source.derivedSourceSha256,profile.previewSourceSha256);
+    assert.equal(sharing.source.noSimplificationBeyondOriginalSource,true);
+    assert.equal(Object.keys(pack.sourceProvenance.exactGeometrySharingProof??{}).length,5,'reviewed original-to-preview proof chain');
+    const evidence=pack.sourceRenderEvidence;
+    assert.equal(evidence?.sourceScene,'Scene');assert.equal(evidence.sourceFrame,3);
+    assert.equal(evidence.sourceViewLayer,'View Layer');assert.equal(evidence.isolatedRenderContext,true);
+    const settings=evidence.originalSettings;
+    for(const [key,value]of [['texture_limit','2048'],['texture_limit_render','2048'],['sample_clamp_direct',5],['sample_clamp_indirect',10]])assert.equal(settings?.cycles?.[key],value,`retained original apartment ${key}`);
+    assert.equal(settings.render.use_simplify,true);assert.equal(settings.render.simplify_subdivision_render,2);
+  }
   assert.equal(freeze.originalSourceUnchanged,true);assert.deepEqual(freeze.assetsMissing,[]);assert.equal(freeze.cameraMatrixMaxDelta,0);
   assert.equal(freeze.frozenObjectCount,freeze.sourceObjectCount+1,'only native camera object added');
   assert.ok(pack.sourceProvenance?.derivations?.length>0,'derived source must be attributed');
@@ -123,7 +160,10 @@ export function validateDerivedManifest(pack,profile){
   for(const sample of Object.values(focus.samples)){
     assert.equal(sample.nativeNormalized?.length,2);sample.nativeNormalized.forEach(v=>assert.ok(Number.isFinite(v)&&v>=0&&v<=1));
     assert.equal(sample.capturePixel?.length,2);sample.capturePixel.forEach((v,i)=>assert.ok(Number.isInteger(v)&&v>=0&&v<[2048,1152][i]));
-    sample.capturePixel.forEach((v,i)=>assert.equal(v,Math.floor((.5+(sample.nativeNormalized[i]-.5)/1.2)*[2048,1152][i]),'formal ROI follows approved native-to-capture coordinates'));
+    // These are independently measured source probes, not the runtime picker:
+    // kitchen probes used floor; the approved apartment probe used nearest.
+    const pixel=SOURCE_IDENTITIES[profile.id].focusPixelRounding==='nearest'?Math.round:Math.floor;
+    sample.capturePixel.forEach((v,i)=>assert.equal(v,pixel((.5+(sample.nativeNormalized[i]-.5)/1.2)*[2048,1152][i]),'formal ROI follows its reviewed native-to-capture sampling convention'));
     assert.ok(Number.isFinite(sample.z)&&sample.z>0&&sample.z<64);
     const roi=sample.roi7x7;for(const key of ['min','median','max'])finite(roi[key],'formal subject ROI');
     assert.ok(roi.min<=sample.z&&sample.z<=roi.max&&roi.min<=roi.median&&roi.median<=roi.max);

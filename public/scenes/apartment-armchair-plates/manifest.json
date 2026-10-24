@@ -1,0 +1,3137 @@
+{
+  "version": 1,
+  "id": "apartment-armchair",
+  "title": "Apartment — Armchair",
+  "sourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+  "attribution": "Flavio Della Tommasa / CC BY; adaptation CC BY 4.0",
+  "method": "Seven individually rendered positions. XYZ selects an actual source camera; pan and focal length reframe that image. No invented continuous physical camera translation.",
+  "encoding": {
+    "type": "log2-rgb",
+    "min": -16,
+    "max": 6,
+    "losslessContainer": "WebP",
+    "maximumChannelQuantizationEV": 0.043137254901960784,
+    "sourceMaximumRadiance": 4.078431606292725
+  },
+  "depth": {
+    "type": "uint16-rg",
+    "space": "capture-camera-z",
+    "range": 64
+  },
+  "camera": {
+    "name": "ApartmentArmchairNative_r3",
+    "lens": 40,
+    "sourceProjection": "PERSP",
+    "sourceLens": 40,
+    "sourceOrthoScale": 6,
+    "sensorWidth": 36,
+    "sensorHeight": 24,
+    "aspect": 1.7777777777777777,
+    "nativeResolution": [
+      5120,
+      2880
+    ],
+    "near": 0.03,
+    "far": 1000,
+    "sourceFar": 1000,
+    "matrix": [
+      [
+        -0.5890435576438904,
+        0.0783190205693245,
+        -0.8042972683906555,
+        1.5800000429153442
+      ],
+      [
+        -0.8081014752388,
+        -0.057088643312454224,
+        0.5862705111503601,
+        9.369999885559082
+      ],
+      [
+        -3.724773023350281e-08,
+        0.9952925443649292,
+        0.09691724926233292,
+        1.149999976158142
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "sourceScale": [
+      1,
+      1,
+      1
+    ],
+    "shiftX": 0,
+    "shiftY": 0,
+    "sensorFit": "AUTO",
+    "sourceClippingMethod": "Explicit near plane on the derived source camera; unchanged across the bounded rig."
+  },
+  "derivations": [],
+  "referenceFocal": 40,
+  "captureLens": 33.33333206176758,
+  "bounds": {
+    "x": [
+      -0.08,
+      0.08
+    ],
+    "y": [
+      -0.05,
+      0.05
+    ],
+    "z": [
+      -0.08,
+      0.08
+    ],
+    "yaw": [
+      -35,
+      35
+    ],
+    "pitch": [
+      -20,
+      20
+    ],
+    "roll": [
+      -5,
+      5
+    ]
+  },
+  "views": [
+    {
+      "id": "center",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.5800000429153442,
+        1.149999976158142,
+        -9.369999885559082
+      ],
+      "matrix": [
+        -1.0908210277557373,
+        0.25784003734588623,
+        0.804345428943634,
+        0.8042970895767212,
+        -2.0006183376608533e-07,
+        3.2766823768615723,
+        -0.09692320227622986,
+        -0.09691737592220306,
+        1.4964838027954102,
+        0.1879456639289856,
+        0.5863056778907776,
+        0.5862704515457153,
+        15.745552062988281,
+        -2.4145216941833496,
+        4.27427864074707,
+        4.334020137786865
+      ],
+      "cameraMatrix": [
+        -0.5890435576438904,
+        -3.724773023350281e-08,
+        0.8081014752388,
+        0,
+        0.0783190205693245,
+        0.9952925443649292,
+        0.057088643312454224,
+        0,
+        -0.8042972683906555,
+        0.09691724926233292,
+        -0.5862705111503601,
+        0,
+        1.5800000429153442,
+        1.149999976158142,
+        -9.369999885559082,
+        1
+      ],
+      "projectionMatrix": [
+        1.8518519401550293,
+        0,
+        0,
+        0,
+        0,
+        3.2921810150146484,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 256,
+      "file": "center.webp",
+      "bytes": 1830178,
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+      },
+      "depth": "center-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 509250,
+      "maximumRadiance": 3.469629746344453,
+      "clampedChannels": 0,
+      "minimumDepth": 1.3119161128997803,
+      "maximumDepth": 5.968232154846191,
+      "detailFile": "center-detail.webp",
+      "detailBytes": 6325682,
+      "detailWidth": 5120,
+      "detailHeight": 2880,
+      "detailDepth": "center-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1293773,
+      "flash": "center-flash.webp",
+      "flashBytes": 370988,
+      "flashWidth": 1280,
+      "flashHeight": 720,
+      "radianceCapture": {
+        "samples": 256,
+        "blender": "4.5.14 LTS",
+        "denoising": "OpenImageDenoise HIGH/ACCURATE with albedo and normal guides; independent full-resolution bounded-memory postprocess, not an in-scene full-buffer denoise",
+        "sourceWidth": 6144,
+        "sourceHeight": 3456,
+        "runtimeDetailWidth": 5120,
+        "runtimeDetailHeight": 2880,
+        "fullFrameResampling": "Scene-linear area average over the complete overscan frame; no crop",
+        "sourceExrSha256": "9f2e6e0720b6f1e9dd59848c783ab9fb33cc5246946f2e6743ba5870c28e721c",
+        "maximumRadiance": 3.537468194961548,
+        "sourceMaximumRadiance": 3.537468194961548,
+        "jobEvidence": "jobs/apartment-armchair/detail/center/attempt-001",
+        "sourceFile": "center.exr",
+        "captureSeconds": 4124.913316500984,
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "staged-center",
+          "components": {
+            "center-stage-runner.py": "e9a0f17f89e94b4693fe4e0fff909a2b570aa2e0fbdad68c6c6b6dec00bfae94",
+            "render-center-raw.py": "f79a09158fdd589e1fd7a370cd6f2b8fe1afb7c0569b57c89e90900b31d71cbe",
+            "denoise-bounded.py": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+            "center-display.py": "67f892649c8a9e05685c87024239cb07297da242660381aead3ead90367cbcda",
+            "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+          },
+          "sha256": "3eff21cdc7b8f0827aa6aa462eefac284777b025493e2fff236d8f5e8c4209d1"
+        },
+        "denoisingEvidence": {
+          "status": "complete",
+          "input": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/raw-stage/center.exr",
+          "inputSha256": "1b5ec7f24c2bd50c5377053ccb43705ea2903e95b5b4d0903251e9c8866d3f18",
+          "inputFormat": "normalized-openexr-multilayer",
+          "inputChannels": [
+            "View Layer.Combined.R",
+            "View Layer.Combined.G",
+            "View Layer.Combined.B",
+            "View Layer.Combined.A",
+            "View Layer.Denoising Albedo.R",
+            "View Layer.Denoising Albedo.G",
+            "View Layer.Denoising Albedo.B",
+            "View Layer.Denoising Depth.Z",
+            "View Layer.Denoising Normal.X",
+            "View Layer.Denoising Normal.Y",
+            "View Layer.Denoising Normal.Z"
+          ],
+          "channelOffsets": {
+            "color": 0,
+            "normal": 8,
+            "albedo": 4
+          },
+          "sampleCountStatistics": null,
+          "filterRowOrder": "Cycles bottom-up; normalized EXR rows reversed before filtering, all output rows reversed back to top-down EXR",
+          "output": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/center.exr",
+          "outputSha256": "9f2e6e0720b6f1e9dd59848c783ab9fb33cc5246946f2e6743ba5870c28e721c",
+          "dimensions": [
+            6144,
+            3456
+          ],
+          "samples": 256,
+          "normalization": "already normalized by Blender EXR export",
+          "device": "CPU",
+          "library": "/workspace/scratch/33cf95385f89/camera-render-work/blender-4.5.14-linux-x64/lib/libOpenImageDenoise.so.2.3.3",
+          "librarySha256": "9a220453d6a7ea32a036559e6579768a312653c9da12b819282f91bf8b2acc11",
+          "scriptSha256": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+          "quality": "HIGH",
+          "prefilter": "ACCURATE",
+          "hdr": true,
+          "srgb": false,
+          "cleanAux": true,
+          "maxMemoryMBPerFilter": 1024,
+          "threads": 8,
+          "setAffinity": false,
+          "fullFrameAutomaticInputScale": true,
+          "manualTiling": false,
+          "steps": [
+            {
+              "filter": "albedo",
+              "seconds": 27.81069494501571,
+              "peakRssMiB": 2055.01171875
+            },
+            {
+              "filter": "normal",
+              "seconds": 25.93705461799982,
+              "peakRssMiB": 2077.28125
+            },
+            {
+              "filter": "color",
+              "seconds": 27.593179866002174,
+              "peakRssMiB": 2099.46484375
+            }
+          ],
+          "seconds": 84.84141138099949,
+          "peakRssMiB": 2099.46484375,
+          "rawCaptureEvidence": {
+            "jobSha256": "6c9b16518dadab7d769a2c0d6ceb5c689d9dd9a20d4fbc9d220c08fc9893e800",
+            "sourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+            "dimensions": [
+              6144,
+              3456
+            ],
+            "samples": 256,
+            "rawRendererComponents": {
+              "render-center-raw.py": "f79a09158fdd589e1fd7a370cd6f2b8fe1afb7c0569b57c89e90900b31d71cbe",
+              "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+            },
+            "renderProcess": {
+              "stage": "render",
+              "exit": 0,
+              "highWaterMiB": 3684.48828125,
+              "sampledPeakMiB": 3566.953125,
+              "wallSeconds": 4126.3301384449005,
+              "command": [
+                "/workspace/scratch/33cf95385f89/camera-render-work/blender-4.5.14-linux-x64/blender",
+                "-b",
+                "-Y",
+                "--python-exit-code",
+                "1",
+                "--disable-depsgraph-on-file-load",
+                "-t",
+                "8",
+                "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/source/apartment-armchair-native-r3.blend",
+                "--python",
+                "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/scripts/render-center-raw.py",
+                "--",
+                "--job",
+                "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/job.json",
+                "--out",
+                "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/raw-stage"
+              ],
+              "memorySafetyReason": null
+            },
+            "files": {
+              "center.exr": "1b5ec7f24c2bd50c5377053ccb43705ea2903e95b5b4d0903251e9c8866d3f18",
+              "report.json": "33ae4bb3db0618f3954f3cd4c2c4656577b153fb1db79fb35809de225b6a3737",
+              "render.log": "d787489d1f7f36092e3f3345660cb0173cb26bf3d39ba7dc0c87c1894ad6a6f4"
+            }
+          },
+          "sceneProcessExitedBeforeDenoising": true
+        }
+      },
+      "independentBaseCapture": {
+        "samples": 32,
+        "sourceFile": "center.hdr",
+        "sourceSha256": "5ce32017e56538b43e1cc42a690aae8db6537b20321e06588b752afd2f81e490",
+        "jobEvidence": "jobs/apartment-armchair/base/center/attempt-001",
+        "captureSeconds": 111.5367098429997,
+        "delivered": false,
+        "note": "Retained raw capture only; delivered center base/detail instead share the 6144x3456/256spp EXR."
+      },
+      "baseRadianceMethod": "Scene-linear area-average the exact full overscan center EXR; no independent 32spp image or native crop at initial load."
+    },
+    {
+      "id": "left",
+      "offset": [
+        -0.08,
+        0,
+        0
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.627123475074768,
+        1.149999976158142,
+        -9.434647560119629
+      ],
+      "matrix": [
+        -1.0908210277557373,
+        0.25784003734588623,
+        0.804345428943634,
+        0.8042970895767212,
+        -2.0006183376608533e-07,
+        3.2766823768615723,
+        -0.09692320227622986,
+        -0.09691737592220306,
+        1.4964838027954102,
+        0.1879456639289856,
+        0.5863056778907776,
+        0.5862704515457153,
+        15.893698692321777,
+        -2.4145216941833496,
+        4.274277687072754,
+        4.334019184112549
+      ],
+      "cameraMatrix": [
+        -0.5890435576438904,
+        -3.724773023350281e-08,
+        0.8081014752388,
+        0,
+        0.0783190205693245,
+        0.9952925443649292,
+        0.057088643312454224,
+        0,
+        -0.8042972683906555,
+        0.09691724926233292,
+        -0.5862705111503601,
+        0,
+        1.627123475074768,
+        1.149999976158142,
+        -9.434647560119629,
+        1
+      ],
+      "projectionMatrix": [
+        1.8518519401550293,
+        0,
+        0,
+        0,
+        0,
+        3.2921810150146484,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "left.webp",
+      "bytes": 1806512,
+      "seconds": 117.03794397599995,
+      "jobEvidence": "jobs/apartment-armchair/base/left/attempt-001",
+      "sha256": "e3105c61b1b99f3690f35ecbdbf300c2a29dae1d4643fc560332b753495af065",
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+      },
+      "depth": "left-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 499510,
+      "maximumRadiance": 3.6549019813537598,
+      "clampedChannels": 0,
+      "minimumDepth": 1.3626662492752075,
+      "maximumDepth": 5.968864440917969,
+      "detailFile": "left-detail.webp",
+      "detailBytes": 4385468,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "left-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1282071,
+      "flash": "left-flash.webp",
+      "flashBytes": 368400,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "right",
+      "offset": [
+        0.08,
+        0,
+        0
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.5328766107559204,
+        1.149999976158142,
+        -9.305352210998535
+      ],
+      "matrix": [
+        -1.0908210277557373,
+        0.25784003734588623,
+        0.804345428943634,
+        0.8042970895767212,
+        -2.0006183376608533e-07,
+        3.2766823768615723,
+        -0.09692320227622986,
+        -0.09691737592220306,
+        1.4964838027954102,
+        0.1879456639289856,
+        0.5863056778907776,
+        0.5862704515457153,
+        15.597404479980469,
+        -2.4145212173461914,
+        4.27427864074707,
+        4.334020137786865
+      ],
+      "cameraMatrix": [
+        -0.5890435576438904,
+        -3.724773023350281e-08,
+        0.8081014752388,
+        0,
+        0.0783190205693245,
+        0.9952925443649292,
+        0.057088643312454224,
+        0,
+        -0.8042972683906555,
+        0.09691724926233292,
+        -0.5862705111503601,
+        0,
+        1.5328766107559204,
+        1.149999976158142,
+        -9.305352210998535,
+        1
+      ],
+      "projectionMatrix": [
+        1.8518519401550293,
+        0,
+        0,
+        0,
+        0,
+        3.2921810150146484,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "right.webp",
+      "bytes": 1858338,
+      "seconds": 108.98139062101836,
+      "jobEvidence": "jobs/apartment-armchair/base/right/attempt-001",
+      "sha256": "5ab2e4e81a08176b01c645fb65a7327db7f86fe401be60046f50232ff4a1d321",
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+      },
+      "depth": "right-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 514542,
+      "maximumRadiance": 3.6078431606292725,
+      "clampedChannels": 0,
+      "minimumDepth": 1.311732530593872,
+      "maximumDepth": 5.968725681304932,
+      "detailFile": "right-detail.webp",
+      "detailBytes": 4534940,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "right-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1293868,
+      "flash": "right-flash.webp",
+      "flashBytes": 373898,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "up",
+      "offset": [
+        0,
+        0.05,
+        0
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.5839159488677979,
+        1.199764609336853,
+        -9.367145538330078
+      ],
+      "matrix": [
+        -1.0908210277557373,
+        0.25784003734588623,
+        0.804345428943634,
+        0.8042970895767212,
+        -2.0006183376608533e-07,
+        3.2766823768615723,
+        -0.09692320227622986,
+        -0.09691737592220306,
+        1.4964838027954102,
+        0.1879456639289856,
+        0.5863056778907776,
+        0.5862704515457153,
+        15.745552062988281,
+        -2.5791304111480713,
+        4.27427864074707,
+        4.334020137786865
+      ],
+      "cameraMatrix": [
+        -0.5890435576438904,
+        -3.724773023350281e-08,
+        0.8081014752388,
+        0,
+        0.0783190205693245,
+        0.9952925443649292,
+        0.057088643312454224,
+        0,
+        -0.8042972683906555,
+        0.09691724926233292,
+        -0.5862705111503601,
+        0,
+        1.5839159488677979,
+        1.199764609336853,
+        -9.367145538330078,
+        1
+      ],
+      "projectionMatrix": [
+        1.8518519401550293,
+        0,
+        0,
+        0,
+        0,
+        3.2921810150146484,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "up.webp",
+      "bytes": 1807824,
+      "seconds": 107.39416390898987,
+      "jobEvidence": "jobs/apartment-armchair/base/up/attempt-001",
+      "sha256": "fdc160a3ef22a7d40e522db07d1995e8f80637461dca52800d2fe22fda67f4b1",
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+      },
+      "depth": "up-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 507541,
+      "maximumRadiance": 4.078431606292725,
+      "clampedChannels": 0,
+      "minimumDepth": 1.3712999820709229,
+      "maximumDepth": 5.968274116516113,
+      "detailFile": "up-detail.webp",
+      "detailBytes": 4363030,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "up-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1299859,
+      "flash": "up-flash.webp",
+      "flashBytes": 367292,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "down",
+      "offset": [
+        0,
+        -0.05,
+        0
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.5760841369628906,
+        1.1002353429794312,
+        -9.372854232788086
+      ],
+      "matrix": [
+        -1.0908210277557373,
+        0.25784003734588623,
+        0.804345428943634,
+        0.8042970895767212,
+        -2.0006183376608533e-07,
+        3.2766823768615723,
+        -0.09692320227622986,
+        -0.09691737592220306,
+        1.4964838027954102,
+        0.1879456639289856,
+        0.5863056778907776,
+        0.5862704515457153,
+        15.745550155639648,
+        -2.249912738800049,
+        4.274278163909912,
+        4.334019660949707
+      ],
+      "cameraMatrix": [
+        -0.5890435576438904,
+        -3.724773023350281e-08,
+        0.8081014752388,
+        0,
+        0.0783190205693245,
+        0.9952925443649292,
+        0.057088643312454224,
+        0,
+        -0.8042972683906555,
+        0.09691724926233292,
+        -0.5862705111503601,
+        0,
+        1.5760841369628906,
+        1.1002353429794312,
+        -9.372854232788086,
+        1
+      ],
+      "projectionMatrix": [
+        1.8518519401550293,
+        0,
+        0,
+        0,
+        0,
+        3.2921810150146484,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "down.webp",
+      "bytes": 1828852,
+      "seconds": 108.92414580201148,
+      "jobEvidence": "jobs/apartment-armchair/base/down/attempt-001",
+      "sha256": "935f8e1c97a41a7cb5f43789e24f65253e2828a8fcab987514eefbb29ad04fe9",
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+      },
+      "depth": "down-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 509861,
+      "maximumRadiance": 3.9215686321258545,
+      "clampedChannels": 0,
+      "minimumDepth": 1.3118215799331665,
+      "maximumDepth": 5.968210220336914,
+      "detailFile": "down-detail.webp",
+      "detailBytes": 4460732,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "down-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1285665,
+      "flash": "down-flash.webp",
+      "flashBytes": 370500,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "front",
+      "offset": [
+        0,
+        0,
+        -0.08
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.6443438529968262,
+        1.1422466039657593,
+        -9.323098182678223
+      ],
+      "matrix": [
+        -1.0908210277557373,
+        0.25784003734588623,
+        0.804345428943634,
+        0.8042970895767212,
+        -2.0006183376608533e-07,
+        3.2766823768615723,
+        -0.09692320227622986,
+        -0.09691737592220306,
+        1.4964838027954102,
+        0.1879456639289856,
+        0.5863056778907776,
+        0.5862704515457153,
+        15.745552062988281,
+        -2.4145216941833496,
+        4.194273471832275,
+        4.254019737243652
+      ],
+      "cameraMatrix": [
+        -0.5890435576438904,
+        -3.724773023350281e-08,
+        0.8081014752388,
+        0,
+        0.0783190205693245,
+        0.9952925443649292,
+        0.057088643312454224,
+        0,
+        -0.8042972683906555,
+        0.09691724926233292,
+        -0.5862705111503601,
+        0,
+        1.6443438529968262,
+        1.1422466039657593,
+        -9.323098182678223,
+        1
+      ],
+      "projectionMatrix": [
+        1.8518519401550293,
+        0,
+        0,
+        0,
+        0,
+        3.2921810150146484,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "front.webp",
+      "bytes": 1831924,
+      "seconds": 106.65829390200088,
+      "jobEvidence": "jobs/apartment-armchair/base/front/attempt-001",
+      "sha256": "e3337b02635cdf7e6270c1c9fe4b8002c64084cbf1119dca0b6b9fc833f5f871",
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+      },
+      "depth": "front-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 494913,
+      "maximumRadiance": 3.5764706134796143,
+      "clampedChannels": 0,
+      "minimumDepth": 1.2730098962783813,
+      "maximumDepth": 5.889297962188721,
+      "detailFile": "front-detail.webp",
+      "detailBytes": 4428784,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "front-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1268397,
+      "flash": "front-flash.webp",
+      "flashBytes": 370490,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "back",
+      "offset": [
+        0,
+        0,
+        0.08
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.5156562328338623,
+        1.157753348350525,
+        -9.416901588439941
+      ],
+      "matrix": [
+        -1.0908210277557373,
+        0.25784003734588623,
+        0.804345428943634,
+        0.8042970895767212,
+        -2.0006183376608533e-07,
+        3.2766823768615723,
+        -0.09692320227622986,
+        -0.09691737592220306,
+        1.4964838027954102,
+        0.1879456639289856,
+        0.5863056778907776,
+        0.5862704515457153,
+        15.745552062988281,
+        -2.4145216941833496,
+        4.354282855987549,
+        4.414019584655762
+      ],
+      "cameraMatrix": [
+        -0.5890435576438904,
+        -3.724773023350281e-08,
+        0.8081014752388,
+        0,
+        0.0783190205693245,
+        0.9952925443649292,
+        0.057088643312454224,
+        0,
+        -0.8042972683906555,
+        0.09691724926233292,
+        -0.5862705111503601,
+        0,
+        1.5156562328338623,
+        1.157753348350525,
+        -9.416901588439941,
+        1
+      ],
+      "projectionMatrix": [
+        1.8518519401550293,
+        0,
+        0,
+        0,
+        0,
+        3.2921810150146484,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "back.webp",
+      "bytes": 1820806,
+      "seconds": 106.19288550101919,
+      "jobEvidence": "jobs/apartment-armchair/base/back/attempt-001",
+      "sha256": "a7a3b10d6524c05760367dc7a62896bcdd99a4b75850d2d5ae7539ff7226da44",
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+      },
+      "depth": "back-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 518797,
+      "maximumRadiance": 3.6235294342041016,
+      "clampedChannels": 0,
+      "minimumDepth": 1.3918578624725342,
+      "maximumDepth": 6.049122333526611,
+      "detailFile": "back-detail.webp",
+      "detailBytes": 4444544,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "back-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1310057,
+      "flash": "back-flash.webp",
+      "flashBytes": 370612,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    }
+  ],
+  "totalBytes": 16338848,
+  "initialBytes": 2339428,
+  "detail": {
+    "method": "One independently rendered source perspective camera, with source-owned geometry/materials/lights.",
+    "sourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+    "camera": {
+      "name": "ApartmentArmchairNative_r3",
+      "lens": 40,
+      "sourceProjection": "PERSP",
+      "sourceLens": 40,
+      "sourceOrthoScale": 6,
+      "sensorWidth": 36,
+      "sensorHeight": 24,
+      "aspect": 1.7777777777777777,
+      "nativeResolution": [
+        5120,
+        2880
+      ],
+      "near": 0.03,
+      "far": 1000,
+      "sourceFar": 1000,
+      "matrix": [
+        [
+          -0.5890435576438904,
+          0.0783190205693245,
+          -0.8042972683906555,
+          1.5800000429153442
+        ],
+        [
+          -0.8081014752388,
+          -0.057088643312454224,
+          0.5862705111503601,
+          9.369999885559082
+        ],
+        [
+          -3.724773023350281e-08,
+          0.9952925443649292,
+          0.09691724926233292,
+          1.149999976158142
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "sourceScale": [
+        1,
+        1,
+        1
+      ],
+      "shiftX": 0,
+      "shiftY": 0,
+      "sensorFit": "AUTO",
+      "sourceClippingMethod": "Explicit near plane on the derived source camera; unchanged across the bounded rig."
+    },
+    "captureLens": 33.33333206176758,
+    "bounds": {
+      "x": [
+        -0.08,
+        0.08
+      ],
+      "y": [
+        -0.05,
+        0.05
+      ],
+      "z": [
+        -0.08,
+        0.08
+      ],
+      "yaw": [
+        -35,
+        35
+      ],
+      "pitch": [
+        -20,
+        20
+      ],
+      "roll": [
+        -5,
+        5
+      ]
+    },
+    "derivations": [],
+    "sourceProvenance": {
+      "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/flat.blend",
+      "originalSha256": "0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25",
+      "originalAuthor": "Flavio Della Tommasa",
+      "license": "CC BY; adaptation CC BY4.0",
+      "originalUrl": "https://download.blender.org/demo/cycles/flat-archiviz.blend",
+      "previewSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+      "previewSourceSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+      "exactGeometrySharingProof": {
+        "read-only-attempt-002/sharing-report.json": {
+          "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/read-only-attempt-002/sharing-report.json",
+          "sha256": "b07633ae12737b85fdd13977e3da5796b4058f016d7814f6de305c96f5a7e07b"
+        },
+        "dependencies-attempt-001/dependencies.json": {
+          "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/dependencies-attempt-001/dependencies.json",
+          "sha256": "121151121ff4ed3b4ea876986e088cd8b8c8c0b96384e371c40e0299468e0cd7"
+        },
+        "evaluation-attempt-001/report.json": {
+          "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/evaluation-attempt-001/report.json",
+          "sha256": "adeb8198ed0181b19cc6389d663788ed4263a20bcc9a69a03b5e69a6e82960a1"
+        },
+        "install-attempt-001/report.json": {
+          "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/install-attempt-001/report.json",
+          "sha256": "21e9462691fc5c33467fcbd7543484c104d36ca1dfe2c97333e0639642c25520"
+        },
+        "reload-attempt-001/report.json": {
+          "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/reload-attempt-001/report.json",
+          "sha256": "40c6a9c81c80ffeb59b358a91f4bca83e458a7f92e285b7eb584635c07747202"
+        }
+      },
+      "derivations": [
+        {
+          "type": "exact-evaluated-tree-geometry-sharing",
+          "source": {
+            "originalSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/flat.blend",
+            "originalSourceSha256": "0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25",
+            "derivedSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+            "derivedSourceSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+            "exactEvaluationReport": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/evaluation-attempt-001/report.json",
+            "exactEvaluationReportSha256": "adeb8198ed0181b19cc6389d663788ed4263a20bcc9a69a03b5e69a6e82960a1",
+            "reloadReport": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/reload-attempt-001/report.json",
+            "reloadReportSha256": "40c6a9c81c80ffeb59b358a91f4bca83e458a7f92e285b7eb584635c07747202",
+            "changes": "4 tree objects share exactly their original evaluated geometry, with original modifiers baked once; transforms, materials, all other objects untouched",
+            "noSimplificationBeyondOriginalSource": true
+          },
+          "evidence": {
+            "read-only-attempt-002/sharing-report.json": {
+              "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/read-only-attempt-002/sharing-report.json",
+              "sha256": "b07633ae12737b85fdd13977e3da5796b4058f016d7814f6de305c96f5a7e07b"
+            },
+            "dependencies-attempt-001/dependencies.json": {
+              "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/dependencies-attempt-001/dependencies.json",
+              "sha256": "121151121ff4ed3b4ea876986e088cd8b8c8c0b96384e371c40e0299468e0cd7"
+            },
+            "evaluation-attempt-001/report.json": {
+              "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/evaluation-attempt-001/report.json",
+              "sha256": "adeb8198ed0181b19cc6389d663788ed4263a20bcc9a69a03b5e69a6e82960a1"
+            },
+            "install-attempt-001/report.json": {
+              "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/install-attempt-001/report.json",
+              "sha256": "21e9462691fc5c33467fcbd7543484c104d36ca1dfe2c97333e0639642c25520"
+            },
+            "reload-attempt-001/report.json": {
+              "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/reload-attempt-001/report.json",
+              "sha256": "40c6a9c81c80ffeb59b358a91f4bca83e458a7f92e285b7eb584635c07747202"
+            }
+          },
+          "invariants": "4originaltrees preserved, their evaluated geometry/UV/cornernormals/material indices/allattributes exactequal; own originaltransforms andmaterialslots retained; no reduction beyondoriginalmodifier output. Originaltexture2048/light/clamps preserved."
+        },
+        {
+          "type": "native-perspective-camera-only",
+          "camera": "ApartmentArmchairNative_r3",
+          "cameraSha256": "a7b87fc3324b1990d3be629951e803cbb404e5f96b445e857f597a57b37cca2b",
+          "unchanged": "All original geometry/materials/lights/world and existing source cameras retained, frame3; no prop moves or studio-plane extension."
+        }
+      ],
+      "sourceFreeze": {
+        "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+        "originalSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+        "immediateParentPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+        "immediateParentSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+        "ultimateOriginalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/flat.blend",
+        "ultimateOriginalSha256": "0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25",
+        "contractSha256": "c1f9d744b13de46823d24f889f3c13f097791bbcaefb1504906af2a6a75905ae",
+        "originalCamera": "Cam Pouf Details ",
+        "derivedSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/source/apartment-armchair-native-r3.blend",
+        "derivedSourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+        "newCamera": "ApartmentArmchairNative_r3",
+        "approvedCameraSha256": "a7b87fc3324b1990d3be629951e803cbb404e5f96b445e857f597a57b37cca2b",
+        "freezeScriptSha256": "ae6712c82483f425db69818f65c6c8e056b5fcf2c1028abb0885e47b634d3559",
+        "approvalFileSha256": "9d283f7607a5b32b4b87c02bf11979446fb83f52a885847ffbce861a280012b4",
+        "planFileSha256": "1a711b883fe8671d561bb083c58d5b6ec9ba0d72e6ab0d712c37f350ea223f3f",
+        "sourceObjectCount": 525,
+        "frozenObjectCount": 526,
+        "cameraMatrixMaxDelta": 0,
+        "frame": 3,
+        "viewLayer": "View Layer",
+        "originalRenderResolution": [
+          1800,
+          1100,
+          100
+        ],
+        "frozenNativeResolution": [
+          5120,
+          2880,
+          100
+        ],
+        "originalSourceUnchanged": true,
+        "assetsMissing": []
+      }
+    },
+    "bakedSourceDerivations": [
+      {
+        "type": "exact-evaluated-tree-geometry-sharing",
+        "source": {
+          "originalSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/flat.blend",
+          "originalSourceSha256": "0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25",
+          "derivedSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+          "derivedSourceSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+          "exactEvaluationReport": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/evaluation-attempt-001/report.json",
+          "exactEvaluationReportSha256": "adeb8198ed0181b19cc6389d663788ed4263a20bcc9a69a03b5e69a6e82960a1",
+          "reloadReport": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/reload-attempt-001/report.json",
+          "reloadReportSha256": "40c6a9c81c80ffeb59b358a91f4bca83e458a7f92e285b7eb584635c07747202",
+          "changes": "4 tree objects share exactly their original evaluated geometry, with original modifiers baked once; transforms, materials, all other objects untouched",
+          "noSimplificationBeyondOriginalSource": true
+        },
+        "evidence": {
+          "read-only-attempt-002/sharing-report.json": {
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/read-only-attempt-002/sharing-report.json",
+            "sha256": "b07633ae12737b85fdd13977e3da5796b4058f016d7814f6de305c96f5a7e07b"
+          },
+          "dependencies-attempt-001/dependencies.json": {
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/dependencies-attempt-001/dependencies.json",
+            "sha256": "121151121ff4ed3b4ea876986e088cd8b8c8c0b96384e371c40e0299468e0cd7"
+          },
+          "evaluation-attempt-001/report.json": {
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/evaluation-attempt-001/report.json",
+            "sha256": "adeb8198ed0181b19cc6389d663788ed4263a20bcc9a69a03b5e69a6e82960a1"
+          },
+          "install-attempt-001/report.json": {
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/install-attempt-001/report.json",
+            "sha256": "21e9462691fc5c33467fcbd7543484c104d36ca1dfe2c97333e0639642c25520"
+          },
+          "reload-attempt-001/report.json": {
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/reload-attempt-001/report.json",
+            "sha256": "40c6a9c81c80ffeb59b358a91f4bca83e458a7f92e285b7eb584635c07747202"
+          }
+        },
+        "invariants": "4originaltrees preserved, their evaluated geometry/UV/cornernormals/material indices/allattributes exactequal; own originaltransforms andmaterialslots retained; no reduction beyondoriginalmodifier output. Originaltexture2048/light/clamps preserved."
+      },
+      {
+        "type": "native-perspective-camera-only",
+        "camera": "ApartmentArmchairNative_r3",
+        "cameraSha256": "a7b87fc3324b1990d3be629951e803cbb404e5f96b445e857f597a57b37cca2b",
+        "unchanged": "All original geometry/materials/lights/world and existing source cameras retained, frame3; no prop moves or studio-plane extension."
+      }
+    ],
+    "blender": "4.5.14 LTS",
+    "blenderBuildHash": "62c1db4208e8",
+    "displayTransform": {
+      "view": "AgX",
+      "look": "None",
+      "exposure": 0,
+      "gamma": 1
+    },
+    "sourceScene": "Scene",
+    "sourceFrame": 3,
+    "sourceViewLayers": [
+      {
+        "name": "View Layer",
+        "enabled": true,
+        "samples": 0
+      },
+      {
+        "name": "ID",
+        "enabled": false,
+        "samples": 0
+      }
+    ],
+    "sourceSettings": {
+      "cycles": {
+        "samples": 576,
+        "use_adaptive_sampling": true,
+        "adaptive_threshold": 0.009999999776482582,
+        "adaptive_min_samples": 0,
+        "time_limit": 0,
+        "max_bounces": 12,
+        "diffuse_bounces": 6,
+        "glossy_bounces": 8,
+        "transmission_bounces": 12,
+        "transparent_max_bounces": 24,
+        "volume_bounces": 0,
+        "caustics_reflective": true,
+        "caustics_refractive": true,
+        "sample_clamp_direct": 5,
+        "sample_clamp_indirect": 10,
+        "blur_glossy": 1,
+        "use_light_tree": false,
+        "pixel_filter_type": "BLACKMAN_HARRIS",
+        "filter_width": 1,
+        "use_denoising": true,
+        "denoiser": "OPENIMAGEDENOISE",
+        "denoising_prefilter": "ACCURATE",
+        "denoising_input_passes": "RGB_ALBEDO_NORMAL",
+        "denoising_quality": "HIGH",
+        "denoising_use_gpu": false,
+        "use_layer_samples": "USE",
+        "use_sample_subset": false,
+        "use_animated_seed": false,
+        "sample_offset": 0,
+        "device": "GPU",
+        "seed": 0,
+        "use_auto_tile": true,
+        "tile_size": 2048,
+        "texture_limit": "2048",
+        "texture_limit_render": "2048"
+      },
+      "render": {
+        "use_simplify": true,
+        "simplify_subdivision_render": 2,
+        "use_motion_blur": false,
+        "film_transparent": false,
+        "pixel_aspect_x": 1,
+        "pixel_aspect_y": 1
+      }
+    },
+    "renderSettings": {
+      "samples": 32,
+      "use_adaptive_sampling": false,
+      "adaptive_threshold": 0.009999999776482582,
+      "adaptive_min_samples": 0,
+      "time_limit": 0,
+      "max_bounces": 12,
+      "diffuse_bounces": 6,
+      "glossy_bounces": 8,
+      "transmission_bounces": 12,
+      "transparent_max_bounces": 24,
+      "volume_bounces": 0,
+      "caustics_reflective": true,
+      "caustics_refractive": true,
+      "sample_clamp_direct": 5,
+      "sample_clamp_indirect": 10,
+      "blur_glossy": 1,
+      "use_light_tree": false,
+      "pixel_filter_type": "BLACKMAN_HARRIS",
+      "filter_width": 1,
+      "use_denoising": true,
+      "denoiser": "OPENIMAGEDENOISE",
+      "denoising_prefilter": "ACCURATE",
+      "denoising_input_passes": "RGB_ALBEDO_NORMAL",
+      "denoising_quality": "HIGH",
+      "denoising_use_gpu": false,
+      "use_layer_samples": "IGNORE",
+      "use_sample_subset": false,
+      "use_animated_seed": false,
+      "sample_offset": 0,
+      "device": "CPU",
+      "seed": 17,
+      "use_auto_tile": true,
+      "tile_size": 256,
+      "texture_limit": "2048",
+      "texture_limit_render": "2048"
+    },
+    "isolatedRenderContext": true,
+    "renderViewLayer": "View Layer",
+    "views": [
+      {
+        "id": "center",
+        "file": "center-detail.webp",
+        "bytes": 6325682,
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5800000429153442,
+          1.149999976158142,
+          -9.369999885559082,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 3.4844945669183436,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 256,
+        "blender": "4.5.14 LTS",
+        "denoising": "OPENIMAGEDENOISE",
+        "sourceWidth": 6144,
+        "sourceHeight": 3456,
+        "runtimeDetailWidth": 5120,
+        "runtimeDetailHeight": 2880,
+        "fullFrameResampling": "Scene-linear area average over the complete overscan frame; no crop",
+        "sourceExrSha256": "9f2e6e0720b6f1e9dd59848c783ab9fb33cc5246946f2e6743ba5870c28e721c",
+        "sourceMaximumRadiance": 3.537468194961548,
+        "width": 5120,
+        "height": 2880,
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "staged-center",
+          "components": {
+            "center-stage-runner.py": "e9a0f17f89e94b4693fe4e0fff909a2b570aa2e0fbdad68c6c6b6dec00bfae94",
+            "render-center-raw.py": "f79a09158fdd589e1fd7a370cd6f2b8fe1afb7c0569b57c89e90900b31d71cbe",
+            "denoise-bounded.py": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+            "center-display.py": "67f892649c8a9e05685c87024239cb07297da242660381aead3ead90367cbcda",
+            "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+          },
+          "sha256": "3eff21cdc7b8f0827aa6aa462eefac284777b025493e2fff236d8f5e8c4209d1"
+        },
+        "denoisingEvidence": {
+          "status": "complete",
+          "input": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/raw-stage/center.exr",
+          "inputSha256": "1b5ec7f24c2bd50c5377053ccb43705ea2903e95b5b4d0903251e9c8866d3f18",
+          "inputFormat": "normalized-openexr-multilayer",
+          "inputChannels": [
+            "View Layer.Combined.R",
+            "View Layer.Combined.G",
+            "View Layer.Combined.B",
+            "View Layer.Combined.A",
+            "View Layer.Denoising Albedo.R",
+            "View Layer.Denoising Albedo.G",
+            "View Layer.Denoising Albedo.B",
+            "View Layer.Denoising Depth.Z",
+            "View Layer.Denoising Normal.X",
+            "View Layer.Denoising Normal.Y",
+            "View Layer.Denoising Normal.Z"
+          ],
+          "channelOffsets": {
+            "color": 0,
+            "normal": 8,
+            "albedo": 4
+          },
+          "sampleCountStatistics": null,
+          "filterRowOrder": "Cycles bottom-up; normalized EXR rows reversed before filtering, all output rows reversed back to top-down EXR",
+          "output": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/center.exr",
+          "outputSha256": "9f2e6e0720b6f1e9dd59848c783ab9fb33cc5246946f2e6743ba5870c28e721c",
+          "dimensions": [
+            6144,
+            3456
+          ],
+          "samples": 256,
+          "normalization": "already normalized by Blender EXR export",
+          "device": "CPU",
+          "library": "/workspace/scratch/33cf95385f89/camera-render-work/blender-4.5.14-linux-x64/lib/libOpenImageDenoise.so.2.3.3",
+          "librarySha256": "9a220453d6a7ea32a036559e6579768a312653c9da12b819282f91bf8b2acc11",
+          "scriptSha256": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+          "quality": "HIGH",
+          "prefilter": "ACCURATE",
+          "hdr": true,
+          "srgb": false,
+          "cleanAux": true,
+          "maxMemoryMBPerFilter": 1024,
+          "threads": 8,
+          "setAffinity": false,
+          "fullFrameAutomaticInputScale": true,
+          "manualTiling": false,
+          "steps": [
+            {
+              "filter": "albedo",
+              "seconds": 27.81069494501571,
+              "peakRssMiB": 2055.01171875
+            },
+            {
+              "filter": "normal",
+              "seconds": 25.93705461799982,
+              "peakRssMiB": 2077.28125
+            },
+            {
+              "filter": "color",
+              "seconds": 27.593179866002174,
+              "peakRssMiB": 2099.46484375
+            }
+          ],
+          "seconds": 84.84141138099949,
+          "peakRssMiB": 2099.46484375,
+          "rawCaptureEvidence": {
+            "jobSha256": "6c9b16518dadab7d769a2c0d6ceb5c689d9dd9a20d4fbc9d220c08fc9893e800",
+            "sourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+            "dimensions": [
+              6144,
+              3456
+            ],
+            "samples": 256,
+            "rawRendererComponents": {
+              "render-center-raw.py": "f79a09158fdd589e1fd7a370cd6f2b8fe1afb7c0569b57c89e90900b31d71cbe",
+              "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+            },
+            "renderProcess": {
+              "stage": "render",
+              "exit": 0,
+              "highWaterMiB": 3684.48828125,
+              "sampledPeakMiB": 3566.953125,
+              "wallSeconds": 4126.3301384449005,
+              "command": [
+                "/workspace/scratch/33cf95385f89/camera-render-work/blender-4.5.14-linux-x64/blender",
+                "-b",
+                "-Y",
+                "--python-exit-code",
+                "1",
+                "--disable-depsgraph-on-file-load",
+                "-t",
+                "8",
+                "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/source/apartment-armchair-native-r3.blend",
+                "--python",
+                "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/scripts/render-center-raw.py",
+                "--",
+                "--job",
+                "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/job.json",
+                "--out",
+                "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/raw-stage"
+              ],
+              "memorySafetyReason": null
+            },
+            "files": {
+              "center.exr": "1b5ec7f24c2bd50c5377053ccb43705ea2903e95b5b4d0903251e9c8866d3f18",
+              "report.json": "33ae4bb3db0618f3954f3cd4c2c4656577b153fb1db79fb35809de225b6a3737",
+              "render.log": "d787489d1f7f36092e3f3345660cb0173cb26bf3d39ba7dc0c87c1894ad6a6f4"
+            }
+          },
+          "sceneProcessExitedBeforeDenoising": true
+        }
+      },
+      {
+        "id": "left",
+        "file": "left-detail.webp",
+        "bytes": 4385468,
+        "offset": [
+          -0.08,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.627123475074768,
+          1.149999976158142,
+          -9.434647560119629,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 3.5430357456207275,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "right",
+        "file": "right-detail.webp",
+        "bytes": 4534940,
+        "offset": [
+          0.08,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5328766107559204,
+          1.149999976158142,
+          -9.305352210998535,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 3.6584606170654297,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "up",
+        "file": "up-detail.webp",
+        "bytes": 4363030,
+        "offset": [
+          0,
+          0.05,
+          0
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5839159488677979,
+          1.199764609336853,
+          -9.367145538330078,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 3.7091615200042725,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "down",
+        "file": "down-detail.webp",
+        "bytes": 4460732,
+        "offset": [
+          0,
+          -0.05,
+          0
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5760841369628906,
+          1.1002353429794312,
+          -9.372854232788086,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 3.661827802658081,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "front",
+        "file": "front-detail.webp",
+        "bytes": 4428784,
+        "offset": [
+          0,
+          0,
+          -0.08
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.6443438529968262,
+          1.1422466039657593,
+          -9.323098182678223,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 3.7557153701782227,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "back",
+        "file": "back-detail.webp",
+        "bytes": 4444544,
+        "offset": [
+          0,
+          0,
+          0.08
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5156562328338623,
+          1.157753348350525,
+          -9.416901588439941,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 3.5633857250213623,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      }
+    ],
+    "samplingPolicy": "Center: 6144x3456/256spp source area-averaged over the full overscan to 5120x2880 runtime detail; six neighbors remain 4096x2304/32spp. No runtime crop.",
+    "encoding": {
+      "type": "log2-rgb",
+      "min": -16,
+      "max": 6,
+      "losslessContainer": "WebP",
+      "maximumChannelQuantizationEV": 0.043137254901960784,
+      "sourceMaximumRadiance": 3.7557153701782227
+    },
+    "totalBytes": 32943180
+  },
+  "detailDepth": {
+    "sourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+    "method": "One-sample source Cycles axial-Z at exactly matching radiance matrices and near planes.",
+    "space": "capture-camera-z",
+    "range": 64,
+    "views": [
+      {
+        "id": "center",
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.5800000429153442,
+          1.149999976158142,
+          -9.369999885559082
+        ],
+        "matrix": [
+          -1.0908210277557373,
+          0.25784003734588623,
+          0.804345428943634,
+          0.8042970895767212,
+          -2.0006183376608533e-07,
+          3.2766823768615723,
+          -0.09692320227622986,
+          -0.09691737592220306,
+          1.4964838027954102,
+          0.1879456639289856,
+          0.5863056778907776,
+          0.5862704515457153,
+          15.745552062988281,
+          -2.4145216941833496,
+          4.27427864074707,
+          4.334020137786865
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5800000429153442,
+          1.149999976158142,
+          -9.369999885559082,
+          1
+        ],
+        "projectionMatrix": [
+          1.8518519401550293,
+          0,
+          0,
+          0,
+          0,
+          3.2921810150146484,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "center-detail-depth.png",
+        "bytes": 1293773,
+        "seconds": 6.706650834006723,
+        "jobEvidence": "jobs/apartment-armchair/detail-depth/center/attempt-001",
+        "sha256": "176ec12b9900614c11bfca7f5530048187ed8b279778770931796d033f13406a",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+          },
+          "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "minimumZ": 1.3117561340332031,
+        "maximumZ": 5.969221591949463,
+        "clampedPixels": 0
+      },
+      {
+        "id": "left",
+        "offset": [
+          -0.08,
+          0,
+          0
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.627123475074768,
+          1.149999976158142,
+          -9.434647560119629
+        ],
+        "matrix": [
+          -1.0908210277557373,
+          0.25784003734588623,
+          0.804345428943634,
+          0.8042970895767212,
+          -2.0006183376608533e-07,
+          3.2766823768615723,
+          -0.09692320227622986,
+          -0.09691737592220306,
+          1.4964838027954102,
+          0.1879456639289856,
+          0.5863056778907776,
+          0.5862704515457153,
+          15.893698692321777,
+          -2.4145216941833496,
+          4.274277687072754,
+          4.334019184112549
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.627123475074768,
+          1.149999976158142,
+          -9.434647560119629,
+          1
+        ],
+        "projectionMatrix": [
+          1.8518519401550293,
+          0,
+          0,
+          0,
+          0,
+          3.2921810150146484,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "left-detail-depth.png",
+        "bytes": 1282071,
+        "seconds": 5.595591468008934,
+        "jobEvidence": "jobs/apartment-armchair/detail-depth/left/attempt-001",
+        "sha256": "0d879b1389b4c2db6e28decdaa42edb051c30e245f557124e1b0654048bd049d",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+          },
+          "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "minimumZ": 1.3624851703643799,
+        "maximumZ": 5.969705581665039,
+        "clampedPixels": 0
+      },
+      {
+        "id": "right",
+        "offset": [
+          0.08,
+          0,
+          0
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.5328766107559204,
+          1.149999976158142,
+          -9.305352210998535
+        ],
+        "matrix": [
+          -1.0908210277557373,
+          0.25784003734588623,
+          0.804345428943634,
+          0.8042970895767212,
+          -2.0006183376608533e-07,
+          3.2766823768615723,
+          -0.09692320227622986,
+          -0.09691737592220306,
+          1.4964838027954102,
+          0.1879456639289856,
+          0.5863056778907776,
+          0.5862704515457153,
+          15.597404479980469,
+          -2.4145212173461914,
+          4.27427864074707,
+          4.334020137786865
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5328766107559204,
+          1.149999976158142,
+          -9.305352210998535,
+          1
+        ],
+        "projectionMatrix": [
+          1.8518519401550293,
+          0,
+          0,
+          0,
+          0,
+          3.2921810150146484,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "right-detail-depth.png",
+        "bytes": 1293868,
+        "seconds": 5.707638551015407,
+        "jobEvidence": "jobs/apartment-armchair/detail-depth/right/attempt-001",
+        "sha256": "f26448ab3a68046881ad93bb58c07a51a454291ffc52e48941047fb25d660d4e",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+          },
+          "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "minimumZ": 1.3114748001098633,
+        "maximumZ": 5.970183849334717,
+        "clampedPixels": 0
+      },
+      {
+        "id": "up",
+        "offset": [
+          0,
+          0.05,
+          0
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.5839159488677979,
+          1.199764609336853,
+          -9.367145538330078
+        ],
+        "matrix": [
+          -1.0908210277557373,
+          0.25784003734588623,
+          0.804345428943634,
+          0.8042970895767212,
+          -2.0006183376608533e-07,
+          3.2766823768615723,
+          -0.09692320227622986,
+          -0.09691737592220306,
+          1.4964838027954102,
+          0.1879456639289856,
+          0.5863056778907776,
+          0.5862704515457153,
+          15.745552062988281,
+          -2.5791304111480713,
+          4.27427864074707,
+          4.334020137786865
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5839159488677979,
+          1.199764609336853,
+          -9.367145538330078,
+          1
+        ],
+        "projectionMatrix": [
+          1.8518519401550293,
+          0,
+          0,
+          0,
+          0,
+          3.2921810150146484,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "up-detail-depth.png",
+        "bytes": 1299859,
+        "seconds": 5.672085280995816,
+        "jobEvidence": "jobs/apartment-armchair/detail-depth/up/attempt-001",
+        "sha256": "d87d6e7e15e0ecf3733df7f64e1d7b673ac56da09513d4ff12896883a91838c9",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+          },
+          "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "minimumZ": 1.3710277080535889,
+        "maximumZ": 5.969274520874023,
+        "clampedPixels": 0
+      },
+      {
+        "id": "down",
+        "offset": [
+          0,
+          -0.05,
+          0
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.5760841369628906,
+          1.1002353429794312,
+          -9.372854232788086
+        ],
+        "matrix": [
+          -1.0908210277557373,
+          0.25784003734588623,
+          0.804345428943634,
+          0.8042970895767212,
+          -2.0006183376608533e-07,
+          3.2766823768615723,
+          -0.09692320227622986,
+          -0.09691737592220306,
+          1.4964838027954102,
+          0.1879456639289856,
+          0.5863056778907776,
+          0.5862704515457153,
+          15.745550155639648,
+          -2.249912738800049,
+          4.274278163909912,
+          4.334019660949707
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5760841369628906,
+          1.1002353429794312,
+          -9.372854232788086,
+          1
+        ],
+        "projectionMatrix": [
+          1.8518519401550293,
+          0,
+          0,
+          0,
+          0,
+          3.2921810150146484,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "down-detail-depth.png",
+        "bytes": 1285665,
+        "seconds": 5.6954526450135745,
+        "jobEvidence": "jobs/apartment-armchair/detail-depth/down/attempt-001",
+        "sha256": "f8e6117e0fbee51ddbe7656a174c5df91362d60dee2b730fd9aaa5b048448e08",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+          },
+          "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "minimumZ": 1.3116432428359985,
+        "maximumZ": 5.969598293304443,
+        "clampedPixels": 0
+      },
+      {
+        "id": "front",
+        "offset": [
+          0,
+          0,
+          -0.08
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.6443438529968262,
+          1.1422466039657593,
+          -9.323098182678223
+        ],
+        "matrix": [
+          -1.0908210277557373,
+          0.25784003734588623,
+          0.804345428943634,
+          0.8042970895767212,
+          -2.0006183376608533e-07,
+          3.2766823768615723,
+          -0.09692320227622986,
+          -0.09691737592220306,
+          1.4964838027954102,
+          0.1879456639289856,
+          0.5863056778907776,
+          0.5862704515457153,
+          15.745552062988281,
+          -2.4145216941833496,
+          4.194273471832275,
+          4.254019737243652
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.6443438529968262,
+          1.1422466039657593,
+          -9.323098182678223,
+          1
+        ],
+        "projectionMatrix": [
+          1.8518519401550293,
+          0,
+          0,
+          0,
+          0,
+          3.2921810150146484,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "front-detail-depth.png",
+        "bytes": 1268397,
+        "seconds": 5.360663580999244,
+        "jobEvidence": "jobs/apartment-armchair/detail-depth/front/attempt-001",
+        "sha256": "286310fa65e63bbe5af6143bb35bf074fbd38b57ca8f60898bd562fa16ad37b7",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+          },
+          "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "minimumZ": 1.272696614265442,
+        "maximumZ": 5.890376091003418,
+        "clampedPixels": 0
+      },
+      {
+        "id": "back",
+        "offset": [
+          0,
+          0,
+          0.08
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.5156562328338623,
+          1.157753348350525,
+          -9.416901588439941
+        ],
+        "matrix": [
+          -1.0908210277557373,
+          0.25784003734588623,
+          0.804345428943634,
+          0.8042970895767212,
+          -2.0006183376608533e-07,
+          3.2766823768615723,
+          -0.09692320227622986,
+          -0.09691737592220306,
+          1.4964838027954102,
+          0.1879456639289856,
+          0.5863056778907776,
+          0.5862704515457153,
+          15.745552062988281,
+          -2.4145216941833496,
+          4.354282855987549,
+          4.414019584655762
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5156562328338623,
+          1.157753348350525,
+          -9.416901588439941,
+          1
+        ],
+        "projectionMatrix": [
+          1.8518519401550293,
+          0,
+          0,
+          0,
+          0,
+          3.2921810150146484,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "back-detail-depth.png",
+        "bytes": 1310057,
+        "seconds": 5.6662541319965385,
+        "jobEvidence": "jobs/apartment-armchair/detail-depth/back/attempt-001",
+        "sha256": "3d9fa0939764f452db73206582d335cb135d12c7d1fd136a47c8be38dec8cf13",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+          },
+          "sha256": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "minimumZ": 1.3913987874984741,
+        "maximumZ": 6.050511837005615,
+        "clampedPixels": 0
+      }
+    ],
+    "totalBytes": 9033690
+  },
+  "flash": {
+    "sourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+    "method": "Cycles isolated CameraFlash light group, full-frame OIDN with normal/albedo guides; no ambient subtraction.",
+    "referenceEnergy": 1000,
+    "referenceDuration": 0.01,
+    "areaDiameter": 0.08,
+    "position": "actual capture camera origin plus explicit forward offset",
+    "coordinateSystem": "Three.js Y-up; source x,z,-y",
+    "originOffsetForward": 0,
+    "width": 1280,
+    "height": 720,
+    "samples": 32,
+    "views": [
+      {
+        "id": "center",
+        "file": "center-flash.webp",
+        "bytes": 370988,
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5800000429153442,
+          1.149999976158142,
+          -9.369999885559082,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.5800000429153442,
+          1.149999976158142,
+          -9.369999885559082
+        ],
+        "maximumRadiance": 1.9351202249526978,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "left",
+        "file": "left-flash.webp",
+        "bytes": 368400,
+        "offset": [
+          -0.08,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.627123475074768,
+          1.149999976158142,
+          -9.434647560119629,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.627123475074768,
+          1.149999976158142,
+          -9.434647560119629
+        ],
+        "maximumRadiance": 1.680163860321045,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "right",
+        "file": "right-flash.webp",
+        "bytes": 373898,
+        "offset": [
+          0.08,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5328766107559204,
+          1.149999976158142,
+          -9.305352210998535,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.5328766107559204,
+          1.149999976158142,
+          -9.305352210998535
+        ],
+        "maximumRadiance": 1.6364442110061646,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "up",
+        "file": "up-flash.webp",
+        "bytes": 367292,
+        "offset": [
+          0,
+          0.05,
+          0
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5839159488677979,
+          1.199764609336853,
+          -9.367145538330078,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.5839159488677979,
+          1.199764609336853,
+          -9.367145538330078
+        ],
+        "maximumRadiance": 1.8408101797103882,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "down",
+        "file": "down-flash.webp",
+        "bytes": 370500,
+        "offset": [
+          0,
+          -0.05,
+          0
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5760841369628906,
+          1.1002353429794312,
+          -9.372854232788086,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.5760841369628906,
+          1.1002353429794312,
+          -9.372854232788086
+        ],
+        "maximumRadiance": 2.272021532058716,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "front",
+        "file": "front-flash.webp",
+        "bytes": 370490,
+        "offset": [
+          0,
+          0,
+          -0.08
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.6443438529968262,
+          1.1422466039657593,
+          -9.323098182678223,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.6443438529968262,
+          1.1422466039657593,
+          -9.323098182678223
+        ],
+        "maximumRadiance": 1.8270787000656128,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "back",
+        "file": "back-flash.webp",
+        "bytes": 370612,
+        "offset": [
+          0,
+          0,
+          0.08
+        ],
+        "cameraMatrix": [
+          -0.5890435576438904,
+          -3.724773023350281e-08,
+          0.8081014752388,
+          0,
+          0.0783190205693245,
+          0.9952925443649292,
+          0.057088643312454224,
+          0,
+          -0.8042972683906555,
+          0.09691724926233292,
+          -0.5862705111503601,
+          0,
+          1.5156562328338623,
+          1.157753348350525,
+          -9.416901588439941,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.5156562328338623,
+          1.157753348350525,
+          -9.416901588439941
+        ],
+        "maximumRadiance": 1.5899035930633545,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      }
+    ],
+    "encoding": {
+      "type": "log2-rgb",
+      "min": -16,
+      "max": 12,
+      "losslessContainer": "WebP",
+      "maximumChannelQuantizationEV": 0.054901960784313725,
+      "sourceMaximumRadiance": 2.272021532058716
+    },
+    "totalBytes": 2592180
+  },
+  "initialWithSubjectBytes": 2339428,
+  "defaults": {
+    "focus": 3.9,
+    "baseEV": 8
+  },
+  "defaultsEvidence": {
+    "focus": {
+      "valueMetres": 3.9,
+      "method": "Reviewed opaque gray armchair pillow center at native(968/1280,457/720) has camera axial Z3.913690567m;3.9m focuses the primary chair/pillow. Seat center3.499526m and pillow sides3.885-3.923m establish actual subject depth, not a guessed look-at distance.",
+      "sourceLayer": "detail-depth/center",
+      "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail-depth/center/attempt-001/center-detail-depth.exr",
+      "sourceSha256": "176ec12b9900614c11bfca7f5530048187ed8b279778770931796d033f13406a",
+      "sampleCoordinateConvention": "u_capture=0.5+(u_native-0.5)/1.2; same for v top-down",
+      "samples": {
+        "pillow-center": {
+          "nativeNormalized": [
+            0.75625,
+            0.6347222222222222
+          ],
+          "nativeReferencePixel": [
+            968,
+            457
+          ],
+          "capturePixel": [
+            1461,
+            705
+          ],
+          "z": 3.9136905670166016,
+          "roi7x7": {
+            "min": 3.9089391231536865,
+            "max": 3.9199302196502686,
+            "median": 3.9136905670166016
+          }
+        },
+        "seat-center": {
+          "nativeNormalized": [
+            0.75625,
+            0.75
+          ],
+          "nativeReferencePixel": [
+            968,
+            540
+          ],
+          "capturePixel": [
+            1461,
+            816
+          ],
+          "z": 3.499526023864746,
+          "roi7x7": {
+            "min": 3.4862892627716064,
+            "max": 3.5141355991363525,
+            "median": 3.499526023864746
+          }
+        },
+        "pillow-left": {
+          "nativeNormalized": [
+            0.71484375,
+            0.6319444444444444
+          ],
+          "nativeReferencePixel": [
+            915,
+            455
+          ],
+          "capturePixel": [
+            1391,
+            703
+          ],
+          "z": 3.9231531620025635,
+          "roi7x7": {
+            "min": 3.9202239513397217,
+            "max": 3.9263741970062256,
+            "median": 3.9231531620025635
+          }
+        },
+        "pillow-right": {
+          "nativeNormalized": [
+            0.796875,
+            0.6319444444444444
+          ],
+          "nativeReferencePixel": [
+            1020,
+            455
+          ],
+          "capturePixel": [
+            1531,
+            703
+          ],
+          "z": 3.8848514556884766,
+          "roi7x7": {
+            "min": 3.8810181617736816,
+            "max": 3.8889589309692383,
+            "median": 3.885287284851074
+          }
+        }
+      },
+      "sourceEvidencePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/formal-center-focus-probe.json"
+    },
+    "baseEV": {
+      "value": 8,
+      "referenceCameraSettings": {
+        "aperture": 8,
+        "shutterSeconds": 0.25,
+        "ISO": 100
+      },
+      "displayTransform": {
+        "view": "AgX",
+        "look": "None",
+        "exposure": 0,
+        "gamma": 1
+      },
+      "basis": "Original apartment lights/materials/world and source render quality retained; formal native JPEG visually checked against approved R3. EV8 is the sourceplate calibration point of the existing runtime; no brightening or baked DOF."
+    }
+  },
+  "approvedComposition": {
+    "version": 1,
+    "referenceFocal": 40.0,
+    "aspect": 1.7777777777777777,
+    "overscan": 1.2,
+    "preview": {
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/apartment-chair-r3-preview-16spp-oidn.png",
+      "sha256": "7be06debd6bb9945733901cb4e9700f0794062879e7c3fd14842c7064ecc44a5",
+      "width": 1280,
+      "height": 720,
+      "samples": 16,
+      "actualCaptureLensMm": 40.0,
+      "sensorWidthMm": 36,
+      "sensorHeightMm": 24.0,
+      "projectionMatrix": [
+        2.222222328186035,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        3.9506173133850098,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0000600814819336,
+        -1.0,
+        0.0,
+        0.0,
+        -0.06000180169939995,
+        0.0
+      ],
+      "reportPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/report.json",
+      "reportSha256": "ce357c3dfb4cb8ead5049432cdf2866a3d52bd3e93d202e396bc45c03dc703e7",
+      "rendererPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/render-script-used.py",
+      "rendererSha256": "ab36779321a65e1e0fb843d01354a393dd88457eed00e31d7920e77f5a258748",
+      "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+      "sourceSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+      "sourceReportPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/report.json",
+      "sourceReportSha256": "ce357c3dfb4cb8ead5049432cdf2866a3d52bd3e93d202e396bc45c03dc703e7",
+      "captureLens": 40.0,
+      "sensorWidth": 36,
+      "executionPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/execution.json",
+      "executionSha256": "1dce1012197c2e3f1a4c79ed004d9354af3c15f01e69c45b0f42d92982ce9822",
+      "statePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/state.json",
+      "stateSha256": "97730a5f1a75e8e33a6d254852fe2af3fa4eb0976f69b2c4ee618c9770f5cbac",
+      "deliveredReview": {
+        "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-chair-r3-preview/apartment-chair-r3-preview-16spp-oidn.png",
+        "sha256": "7be06debd6bb9945733901cb4e9700f0794062879e7c3fd14842c7064ecc44a5",
+        "width": 1280,
+        "height": 720,
+        "resized": false,
+        "colorTreatment": "Approved full40mm AgX image, no crop/regrade/sharpen/blur"
+      }
+    },
+    "captureFrame": {
+      "width": 6144,
+      "height": 3456
+    },
+    "nativeFrame": {
+      "width": 5120,
+      "height": 2880
+    },
+    "nativeCrop": {
+      "left": 512,
+      "top": 288,
+      "width": 5120,
+      "height": 2880
+    }
+  },
+  "sourceProvenance": {
+    "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/flat.blend",
+    "originalSha256": "0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25",
+    "originalAuthor": "Flavio Della Tommasa",
+    "license": "CC BY; adaptation CC BY4.0",
+    "originalUrl": "https://download.blender.org/demo/cycles/flat-archiviz.blend",
+    "previewSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+    "previewSourceSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+    "exactGeometrySharingProof": {
+      "read-only-attempt-002/sharing-report.json": {
+        "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/read-only-attempt-002/sharing-report.json",
+        "sha256": "b07633ae12737b85fdd13977e3da5796b4058f016d7814f6de305c96f5a7e07b"
+      },
+      "dependencies-attempt-001/dependencies.json": {
+        "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/dependencies-attempt-001/dependencies.json",
+        "sha256": "121151121ff4ed3b4ea876986e088cd8b8c8c0b96384e371c40e0299468e0cd7"
+      },
+      "evaluation-attempt-001/report.json": {
+        "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/evaluation-attempt-001/report.json",
+        "sha256": "adeb8198ed0181b19cc6389d663788ed4263a20bcc9a69a03b5e69a6e82960a1"
+      },
+      "install-attempt-001/report.json": {
+        "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/install-attempt-001/report.json",
+        "sha256": "21e9462691fc5c33467fcbd7543484c104d36ca1dfe2c97333e0639642c25520"
+      },
+      "reload-attempt-001/report.json": {
+        "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/reload-attempt-001/report.json",
+        "sha256": "40c6a9c81c80ffeb59b358a91f4bca83e458a7f92e285b7eb584635c07747202"
+      }
+    },
+    "derivations": [
+      {
+        "type": "exact-evaluated-tree-geometry-sharing",
+        "source": {
+          "originalSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/flat.blend",
+          "originalSourceSha256": "0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25",
+          "derivedSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+          "derivedSourceSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+          "exactEvaluationReport": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/evaluation-attempt-001/report.json",
+          "exactEvaluationReportSha256": "adeb8198ed0181b19cc6389d663788ed4263a20bcc9a69a03b5e69a6e82960a1",
+          "reloadReport": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/reload-attempt-001/report.json",
+          "reloadReportSha256": "40c6a9c81c80ffeb59b358a91f4bca83e458a7f92e285b7eb584635c07747202",
+          "changes": "4 tree objects share exactly their original evaluated geometry, with original modifiers baked once; transforms, materials, all other objects untouched",
+          "noSimplificationBeyondOriginalSource": true
+        },
+        "evidence": {
+          "read-only-attempt-002/sharing-report.json": {
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/read-only-attempt-002/sharing-report.json",
+            "sha256": "b07633ae12737b85fdd13977e3da5796b4058f016d7814f6de305c96f5a7e07b"
+          },
+          "dependencies-attempt-001/dependencies.json": {
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/dependencies-attempt-001/dependencies.json",
+            "sha256": "121151121ff4ed3b4ea876986e088cd8b8c8c0b96384e371c40e0299468e0cd7"
+          },
+          "evaluation-attempt-001/report.json": {
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/evaluation-attempt-001/report.json",
+            "sha256": "adeb8198ed0181b19cc6389d663788ed4263a20bcc9a69a03b5e69a6e82960a1"
+          },
+          "install-attempt-001/report.json": {
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/install-attempt-001/report.json",
+            "sha256": "21e9462691fc5c33467fcbd7543484c104d36ca1dfe2c97333e0639642c25520"
+          },
+          "reload-attempt-001/report.json": {
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/reload-attempt-001/report.json",
+            "sha256": "40c6a9c81c80ffeb59b358a91f4bca83e458a7f92e285b7eb584635c07747202"
+          }
+        },
+        "invariants": "4originaltrees preserved, their evaluated geometry/UV/cornernormals/material indices/allattributes exactequal; own originaltransforms andmaterialslots retained; no reduction beyondoriginalmodifier output. Originaltexture2048/light/clamps preserved."
+      },
+      {
+        "type": "native-perspective-camera-only",
+        "camera": "ApartmentArmchairNative_r3",
+        "cameraSha256": "a7b87fc3324b1990d3be629951e803cbb404e5f96b445e857f597a57b37cca2b",
+        "unchanged": "All original geometry/materials/lights/world and existing source cameras retained, frame3; no prop moves or studio-plane extension."
+      }
+    ],
+    "sourceFreeze": {
+      "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+      "originalSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+      "immediateParentPath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-memory-diagnosis-20261024/apartment-exact-shared-preview.blend",
+      "immediateParentSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+      "ultimateOriginalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/flat.blend",
+      "ultimateOriginalSha256": "0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25",
+      "contractSha256": "c1f9d744b13de46823d24f889f3c13f097791bbcaefb1504906af2a6a75905ae",
+      "originalCamera": "Cam Pouf Details ",
+      "derivedSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/source/apartment-armchair-native-r3.blend",
+      "derivedSourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+      "newCamera": "ApartmentArmchairNative_r3",
+      "approvedCameraSha256": "a7b87fc3324b1990d3be629951e803cbb404e5f96b445e857f597a57b37cca2b",
+      "freezeScriptSha256": "ae6712c82483f425db69818f65c6c8e056b5fcf2c1028abb0885e47b634d3559",
+      "approvalFileSha256": "9d283f7607a5b32b4b87c02bf11979446fb83f52a885847ffbce861a280012b4",
+      "planFileSha256": "1a711b883fe8671d561bb083c58d5b6ec9ba0d72e6ab0d712c37f350ea223f3f",
+      "sourceObjectCount": 525,
+      "frozenObjectCount": 526,
+      "cameraMatrixMaxDelta": 0.0,
+      "frame": 3,
+      "viewLayer": "View Layer",
+      "originalRenderResolution": [
+        1800,
+        1100,
+        100
+      ],
+      "frozenNativeResolution": [
+        5120,
+        2880,
+        100
+      ],
+      "originalSourceUnchanged": true,
+      "assetsMissing": []
+    }
+  },
+  "sourceRenderEvidence": {
+    "sourceScene": "Scene",
+    "sourceFrame": 3,
+    "sourceViewLayer": "View Layer",
+    "isolatedRenderContext": true,
+    "originalSettings": {
+      "cycles": {
+        "samples": 576,
+        "use_adaptive_sampling": true,
+        "adaptive_threshold": 0.009999999776482582,
+        "adaptive_min_samples": 0,
+        "time_limit": 0.0,
+        "max_bounces": 12,
+        "diffuse_bounces": 6,
+        "glossy_bounces": 8,
+        "transmission_bounces": 12,
+        "transparent_max_bounces": 24,
+        "volume_bounces": 0,
+        "caustics_reflective": true,
+        "caustics_refractive": true,
+        "sample_clamp_direct": 5.0,
+        "sample_clamp_indirect": 10.0,
+        "blur_glossy": 1.0,
+        "use_light_tree": false,
+        "pixel_filter_type": "BLACKMAN_HARRIS",
+        "filter_width": 1.0,
+        "use_denoising": true,
+        "denoiser": "OPENIMAGEDENOISE",
+        "denoising_prefilter": "ACCURATE",
+        "denoising_input_passes": "RGB_ALBEDO_NORMAL",
+        "denoising_quality": "HIGH",
+        "denoising_use_gpu": false,
+        "use_layer_samples": "USE",
+        "use_sample_subset": false,
+        "use_animated_seed": false,
+        "sample_offset": 0,
+        "device": "GPU",
+        "seed": 0,
+        "use_auto_tile": true,
+        "tile_size": 2048,
+        "texture_limit": "2048",
+        "texture_limit_render": "2048"
+      },
+      "render": {
+        "use_simplify": true,
+        "simplify_subdivision_render": 2,
+        "use_motion_blur": false,
+        "film_transparent": false,
+        "pixel_aspect_x": 1.0,
+        "pixel_aspect_y": 1.0
+      }
+    },
+    "note": "Original texture2048, clamps, materials and lighting retained; exact geometry sharing is documented separately in sourceProvenance. No visibility pruning."
+  },
+  "captureQuality": {
+    "sourceCenter": {
+      "width": 6144,
+      "height": 3456,
+      "samples": 256,
+      "overscan": 1.2,
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "staged-center",
+        "components": {
+          "center-stage-runner.py": "e9a0f17f89e94b4693fe4e0fff909a2b570aa2e0fbdad68c6c6b6dec00bfae94",
+          "render-center-raw.py": "f79a09158fdd589e1fd7a370cd6f2b8fe1afb7c0569b57c89e90900b31d71cbe",
+          "denoise-bounded.py": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+          "center-display.py": "67f892649c8a9e05685c87024239cb07297da242660381aead3ead90367cbcda",
+          "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+        },
+        "sha256": "3eff21cdc7b8f0827aa6aa462eefac284777b025493e2fff236d8f5e8c4209d1"
+      },
+      "denoisingEvidence": {
+        "status": "complete",
+        "input": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/raw-stage/center.exr",
+        "inputSha256": "1b5ec7f24c2bd50c5377053ccb43705ea2903e95b5b4d0903251e9c8866d3f18",
+        "inputFormat": "normalized-openexr-multilayer",
+        "inputChannels": [
+          "View Layer.Combined.R",
+          "View Layer.Combined.G",
+          "View Layer.Combined.B",
+          "View Layer.Combined.A",
+          "View Layer.Denoising Albedo.R",
+          "View Layer.Denoising Albedo.G",
+          "View Layer.Denoising Albedo.B",
+          "View Layer.Denoising Depth.Z",
+          "View Layer.Denoising Normal.X",
+          "View Layer.Denoising Normal.Y",
+          "View Layer.Denoising Normal.Z"
+        ],
+        "channelOffsets": {
+          "color": 0,
+          "normal": 8,
+          "albedo": 4
+        },
+        "sampleCountStatistics": null,
+        "filterRowOrder": "Cycles bottom-up; normalized EXR rows reversed before filtering, all output rows reversed back to top-down EXR",
+        "output": "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/center.exr",
+        "outputSha256": "9f2e6e0720b6f1e9dd59848c783ab9fb33cc5246946f2e6743ba5870c28e721c",
+        "dimensions": [
+          6144,
+          3456
+        ],
+        "samples": 256,
+        "normalization": "already normalized by Blender EXR export",
+        "device": "CPU",
+        "library": "/workspace/scratch/33cf95385f89/camera-render-work/blender-4.5.14-linux-x64/lib/libOpenImageDenoise.so.2.3.3",
+        "librarySha256": "9a220453d6a7ea32a036559e6579768a312653c9da12b819282f91bf8b2acc11",
+        "scriptSha256": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+        "quality": "HIGH",
+        "prefilter": "ACCURATE",
+        "hdr": true,
+        "srgb": false,
+        "cleanAux": true,
+        "maxMemoryMBPerFilter": 1024,
+        "threads": 8,
+        "setAffinity": false,
+        "fullFrameAutomaticInputScale": true,
+        "manualTiling": false,
+        "steps": [
+          {
+            "filter": "albedo",
+            "seconds": 27.81069494501571,
+            "peakRssMiB": 2055.01171875
+          },
+          {
+            "filter": "normal",
+            "seconds": 25.93705461799982,
+            "peakRssMiB": 2077.28125
+          },
+          {
+            "filter": "color",
+            "seconds": 27.593179866002174,
+            "peakRssMiB": 2099.46484375
+          }
+        ],
+        "seconds": 84.84141138099949,
+        "peakRssMiB": 2099.46484375,
+        "rawCaptureEvidence": {
+          "jobSha256": "6c9b16518dadab7d769a2c0d6ceb5c689d9dd9a20d4fbc9d220c08fc9893e800",
+          "sourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+          "dimensions": [
+            6144,
+            3456
+          ],
+          "samples": 256,
+          "rawRendererComponents": {
+            "render-center-raw.py": "f79a09158fdd589e1fd7a370cd6f2b8fe1afb7c0569b57c89e90900b31d71cbe",
+            "render-job.py": "1776668f9550751cc606c7cd961dee60b4d25d736fe9020a04bde08cd86754c8"
+          },
+          "renderProcess": {
+            "stage": "render",
+            "exit": 0,
+            "highWaterMiB": 3684.48828125,
+            "sampledPeakMiB": 3566.953125,
+            "wallSeconds": 4126.3301384449005,
+            "command": [
+              "/workspace/scratch/33cf95385f89/camera-render-work/blender-4.5.14-linux-x64/blender",
+              "-b",
+              "-Y",
+              "--python-exit-code",
+              "1",
+              "--disable-depsgraph-on-file-load",
+              "-t",
+              "8",
+              "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/source/apartment-armchair-native-r3.blend",
+              "--python",
+              "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/scripts/render-center-raw.py",
+              "--",
+              "--job",
+              "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/job.json",
+              "--out",
+              "/workspace/scratch/33cf95385f89/camera-render-work/apartment-armchair-production-20261024/outputs/jobs/apartment-armchair/detail/center/attempt-001/raw-stage"
+            ],
+            "memorySafetyReason": null
+          },
+          "files": {
+            "center.exr": "1b5ec7f24c2bd50c5377053ccb43705ea2903e95b5b4d0903251e9c8866d3f18",
+            "report.json": "33ae4bb3db0618f3954f3cd4c2c4656577b153fb1db79fb35809de225b6a3737",
+            "render.log": "d787489d1f7f36092e3f3345660cb0173cb26bf3d39ba7dc0c87c1894ad6a6f4"
+          }
+        },
+        "sceneProcessExitedBeforeDenoising": true
+      }
+    },
+    "center": {
+      "width": 5120,
+      "height": 2880,
+      "samples": 256,
+      "method": "Scene-linear area average of the complete 6144x3456 overscan EXR; runtime layer is never cropped"
+    },
+    "neighbors": {
+      "width": 4096,
+      "height": 2304,
+      "samples": 32
+    },
+    "base": {
+      "width": 2560,
+      "height": 1440,
+      "centerSourceSamples": 256,
+      "neighborSamples": 32,
+      "centerMethod": "Scene-linear area average of the same full 6144px/256spp source EXR"
+    },
+    "baseDepth": {
+      "width": 1280,
+      "height": 720,
+      "samples": 1
+    },
+    "detailDepth": {
+      "width": 2048,
+      "height": 1152,
+      "samples": 1
+    },
+    "flash": {
+      "width": 1280,
+      "height": 720,
+      "samples": 32
+    },
+    "denoiser": "Center: independent bounded-memory OpenImageDenoise HIGH/ACCURATE; other layers retain original Cycles/compositor denoising. See sourceCenter.denoisingEvidence for actual components and settings."
+  }
+}

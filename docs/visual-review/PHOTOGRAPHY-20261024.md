@@ -7,11 +7,11 @@ rechecked main commit `c21f497f930978ab84417f936283eb1586e1b56e`. It imports the
 approved classroom files without inheriting the retired intermediate image commits.
 The complete old classroom branches/worktrees remain available locally.
 
-The three classroom views and two kitchen views are in the original selector;
+The three classroom views, two kitchen views and apartment armchair are in the original selector;
 there are no new panels. All four original GLB and plate directories are unchanged.
 The optional `?renderer=gltf` diagnostic retains exactly its four original scenes.
-The approved apartment-armchair render is not yet delivered or included; no preview
-or low-resolution substitute is installed in its place.
+All six additions use complete frozen formal packs; no preview or low-resolution
+substitute is installed in the runtime.
 
 | Added view | Native full-frame focal | Default focus | Runtime files |
 | --- | ---: | ---: | ---: |
@@ -20,6 +20,7 @@ or low-resolution substitute is installed in its place.
 | Teacher View / 讲台视角 | 23.625 mm | 4 m | 36 |
 | Pastry Counter / 糕点台面 | 35 mm | 1.45 m | 36 |
 | Tea Table / 厨房茶桌 | 43 mm | 1 m | 36 |
+| Apartment — Armchair / 公寓单椅 | 40 mm | 3.9 m | 36 |
 
 Native focal length, bounds, near/far and focus/exposure defaults come from each
 frozen manifest. Defaults preserve the entire approved native composition with
@@ -57,15 +58,28 @@ Neither is allowed to hide clipped delivered channels.
 
 ## Verification status
 
-- Node tests: **169 passed, 1 skipped, 0 failed** (170 total). Skip: existing
+- Node tests: **180 passed, 1 skipped, 0 failed** (181 total). Skip: existing
   independent ExifTool executable unavailable; metadata parser tests run.
 - Kitchen read-only gate and link import: passed; no image re-encoding.
 - Both approved native kitchen previews and formal center review images were
   visually compared; approved composition retained with improved source detail.
 - Nine-scene aggregate real-depth math, all nine position audits and normal Vite
   compilation pass. The linked build verifies six compiler outputs and 713 static
-  files (639,395,742 bytes); no static-image duplication. Browser acceptance is
-  pending in authorized CI and must be repeated for the complete final scene set.
+  files (639,395,742 bytes); no static-image duplication.
+- Authorized GitHub CI for the nine-scene development commit
+  `41f0c896a525052396e3815316c074e11044137e` passed all three shards:
+  **67 browser tests (24 + 22 + 21), zero failures**, plus the Node and asset
+  checks above. [Run 40089703300](https://github.com/BW1145/CameraSimulator/actions/runs/40089703300).
+  All five new views passed actual seven-position navigation, default
+  focus/fractional focal/EV, autofocus, flash, JPEG metadata and scene-switch race
+  checks. Five real 2048×1152 browser-exported JPEGs were downloaded from artifact
+  `12558871096`, ZIP SHA-256
+  `69a852b34ce9bc5da2046fb04194b616074e1ea8ffb1de03250a0e67ff898030`,
+  and visually reviewed. These captures use flash = 1; they are not no-flash
+  baseline page screenshots. Final CI will also retain default-page and seven-view
+  screenshots and must be repeated after the apartment is fully integrated.
+- The development workflow's deploy job was **skipped** as intended. The live
+  site is not this checkpoint.
 - No Git objects containing final binary assets have been written locally.
 - The user explicitly authorized the runtime images and code in the public
   `BW1145/CameraSimulator` repository. The initial upload gate was resolved by
@@ -80,3 +94,26 @@ and browser tests. The explicit low-disk local build uses
 `node tools/build-linked-assets.mjs`: normal compilation plus byte-identical static
 hardlinks from the same ordinary-build list. Linked data must never be edited in
 place. Local evidence/logs are in `.assets-cache/`, outside runtime and Git.
+
+
+## Final apartment local gate
+
+The complete 35-capture apartment delivery contains 36 files / 61,012,561 bytes,
+receipt SHA-256 `80fba6c46623959274d9c8d725aa2428f14d9553e06a71436e6f0e2cde136187`.
+All source/preview/receipt hashes, real runtime dimensions/poses/layer registration,
+five actual geometry-sharing proof reports and 35 actual completion/validation
+receipts passed the strict gate. The acceptance summary is the renderer's actual
+`final-review/owner-final-review.json` (packFiles/packBytes), not an invented
+`final-verification.json`. Exactly 35 images were hardlinked and the manifest
+independently copied; both prior kitchen receipts remained unchanged.
+
+Formal gray-pillow axial Z is 3.913690567 m. The apartment's source probe used
+nearest-pixel rounding; a later explicitly labelled read-only replay reproduced
+all four original EXR samples and 7×7 ROIs exactly. Runtime floor/interpolated
+`hitAt` was separately checked against both delivered PNG resolutions within
+0.025 m; default focus 3.9 m agrees with the intended pillow subject.
+
+All ten scene asset/depth/position audits and the normal linked Vite build passed
+locally. Final ten-scene browser CI, page screenshot review and deployment are
+still pending at this documentation checkpoint; the earlier nine-scene CI above
+is not evidence that the apartment has already run in a browser.

@@ -34,6 +34,23 @@ for(const input of inputs){
   assert.equal(hash(specBytes),profile.specSha256,'frozen spec bytes');assert.equal(spec.rigs?.length,1);
   const rig=spec.rigs[0];validateDerivedInputs(rig,profile);
   assert.equal(item.sourceSha256,rig.sourceSha256);assert.deepEqual(item.approvedComposition,rig.approvedComposition);
+  if(rig.id==='apartment-armchair'){
+    // Native-camera freezing has an intermediate exact-shared parent here.
+    // Bind the actual five small source-equivalence reports as well as their
+    // portable hashes; do not pretend the native file derives directly from flat.
+    const proof=rig.sourceProvenance.exactGeometrySharingProof,reports={};
+    for(const [name,record]of Object.entries(proof)){
+      const bytes=await readFile(record.path);assert.equal(hash(bytes),record.sha256,`actual source equivalence report: ${name}`);
+      reports[name]=JSON.parse(bytes);
+    }
+    const evaluated=reports['evaluation-attempt-001/report.json'],reloaded=reports['reload-attempt-001/report.json'];
+    assert.equal(evaluated.status,'complete');assert.equal(evaluated.sourceSha256,profile.originalSourceSha256);
+    assert.equal(evaluated.sourceSavedOrModifiedOnDisk,false);assert.equal(evaluated.noGeometryReductionBeyondOriginalModifiers,true);
+    assert.equal(evaluated.geometryEquivalentAcrossAllFour,true);
+    assert.equal(reloaded.status,'complete');assert.equal(reloaded.originalSourceSha256,profile.originalSourceSha256);
+    assert.equal(reloaded.derivedSha256,profile.previewSourceSha256);assert.equal(reloaded.sharedMeshUsers,4);
+    assert.equal(reloaded.roundTripMeshHashEquality,true);assert.equal(reloaded.allOriginalObjectTransformsAndMaterialSlotsUnchanged,true);
+  }
   assert.equal(await hashFile(rig.sourcePath),profile.sourceSha256,'actual frozen source bytes');
   const preview=rig.approvedComposition.preview,image=await readFile(preview.path),reportBytes=await readFile(preview.sourceReportPath);
   assert.equal(hash(image),profile.previewSha256);assert.equal(hash(reportBytes),profile.previewReportSha256);
@@ -42,9 +59,26 @@ for(const input of inputs){
   const focus=rig.defaultsEvidence.focus;assert.equal(await hashFile(focus.sourcePath),focus.sourceSha256,'formal focus source Z bytes');
   const source=path.resolve(path.dirname(deliveryFile),'packs',item.rig);assert.equal(path.resolve(item.pack),source);
   const result=await auditDerivedPack(source,item.files,rig,profile);
-  const finalFile=path.resolve(path.dirname(deliveryFile),'final-verification.json'),finalBytes=await readFile(finalFile),final=JSON.parse(finalBytes);
-  assert.equal(final.status,'complete');assert.equal(final.deliverySha256,profile.deliverySha256);assert.equal(final.formalJobs,35);assert.equal(final.files,36);assert.equal(final.bytes,result.totalBytes);assert.equal(final.sourceSha256,rig.sourceSha256);
-  additions.push({id:item.rig,source,profile,result,record:{id:item.rig,sourceSha256:rig.sourceSha256,deliverySha256:profile.deliverySha256,specSha256:profile.specSha256,files:item.files,rig,renderAcceptance:{sha256:hash(finalBytes),evidence:final}}});
+  const apartment=rig.id==='apartment-armchair';
+  const finalFile=path.resolve(path.dirname(deliveryFile),apartment?'final-review/owner-final-review.json':'final-verification.json'),finalBytes=await readFile(finalFile),final=JSON.parse(finalBytes);
+  assert.equal(final.status,'complete');assert.equal(final.deliverySha256,profile.deliverySha256);assert.equal(final.formalJobs,35);
+  assert.equal(apartment?final.packFiles:final.files,36);assert.equal(apartment?final.packBytes:final.bytes,result.totalBytes);assert.equal(final.sourceSha256,rig.sourceSha256);
+  let formalEvidence;
+  if(apartment){
+    assert.equal(final.specSha256,profile.specSha256);assert.deepEqual(final.defaults,rig.defaults);
+    assert.equal(final.allSourcePixelsValidated,true);assert.equal(final.actualVisualReview.status,'pass');
+    const evidenceBytes=await readFile(path.resolve(path.dirname(deliveryFile),'final-review/formal-review-evidence.json')),evidence=JSON.parse(evidenceBytes);
+    assert.equal(evidence.runtimePacksModified,false);assert.equal(evidence.formalJobs,35);assert.equal(evidence.jobs.length,35);
+    assert.equal(new Set(evidence.jobs.map(job=>job.jobId)).size,35);
+    for(const job of evidence.jobs){
+      assert.equal(job.sourceSha256,profile.sourceSha256);assert.equal(job.validation.status,'valid');
+      assert.equal(job.validation.jobId,job.jobId);
+      assert.equal(hash(await readFile(path.join(job.attempt,'validation.json'))),job.validationSha256,'actual formal validation receipt');
+      assert.equal(hash(await readFile(path.join(job.attempt,'complete.json'))),job.completeSha256,'actual completed capture receipt');
+    }
+    formalEvidence={sha256:hash(evidenceBytes),formalJobs:35,actualCaptureReceiptsVerified:true};
+  }
+  additions.push({id:item.rig,source,profile,result,record:{id:item.rig,sourceSha256:rig.sourceSha256,deliverySha256:profile.deliverySha256,specSha256:profile.specSha256,files:item.files,rig,renderAcceptance:{sha256:hash(finalBytes),evidence:final,...(formalEvidence?{formalEvidence}:{})}}});
 }
 const next={version:1,schema:'derived-viewpoint-runtime-delivery-v1',packs:[...prior.packs,...additions.map(a=>a.record)]};validateDerivedDelivery(next,profiles);
 console.log(JSON.stringify({status:'verified',updates:additions.map(a=>a.result),priorUnchanged:prior.packs.map(p=>p.id),mode:mode??'read-only'},null,2));

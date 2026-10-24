@@ -85,9 +85,29 @@ test('an unapproved future scene cannot be admitted merely by constructing a pro
   assert.throws(()=>validateDerivedProfile(f.profile));
 });
 
-test('portable receipt accepts complete exact pinned kitchen records without production paths',()=>{
-  assert.equal(validateDerivedDelivery(runtimeDelivery(),profiles).packs.length,2);
+test('portable receipt accepts complete exact pinned kitchen and apartment records without production paths',()=>{
+  assert.equal(validateDerivedDelivery(runtimeDelivery(),profiles).packs.length,3);
 });
+
+test('apartment retains its actual preview-parent lineage and nearest-pixel formal focus probe',()=>{
+  const f=fixture('apartment-armchair');accepted(f);
+  assert.notEqual(f.profile.originalSourceSha256,f.profile.previewSourceSha256);
+  assert.equal(f.pack.sourceProvenance.sourceFreeze.immediateParentSha256,f.profile.previewSourceSha256);
+  assert.equal(f.pack.sourceProvenance.sourceFreeze.ultimateOriginalSha256,f.profile.originalSourceSha256);
+  assert.equal(f.pack.defaults.focus,3.9);assert.equal(f.pack.referenceFocal,40);
+  assert.deepEqual(f.pack.defaultsEvidence.focus.samples['pillow-left'].capturePixel,[1391,703]);
+});
+for(const [label,mutate]of [
+  ['kitchen attribution',f=>{f.profile.originalAuthor='Nicole Morena';}],
+  ['incorrect immediate source',f=>{f.pack.sourceProvenance.sourceFreeze.immediateParentSha256=f.profile.originalSourceSha256;}],
+  ['missing exact geometry proof',f=>{delete f.pack.sourceProvenance.exactGeometrySharingProof;}],
+  ['wrong source frame',f=>{f.pack.sourceRenderEvidence.sourceFrame=1;}],
+  ['missing isolated source context',f=>{f.pack.sourceRenderEvidence.isolatedRenderContext=false;}],
+  ['new texture downgrade',f=>{f.pack.sourceRenderEvidence.originalSettings.cycles.texture_limit_render='1024';}],
+  ['wrong inherited clamp',f=>{f.pack.sourceRenderEvidence.originalSettings.cycles.sample_clamp_indirect=5;}],
+  ['new subdivision downgrade',f=>{f.pack.sourceRenderEvidence.originalSettings.render.simplify_subdivision_render=1;}],
+  ['floor substitution for the reviewed nearest probe',f=>{f.pack.defaultsEvidence.focus.samples['pillow-left'].capturePixel[0]=1390;}],
+])test(`apartment rejects ${label}`,()=>{const f=fixture('apartment-armchair');mutate(f);assert.throws(()=>accepted(f));});
 for(const [label,mutate]of [
   ['missing image',r=>{delete r['center-flash.webp'];}],
   ['extra image',r=>{r['unused.webp']=r['center.webp'];}],

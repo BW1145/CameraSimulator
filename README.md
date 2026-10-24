@@ -130,3 +130,21 @@ depth transport. Isolated pulse energy and capture/EXIF behavior are unchanged.
 single-rig receipts; use `--link` for explicitly budgeted immutable local imports.
 Portable receipts preserve source/preview/pose/default-focus evidence for CI
 without requiring the production filesystem. See [current integration evidence](docs/visual-review/PHOTOGRAPHY-20261024.md).
+
+
+## Approved apartment armchair
+
+`apartment-armchair` (公寓单椅) adds the approved 40 mm chair/bookshelf composition
+to the same selector; the original apartment panorama/GLB are unchanged. Default
+focus is 3.9 m, measured at the gray chair pillow (formal camera-Z 3.91369 m), with
+EV8 source calibration. Bounds, 0.03/1000 m clipping and all seven camera poses
+come from the final manifest. Real 1.2× capture overscan preserves the approved
+native framing; normal teaching DOF, isolated flash and capture/EXIF remain active.
+
+Its explicit source contract distinguishes the original Italian Flat, exact-shared
+geometry preview and native-camera source; it retains Flavio Della Tommasa / CC BY
+(adaptation CC BY 4.0), not the kitchen's license. The importer also checks the
+actual five source-equivalence reports and completed formal capture receipts.
+The apartment's measured source probes use nearest-pixel rounding, while the
+kitchen probes retain their original floor convention. Actual delivered-depth
+autofocus is independently checked against both PNG resolutions.

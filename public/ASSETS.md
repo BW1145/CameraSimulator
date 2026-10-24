@@ -50,3 +50,18 @@ rig. Each center is captured at 6144×3456 / 256 samples with actual extra 1.2×
 overscan, then linearly downsampled as a whole to runtime detail/base. Neighbor
 captures, axial Z and isolated flash are real matched source captures. No new
 GLB conversion or equivalence to the original GLB's cameras is claimed.
+
+
+Additional apartment photographic viewpoint: `apartment-armchair-plates` is an
+adaptation of Flavio Della Tommasa's Italian Flat, retaining CC BY; this
+adaptation is CC BY 4.0. Four original tree objects share exactly their original
+evaluated geometry, UVs, corner normals, material indices and other attributes,
+with original transforms/material slots retained. This is not geometry reduction
+beyond the source modifiers. A native 40 mm perspective camera is then added to
+that exact-shared preview source. The manifest distinguishes the ultimate original,
+intermediate preview parent and final native-camera source SHA-256. Source frame 3,
+View Layer, original texture limits of 2048, direct/indirect clamps of 5/10 and
+source simplify/subdivision 2 are explicitly recorded, not presented as a new
+quality setting. No original apartment assets are replaced. The new seven-view
+plate pack uses real additional 1.2× overscan and the same 6144×3456 / 256-sample
+center-to-whole-frame runtime detail contract. No matching GLB camera is invented.

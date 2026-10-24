@@ -9,7 +9,10 @@ export const KITCHEN_VIEWPOINTS = [
   {id:'kitchen-pastry',platePack:'scenes/kitchen-pastry-plates',name:'糕点台面',title:'Kitchen — Pastry Counter'},
   {id:'kitchen-tea',platePack:'scenes/kitchen-tea-plates',name:'厨房茶桌',title:'Kitchen — Tea Table'},
 ].map(scene=>({...scene,plateOnly:true,author:'Nicole Morena',license:'CC BY-SA',baseEV:8,ballDistance:3,fill:1}));
-export const DERIVED_VIEWPOINTS = [...CLASSROOM_VIEWPOINTS,...KITCHEN_VIEWPOINTS];
+export const APARTMENT_VIEWPOINTS = [
+  {id:'apartment-armchair',platePack:'scenes/apartment-armchair-plates',name:'公寓单椅',title:'Apartment — Armchair'},
+].map(scene=>({...scene,plateOnly:true,author:'Flavio Della Tommasa',license:'CC BY',baseEV:8,ballDistance:3,fill:1}));
+export const DERIVED_VIEWPOINTS = [...CLASSROOM_VIEWPOINTS,...KITCHEN_VIEWPOINTS,...APARTMENT_VIEWPOINTS];
 
 export const SCENES = [
   {id:'barbershop',platePack:'scenes/barbershop-plates',name:'理发店',title:'Agent 327 Barbershop',camera:'Camera',author:'Blender Foundation / Blender Studio',license:'CC BY',baseEV:8,ballDistance:3,focus:3,focal:20,startForward:1.25,fill:1,bakedLighting:{exposureOffset:6,fill:.06,sunlight:.03,lightScale:1/683}},
@@ -18,6 +21,7 @@ export const SCENES = [
   {id:'kitchen',platePack:'scenes/kitchen-plates',name:'厨房',title:'Cozy Kitchen',camera:'CAM-wide',author:'Nicole Morena',license:'CC BY-SA',baseEV:8,ballDistance:3,focus:12.5,focal:35,startForward:6,fill:1},
   ...KITCHEN_VIEWPOINTS,
   {id:'apartment',platePack:'scenes/apartment-plates',name:'公寓',title:'Italian Flat',camera:'Cam Living',author:'Flavio Della Tommasa',license:'CC BY',baseEV:8,ballDistance:10,focus:6,focal:28,startForward:4.1,startUp:.4,fill:1},
+  ...APARTMENT_VIEWPOINTS,
 ];
 
 // The optional full-geometry diagnostic keeps the four real GLB conversions.

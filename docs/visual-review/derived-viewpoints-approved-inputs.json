@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "scope": "Independent pins for approved completed kitchen viewpoints. New scene identities require an explicit reviewed entry; not a blanket license/source approval.",
+  "scope": "Independent pins for completed approved kitchen and apartment viewpoints. New scene identities require an explicit reviewed entry; not a blanket license/source approval.",
   "rigs": [
     {
       "id": "kitchen-pastry",
@@ -53,6 +53,32 @@
         "baseEV": 8
       },
       "previewViewId": "kitchen-tea-r2"
+    },
+    {
+      "id": "apartment-armchair",
+      "deliverySchema": "apartment-armchair-delivery-v1",
+      "sourceSha256": "78e4a775bdb12d69d0f113a8bd5f0f7210ced48cdb5793b57a2de06b60714263",
+      "originalSourceSha256": "0027fcbd73411cce7f49b3d86c22c03d18980e22641083da9d8ba82d9fc94e25",
+      "originalAuthor": "Flavio Della Tommasa",
+      "sourceLicense": "CC BY; adaptation CC BY4.0",
+      "attribution": "Flavio Della Tommasa / CC BY; adaptation CC BY 4.0",
+      "previewSha256": "7be06debd6bb9945733901cb4e9700f0794062879e7c3fd14842c7064ecc44a5",
+      "previewSourceSha256": "8013231a152b944229960a679163a8ac5f44110b5cb7121bebae6f15f19cfaf2",
+      "previewReportSha256": "ce357c3dfb4cb8ead5049432cdf2866a3d52bd3e93d202e396bc45c03dc703e7",
+      "deliverySha256": "80fba6c46623959274d9c8d725aa2428f14d9553e06a71436e6f0e2cde136187",
+      "specSha256": "7ea2d47c028095a2de3f64a7c66f33ca566f5e58e99c76ebc43279df3c1d67fa",
+      "manifestSha256": "a95c2ba52568de51ad7ee74a54d679b300164ee86f978bfe8e211eeb36fb0c76",
+      "rigSha256": "4fa2e766c78e54ca84c6daa2c864f5a7242a13bd6487d841bc40515d8b0f2abc",
+      "approvedCompositionSha256": "b34a049ce7fb8ded33a2bdef389b5321880c41fb4cfb23ca27e4acc65131d409",
+      "sourceProvenanceSha256": "9c370f7b4ae49a31d0f690cfe4487855ea6d5d140fa9ef7c23caf795495ec607",
+      "defaultsEvidenceSha256": "cc169407cef4c3c14ea4f9097b99add87fc99ddd429b846444971c967818e2a2",
+      "formalFocusDepthSha256": "176ec12b9900614c11bfca7f5530048187ed8b279778770931796d033f13406a",
+      "referenceFocal": 40,
+      "defaults": {
+        "focus": 3.9,
+        "baseEV": 8
+      },
+      "previewViewId": "apartment-chair-r3-preview"
     }
   ]
 }

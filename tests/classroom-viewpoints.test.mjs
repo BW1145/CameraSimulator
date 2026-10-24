@@ -40,11 +40,11 @@ function manifest(){
   return pack;
 }
 
-test('existing selector retains the classroom trio alongside reviewed kitchen viewpoints',()=>{
-  assert.deepEqual(SCENES.map(s=>s.id),['barbershop','classroom','classroom-desk','classroom-window','classroom-teacher','kitchen','kitchen-pastry','kitchen-tea','apartment']);
+test('existing selector retains the classroom trio alongside reviewed kitchen and apartment viewpoints',()=>{
+  assert.deepEqual(SCENES.map(s=>s.id),['barbershop','classroom','classroom-desk','classroom-window','classroom-teacher','kitchen','kitchen-pastry','kitchen-tea','apartment','apartment-armchair']);
   assert.equal(SCENES.find(s=>s.id==='classroom').name,'教室全景');
   assert.deepEqual(CLASSROOM_VIEWPOINTS.map(s=>s.name),['学生座位','窗边逆光','讲台视角']);
-  assert.equal(scenesForRenderer().length,9);
+  assert.equal(scenesForRenderer().length,10);
   assert.deepEqual(scenesForRenderer(false).map(s=>s.id),['barbershop','classroom','kitchen','apartment']);
   assert.ok(CLASSROOM_VIEWPOINTS.every(s=>s.plateOnly&&!s.camera&&!s.focal&&!s.focus),'no invented GLB cameras or duplicated capture optics');
 });

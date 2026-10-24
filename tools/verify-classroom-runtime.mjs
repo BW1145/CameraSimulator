@@ -69,7 +69,7 @@ for(const definition of DERIVED_VIEWPOINTS){
       subjectFocus.push({subject:'approved blue-cover center',nativeXY1280:[770,480],depthFile:file,actualCameraZ:hit.z,defaultFocus:settings.focus});
     }
   }
-  if(pack.id.startsWith('kitchen-')){
+  if(pack.id.startsWith('kitchen-')||pack.id==='apartment-armchair'){
     const samples=pack.defaultsEvidence.focus.samples;
     assert.ok(samples&&Object.keys(samples).length>=2,'formal opaque teaching-subject depth samples');
     for(const [file,width,height]of [[owner.entry.depth,owner.entry.depthWidth,owner.entry.depthHeight],[owner.entry.detailDepth,owner.entry.detailDepthWidth,owner.entry.detailDepthHeight]]){
@@ -77,6 +77,7 @@ for(const definition of DERIVED_VIEWPOINTS){
       for(const [subject,sample]of Object.entries(samples)){
         const [x,y]=sample.nativeNormalized,hit=owner.hitAt(x,1-y);
         near(hit.z,sample.z,'actual delivered Z agrees with the reviewed formal subject sample',.025);
+        if(pack.id==='apartment-armchair'&&subject==='pillow-center')near(settings.focus,hit.z,'default focus targets the actual gray armchair pillow',.025);
         subjectFocus.push({subject,nativeNormalized:sample.nativeNormalized,depthFile:file,actualCameraZ:hit.z,formalCameraZ:sample.z,defaultFocus:settings.focus});
       }
     }
