@@ -14,6 +14,7 @@ export function photoSnapshot({settings,resolved,scene,renderer,simulationTime,f
   return freeze(structuredClone({schemaVersion:1,software:'CameraSimulator',simulated:true,capturedAt,
     settings,resolved,scene:{id:scene.id,name:scene.name},source,simulationTime,focusPoint,width,height,
     rendering:{sourceView:Boolean(renderer.sourceView),exposureOffset:renderer.exposureOffset??0,filmWidth:renderer.filmWidth??null,
+      ...(renderer.displayTransform?{displayTransform:renderer.displayTransform}:{}),
       cameraPosition:renderer.camera?.position?.toArray()??null,cameraQuaternion:renderer.camera?.quaternion?.toArray()??null,overlaysIncluded:false}}));
 }
 export function assertCaptureLayers(renderer,settings) {

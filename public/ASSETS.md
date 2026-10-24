@@ -65,3 +65,12 @@ source simplify/subdivision 2 are explicitly recorded, not presented as a new
 quality setting. No original apartment assets are replaced. The new seven-view
 plate pack uses real additional 1.2× overscan and the same 6144×3456 / 256-sample
 center-to-whole-frame runtime detail contract. No matching GLB camera is invented.
+
+
+Optional display resources: `color-profiles/blender-4.5.14-agx-medium-high-v1`
+is an exact OCIO 2.4.1 GPU export of the pinned Blender 4.5.14 AgX Medium High
+Contrast configuration, with scene/display exposure kept separate. The original
+ten scenes retain their existing display shader. AgX authors, complete BSD3
+notices, upstream notice migration and generator/resource provenance are listed
+in [the color-profile notice](licenses/color-profiles/NOTICE.md). These separate
+third-party notices do not change the project license.

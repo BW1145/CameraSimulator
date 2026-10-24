@@ -70,8 +70,10 @@ export class PlateRenderer extends Renderer {
     const base=`${import.meta.env.BASE_URL}${scene.platePack}/`;
     const response=await fetch(base+'manifest.json');if(!response.ok)throw Error(`Scene pack ${response.status}`);
     const pack=await response.json();if(version!==this.loadVersion)return false;
+    const display=await this.displayProfiles.load(pack.displayTransform);if(version!==this.loadVersion)return false;
     this.releaseLighting();if(this.world)disposeScene(this.world);
     this.pack=pack;this.packBase=base;this.scene=scene;this.exposureOffset=0;this.restoredLighting=true;
+    this.setDisplayProfile(display);
     this.nativeCamera={referenceFocal:this.pack.referenceFocal};
     const matrix=new T.Matrix4().fromArray(this.pack.views[0].cameraMatrix);this.anchor.setFromMatrixPosition(matrix);this.anchorRotation.setFromRotationMatrix(matrix);
     this.camera.near=this.pack.camera.near??1.1;this.camera.far=this.pack.camera.far??100;this.uniforms.nearClip.value=this.camera.near;this.uniforms.farClip.value=this.camera.far;

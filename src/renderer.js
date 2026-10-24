@@ -8,6 +8,7 @@ import {decodeRadianceTexture} from './linear-radiance.js';
 import {AsyncReadback} from './async-readback.js';
 import {FrameDiagnostics} from './frame-diagnostics.js';
 import {FramePacer} from './frame-pacer.js';
+import {DisplayProfileCache,displayProfileFragment} from './display-profile.js';
 
 const vertex=`varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position.xy,0.,1.);}`;
 const fragment=`
@@ -119,9 +120,32 @@ export class Renderer {
     this.uniforms=Object.fromEntries(Object.entries({plate:this.target.texture,sceneDepth:this.target.depthTexture,linearDepth:false,resolution:new T.Vector2(1,1),pixelOrigin:new T.Vector2(),lensRadiusLimit:.08,focus:3,focal:35,aperture:4,exposure:0,iso:200,wb:5000,time:0,zebra:false,sensorWidth:36,nearClip:.03,farClip:150,radianceScale:1,meteringPass:false,lensOnly:false,skipLens:false,agx:false,toneMappingExposure:1}).map(([key,value])=>[key,{value}]));
     this.postScene=new T.Scene();this.postCamera=new T.Camera();
     this.postScene.add(new T.Mesh(new T.PlaneGeometry(2,2),new T.ShaderMaterial({vertexShader:vertex,fragmentShader:fragment,uniforms:this.uniforms,depthTest:false,depthWrite:false})));
+    this.displayProfiles=new DisplayProfileCache(import.meta.env.BASE_URL);this.displayProfileUniformNames=[];this.displayTransform=null;this.displayProfileResource=null;
     this.loadVersion=0;
   }
+  setDisplayProfile(binding){
+    const resource=binding?.resource??null;
+    if(resource!==this.displayProfileResource){
+      for(const name of this.displayProfileUniformNames)delete this.uniforms[name];
+      this.displayProfileUniformNames=[];
+      if(resource){
+        Object.assign(this.uniforms,resource.uniforms,{displayExposureEV:{value:binding.transform.exposure}});
+        this.displayProfileUniformNames=[...Object.keys(resource.uniforms),'displayExposureEV'];
+      }
+      const mesh=this.postScene.children[0],previous=mesh.material;
+      mesh.material=new T.ShaderMaterial({vertexShader:vertex,fragmentShader:displayProfileFragment(fragment,resource),uniforms:this.uniforms,depthTest:false,depthWrite:false});
+      previous.dispose();this.displayProfileResource=resource;
+    }
+    this.displayTransform=null;
+    if(binding){
+      const {transform}=binding;this.uniforms.displayExposureEV.value=transform.exposure;
+      this.displayTransform=Object.freeze({...transform,profileSha256:resource.profileSha256});
+    }
+    this.canvas.dataset.displayProfile=this.displayTransform?.profile??'legacy';
+    this.canvas.dataset.displayExposure=String(this.displayTransform?.exposure??0);
+  }
   async load(scene,onProgress){
+    this.setDisplayProfile(null);
     const version=++this.loadVersion;
     const loader=new GLTFLoader().setMeshoptDecoder(MeshoptDecoder);
     const gltf=await loader.loadAsync(`${import.meta.env.BASE_URL}scenes/${scene.id}/scene.glb`,e=>onProgress(e.loaded,e.total));

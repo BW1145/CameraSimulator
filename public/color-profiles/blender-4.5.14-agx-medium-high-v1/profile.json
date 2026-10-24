@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "id": "blender-4.5.14-agx-medium-high-v1",
+  "functionName": "monkAgxDisplay",
+  "shader": {
+    "file": "shader.glsl",
+    "bytes": 13470,
+    "sha256": "708a0230c1817e84d3a906449ca4acb584c916585bc6fe60d79bff5ca4984e57",
+    "language": "GLSL ES 3.0",
+    "generator": "OCIO generic GPU processor, not an approximate baked 3D fit"
+  },
+  "luts": [
+    {
+      "file": "lut-0.bin",
+      "bytes": 607836,
+      "sha256": "9174984646340cb89db8af731b1fb17e1d04ab05ad38d9a10b2ebbfba1fce8ed",
+      "edge": 37,
+      "sampler": "monkAgx_lut3d_0Sampler",
+      "texture": "monkAgx_lut3d_0",
+      "storage": "float32-le",
+      "channels": 3,
+      "channelOrder": "RGB",
+      "layout": "x-fastest; blue-lattice-index fastest; RGB interleaved; OCIO order unchanged",
+      "interpolation": "nearest",
+      "shaderInterpolation": "tetrahedral",
+      "wrap": "clamp-to-edge",
+      "mipmaps": false,
+      "flipY": false,
+      "colorSpace": "none"
+    },
+    {
+      "file": "lut-1.bin",
+      "bytes": 2222316,
+      "sha256": "cb92475f7c9feb46b589847f26c9ce068c89f1d0a2f7a88aecd0857b42c7fe5f",
+      "edge": 57,
+      "sampler": "monkAgx_lut3d_1Sampler",
+      "texture": "monkAgx_lut3d_1",
+      "storage": "float32-le",
+      "channels": 3,
+      "channelOrder": "RGB",
+      "layout": "x-fastest; blue-lattice-index fastest; RGB interleaved; OCIO order unchanged",
+      "interpolation": "nearest",
+      "shaderInterpolation": "tetrahedral",
+      "wrap": "clamp-to-edge",
+      "mipmaps": false,
+      "flipY": false,
+      "colorSpace": "none"
+    }
+  ],
+  "inputSpace": "scene-linear Rec.709",
+  "outputSpace": "display-linear Rec.709",
+  "view": "AgX",
+  "look": "AgX - Medium High Contrast",
+  "display": "sRGB",
+  "gamma": 1,
+  "displayExposureBaked": false,
+  "requiredHostTransfer": "Apply the normal sRGB transfer exactly once after this function.",
+  "requiredHostOrder": [
+    "HDR ambient/flash/subject composite",
+    "photographic exposure",
+    "white balance",
+    "displayExposureEV",
+    "monkAgxDisplay",
+    "sRGB transfer",
+    "existing noise/overlays"
+  ],
+  "provenance": {
+    "blenderVersion": "4.5.14 LTS",
+    "ocioVersion": "2.4.1",
+    "configSha256": "aa4142b29b5a472aa5cb895020aa8cb673c95a31660eeee451f8a820694d3b16",
+    "sourceResources": {
+      "luts/AgX_Base_sRGB.cube": "e707a36f3e90ee79bc342332febf91334c02ce3974cac700ece00ca9d4507491",
+      "luts/luminance_compensation_bt2020.cube": "e3f5adcd8c08f77a96be141e8d504d58125cc80216a7a641abc970c85840cfd2",
+      "luts/xyz_E_to_D65.spimtx": "24c1d78b42022f9a996b0f568b3fd6ceadb70a41e58520bc720fd618559c5301"
+    },
+    "generatorSha256": "20bdcd3cf25afc2c679d3ea951342771fba0e8ec9e7dfbc3875de44eff4d23c4",
+    "processorCacheId": "28cc7bdd49163492d7bb23c3cf49e0a9",
+    "gpuProcessorCacheId": "GPU Processor: oFlags 263995331 ops :  <MatrixOffsetOp forward e1bcf5f9c0bc215ea758990ed267d77e > <LogOp forward Base 2 LogSideSlope 1 LogSideOffset 0 LinSideSlope 1 LinSideOffset 0> <MatrixOffsetOp forward 952a4cdf86a49a15e584577074633fdb > <Lut3D cd727b93c7d67a8073f89d778d8f7fc tetrahedral forward > <MatrixOffsetOp forward 39e9851d4887e333173f107b62009a58 > <LogOp inverse Base 2 LogSideSlope 1 LogSideOffset 0 LinSideSlope 1 LinSideOffset 0> <MatrixOffsetOp forward a36ca02011751d33f7884257f7f5e538 > <LogOp forward Base 2 LogSideSlope 1 LogSideOffset 0 LinSideSlope 1 LinSideOffset 0> <MatrixOffsetOp forward 952a4cdf86a49a15e584577074633fdb > <GradingPrimaryOp log forward <brightness=<r=0, g=0, b=0, m=0>, contrast=<r=1.2, g=1.2, b=1.2, m=1>, gamma=<r=1, g=1, b=1, m=1>, offset=<r=0, g=0, b=0, m=0>, exposure=<r=0, g=0, b=0, m=0>, lift=<r=0, g=0, b=0, m=0>, gain=<r=1, g=1, b=1, m=1>, saturation=1, pivot=<contrast=-0.2, black=0, white=1>>> <MatrixOffsetOp forward 39e9851d4887e333173f107b62009a58 > <LogOp inverse Base 2 LogSideSlope 1 LogSideOffset 0 LinSideSlope 1 LinSideOffset 0> <MatrixOffsetOp forward 549feee251849b9b56b918447cf5ba8d > <LogOp forward Base 2 LogSideSlope 1 LogSideOffset 0 LinSideSlope 1 LinSideOffset 0> <MatrixOffsetOp forward 952a4cdf86a49a15e584577074633fdb > <Lut3D 30c9ec59552a0374d0e05e35ef0c3a7c tetrahedral forward > <GammaOp basicFwd r:2.4 g:2.4 b:2.4 a:1  >",
+    "gpuShaderCacheId": "glsl_es_3.0 monkAgxDisplay monkAgx outColor 2 2fb1ff4f2a1fe9ad7d0693c5951fbdd",
+    "sourceConfig": "Blender release/datafiles/colormanagement/config.ocio",
+    "blenderCompositionReference": "https://github.com/blender/blender/blob/v4.5.3/source/blender/imbuf/opencolorio/intern/libocio/libocio_display_processor.cc"
+  },
+  "referenceFixtures": {
+    "file": "cpu-vectors.json",
+    "bytes": 399991,
+    "sha256": "dc3101ca7f6ea5ff0d9efa44e164a1cbfb0935deb7ecd8c5e5706126d6cca225"
+  },
+  "transportDecoderReference": {
+    "file": "transport-decoder-reference.json",
+    "bytes": 33203,
+    "sha256": "cd438830797b16e4899891b856937def5a0c2082be358f337c68c7f2d993a302"
+  }
+}
