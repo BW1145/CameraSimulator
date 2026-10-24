@@ -3,7 +3,26 @@ import assert from 'node:assert/strict';
 import sharp from 'sharp';
 import {SCENES} from '../src/scenes.js';
 import {subjectAssetBytes} from './subject-assets.mjs';
+import {auditClassroomPack} from './classroom-viewpoint-audit.mjs';
+import {validateClassroomDelivery,validateClassroomHistory,validateApprovedInputs} from './classroom-receipt.mjs';
+import {auditDerivedPack} from './derived-viewpoint-audit.mjs';
+import {validateDerivedDelivery} from './derived-receipt.mjs';
 for(const scene of SCENES){
+  // Only the explicitly plate-only derived viewpoints omit a GLB. Existing
+  // scenes retain every geometry/source-hash check below.
+  if(scene.plateOnly){
+    if(!scene.id.startsWith('classroom-')){
+      const profiles=JSON.parse(await readFile('docs/visual-review/derived-viewpoints-approved-inputs.json','utf8')).rigs;
+      const delivery=validateDerivedDelivery(JSON.parse(await readFile('docs/visual-review/derived-viewpoints-delivery.json','utf8')),profiles);
+      const record=delivery.packs.find(pack=>pack.id===scene.id);assert.ok(record,'complete approved derived delivery');
+      console.log(await auditDerivedPack(`public/${scene.platePack}`,record.files,record.rig,profiles.find(profile=>profile.id===scene.id)));continue;
+    }
+    const delivery=validateClassroomDelivery(JSON.parse(await readFile('docs/visual-review/classroom-viewpoints-delivery.json','utf8')));
+    if(delivery.version===2)validateClassroomHistory(delivery,await readFile(delivery.previousReceipt.path));
+    const record=delivery.packs.find(pack=>pack.id===scene.id);assert.ok(record?.files&&record?.rig,'complete committed delivery evidence');
+    if(record.revision===2)validateApprovedInputs(record.rig,JSON.parse(await readFile('docs/visual-review/classroom-v2-approved-inputs.json','utf8')));
+    console.log(await auditClassroomPack(`public/${scene.platePack}`,record.files,record.rig));continue;
+  }
   const root=`public/scenes/${scene.id}`,b=await readFile(`${root}/scene.glb`),meta=JSON.parse(await readFile(`${root}/model.json`,'utf8'));
   assert.equal(b.readUInt32LE(0),0x46546c67);assert.equal(b.readUInt32LE(4),2);assert.equal(b.readUInt32LE(8),b.length);
   const json=JSON.parse(b.subarray(20,20+b.readUInt32LE(12)).toString());

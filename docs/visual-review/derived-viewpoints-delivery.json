@@ -1,0 +1,1006 @@
+{
+  "version": 1,
+  "schema": "derived-viewpoint-runtime-delivery-v1",
+  "packs": [
+    {
+      "id": "kitchen-pastry",
+      "sourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+      "deliverySha256": "6d1e3e1c1cda5be115640a8ba4c5ba86f04a15b11ebd0023cfe99bb3d564e215",
+      "specSha256": "2b1365cdaeefd1b02343908ce9375a7400dda594c267914284737c9fc8d36704",
+      "files": {
+        "right-detail-depth.png": {
+          "bytes": 804621,
+          "sha256": "0c82e53e025fb797d21989223733839d616d8ae1b8adbcfa45318a53c53dd2fb"
+        },
+        "back.webp": {
+          "bytes": 1405720,
+          "sha256": "4edf5e8fa4db9d5b68372e6b79b0d8f3bfb52ce352e7ebd10c4ea9473c278145"
+        },
+        "left-detail-depth.png": {
+          "bytes": 829539,
+          "sha256": "a84cf20bad580dd71200e236201883d4057d8be267b907b3338bc77d30dcf496"
+        },
+        "down.webp": {
+          "bytes": 1415690,
+          "sha256": "7f08da5d25512e3060733b75a792b69f5837ffbe7cbee60498b6c41ebc28fc9a"
+        },
+        "back-detail-depth.png": {
+          "bytes": 813793,
+          "sha256": "094d566d8dd277971c920ad6c064cf32ec6a5b4388cf8d5e8cf9618e1b49d145"
+        },
+        "back-depth.png": {
+          "bytes": 383424,
+          "sha256": "7098ce2ed3433e9efbb36e1a3992bc5acf80c14f3191ace7d16f577bc78e400e"
+        },
+        "front-flash.webp": {
+          "bytes": 413644,
+          "sha256": "d9466d4be46b5e095b49d084ab394291d4c103bdaa6d0c348c5d03f853fea80d"
+        },
+        "center-flash.webp": {
+          "bytes": 408798,
+          "sha256": "b92e3421e2fdbfb10ee954bdac8c60da796fa2fc36b81e4580f41d08e31ac7b5"
+        },
+        "left.webp": {
+          "bytes": 1464480,
+          "sha256": "354f5033b8af1bc654045dd8283f53e72c206556d4cac5eeabeea432e0c7de6b"
+        },
+        "down-depth.png": {
+          "bytes": 382291,
+          "sha256": "8b003ad3ab5e62ec06e0a556d4ea36d36282105b686fa992809109c93d9caec4"
+        },
+        "right-detail.webp": {
+          "bytes": 3008828,
+          "sha256": "10da855d87663dd45a37d9948fe6f016a63d2b4f6ec6fcb65288a8ea8a97e1ff"
+        },
+        "center.webp": {
+          "bytes": 1314464,
+          "sha256": "f3d632cf730086c41bd425b68efe899fade757a7f77dbd8f731ad2b088c0b39c"
+        },
+        "manifest.json": {
+          "bytes": 83053,
+          "sha256": "ca5a2c840860c57c472eeb1818b8c8ea8bf450bb54cf594ca56de4ab095d3254"
+        },
+        "front-depth.png": {
+          "bytes": 379778,
+          "sha256": "228176f4b06b63f4758f2c53a4f587c52e369aa2ca366bdcfb3843551ea1c8f5"
+        },
+        "center-detail.webp": {
+          "bytes": 3929960,
+          "sha256": "1ba7e0051280263f040aa9a3f2ae98104950238f62bb12f89f20c7e9104052f3"
+        },
+        "left-depth.png": {
+          "bytes": 390231,
+          "sha256": "6c8ab5be4431a63c07c19aaa6042bed769f8d9c1c9c913782231104353cd6c1d"
+        },
+        "back-detail.webp": {
+          "bytes": 3021418,
+          "sha256": "9b2720bd6ea27d4afc6ba0bb54166f5a7dd851211387921c8a2cb28c6d7429f2"
+        },
+        "up-detail-depth.png": {
+          "bytes": 818767,
+          "sha256": "6ea14368ecf078b6533bf43adf06c8e068eee240587fd34a18d053219e8f6272"
+        },
+        "right.webp": {
+          "bytes": 1398304,
+          "sha256": "e1bddbe157679cb8fc62946e7c7bc28316f7823b7cb8e1c481a388ad57845af9"
+        },
+        "right-depth.png": {
+          "bytes": 379615,
+          "sha256": "63397417b4110a6e31456d07ad386716a9c49c5dc1e263cd6c62b90f19228153"
+        },
+        "up-depth.png": {
+          "bytes": 385060,
+          "sha256": "8214ee3900a64bcd95c9e09ccdce26c36a2a7ac919bd7f54f3fbd38ea1fcb393"
+        },
+        "front.webp": {
+          "bytes": 1434526,
+          "sha256": "e25f5880b72f866c7c045a271001f15597d367914a42148a4016d19eed0e5946"
+        },
+        "down-detail.webp": {
+          "bytes": 3038046,
+          "sha256": "24c57ffd5874012f2655638708682fc35bc311e72e6c0263235510bb0bc44ca6"
+        },
+        "front-detail-depth.png": {
+          "bytes": 803624,
+          "sha256": "a079ed0a805d6742a75d97ee50d4dddd4e06004681def902be29a0b7217e8e02"
+        },
+        "up-detail.webp": {
+          "bytes": 3041788,
+          "sha256": "2e71b9815c77a7963fb7d7801c7389e91ceadbcd931e8fde4ad8c8ce0999ebff"
+        },
+        "back-flash.webp": {
+          "bytes": 405064,
+          "sha256": "572ffd9d664f6ef620c85dad2e82ae0adbfe36bc246e29103b3c506b04ec686e"
+        },
+        "down-flash.webp": {
+          "bytes": 411284,
+          "sha256": "9d5066ca058671167492a39f024fa701e60e94f9f6855a02ffb8fd4604e801f6"
+        },
+        "front-detail.webp": {
+          "bytes": 3070222,
+          "sha256": "ce08030c665a7042b48445cbdfcac17eea7666c7cc40e640fdcd01b5b63833f0"
+        },
+        "up-flash.webp": {
+          "bytes": 408942,
+          "sha256": "bb419c3aecbcc6470298d6880bba409b3c8b720ad2b9bdb75e05f4d0404cc0e9"
+        },
+        "up.webp": {
+          "bytes": 1420052,
+          "sha256": "44e8abb173abc9420464a617ddda5f3db45842ada286df638323929e476b9cc7"
+        },
+        "down-detail-depth.png": {
+          "bytes": 807914,
+          "sha256": "f9c0e1850dd41a0e03280f9e7058a9f00d59a497fd5dfa60eff9e04e9376c821"
+        },
+        "right-flash.webp": {
+          "bytes": 402474,
+          "sha256": "910e5c8cfb287308da659d4bba3f7e156a4a23ff98044ea71f2b15f04ad7f858"
+        },
+        "left-flash.webp": {
+          "bytes": 422494,
+          "sha256": "f318839ba50fc65b54a3c3339128540dc034c162c404ce8b77f1775d24570b79"
+        },
+        "left-detail.webp": {
+          "bytes": 3150950,
+          "sha256": "7053ca709a347c2ef9bce18222cd243d565c6d9e79fa84705f18f17017cc10c9"
+        },
+        "center-depth.png": {
+          "bytes": 381696,
+          "sha256": "d2465b25f55a2c36e0c7c6149e84721fb92fa247e843d74fa96e04238a64ea1b"
+        },
+        "center-detail-depth.png": {
+          "bytes": 810287,
+          "sha256": "df17589bf361fcbecad729e3c58284fb34e81a0a0a3b4b89f74872b8b48ab1eb"
+        }
+      },
+      "rig": {
+        "id": "kitchen-pastry",
+        "camera": "KitchenPastryNative_r2",
+        "cameraNotCreatedYet": false,
+        "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/source/kitchen-pastry-native-r2.blend",
+        "sourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+        "sourceScene": "Main",
+        "sourceProvenance": {
+          "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/kitchen.blend",
+          "originalSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+          "originalAuthor": "Nicole Morena",
+          "license": "CC BY-SA; adaptation CC BY-SA4.0",
+          "derivations": [
+            {
+              "type": "native-perspective-camera-only",
+              "camera": "KitchenPastryNative_r2",
+              "cameraSha256": "1928c8bc896c9216011d16714b783db516b8aed9a92b6e6d802bf04b5773e7df",
+              "unchanged": "Original geometry/materials/lights/world, original ORTHO camera and frame1; no prop moves or studio-plane extension."
+            }
+          ],
+          "sourceFreeze": {
+            "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/kitchen.blend",
+            "originalSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+            "originalCamera": "CAM-wide",
+            "derivedSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/source/kitchen-pastry-native-r2.blend",
+            "derivedSourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+            "newCamera": "KitchenPastryNative_r2",
+            "approvedCameraSha256": "1928c8bc896c9216011d16714b783db516b8aed9a92b6e6d802bf04b5773e7df",
+            "freezeScriptSha256": "5ebfcda0d0439a2f1555c77d1b132525a30eb1560b9e3ddcf5e85e826cf6f9f6",
+            "approvalFileSha256": "5c96cd16a5877182a4b044229ad4a6eb4ad385f701645c4b6b24e0a97c69c2bc",
+            "planFileSha256": "74fa824bec521d1853a772b95f1e48c602779db5f474a877f063b805fc449883",
+            "sourceObjectCount": 1077,
+            "frozenObjectCount": 1078,
+            "cameraMatrixMaxDelta": 0,
+            "frame": 1,
+            "viewLayer": "ViewLayer",
+            "originalRenderResolution": [
+              2655,
+              2500,
+              50
+            ],
+            "frozenNativeResolution": [
+              5120,
+              2880,
+              100
+            ],
+            "originalSourceUnchanged": true,
+            "assetsMissing": []
+          }
+        },
+        "position": [
+          1.45,
+          -0.85,
+          2.1
+        ],
+        "target": [
+          0.5,
+          0.55,
+          1.95
+        ],
+        "matrix": [
+          [
+            0.8274757266044617,
+            -0.04958702251315117,
+            0.5593075752258301,
+            1.4500000476837158
+          ],
+          [
+            0.5615014433860779,
+            0.07307565957307816,
+            -0.8242427110671997,
+            -0.8500000238418579
+          ],
+          [
+            -4.558412314281668e-9,
+            0.9960928559303284,
+            0.08831153064966202,
+            2.0999999046325684
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "lens": 35,
+        "captureLens": 29.166666666666668,
+        "sensorWidth": 36,
+        "sensorHeight": 24,
+        "sensorFit": "AUTO",
+        "near": 0.03,
+        "far": 1000,
+        "aspect": 1.7777777777777777,
+        "nativeResolution": [
+          5120,
+          2880
+        ],
+        "shiftX": 0,
+        "shiftY": 0,
+        "referenceFocal": 35,
+        "offsets": {
+          "center": [
+            0,
+            0,
+            0
+          ],
+          "left": [
+            -0.08,
+            0,
+            0
+          ],
+          "right": [
+            0.025,
+            0,
+            0
+          ],
+          "up": [
+            0,
+            0.05,
+            0
+          ],
+          "down": [
+            0,
+            -0.05,
+            0
+          ],
+          "front": [
+            0,
+            0,
+            -0.08
+          ],
+          "back": [
+            0,
+            0,
+            0.04
+          ]
+        },
+        "offsetsStatus": "Conservative proposal, not yet native collision/render validated; adjust only bounded neighbor offsets if QC requires, never approved center.",
+        "bounds": {
+          "x": [
+            -0.08,
+            0.025
+          ],
+          "y": [
+            -0.05,
+            0.05
+          ],
+          "z": [
+            -0.08,
+            0.04
+          ],
+          "yaw": [
+            -35,
+            35
+          ],
+          "pitch": [
+            -20,
+            20
+          ],
+          "roll": [
+            -5,
+            5
+          ]
+        },
+        "flashForward": 0,
+        "defaults": {
+          "focus": 1.45,
+          "baseEV": 8
+        },
+        "defaultsEvidence": {
+          "focus": {
+            "valueMetres": 1.45,
+            "method": "Reviewed uncovered front strawberry cakes, camera axial Z in formal detail-depth; balanced between front cake1.421526m and adjacent left cake1.492832m, not the refracted cake under the glass dome.",
+            "sourceLayer": "detail-depth/center",
+            "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail-depth/center/attempt-001/center-detail-depth.exr",
+            "sourceSha256": "c6c99b8402a99ab33ba48a511aa027c778935e45a79c170ce69882fb1492d033",
+            "sampleCoordinateConvention": "u_capture=0.5+(u_native-0.5)/1.2; same for v (top-down)",
+            "samples": {
+              "foreground-strawberry-cake": {
+                "nativeNormalized": [
+                  0.546875,
+                  0.7430555555555556
+                ],
+                "capturePixel": [
+                  1104,
+                  809
+                ],
+                "z": 1.4215260744094849,
+                "roi7x7": {
+                  "min": 1.4207756519317627,
+                  "max": 1.4225953817367554,
+                  "median": 1.4216160774230957
+                }
+              },
+              "left-strawberry-cake": {
+                "nativeNormalized": [
+                  0.46171875,
+                  0.7263888888888889
+                ],
+                "capturePixel": [
+                  958,
+                  793
+                ],
+                "z": 1.4928324222564697,
+                "roi7x7": {
+                  "min": 1.4907231330871582,
+                  "max": 1.4952510595321655,
+                  "median": 1.493179202079773
+                }
+              }
+            },
+            "sourceEvidencePath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/formal-center-focus-probe.json"
+          },
+          "baseEV": {
+            "value": 8,
+            "referenceCameraSettings": {
+              "aperture": 8,
+              "shutterSeconds": 0.25,
+              "ISO": 100
+            },
+            "displayTransform": {
+              "view": "AgX",
+              "look": "None",
+              "exposure": 0,
+              "gamma": 1
+            },
+            "basis": "Original kitchen scene lighting/materials/world unchanged; native final JPEG visually checked against approved pastry-r2. Web physical exposure has EV8 as the source plate calibration point."
+          }
+        },
+        "approvedComposition": {
+          "version": 1,
+          "referenceFocal": 35,
+          "aspect": 1.7777777777777777,
+          "overscan": 1.2,
+          "preview": {
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/other-viewpoint-previews-20261023/kitchen-pastry-r2/kitchen-pastry-r2-16spp-oidn.png",
+            "sha256": "8da7ff1038644f66bc0e590709ec93ccb0446499ff011aee648906870eb7768e",
+            "width": 1280,
+            "height": 720,
+            "samples": 16,
+            "actualCaptureLensMm": 35,
+            "sensorWidthMm": 36,
+            "sensorHeightMm": 24,
+            "projectionMatrix": [
+              1.9444445371627808,
+              0,
+              0,
+              0,
+              0,
+              3.4567904472351074,
+              0,
+              0,
+              0,
+              0,
+              -1.0000600814819336,
+              -1,
+              0,
+              0,
+              -0.06000180169939995,
+              0
+            ],
+            "reportPath": "/workspace/scratch/33cf95385f89/camera-render-work/other-viewpoint-previews-20261023/kitchen-pastry-r2/report.json",
+            "reportSha256": "19982057b38080fd87e2f2f2cb155f78b81b7ef0c769403a9f7fe7b936c27368",
+            "rendererSha256": "180b59030029134e9d385bade2d56f0fa48751a466a01770334faa7fe0c11b54",
+            "deliveredLibraryFileId": "libfile_975b6052332881918bbd308ad76950bd",
+            "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/kitchen.blend",
+            "sourceSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+            "sourceReportPath": "/workspace/scratch/33cf95385f89/camera-render-work/other-viewpoint-previews-20261023/kitchen-pastry-r2/report.json",
+            "sourceReportSha256": "19982057b38080fd87e2f2f2cb155f78b81b7ef0c769403a9f7fe7b936c27368",
+            "captureLens": 35,
+            "sensorWidth": 36
+          },
+          "captureFrame": {
+            "width": 6144,
+            "height": 3456
+          },
+          "nativeFrame": {
+            "width": 5120,
+            "height": 2880
+          },
+          "nativeCrop": {
+            "left": 512,
+            "top": 288,
+            "width": 5120,
+            "height": 2880
+          }
+        },
+        "cameraSha256": "1928c8bc896c9216011d16714b783db516b8aed9a92b6e6d802bf04b5773e7df",
+        "sourceFrame": 1,
+        "packId": "kitchen-pastry",
+        "title": "Kitchen — Pastry Counter",
+        "attribution": "Nicole Morena / CC BY-SA; adaptation CC BY-SA 4.0",
+        "neighborBoundsEvidence": {
+          "method": "Initial actual seven-view RGB/Z reveals source cutaway wall entering native right/back frames; tighten only unapproved neighboring movement range",
+          "initialSpecSha256": "766e03e119952585c52d0787cf73e1d7336c4d52be615cb3c11a5d665cbcb20f",
+          "initialProbe": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/qc-review-initial-neighbor-bounds/native-right-boundary-probe.json",
+          "approvedCenterUnchanged": true,
+          "rightMeters": 0.025,
+          "backMeters": 0.04,
+          "geometryMaterialsLightingUnchanged": true,
+          "qcRequired": "Repeat all fourteen exact-fingerprint QC captures before formal"
+        }
+      },
+      "renderAcceptance": {
+        "sha256": "090a871ae8a26013814a9d25029b95916c2d6f69630e3281b1cd1ec7dbf9ebe7",
+        "evidence": {
+          "status": "complete",
+          "verifiedUnix": 1792823849.3727417,
+          "deliveryPath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/delivery.json",
+          "deliverySha256": "6d1e3e1c1cda5be115640a8ba4c5ba86f04a15b11ebd0023cfe99bb3d564e215",
+          "rigs": 1,
+          "files": 36,
+          "bytes": 43440841,
+          "formalJobs": 35,
+          "captureSeconds": 5780.000600099564,
+          "peakCaptureRSSMiB": 3502.76953125,
+          "defaults": {
+            "focus": 1.45,
+            "baseEV": 8
+          },
+          "sourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+          "visualReview": {
+            "formalDetailAndFlash": 14,
+            "deliveredDepth": 14,
+            "findings": "Actual sheets reviewed. Geometry/props/depth continuous; isolated flash ambient/globe lamps excluded. Source cutaway edge exists only in extra right overscan outside approved default native framing; glass physical Z is not refracted optical-path depth."
+          },
+          "freeBytes": 1216221184
+        }
+      }
+    },
+    {
+      "id": "kitchen-tea",
+      "sourceSha256": "479b15e1ebcd00354c5afea0236dc0f750cac5ac137341c86560a77f533fd425",
+      "deliverySha256": "d2386f05976c2e51a403accc52833cc7a2c47b6db27ec62edbb97db950ab2d99",
+      "specSha256": "609a73f3f1659b37a7cdbd351aba5af06284b34c93b828ae5779eacc0e070448",
+      "files": {
+        "right-detail-depth.png": {
+          "bytes": 604641,
+          "sha256": "eadde073588171d085374b09a6197738910297b309f572e46ba3ab3f7c3a6b2b"
+        },
+        "back.webp": {
+          "bytes": 1453386,
+          "sha256": "2330330a6aac00d714193a858bb3aa3db51ab5435c3c839588c5f375abb1e2e2"
+        },
+        "left-detail-depth.png": {
+          "bytes": 591123,
+          "sha256": "da43de3b594c256167d22b6f7ea8b9987e588bcabaf5d02803238fa3e672580b"
+        },
+        "down.webp": {
+          "bytes": 1448792,
+          "sha256": "192922a7d273fd70238cbf51b242475b2b24c6d9778a627665c0117a390e9123"
+        },
+        "back-detail-depth.png": {
+          "bytes": 615595,
+          "sha256": "446f2829bdc1040b83380548d56be346b5b22a3dc71c409429d82d4938a14203"
+        },
+        "back-depth.png": {
+          "bytes": 347911,
+          "sha256": "16e547714ed5fd57cd11d388cb341de52c4be7028fc932ed4ee055cde70a8f90"
+        },
+        "front-flash.webp": {
+          "bytes": 399634,
+          "sha256": "fd53d7ff85a79e507f1ff228a0398a0b8cae0c4cf442a12cece6b259ec42afe8"
+        },
+        "center-flash.webp": {
+          "bytes": 402610,
+          "sha256": "c8aa3222fb3acca64de62f797eb998ff56556963a61be9d030e905fa94d165cd"
+        },
+        "left.webp": {
+          "bytes": 1443958,
+          "sha256": "29e7ecbae2ee48fb860b06c0218e92809f86e02c72e424102e1072473c1f3750"
+        },
+        "down-depth.png": {
+          "bytes": 336163,
+          "sha256": "9aef6587cc03e46d7d1d4d7d3c2910753ab43e14eb95dea34cd71e49adf696f1"
+        },
+        "right-detail.webp": {
+          "bytes": 3019290,
+          "sha256": "f3908802ace251eb89b94b7176d660006cd626dc4c703bc479e23ec123e470a6"
+        },
+        "center.webp": {
+          "bytes": 1321956,
+          "sha256": "e7ab2ee6265acd2a94c9606da8175bab51896f3d4304f46f2feca158dc8d5445"
+        },
+        "manifest.json": {
+          "bytes": 84345,
+          "sha256": "2698ef08cd2d5db82a089d6b911ce3193abfd58de17c2fe9c584a582015b92d5"
+        },
+        "front-depth.png": {
+          "bytes": 329745,
+          "sha256": "e76bea3666fbc0d71e27188e107af8ad41c022c613dccd8c225caa207768ea14"
+        },
+        "center-detail.webp": {
+          "bytes": 3910092,
+          "sha256": "b2489a18c5ec0a89a9283c395e5f89d8318be9eb1dd2f7c104c2e0a25a05505e"
+        },
+        "left-depth.png": {
+          "bytes": 337727,
+          "sha256": "49bf2903747387e0694b7d33839315ee97cc1a15172d071a76d5741c9199fcdb"
+        },
+        "back-detail.webp": {
+          "bytes": 3089674,
+          "sha256": "ea399a611cabdc2d0367aa07dbfe7dfa0769d47633b4b864d8ec010ba92a6387"
+        },
+        "up-detail-depth.png": {
+          "bytes": 604081,
+          "sha256": "f5b4768a6f96bd842b0d9274bfbbb4f32ab599a1edeb7e4d75e321a268afe21a"
+        },
+        "right.webp": {
+          "bytes": 1422558,
+          "sha256": "96c359b18177f803f8920807596bcce6b58c6799d868a58b5aab5df55d8a2a62"
+        },
+        "right-depth.png": {
+          "bytes": 341759,
+          "sha256": "2b81cf6e39b1e750bcaf5465083624276f4717d6b88d1a24fbb8c51e1abf10d1"
+        },
+        "up-depth.png": {
+          "bytes": 343938,
+          "sha256": "c3c5f2748f8fe44ff9440178617a722bfe9b7cc92a612bc34537b68f8bc3ad83"
+        },
+        "front.webp": {
+          "bytes": 1420690,
+          "sha256": "4ae3c484f05a537b3efd14ab19ec80c4d7bb2d6b4ca54338fe430c07153d6cfd"
+        },
+        "down-detail.webp": {
+          "bytes": 3072032,
+          "sha256": "7efe1fa06bea3ee8190bbf0211abcaec2fa2d064b9a88d907dd51cbaca2bd61c"
+        },
+        "front-detail-depth.png": {
+          "bytes": 581341,
+          "sha256": "0a94783f3eacb876815c26f4bb8f3368ea7c0b9e2d0696a11eba74a99e002511"
+        },
+        "up-detail.webp": {
+          "bytes": 3039366,
+          "sha256": "3045733b3ec9556c78691351213a9081a47783d47af0a78521fccbb668787956"
+        },
+        "back-flash.webp": {
+          "bytes": 403862,
+          "sha256": "9cb28aee290736004a92fa2691eb8cd7b76f3685ee2a60efa9f413ba61d74f05"
+        },
+        "down-flash.webp": {
+          "bytes": 403712,
+          "sha256": "0ef344a127eb926b21a8738bdfad594d82b6c6ae3983647d0c11d82bf4f48595"
+        },
+        "front-detail.webp": {
+          "bytes": 3013296,
+          "sha256": "0a605ec7800ae0dcd089613be12e4b411fd1620b2106b343a53189f2a5d6a786"
+        },
+        "up-flash.webp": {
+          "bytes": 398614,
+          "sha256": "ffdea63b4078d9f7f75d5cf6b62dd7b8e8a001e0d8dcf89d809146bb57ec5b91"
+        },
+        "up.webp": {
+          "bytes": 1433110,
+          "sha256": "560b619455361fa415f2f16665bd0851e7e1a4a0b5ec568887e9740288728c04"
+        },
+        "down-detail-depth.png": {
+          "bytes": 592467,
+          "sha256": "7e768f277ef3aa5823f39fe2f3e0a4ee3eddc7763a80ddd3f02730ff7fb41853"
+        },
+        "right-flash.webp": {
+          "bytes": 393486,
+          "sha256": "5fcd7913d3a7fcefb6c531fafe501dd20e2ffa0766b6b8ea46d54dbf287ff8bd"
+        },
+        "left-flash.webp": {
+          "bytes": 408082,
+          "sha256": "10327c23d797dc74a6a752b733b1dfc617f43c37c5207029cb4afd22f634e736"
+        },
+        "left-detail.webp": {
+          "bytes": 3071422,
+          "sha256": "36dcf8ad35e65bc8694a446cb80791d7b79c6a96b1b5507f5608720c6d3028eb"
+        },
+        "center-depth.png": {
+          "bytes": 338603,
+          "sha256": "e9538080d3a5bf737f3f551cfa8698ba741c03332b74a88c3585812528411868"
+        },
+        "center-detail-depth.png": {
+          "bytes": 597864,
+          "sha256": "8df6a2e6ed1306a23d6ef99e37d39d9237866ad44f8fdde6c37be4533b838f87"
+        }
+      },
+      "rig": {
+        "id": "kitchen-tea",
+        "camera": "KitchenTeaNative_r2",
+        "cameraNotCreatedYet": false,
+        "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-tea-production-20261024/source/kitchen-tea-native-r2.blend",
+        "sourceSha256": "479b15e1ebcd00354c5afea0236dc0f750cac5ac137341c86560a77f533fd425",
+        "sourceScene": "Main",
+        "sourceProvenance": {
+          "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/kitchen.blend",
+          "originalSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+          "originalAuthor": "Nicole Morena",
+          "license": "CC BY-SA; adaptation CC BY-SA4.0",
+          "derivations": [
+            {
+              "type": "native-perspective-camera-only",
+              "camera": "KitchenTeaNative_r2",
+              "cameraSha256": "b77ac69e312549bb543fa9d1a81314a582f81017028f6703eaa8363a4684b650",
+              "unchanged": "Original geometry/materials/lights/world, original ORTHO camera and frame1; no prop moves or studio-plane extension."
+            }
+          ],
+          "sourceFreeze": {
+            "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/kitchen.blend",
+            "originalSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+            "originalCamera": "CAM-wide",
+            "derivedSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-tea-production-20261024/source/kitchen-tea-native-r2.blend",
+            "derivedSourceSha256": "479b15e1ebcd00354c5afea0236dc0f750cac5ac137341c86560a77f533fd425",
+            "newCamera": "KitchenTeaNative_r2",
+            "approvedCameraSha256": "b77ac69e312549bb543fa9d1a81314a582f81017028f6703eaa8363a4684b650",
+            "freezeScriptSha256": "e3dd05ca94decc0505dc8676cf064fe2361a84962f866c8cb764feb0a4548df8",
+            "approvalFileSha256": "f8358d4a1565d61648d97640dadcbd07110c54e547482d43706ec1a28079db47",
+            "planFileSha256": "c8c495c878301057ed89258439e39e2924cee197c94a6d5eb899db859b042554",
+            "sourceObjectCount": 1077,
+            "frozenObjectCount": 1078,
+            "cameraMatrixMaxDelta": 0,
+            "frame": 1,
+            "viewLayer": "ViewLayer",
+            "originalRenderResolution": [
+              2655,
+              2500,
+              50
+            ],
+            "frozenNativeResolution": [
+              5120,
+              2880,
+              100
+            ],
+            "originalSourceUnchanged": true,
+            "assetsMissing": []
+          }
+        },
+        "position": [
+          0.7,
+          -1.47,
+          1.84
+        ],
+        "target": [
+          0,
+          -0.53,
+          1.52
+        ],
+        "matrix": [
+          [
+            0.802043080329895,
+            -0.15731661021709442,
+            0.5761756896972656,
+            0.699999988079071
+          ],
+          [
+            0.5972661972045898,
+            0.21125376224517822,
+            -0.77372145652771,
+            -1.4700000286102295
+          ],
+          [
+            -2.1008069950312347e-8,
+            0.9646881818771362,
+            0.2633945345878601,
+            1.840000033378601
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "lens": 43,
+        "captureLens": 35.833333333333336,
+        "sensorWidth": 36,
+        "sensorHeight": 24,
+        "sensorFit": "AUTO",
+        "near": 0.03,
+        "far": 1000,
+        "aspect": 1.7777777777777777,
+        "nativeResolution": [
+          5120,
+          2880
+        ],
+        "shiftX": 0,
+        "shiftY": 0,
+        "referenceFocal": 43,
+        "offsets": {
+          "center": [
+            0,
+            0,
+            0
+          ],
+          "left": [
+            -0.06,
+            0,
+            0
+          ],
+          "right": [
+            0.06,
+            0,
+            0
+          ],
+          "up": [
+            0,
+            0.04,
+            0
+          ],
+          "down": [
+            0,
+            -0.04,
+            0
+          ],
+          "front": [
+            0,
+            0,
+            -0.06
+          ],
+          "back": [
+            0,
+            0,
+            0.06
+          ]
+        },
+        "offsetsStatus": "Conservative camera-local proposal only (±6cm lateral/depth,±4cm vertical); not native-mesh clearance or render validated. Bounded neighbor offsets may be tightened after actualQC; approved center is locked.",
+        "bounds": {
+          "x": [
+            -0.06,
+            0.06
+          ],
+          "y": [
+            -0.04,
+            0.04
+          ],
+          "z": [
+            -0.06,
+            0.06
+          ],
+          "yaw": [
+            -35,
+            35
+          ],
+          "pitch": [
+            -20,
+            20
+          ],
+          "roll": [
+            -5,
+            5
+          ]
+        },
+        "flashForward": 0,
+        "defaults": {
+          "focus": 1,
+          "baseEV": 8
+        },
+        "defaultsEvidence": {
+          "focus": {
+            "valueMetres": 1,
+            "method": "Reviewed opaque central tea-table subjects: ceramiccup1.052562m,jampastry0.936093m,bowl0.961662m. Focus1.0 balances main table items; nearest ringpastry0.844144m is foreground. Not optical refraction insideglass.",
+            "sourceLayer": "detail-depth/center",
+            "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-tea-production-20261024/outputs/jobs/kitchen-tea/detail-depth/center/attempt-001/center-detail-depth.exr",
+            "sourceSha256": "8301c8ee2c42c159ee99a28e26508e82de21269653c1fb2611ab39bb67c5154f",
+            "sampleCoordinateConvention": "u_capture=0.5+(u_native-0.5)/1.2; same for v top-down",
+            "samples": {
+              "opaque-teacup": {
+                "nativeNormalized": [
+                  0.665625,
+                  0.6208333333333333
+                ],
+                "capturePixel": [
+                  1306,
+                  692
+                ],
+                "z": 1.05256187915802,
+                "roi7x7": {
+                  "min": 1.052418828010559,
+                  "max": 1.0528546571731567,
+                  "median": 1.052595853805542
+                }
+              },
+              "jam-pastry": {
+                "nativeNormalized": [
+                  0.46328125,
+                  0.6875
+                ],
+                "capturePixel": [
+                  961,
+                  756
+                ],
+                "z": 0.9360933303833008,
+                "roi7x7": {
+                  "min": 0.9357726573944092,
+                  "max": 0.9364140629768372,
+                  "median": 0.9360933303833008
+                }
+              },
+              "left-bowl": {
+                "nativeNormalized": [
+                  0.30859375,
+                  0.5958333333333333
+                ],
+                "capturePixel": [
+                  697,
+                  668
+                ],
+                "z": 0.9616618752479553,
+                "roi7x7": {
+                  "min": 0.9611958861351013,
+                  "max": 0.962238609790802,
+                  "median": 0.9616618752479553
+                }
+              },
+              "front-ring-pastry": {
+                "nativeNormalized": [
+                  0.4546875,
+                  0.8541666666666666
+                ],
+                "capturePixel": [
+                  946,
+                  916
+                ],
+                "z": 0.8441444635391235,
+                "roi7x7": {
+                  "min": 0.8439362645149231,
+                  "max": 0.8443517088890076,
+                  "median": 0.8441444635391235
+                }
+              }
+            },
+            "sourceEvidencePath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-tea-production-20261024/outputs/formal-center-focus-probe.json"
+          },
+          "baseEV": {
+            "value": 8,
+            "referenceCameraSettings": {
+              "aperture": 8,
+              "shutterSeconds": 0.25,
+              "ISO": 100
+            },
+            "displayTransform": {
+              "view": "AgX",
+              "look": "None",
+              "exposure": 0,
+              "gamma": 1
+            },
+            "basis": "Original kitchen lights/materials/world unchanged; native finalJPEG visually checked against approved tea-r2. EV8 is the sourceplate calibration point of existing runtime."
+          }
+        },
+        "approvedComposition": {
+          "version": 1,
+          "referenceFocal": 43,
+          "aspect": 1.7777777777777777,
+          "overscan": 1.2,
+          "preview": {
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/other-viewpoint-previews-20261023/kitchen-tea-r2/kitchen-tea-r2-16spp-oidn.png",
+            "sha256": "a4528928b306931a3c97038f32032cba1df2a84551ff0c59ff731d713992dcc4",
+            "width": 1280,
+            "height": 720,
+            "samples": 16,
+            "actualCaptureLensMm": 43,
+            "sensorWidthMm": 36,
+            "sensorHeightMm": 24,
+            "projectionMatrix": [
+              2.3888888359069824,
+              0,
+              0,
+              0,
+              0,
+              4.246913433074951,
+              0,
+              0,
+              0,
+              0,
+              -1.0000600814819336,
+              -1,
+              0,
+              0,
+              -0.06000180169939995,
+              0
+            ],
+            "reportPath": "/workspace/scratch/33cf95385f89/camera-render-work/other-viewpoint-previews-20261023/kitchen-tea-r2/report.json",
+            "reportSha256": "6221ddc7ead2c4c0f065aa2379af7325d8adf0d8fc233fc16970a77139eef47e",
+            "rendererPath": "/workspace/scratch/33cf95385f89/camera-render-work/other-viewpoint-previews-20261023/kitchen-tea-r2/render-script-used.py",
+            "rendererSha256": "073578d39031bebd329744b030643f5e1f183215be86c0b05f0fb395c89cb39f",
+            "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/kitchen.blend",
+            "sourceSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+            "sourceReportPath": "/workspace/scratch/33cf95385f89/camera-render-work/other-viewpoint-previews-20261023/kitchen-tea-r2/report.json",
+            "sourceReportSha256": "6221ddc7ead2c4c0f065aa2379af7325d8adf0d8fc233fc16970a77139eef47e",
+            "captureLens": 43,
+            "sensorWidth": 36,
+            "executionPath": "/workspace/scratch/33cf95385f89/camera-render-work/other-viewpoint-previews-20261023/kitchen-tea-r2/execution.json",
+            "executionSha256": "85b5367c7a9cb2d8381ffa6e108a55ec02e77842a1f4524565e2174ee2ac82ca",
+            "statePath": "/workspace/scratch/33cf95385f89/camera-render-work/other-viewpoint-previews-20261023/kitchen-tea-r2/state.json",
+            "stateSha256": "182a6463843278ba87a1f17b5302596c4ba58aaf5d305005cf33c5de8cf9194f",
+            "deliveredReview": {
+              "path": "/workspace/scratch/33cf95385f89/camera-render-work/other-viewpoint-previews-20261023/kitchen-tea-r2/厨房餐桌-Tea-Table-r2-低清构图1280x720.jpg",
+              "sha256": "a488761bd68cb4b951479c534e71ffa480eae92839d3cf9b5ef629c01b433a05",
+              "width": 1280,
+              "height": 720,
+              "resized": false,
+              "colorTreatment": "Existing AgX PNG, no regrading/sharpening/blur"
+            }
+          },
+          "captureFrame": {
+            "width": 6144,
+            "height": 3456
+          },
+          "nativeFrame": {
+            "width": 5120,
+            "height": 2880
+          },
+          "nativeCrop": {
+            "left": 512,
+            "top": 288,
+            "width": 5120,
+            "height": 2880
+          }
+        },
+        "cameraSha256": "b77ac69e312549bb543fa9d1a81314a582f81017028f6703eaa8363a4684b650",
+        "sourceFrame": 1,
+        "packId": "kitchen-tea",
+        "title": "Kitchen — Tea Table",
+        "attribution": "Nicole Morena / CC BY-SA; adaptation CC BY-SA 4.0",
+        "derivedSourcePath": null,
+        "derivedSourceSha256": null
+      },
+      "renderAcceptance": {
+        "sha256": "a8017bd16236b064f08fafa60c324b7240f4d21adb0e5965fb7ecd9b39a8e5c7",
+        "evidence": {
+          "status": "complete",
+          "verifiedUnix": 1792832385.1475697,
+          "deliveryPath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-tea-production-20261024/outputs/delivery.json",
+          "deliverySha256": "d2386f05976c2e51a403accc52833cc7a2c47b6db27ec62edbb97db950ab2d99",
+          "rigs": 1,
+          "files": 36,
+          "bytes": 41616925,
+          "formalJobs": 35,
+          "captureSeconds": 6536.750535488129,
+          "peakCaptureRSSMiB": 3471.52734375,
+          "defaults": {
+            "focus": 1,
+            "baseEV": 8
+          },
+          "sourceSha256": "479b15e1ebcd00354c5afea0236dc0f750cac5ac137341c86560a77f533fd425",
+          "freeBytes": 1489240064,
+          "visualReview": {
+            "formalDetailAndFlash": 14,
+            "deliveredDepth": 14,
+            "findings": "Actual14detail/flash and14deliveredZ frames viewed. Geometry/props/tablecloth and isolatedlightgroup continuous, no visible missinggeometry or black nearcuts. Fullnative approvedcomposition retained withrealoverscan. Glass depth remainsphysicalsurface not refractedopticalpath."
+          }
+        }
+      }
+    }
+  ]
+}

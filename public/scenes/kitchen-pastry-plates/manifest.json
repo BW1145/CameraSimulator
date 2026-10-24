@@ -1,0 +1,2748 @@
+{
+  "version": 1,
+  "id": "kitchen-pastry",
+  "title": "Kitchen — Pastry Counter",
+  "sourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+  "attribution": "Nicole Morena / CC BY-SA; adaptation CC BY-SA 4.0",
+  "method": "Seven individually rendered positions. XYZ selects an actual source camera; pan and focal length reframe that image. No invented continuous physical camera translation.",
+  "encoding": {
+    "type": "log2-rgb",
+    "min": -16,
+    "max": 9,
+    "losslessContainer": "WebP",
+    "maximumChannelQuantizationEV": 0.049019607843137254,
+    "sourceMaximumRadiance": 148.5803985595703
+  },
+  "depth": {
+    "type": "uint16-rg",
+    "space": "capture-camera-z",
+    "range": 64
+  },
+  "camera": {
+    "name": "KitchenPastryNative_r2",
+    "lens": 35,
+    "sourceProjection": "PERSP",
+    "sourceLens": 35,
+    "sourceOrthoScale": 6,
+    "sensorWidth": 36,
+    "sensorHeight": 24,
+    "aspect": 1.7777777777777777,
+    "nativeResolution": [
+      5120,
+      2880
+    ],
+    "near": 0.03,
+    "far": 1000,
+    "sourceFar": 1000,
+    "matrix": [
+      [
+        0.8274757266044617,
+        -0.04958702251315117,
+        0.5593075752258301,
+        1.4500000476837158
+      ],
+      [
+        0.5615014433860779,
+        0.07307565957307816,
+        -0.8242427110671997,
+        -0.8500000238418579
+      ],
+      [
+        -4.558412314281668e-09,
+        0.9960928559303284,
+        0.08831153064966202,
+        2.0999999046325684
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "sourceScale": [
+      1,
+      1,
+      1
+    ],
+    "shiftX": 0,
+    "shiftY": 0,
+    "sensorFit": "AUTO",
+    "sourceClippingMethod": "Explicit near plane on the derived source camera; unchanged across the bounded rig."
+  },
+  "derivations": [],
+  "referenceFocal": 35,
+  "captureLens": 29.16666603088379,
+  "bounds": {
+    "x": [
+      -0.08,
+      0.025
+    ],
+    "y": [
+      -0.05,
+      0.05
+    ],
+    "z": [
+      -0.08,
+      0.04
+    ],
+    "yaw": [
+      -35,
+      35
+    ],
+    "pitch": [
+      -20,
+      20
+    ],
+    "roll": [
+      -5,
+      5
+    ]
+  },
+  "views": [
+    {
+      "id": "center",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.4500000476837158,
+        2.0999999046325684,
+        0.8500000238418579
+      ],
+      "matrix": [
+        1.3408172130584717,
+        -0.1428433656692505,
+        -0.5593412518501282,
+        -0.5593076348304749,
+        -4.225445593419863e-08,
+        2.86940336227417,
+        -0.08831683546304703,
+        -0.08831153064966202,
+        -0.9098402857780457,
+        -0.21050599217414856,
+        -0.8242923021316528,
+        -0.8242427706718445,
+        -1.1708205938339233,
+        -5.6396942138671875,
+        1.6371568441390991,
+        1.697056770324707
+      ],
+      "cameraMatrix": [
+        0.8274757266044617,
+        -4.558412314281668e-09,
+        -0.5615014433860779,
+        0,
+        -0.04958702251315117,
+        0.9960928559303284,
+        -0.07307565957307816,
+        0,
+        0.5593075752258301,
+        0.08831153064966202,
+        0.8242427110671997,
+        0,
+        1.4500000476837158,
+        2.0999999046325684,
+        0.8500000238418579,
+        1
+      ],
+      "projectionMatrix": [
+        1.6203703880310059,
+        0,
+        0,
+        0,
+        0,
+        2.8806583881378174,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 256,
+      "file": "center.webp",
+      "bytes": 1314464,
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+      },
+      "depth": "center-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 381696,
+      "maximumRadiance": 150.3634973102189,
+      "clampedChannels": 0,
+      "minimumDepth": 1.1063140630722046,
+      "maximumDepth": 13.173080444335938,
+      "detailFile": "center-detail.webp",
+      "detailBytes": 3929960,
+      "detailWidth": 5120,
+      "detailHeight": 2880,
+      "detailDepth": "center-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 810287,
+      "flash": "center-flash.webp",
+      "flashBytes": 408798,
+      "flashWidth": 1280,
+      "flashHeight": 720,
+      "radianceCapture": {
+        "samples": 256,
+        "blender": "4.5.14 LTS",
+        "sourceWidth": 6144,
+        "sourceHeight": 3456,
+        "runtimeDetailWidth": 5120,
+        "runtimeDetailHeight": 2880,
+        "fullFrameResampling": "Scene-linear area average over the complete overscan frame; no crop",
+        "sourceExrSha256": "054be3290268285d11065bfd437be826cf72036313264a4f51e51a23a389f104",
+        "maximumRadiance": 162.0808868408203,
+        "sourceMaximumRadiance": 162.0808868408203,
+        "jobEvidence": "jobs/kitchen-pastry/detail/center/attempt-001",
+        "sourceFile": "center.exr",
+        "captureSeconds": 3211.0442231849884,
+        "denoising": "OpenImageDenoise HIGH/ACCURATE with albedo and normal guides; independent full-resolution bounded-memory postprocess, not an in-scene full-buffer denoise",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "staged-center",
+          "components": {
+            "center-stage-runner.py": "8cbf9f8a05ecee412768b8959b328390b5127d9d5f0f3122d449d73903ee9a6d",
+            "render-center-raw.py": "f79a09158fdd589e1fd7a370cd6f2b8fe1afb7c0569b57c89e90900b31d71cbe",
+            "denoise-bounded.py": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+            "center-display.py": "67f892649c8a9e05685c87024239cb07297da242660381aead3ead90367cbcda",
+            "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+          },
+          "sha256": "b7191f921e7ba098d7c8745fc3127f2e3f592ef1765a04fb2b0faddebe9cb561"
+        },
+        "denoisingEvidence": {
+          "status": "complete",
+          "input": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/raw-stage/center.exr",
+          "inputSha256": "1d87cebcb54ff5a4673eda7591bf6ca180f1f904041443639a384d4364ca2139",
+          "inputFormat": "normalized-openexr-multilayer",
+          "inputChannels": [
+            "ViewLayer.Combined.R",
+            "ViewLayer.Combined.G",
+            "ViewLayer.Combined.B",
+            "ViewLayer.Combined.A",
+            "ViewLayer.Denoising Albedo.R",
+            "ViewLayer.Denoising Albedo.G",
+            "ViewLayer.Denoising Albedo.B",
+            "ViewLayer.Denoising Depth.Z",
+            "ViewLayer.Denoising Normal.X",
+            "ViewLayer.Denoising Normal.Y",
+            "ViewLayer.Denoising Normal.Z"
+          ],
+          "channelOffsets": {
+            "color": 0,
+            "normal": 8,
+            "albedo": 4
+          },
+          "sampleCountStatistics": null,
+          "filterRowOrder": "Cycles bottom-up; normalized EXR rows reversed before filtering, all output rows reversed back to top-down EXR",
+          "output": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/center.exr",
+          "outputSha256": "054be3290268285d11065bfd437be826cf72036313264a4f51e51a23a389f104",
+          "dimensions": [
+            6144,
+            3456
+          ],
+          "samples": 256,
+          "normalization": "already normalized by Blender EXR export",
+          "device": "CPU",
+          "library": "/workspace/scratch/33cf95385f89/camera-render-work/blender-4.5.14-linux-x64/lib/libOpenImageDenoise.so.2.3.3",
+          "librarySha256": "9a220453d6a7ea32a036559e6579768a312653c9da12b819282f91bf8b2acc11",
+          "scriptSha256": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+          "quality": "HIGH",
+          "prefilter": "ACCURATE",
+          "hdr": true,
+          "srgb": false,
+          "cleanAux": true,
+          "maxMemoryMBPerFilter": 1024,
+          "threads": 8,
+          "setAffinity": false,
+          "fullFrameAutomaticInputScale": true,
+          "manualTiling": false,
+          "steps": [
+            {
+              "filter": "albedo",
+              "seconds": 28.119799926003907,
+              "peakRssMiB": 2054.953125
+            },
+            {
+              "filter": "normal",
+              "seconds": 27.878699842025526,
+              "peakRssMiB": 2077.25390625
+            },
+            {
+              "filter": "color",
+              "seconds": 26.43076905599446,
+              "peakRssMiB": 2099.37109375
+            }
+          ],
+          "seconds": 86.03562997002155,
+          "peakRssMiB": 2099.37109375,
+          "rawCaptureEvidence": {
+            "jobSha256": "e1ae80ea9d603b38ecd566763c1449576d5199fe9c95ea9f4d7a4174eed0facb",
+            "sourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+            "dimensions": [
+              6144,
+              3456
+            ],
+            "samples": 256,
+            "rawRendererComponents": {
+              "render-center-raw.py": "f79a09158fdd589e1fd7a370cd6f2b8fe1afb7c0569b57c89e90900b31d71cbe",
+              "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+            },
+            "renderProcess": {
+              "stage": "render",
+              "exit": 0,
+              "highWaterMiB": 3502.76953125,
+              "sampledPeakMiB": 3457.27734375,
+              "wallSeconds": 3212.176560163498,
+              "command": [
+                "/workspace/scratch/33cf95385f89/camera-render-work/blender-4.5.14-linux-x64/blender",
+                "-b",
+                "-Y",
+                "--python-exit-code",
+                "1",
+                "--disable-depsgraph-on-file-load",
+                "-t",
+                "8",
+                "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/source/kitchen-pastry-native-r2.blend",
+                "--python",
+                "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/scripts/render-center-raw.py",
+                "--",
+                "--job",
+                "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/job.json",
+                "--out",
+                "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/raw-stage"
+              ],
+              "memorySafetyReason": null
+            },
+            "files": {
+              "center.exr": "1d87cebcb54ff5a4673eda7591bf6ca180f1f904041443639a384d4364ca2139",
+              "report.json": "b7bb042a445c9d6cf7ca72f96cda6e67c9b64612196f51d90d5385f95b5d7ece",
+              "render.log": "341f165d0f35a0954e4dbd34d62656930d8d1d52d6fdbe0df27564bae4fb7619"
+            }
+          },
+          "sceneProcessExitedBeforeDenoising": true
+        }
+      },
+      "independentBaseCapture": {
+        "samples": 32,
+        "sourceFile": "center.hdr",
+        "sourceSha256": "4caa74e21319c44df586aa30a4e473edf914d02a5455a54b43a53d00f218d06c",
+        "jobEvidence": "jobs/kitchen-pastry/base/center/attempt-001",
+        "captureSeconds": 91.97337226601667,
+        "delivered": false,
+        "note": "Retained raw capture only; delivered center base/detail instead share the 6144x3456/256spp EXR."
+      },
+      "baseRadianceMethod": "Scene-linear area-average the exact full overscan center EXR; no independent 32spp image or native crop at initial load."
+    },
+    {
+      "id": "left",
+      "offset": [
+        -0.08,
+        0,
+        0
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.3838019371032715,
+        2.0999999046325684,
+        0.8949201107025146
+      ],
+      "matrix": [
+        1.3408172130584717,
+        -0.1428433656692505,
+        -0.5593412518501282,
+        -0.5593076348304749,
+        -4.225445593419863e-08,
+        2.86940336227417,
+        -0.08831683546304703,
+        -0.08831153064966202,
+        -0.9098402857780457,
+        -0.21050599217414856,
+        -0.8242923021316528,
+        -0.8242427706718445,
+        -1.0411909818649292,
+        -5.6396942138671875,
+        1.6371567249298096,
+        1.6970566511154175
+      ],
+      "cameraMatrix": [
+        0.8274757266044617,
+        -4.558412314281668e-09,
+        -0.5615014433860779,
+        0,
+        -0.04958702251315117,
+        0.9960928559303284,
+        -0.07307565957307816,
+        0,
+        0.5593075752258301,
+        0.08831153064966202,
+        0.8242427110671997,
+        0,
+        1.3838019371032715,
+        2.0999999046325684,
+        0.8949201107025146,
+        1
+      ],
+      "projectionMatrix": [
+        1.6203703880310059,
+        0,
+        0,
+        0,
+        0,
+        2.8806583881378174,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "left.webp",
+      "bytes": 1464480,
+      "seconds": 98.18903557900921,
+      "jobEvidence": "jobs/kitchen-pastry/base/left/attempt-001",
+      "sha256": "abb59e3663deb032cab843a6a2b9c28c688654e898b918f9a296a44e2f731529",
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+      },
+      "depth": "left-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 390231,
+      "maximumRadiance": 132.5176544189453,
+      "clampedChannels": 0,
+      "minimumDepth": 1.106316089630127,
+      "maximumDepth": 13.289202690124512,
+      "detailFile": "left-detail.webp",
+      "detailBytes": 3150950,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "left-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 829539,
+      "flash": "left-flash.webp",
+      "flashBytes": 422494,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "right",
+      "offset": [
+        0.025,
+        0,
+        0
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.470686912536621,
+        2.0999999046325684,
+        0.8359624743461609
+      ],
+      "matrix": [
+        1.3408172130584717,
+        -0.1428433656692505,
+        -0.5593412518501282,
+        -0.5593076348304749,
+        -4.225445593419863e-08,
+        2.86940336227417,
+        -0.08831683546304703,
+        -0.08831153064966202,
+        -0.9098402857780457,
+        -0.21050599217414856,
+        -0.8242923021316528,
+        -0.8242427706718445,
+        -1.2113299369812012,
+        -5.6396942138671875,
+        1.6371568441390991,
+        1.697056770324707
+      ],
+      "cameraMatrix": [
+        0.8274757266044617,
+        -4.558412314281668e-09,
+        -0.5615014433860779,
+        0,
+        -0.04958702251315117,
+        0.9960928559303284,
+        -0.07307565957307816,
+        0,
+        0.5593075752258301,
+        0.08831153064966202,
+        0.8242427110671997,
+        0,
+        1.470686912536621,
+        2.0999999046325684,
+        0.8359624743461609,
+        1
+      ],
+      "projectionMatrix": [
+        1.6203703880310059,
+        0,
+        0,
+        0,
+        0,
+        2.8806583881378174,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "right.webp",
+      "bytes": 1398304,
+      "seconds": 94.04002412498812,
+      "jobEvidence": "jobs/kitchen-pastry/base/right/attempt-001",
+      "sha256": "44770e358a265dfd0c3aa0e8d4231103625648061c48658335f4b2c265e804da",
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+      },
+      "depth": "right-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 379615,
+      "maximumRadiance": 147.57647705078125,
+      "clampedChannels": 0,
+      "minimumDepth": 1.1063051223754883,
+      "maximumDepth": 13.289202690124512,
+      "detailFile": "right-detail.webp",
+      "detailBytes": 3008828,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "right-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 804621,
+      "flash": "right-flash.webp",
+      "flashBytes": 402474,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "up",
+      "offset": [
+        0,
+        0.05,
+        0
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.4475207328796387,
+        2.1498045921325684,
+        0.8463462591171265
+      ],
+      "matrix": [
+        1.3408172130584717,
+        -0.1428433656692505,
+        -0.5593412518501282,
+        -0.5593076348304749,
+        -4.225445593419863e-08,
+        2.86940336227417,
+        -0.08831683546304703,
+        -0.08831153064966202,
+        -0.9098402857780457,
+        -0.21050599217414856,
+        -0.8242923021316528,
+        -0.8242427706718445,
+        -1.170820713043213,
+        -5.783727169036865,
+        1.6371568441390991,
+        1.697056770324707
+      ],
+      "cameraMatrix": [
+        0.8274757266044617,
+        -4.558412314281668e-09,
+        -0.5615014433860779,
+        0,
+        -0.04958702251315117,
+        0.9960928559303284,
+        -0.07307565957307816,
+        0,
+        0.5593075752258301,
+        0.08831153064966202,
+        0.8242427110671997,
+        0,
+        1.4475207328796387,
+        2.1498045921325684,
+        0.8463462591171265,
+        1
+      ],
+      "projectionMatrix": [
+        1.6203703880310059,
+        0,
+        0,
+        0,
+        0,
+        2.8806583881378174,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "up.webp",
+      "bytes": 1420052,
+      "seconds": 91.90230812501977,
+      "jobEvidence": "jobs/kitchen-pastry/base/up/attempt-001",
+      "sha256": "3bf053816d0b62a081c1e4582837c8a41da67a1ada68ac5279a31616652252cb",
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+      },
+      "depth": "up-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 385060,
+      "maximumRadiance": 144.56471252441406,
+      "clampedChannels": 0,
+      "minimumDepth": 1.1063278913497925,
+      "maximumDepth": 16.003456115722656,
+      "detailFile": "up-detail.webp",
+      "detailBytes": 3041788,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "up-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 818767,
+      "flash": "up-flash.webp",
+      "flashBytes": 408942,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "down",
+      "offset": [
+        0,
+        -0.05,
+        0
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.452479362487793,
+        2.0501952171325684,
+        0.8536537885665894
+      ],
+      "matrix": [
+        1.3408172130584717,
+        -0.1428433656692505,
+        -0.5593412518501282,
+        -0.5593076348304749,
+        -4.225445593419863e-08,
+        2.86940336227417,
+        -0.08831683546304703,
+        -0.08831153064966202,
+        -0.9098402857780457,
+        -0.21050599217414856,
+        -0.8242923021316528,
+        -0.8242427706718445,
+        -1.1708205938339233,
+        -5.495660781860352,
+        1.6371567249298096,
+        1.6970566511154175
+      ],
+      "cameraMatrix": [
+        0.8274757266044617,
+        -4.558412314281668e-09,
+        -0.5615014433860779,
+        0,
+        -0.04958702251315117,
+        0.9960928559303284,
+        -0.07307565957307816,
+        0,
+        0.5593075752258301,
+        0.08831153064966202,
+        0.8242427110671997,
+        0,
+        1.452479362487793,
+        2.0501952171325684,
+        0.8536537885665894,
+        1
+      ],
+      "projectionMatrix": [
+        1.6203703880310059,
+        0,
+        0,
+        0,
+        0,
+        2.8806583881378174,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "down.webp",
+      "bytes": 1415690,
+      "seconds": 89.99188110197429,
+      "jobEvidence": "jobs/kitchen-pastry/base/down/attempt-001",
+      "sha256": "3d63f91db7777238b85dcf7ec3a13f7ca13d8b3b48a180dded6f7386f944f126",
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+      },
+      "depth": "down-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 382291,
+      "maximumRadiance": 126.99607849121094,
+      "clampedChannels": 0,
+      "minimumDepth": 1.1063004732131958,
+      "maximumDepth": 13.676011085510254,
+      "detailFile": "down-detail.webp",
+      "detailBytes": 3038046,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "down-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 807914,
+      "flash": "down-flash.webp",
+      "flashBytes": 411284,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "front",
+      "offset": [
+        0,
+        0,
+        -0.08
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.4052554368972778,
+        2.092935085296631,
+        0.7840605974197388
+      ],
+      "matrix": [
+        1.3408172130584717,
+        -0.1428433656692505,
+        -0.5593412518501282,
+        -0.5593076348304749,
+        -4.225445593419863e-08,
+        2.86940336227417,
+        -0.08831683546304703,
+        -0.08831153064966202,
+        -0.9098402857780457,
+        -0.21050599217414856,
+        -0.8242923021316528,
+        -0.8242427706718445,
+        -1.1708205938339233,
+        -5.6396942138671875,
+        1.5571520328521729,
+        1.6170567274093628
+      ],
+      "cameraMatrix": [
+        0.8274757266044617,
+        -4.558412314281668e-09,
+        -0.5615014433860779,
+        0,
+        -0.04958702251315117,
+        0.9960928559303284,
+        -0.07307565957307816,
+        0,
+        0.5593075752258301,
+        0.08831153064966202,
+        0.8242427110671997,
+        0,
+        1.4052554368972778,
+        2.092935085296631,
+        0.7840605974197388,
+        1
+      ],
+      "projectionMatrix": [
+        1.6203703880310059,
+        0,
+        0,
+        0,
+        0,
+        2.8806583881378174,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "front.webp",
+      "bytes": 1434526,
+      "seconds": 99.21773826799472,
+      "jobEvidence": "jobs/kitchen-pastry/base/front/attempt-001",
+      "sha256": "d99fa092f9d981d2de385460751bc38976f7c09cc2e03f2dcea5839664947237",
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+      },
+      "depth": "front-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 379778,
+      "maximumRadiance": 130.5098114013672,
+      "clampedChannels": 0,
+      "minimumDepth": 1.0262988805770874,
+      "maximumDepth": 12.773944854736328,
+      "detailFile": "front-detail.webp",
+      "detailBytes": 3070222,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "front-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 803624,
+      "flash": "front-flash.webp",
+      "flashBytes": 413644,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "back",
+      "offset": [
+        0,
+        0,
+        0.04
+      ],
+      "near": 0.029999999329447746,
+      "position": [
+        1.47237229347229,
+        2.103532314300537,
+        0.8829697370529175
+      ],
+      "matrix": [
+        1.3408172130584717,
+        -0.1428433656692505,
+        -0.5593412518501282,
+        -0.5593076348304749,
+        -4.225445593419863e-08,
+        2.86940336227417,
+        -0.08831683546304703,
+        -0.08831153064966202,
+        -0.9098402857780457,
+        -0.21050599217414856,
+        -0.8242923021316528,
+        -0.8242427706718445,
+        -1.1708205938339233,
+        -5.6396942138671875,
+        1.6771591901779175,
+        1.7370567321777344
+      ],
+      "cameraMatrix": [
+        0.8274757266044617,
+        -4.558412314281668e-09,
+        -0.5615014433860779,
+        0,
+        -0.04958702251315117,
+        0.9960928559303284,
+        -0.07307565957307816,
+        0,
+        0.5593075752258301,
+        0.08831153064966202,
+        0.8242427110671997,
+        0,
+        1.47237229347229,
+        2.103532314300537,
+        0.8829697370529175,
+        1
+      ],
+      "projectionMatrix": [
+        1.6203703880310059,
+        0,
+        0,
+        0,
+        0,
+        2.8806583881378174,
+        0,
+        0,
+        0,
+        0,
+        -1.0000600814819336,
+        -1,
+        0,
+        0,
+        -0.06000180169939995,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "back.webp",
+      "bytes": 1405720,
+      "seconds": 91.12234713000362,
+      "jobEvidence": "jobs/kitchen-pastry/base/back/attempt-001",
+      "sha256": "4d89c084f5b28c2f7e9f5c742a34ca2868e020552e9d6ce93b39b9c7dd53e294",
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "original",
+        "components": {
+          "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+      },
+      "depth": "back-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 383424,
+      "maximumRadiance": 148.5803985595703,
+      "clampedChannels": 0,
+      "minimumDepth": 1.1463415622711182,
+      "maximumDepth": 13.321619987487793,
+      "detailFile": "back-detail.webp",
+      "detailBytes": 3021418,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "back-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 813793,
+      "flash": "back-flash.webp",
+      "flashBytes": 405064,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    }
+  ],
+  "totalBytes": 12535331,
+  "initialBytes": 1696160,
+  "detail": {
+    "method": "One independently rendered source perspective camera, with source-owned geometry/materials/lights.",
+    "sourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+    "camera": {
+      "name": "KitchenPastryNative_r2",
+      "lens": 35,
+      "sourceProjection": "PERSP",
+      "sourceLens": 35,
+      "sourceOrthoScale": 6,
+      "sensorWidth": 36,
+      "sensorHeight": 24,
+      "aspect": 1.7777777777777777,
+      "nativeResolution": [
+        5120,
+        2880
+      ],
+      "near": 0.03,
+      "far": 1000,
+      "sourceFar": 1000,
+      "matrix": [
+        [
+          0.8274757266044617,
+          -0.04958702251315117,
+          0.5593075752258301,
+          1.4500000476837158
+        ],
+        [
+          0.5615014433860779,
+          0.07307565957307816,
+          -0.8242427110671997,
+          -0.8500000238418579
+        ],
+        [
+          -4.558412314281668e-09,
+          0.9960928559303284,
+          0.08831153064966202,
+          2.0999999046325684
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "sourceScale": [
+        1,
+        1,
+        1
+      ],
+      "shiftX": 0,
+      "shiftY": 0,
+      "sensorFit": "AUTO",
+      "sourceClippingMethod": "Explicit near plane on the derived source camera; unchanged across the bounded rig."
+    },
+    "captureLens": 29.16666603088379,
+    "bounds": {
+      "x": [
+        -0.08,
+        0.025
+      ],
+      "y": [
+        -0.05,
+        0.05
+      ],
+      "z": [
+        -0.08,
+        0.04
+      ],
+      "yaw": [
+        -35,
+        35
+      ],
+      "pitch": [
+        -20,
+        20
+      ],
+      "roll": [
+        -5,
+        5
+      ]
+    },
+    "derivations": [],
+    "sourceProvenance": {
+      "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/kitchen.blend",
+      "originalSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+      "originalAuthor": "Nicole Morena",
+      "license": "CC BY-SA; adaptation CC BY-SA4.0",
+      "derivations": [
+        {
+          "type": "native-perspective-camera-only",
+          "camera": "KitchenPastryNative_r2",
+          "cameraSha256": "1928c8bc896c9216011d16714b783db516b8aed9a92b6e6d802bf04b5773e7df",
+          "unchanged": "Original geometry/materials/lights/world, original ORTHO camera and frame1; no prop moves or studio-plane extension."
+        }
+      ],
+      "sourceFreeze": {
+        "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/kitchen.blend",
+        "originalSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+        "originalCamera": "CAM-wide",
+        "derivedSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/source/kitchen-pastry-native-r2.blend",
+        "derivedSourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+        "newCamera": "KitchenPastryNative_r2",
+        "approvedCameraSha256": "1928c8bc896c9216011d16714b783db516b8aed9a92b6e6d802bf04b5773e7df",
+        "freezeScriptSha256": "5ebfcda0d0439a2f1555c77d1b132525a30eb1560b9e3ddcf5e85e826cf6f9f6",
+        "approvalFileSha256": "5c96cd16a5877182a4b044229ad4a6eb4ad385f701645c4b6b24e0a97c69c2bc",
+        "planFileSha256": "74fa824bec521d1853a772b95f1e48c602779db5f474a877f063b805fc449883",
+        "sourceObjectCount": 1077,
+        "frozenObjectCount": 1078,
+        "cameraMatrixMaxDelta": 0,
+        "frame": 1,
+        "viewLayer": "ViewLayer",
+        "originalRenderResolution": [
+          2655,
+          2500,
+          50
+        ],
+        "frozenNativeResolution": [
+          5120,
+          2880,
+          100
+        ],
+        "originalSourceUnchanged": true,
+        "assetsMissing": []
+      }
+    },
+    "bakedSourceDerivations": [
+      {
+        "type": "native-perspective-camera-only",
+        "camera": "KitchenPastryNative_r2",
+        "cameraSha256": "1928c8bc896c9216011d16714b783db516b8aed9a92b6e6d802bf04b5773e7df",
+        "unchanged": "Original geometry/materials/lights/world, original ORTHO camera and frame1; no prop moves or studio-plane extension."
+      }
+    ],
+    "blender": "4.5.14 LTS",
+    "blenderBuildHash": "62c1db4208e8",
+    "displayTransform": {
+      "view": "AgX",
+      "look": "None",
+      "exposure": 0,
+      "gamma": 1
+    },
+    "views": [
+      {
+        "id": "center",
+        "file": "center-detail.webp",
+        "bytes": 3929960,
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.4500000476837158,
+          2.0999999046325684,
+          0.8500000238418579,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 157.0280927021975,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 256,
+        "blender": "4.5.14 LTS",
+        "sourceWidth": 6144,
+        "sourceHeight": 3456,
+        "runtimeDetailWidth": 5120,
+        "runtimeDetailHeight": 2880,
+        "fullFrameResampling": "Scene-linear area average over the complete overscan frame; no crop",
+        "sourceExrSha256": "054be3290268285d11065bfd437be826cf72036313264a4f51e51a23a389f104",
+        "sourceMaximumRadiance": 162.0808868408203,
+        "width": 5120,
+        "height": 2880,
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "staged-center",
+          "components": {
+            "center-stage-runner.py": "8cbf9f8a05ecee412768b8959b328390b5127d9d5f0f3122d449d73903ee9a6d",
+            "render-center-raw.py": "f79a09158fdd589e1fd7a370cd6f2b8fe1afb7c0569b57c89e90900b31d71cbe",
+            "denoise-bounded.py": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+            "center-display.py": "67f892649c8a9e05685c87024239cb07297da242660381aead3ead90367cbcda",
+            "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+          },
+          "sha256": "b7191f921e7ba098d7c8745fc3127f2e3f592ef1765a04fb2b0faddebe9cb561"
+        },
+        "denoisingEvidence": {
+          "status": "complete",
+          "input": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/raw-stage/center.exr",
+          "inputSha256": "1d87cebcb54ff5a4673eda7591bf6ca180f1f904041443639a384d4364ca2139",
+          "inputFormat": "normalized-openexr-multilayer",
+          "inputChannels": [
+            "ViewLayer.Combined.R",
+            "ViewLayer.Combined.G",
+            "ViewLayer.Combined.B",
+            "ViewLayer.Combined.A",
+            "ViewLayer.Denoising Albedo.R",
+            "ViewLayer.Denoising Albedo.G",
+            "ViewLayer.Denoising Albedo.B",
+            "ViewLayer.Denoising Depth.Z",
+            "ViewLayer.Denoising Normal.X",
+            "ViewLayer.Denoising Normal.Y",
+            "ViewLayer.Denoising Normal.Z"
+          ],
+          "channelOffsets": {
+            "color": 0,
+            "normal": 8,
+            "albedo": 4
+          },
+          "sampleCountStatistics": null,
+          "filterRowOrder": "Cycles bottom-up; normalized EXR rows reversed before filtering, all output rows reversed back to top-down EXR",
+          "output": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/center.exr",
+          "outputSha256": "054be3290268285d11065bfd437be826cf72036313264a4f51e51a23a389f104",
+          "dimensions": [
+            6144,
+            3456
+          ],
+          "samples": 256,
+          "normalization": "already normalized by Blender EXR export",
+          "device": "CPU",
+          "library": "/workspace/scratch/33cf95385f89/camera-render-work/blender-4.5.14-linux-x64/lib/libOpenImageDenoise.so.2.3.3",
+          "librarySha256": "9a220453d6a7ea32a036559e6579768a312653c9da12b819282f91bf8b2acc11",
+          "scriptSha256": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+          "quality": "HIGH",
+          "prefilter": "ACCURATE",
+          "hdr": true,
+          "srgb": false,
+          "cleanAux": true,
+          "maxMemoryMBPerFilter": 1024,
+          "threads": 8,
+          "setAffinity": false,
+          "fullFrameAutomaticInputScale": true,
+          "manualTiling": false,
+          "steps": [
+            {
+              "filter": "albedo",
+              "seconds": 28.119799926003907,
+              "peakRssMiB": 2054.953125
+            },
+            {
+              "filter": "normal",
+              "seconds": 27.878699842025526,
+              "peakRssMiB": 2077.25390625
+            },
+            {
+              "filter": "color",
+              "seconds": 26.43076905599446,
+              "peakRssMiB": 2099.37109375
+            }
+          ],
+          "seconds": 86.03562997002155,
+          "peakRssMiB": 2099.37109375,
+          "rawCaptureEvidence": {
+            "jobSha256": "e1ae80ea9d603b38ecd566763c1449576d5199fe9c95ea9f4d7a4174eed0facb",
+            "sourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+            "dimensions": [
+              6144,
+              3456
+            ],
+            "samples": 256,
+            "rawRendererComponents": {
+              "render-center-raw.py": "f79a09158fdd589e1fd7a370cd6f2b8fe1afb7c0569b57c89e90900b31d71cbe",
+              "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+            },
+            "renderProcess": {
+              "stage": "render",
+              "exit": 0,
+              "highWaterMiB": 3502.76953125,
+              "sampledPeakMiB": 3457.27734375,
+              "wallSeconds": 3212.176560163498,
+              "command": [
+                "/workspace/scratch/33cf95385f89/camera-render-work/blender-4.5.14-linux-x64/blender",
+                "-b",
+                "-Y",
+                "--python-exit-code",
+                "1",
+                "--disable-depsgraph-on-file-load",
+                "-t",
+                "8",
+                "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/source/kitchen-pastry-native-r2.blend",
+                "--python",
+                "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/scripts/render-center-raw.py",
+                "--",
+                "--job",
+                "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/job.json",
+                "--out",
+                "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/raw-stage"
+              ],
+              "memorySafetyReason": null
+            },
+            "files": {
+              "center.exr": "1d87cebcb54ff5a4673eda7591bf6ca180f1f904041443639a384d4364ca2139",
+              "report.json": "b7bb042a445c9d6cf7ca72f96cda6e67c9b64612196f51d90d5385f95b5d7ece",
+              "render.log": "341f165d0f35a0954e4dbd34d62656930d8d1d52d6fdbe0df27564bae4fb7619"
+            }
+          },
+          "sceneProcessExitedBeforeDenoising": true
+        }
+      },
+      {
+        "id": "left",
+        "file": "left-detail.webp",
+        "bytes": 3150950,
+        "offset": [
+          -0.08,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.3838019371032715,
+          2.0999999046325684,
+          0.8949201107025146,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 156.9987030029297,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "right",
+        "file": "right-detail.webp",
+        "bytes": 3008828,
+        "offset": [
+          0.025,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.470686912536621,
+          2.0999999046325684,
+          0.8359624743461609,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 148.7438507080078,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "up",
+        "file": "up-detail.webp",
+        "bytes": 3041788,
+        "offset": [
+          0,
+          0.05,
+          0
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.4475207328796387,
+          2.1498045921325684,
+          0.8463462591171265,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 162.40277099609375,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "down",
+        "file": "down-detail.webp",
+        "bytes": 3038046,
+        "offset": [
+          0,
+          -0.05,
+          0
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.452479362487793,
+          2.0501952171325684,
+          0.8536537885665894,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 158.76312255859375,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "front",
+        "file": "front-detail.webp",
+        "bytes": 3070222,
+        "offset": [
+          0,
+          0,
+          -0.08
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.4052554368972778,
+          2.092935085296631,
+          0.7840605974197388,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 152.60968017578125,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "back",
+        "file": "back-detail.webp",
+        "bytes": 3021418,
+        "offset": [
+          0,
+          0,
+          0.04
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.47237229347229,
+          2.103532314300537,
+          0.8829697370529175,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "maximumRadiance": 148.3574981689453,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      }
+    ],
+    "samplingPolicy": "Center: 6144x3456/256spp source area-averaged over the full overscan to 5120x2880 runtime detail; six neighbors remain 4096x2304/32spp. No runtime crop.",
+    "encoding": {
+      "type": "log2-rgb",
+      "min": -16,
+      "max": 8,
+      "losslessContainer": "WebP",
+      "maximumChannelQuantizationEV": 0.047058823529411764,
+      "sourceMaximumRadiance": 162.40277099609375
+    },
+    "totalBytes": 22261212
+  },
+  "detailDepth": {
+    "sourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+    "method": "One-sample source Cycles axial-Z at exactly matching radiance matrices and near planes.",
+    "space": "capture-camera-z",
+    "range": 64,
+    "views": [
+      {
+        "id": "center",
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.4500000476837158,
+          2.0999999046325684,
+          0.8500000238418579
+        ],
+        "matrix": [
+          1.3408172130584717,
+          -0.1428433656692505,
+          -0.5593412518501282,
+          -0.5593076348304749,
+          -4.225445593419863e-08,
+          2.86940336227417,
+          -0.08831683546304703,
+          -0.08831153064966202,
+          -0.9098402857780457,
+          -0.21050599217414856,
+          -0.8242923021316528,
+          -0.8242427706718445,
+          -1.1708205938339233,
+          -5.6396942138671875,
+          1.6371568441390991,
+          1.697056770324707
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.4500000476837158,
+          2.0999999046325684,
+          0.8500000238418579,
+          1
+        ],
+        "projectionMatrix": [
+          1.6203703880310059,
+          0,
+          0,
+          0,
+          0,
+          2.8806583881378174,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "center-detail-depth.png",
+        "bytes": 810287,
+        "seconds": 12.96882586099673,
+        "jobEvidence": "jobs/kitchen-pastry/detail-depth/center/attempt-001",
+        "sha256": "c6c99b8402a99ab33ba48a511aa027c778935e45a79c170ce69882fb1492d033",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+          },
+          "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "minimumZ": 1.106235146522522,
+        "maximumZ": 13.281865119934082,
+        "clampedPixels": 0
+      },
+      {
+        "id": "left",
+        "offset": [
+          -0.08,
+          0,
+          0
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.3838019371032715,
+          2.0999999046325684,
+          0.8949201107025146
+        ],
+        "matrix": [
+          1.3408172130584717,
+          -0.1428433656692505,
+          -0.5593412518501282,
+          -0.5593076348304749,
+          -4.225445593419863e-08,
+          2.86940336227417,
+          -0.08831683546304703,
+          -0.08831153064966202,
+          -0.9098402857780457,
+          -0.21050599217414856,
+          -0.8242923021316528,
+          -0.8242427706718445,
+          -1.0411909818649292,
+          -5.6396942138671875,
+          1.6371567249298096,
+          1.6970566511154175
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.3838019371032715,
+          2.0999999046325684,
+          0.8949201107025146,
+          1
+        ],
+        "projectionMatrix": [
+          1.6203703880310059,
+          0,
+          0,
+          0,
+          0,
+          2.8806583881378174,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "left-detail-depth.png",
+        "bytes": 829539,
+        "seconds": 13.46783909999067,
+        "jobEvidence": "jobs/kitchen-pastry/detail-depth/left/attempt-001",
+        "sha256": "1fa362e87926be1802085d853b7e57f656ad12aedc9a769b1dfc95b720de73f9",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+          },
+          "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "minimumZ": 1.106233835220337,
+        "maximumZ": 13.281864166259766,
+        "clampedPixels": 0
+      },
+      {
+        "id": "right",
+        "offset": [
+          0.025,
+          0,
+          0
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.470686912536621,
+          2.0999999046325684,
+          0.8359624743461609
+        ],
+        "matrix": [
+          1.3408172130584717,
+          -0.1428433656692505,
+          -0.5593412518501282,
+          -0.5593076348304749,
+          -4.225445593419863e-08,
+          2.86940336227417,
+          -0.08831683546304703,
+          -0.08831153064966202,
+          -0.9098402857780457,
+          -0.21050599217414856,
+          -0.8242923021316528,
+          -0.8242427706718445,
+          -1.2113299369812012,
+          -5.6396942138671875,
+          1.6371568441390991,
+          1.697056770324707
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.470686912536621,
+          2.0999999046325684,
+          0.8359624743461609,
+          1
+        ],
+        "projectionMatrix": [
+          1.6203703880310059,
+          0,
+          0,
+          0,
+          0,
+          2.8806583881378174,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "right-detail-depth.png",
+        "bytes": 804621,
+        "seconds": 12.98978467201232,
+        "jobEvidence": "jobs/kitchen-pastry/detail-depth/right/attempt-001",
+        "sha256": "2c074ea9c8d74449b9ab123991e5adc2104578bbe783cbbd4b0c16d4dcf86a14",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+          },
+          "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "minimumZ": 1.1062524318695068,
+        "maximumZ": 13.281862258911133,
+        "clampedPixels": 0
+      },
+      {
+        "id": "up",
+        "offset": [
+          0,
+          0.05,
+          0
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.4475207328796387,
+          2.1498045921325684,
+          0.8463462591171265
+        ],
+        "matrix": [
+          1.3408172130584717,
+          -0.1428433656692505,
+          -0.5593412518501282,
+          -0.5593076348304749,
+          -4.225445593419863e-08,
+          2.86940336227417,
+          -0.08831683546304703,
+          -0.08831153064966202,
+          -0.9098402857780457,
+          -0.21050599217414856,
+          -0.8242923021316528,
+          -0.8242427706718445,
+          -1.170820713043213,
+          -5.783727169036865,
+          1.6371568441390991,
+          1.697056770324707
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.4475207328796387,
+          2.1498045921325684,
+          0.8463462591171265,
+          1
+        ],
+        "projectionMatrix": [
+          1.6203703880310059,
+          0,
+          0,
+          0,
+          0,
+          2.8806583881378174,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "up-detail-depth.png",
+        "bytes": 818767,
+        "seconds": 12.764196184987668,
+        "jobEvidence": "jobs/kitchen-pastry/detail-depth/up/attempt-001",
+        "sha256": "1840a995748610973365d85ded112e7d561aeabc4491892021f0abaaf6ccc9af",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+          },
+          "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "minimumZ": 1.1062355041503906,
+        "maximumZ": 16.034282684326172,
+        "clampedPixels": 0
+      },
+      {
+        "id": "down",
+        "offset": [
+          0,
+          -0.05,
+          0
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.452479362487793,
+          2.0501952171325684,
+          0.8536537885665894
+        ],
+        "matrix": [
+          1.3408172130584717,
+          -0.1428433656692505,
+          -0.5593412518501282,
+          -0.5593076348304749,
+          -4.225445593419863e-08,
+          2.86940336227417,
+          -0.08831683546304703,
+          -0.08831153064966202,
+          -0.9098402857780457,
+          -0.21050599217414856,
+          -0.8242923021316528,
+          -0.8242427706718445,
+          -1.1708205938339233,
+          -5.495660781860352,
+          1.6371567249298096,
+          1.6970566511154175
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.452479362487793,
+          2.0501952171325684,
+          0.8536537885665894,
+          1
+        ],
+        "projectionMatrix": [
+          1.6203703880310059,
+          0,
+          0,
+          0,
+          0,
+          2.8806583881378174,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "down-detail-depth.png",
+        "bytes": 807914,
+        "seconds": 12.869266990979668,
+        "jobEvidence": "jobs/kitchen-pastry/detail-depth/down/attempt-001",
+        "sha256": "289cfb07d4823d9b2f22dd84923e49b91a01e7329a42bfa2d17b4f0f58966066",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+          },
+          "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "minimumZ": 1.1062349081039429,
+        "maximumZ": 13.651944160461426,
+        "clampedPixels": 0
+      },
+      {
+        "id": "front",
+        "offset": [
+          0,
+          0,
+          -0.08
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.4052554368972778,
+          2.092935085296631,
+          0.7840605974197388
+        ],
+        "matrix": [
+          1.3408172130584717,
+          -0.1428433656692505,
+          -0.5593412518501282,
+          -0.5593076348304749,
+          -4.225445593419863e-08,
+          2.86940336227417,
+          -0.08831683546304703,
+          -0.08831153064966202,
+          -0.9098402857780457,
+          -0.21050599217414856,
+          -0.8242923021316528,
+          -0.8242427706718445,
+          -1.1708205938339233,
+          -5.6396942138671875,
+          1.5571520328521729,
+          1.6170567274093628
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.4052554368972778,
+          2.092935085296631,
+          0.7840605974197388,
+          1
+        ],
+        "projectionMatrix": [
+          1.6203703880310059,
+          0,
+          0,
+          0,
+          0,
+          2.8806583881378174,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "front-detail-depth.png",
+        "bytes": 803624,
+        "seconds": 12.98402149399044,
+        "jobEvidence": "jobs/kitchen-pastry/detail-depth/front/attempt-001",
+        "sha256": "1b9566e1ed6a401a7d238b88788fc8c87f2aaf64d74ce89e5a8cab5d3d795319",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+          },
+          "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "minimumZ": 1.0262974500656128,
+        "maximumZ": 12.726517677307129,
+        "clampedPixels": 0
+      },
+      {
+        "id": "back",
+        "offset": [
+          0,
+          0,
+          0.04
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          1.47237229347229,
+          2.103532314300537,
+          0.8829697370529175
+        ],
+        "matrix": [
+          1.3408172130584717,
+          -0.1428433656692505,
+          -0.5593412518501282,
+          -0.5593076348304749,
+          -4.225445593419863e-08,
+          2.86940336227417,
+          -0.08831683546304703,
+          -0.08831153064966202,
+          -0.9098402857780457,
+          -0.21050599217414856,
+          -0.8242923021316528,
+          -0.8242427706718445,
+          -1.1708205938339233,
+          -5.6396942138671875,
+          1.6771591901779175,
+          1.7370567321777344
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.47237229347229,
+          2.103532314300537,
+          0.8829697370529175,
+          1
+        ],
+        "projectionMatrix": [
+          1.6203703880310059,
+          0,
+          0,
+          0,
+          0,
+          2.8806583881378174,
+          0,
+          0,
+          0,
+          0,
+          -1.0000600814819336,
+          -1,
+          0,
+          0,
+          -0.06000180169939995,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "back-detail-depth.png",
+        "bytes": 813793,
+        "seconds": 13.110391591006191,
+        "jobEvidence": "jobs/kitchen-pastry/detail-depth/back/attempt-001",
+        "sha256": "a7c17c3689dbcf525f83fcd27ec5f59cc2ccb0c96d0076fecdc109352e348af4",
+        "rendererEvidence": {
+          "version": 1,
+          "mode": "original",
+          "components": {
+            "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+          },
+          "sha256": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "minimumZ": 1.1462163925170898,
+        "maximumZ": 13.314264297485352,
+        "clampedPixels": 0
+      }
+    ],
+    "totalBytes": 5688545
+  },
+  "flash": {
+    "sourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+    "method": "Cycles isolated CameraFlash light group, full-frame OIDN with normal/albedo guides; no ambient subtraction.",
+    "referenceEnergy": 1000,
+    "referenceDuration": 0.01,
+    "areaDiameter": 0.08,
+    "position": "actual capture camera origin plus explicit forward offset",
+    "coordinateSystem": "Three.js Y-up; source x,z,-y",
+    "originOffsetForward": 0,
+    "width": 1280,
+    "height": 720,
+    "samples": 32,
+    "views": [
+      {
+        "id": "center",
+        "file": "center-flash.webp",
+        "bytes": 408798,
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.4500000476837158,
+          2.0999999046325684,
+          0.8500000238418579,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.4500000476837158,
+          2.0999999046325684,
+          0.8500000238418579
+        ],
+        "maximumRadiance": 647.5256958007812,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "left",
+        "file": "left-flash.webp",
+        "bytes": 422494,
+        "offset": [
+          -0.08,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.3838019371032715,
+          2.0999999046325684,
+          0.8949201107025146,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.3838019371032715,
+          2.0999999046325684,
+          0.8949201107025146
+        ],
+        "maximumRadiance": 2876.451416015625,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "right",
+        "file": "right-flash.webp",
+        "bytes": 402474,
+        "offset": [
+          0.025,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.470686912536621,
+          2.0999999046325684,
+          0.8359624743461609,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.470686912536621,
+          2.0999999046325684,
+          0.8359624743461609
+        ],
+        "maximumRadiance": 1343.9385986328125,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "up",
+        "file": "up-flash.webp",
+        "bytes": 408942,
+        "offset": [
+          0,
+          0.05,
+          0
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.4475207328796387,
+          2.1498045921325684,
+          0.8463462591171265,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.4475207328796387,
+          2.1498045921325684,
+          0.8463462591171265
+        ],
+        "maximumRadiance": 983.786865234375,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "down",
+        "file": "down-flash.webp",
+        "bytes": 411284,
+        "offset": [
+          0,
+          -0.05,
+          0
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.452479362487793,
+          2.0501952171325684,
+          0.8536537885665894,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.452479362487793,
+          2.0501952171325684,
+          0.8536537885665894
+        ],
+        "maximumRadiance": 1399.745361328125,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "front",
+        "file": "front-flash.webp",
+        "bytes": 413644,
+        "offset": [
+          0,
+          0,
+          -0.08
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.4052554368972778,
+          2.092935085296631,
+          0.7840605974197388,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.4052554368972778,
+          2.092935085296631,
+          0.7840605974197388
+        ],
+        "maximumRadiance": 1231.1800537109375,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "back",
+        "file": "back-flash.webp",
+        "bytes": 405064,
+        "offset": [
+          0,
+          0,
+          0.04
+        ],
+        "cameraMatrix": [
+          0.8274757266044617,
+          -4.558412314281668e-09,
+          -0.5615014433860779,
+          0,
+          -0.04958702251315117,
+          0.9960928559303284,
+          -0.07307565957307816,
+          0,
+          0.5593075752258301,
+          0.08831153064966202,
+          0.8242427110671997,
+          0,
+          1.47237229347229,
+          2.103532314300537,
+          0.8829697370529175,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.029999999329447746,
+        "flashPosition": [
+          1.47237229347229,
+          2.103532314300537,
+          0.8829697370529175
+        ],
+        "maximumRadiance": 771.76416015625,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      }
+    ],
+    "encoding": {
+      "type": "log2-rgb",
+      "min": -16,
+      "max": 12,
+      "losslessContainer": "WebP",
+      "maximumChannelQuantizationEV": 0.054901960784313725,
+      "sourceMaximumRadiance": 2876.451416015625
+    },
+    "totalBytes": 2872700
+  },
+  "initialWithSubjectBytes": 1696160,
+  "defaults": {
+    "focus": 1.45,
+    "baseEV": 8
+  },
+  "defaultsEvidence": {
+    "focus": {
+      "valueMetres": 1.45,
+      "method": "Reviewed uncovered front strawberry cakes, camera axial Z in formal detail-depth; balanced between front cake1.421526m and adjacent left cake1.492832m, not the refracted cake under the glass dome.",
+      "sourceLayer": "detail-depth/center",
+      "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail-depth/center/attempt-001/center-detail-depth.exr",
+      "sourceSha256": "c6c99b8402a99ab33ba48a511aa027c778935e45a79c170ce69882fb1492d033",
+      "sampleCoordinateConvention": "u_capture=0.5+(u_native-0.5)/1.2; same for v (top-down)",
+      "samples": {
+        "foreground-strawberry-cake": {
+          "nativeNormalized": [
+            0.546875,
+            0.7430555555555556
+          ],
+          "capturePixel": [
+            1104,
+            809
+          ],
+          "z": 1.4215260744094849,
+          "roi7x7": {
+            "min": 1.4207756519317627,
+            "max": 1.4225953817367554,
+            "median": 1.4216160774230957
+          }
+        },
+        "left-strawberry-cake": {
+          "nativeNormalized": [
+            0.46171875,
+            0.7263888888888889
+          ],
+          "capturePixel": [
+            958,
+            793
+          ],
+          "z": 1.4928324222564697,
+          "roi7x7": {
+            "min": 1.4907231330871582,
+            "max": 1.4952510595321655,
+            "median": 1.493179202079773
+          }
+        }
+      },
+      "sourceEvidencePath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/formal-center-focus-probe.json"
+    },
+    "baseEV": {
+      "value": 8,
+      "referenceCameraSettings": {
+        "aperture": 8,
+        "shutterSeconds": 0.25,
+        "ISO": 100
+      },
+      "displayTransform": {
+        "view": "AgX",
+        "look": "None",
+        "exposure": 0,
+        "gamma": 1
+      },
+      "basis": "Original kitchen scene lighting/materials/world unchanged; native final JPEG visually checked against approved pastry-r2. Web physical exposure has EV8 as the source plate calibration point."
+    }
+  },
+  "approvedComposition": {
+    "version": 1,
+    "referenceFocal": 35,
+    "aspect": 1.7777777777777777,
+    "overscan": 1.2,
+    "preview": {
+      "path": "/workspace/scratch/33cf95385f89/camera-render-work/other-viewpoint-previews-20261023/kitchen-pastry-r2/kitchen-pastry-r2-16spp-oidn.png",
+      "sha256": "8da7ff1038644f66bc0e590709ec93ccb0446499ff011aee648906870eb7768e",
+      "width": 1280,
+      "height": 720,
+      "samples": 16,
+      "actualCaptureLensMm": 35.0,
+      "sensorWidthMm": 36,
+      "sensorHeightMm": 24,
+      "projectionMatrix": [
+        1.9444445371627808,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        3.4567904472351074,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        -1.0000600814819336,
+        -1.0,
+        0.0,
+        0.0,
+        -0.06000180169939995,
+        0.0
+      ],
+      "reportPath": "/workspace/scratch/33cf95385f89/camera-render-work/other-viewpoint-previews-20261023/kitchen-pastry-r2/report.json",
+      "reportSha256": "19982057b38080fd87e2f2f2cb155f78b81b7ef0c769403a9f7fe7b936c27368",
+      "rendererSha256": "180b59030029134e9d385bade2d56f0fa48751a466a01770334faa7fe0c11b54",
+      "deliveredLibraryFileId": "libfile_975b6052332881918bbd308ad76950bd",
+      "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/kitchen.blend",
+      "sourceSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+      "sourceReportPath": "/workspace/scratch/33cf95385f89/camera-render-work/other-viewpoint-previews-20261023/kitchen-pastry-r2/report.json",
+      "sourceReportSha256": "19982057b38080fd87e2f2f2cb155f78b81b7ef0c769403a9f7fe7b936c27368",
+      "captureLens": 35,
+      "sensorWidth": 36
+    },
+    "captureFrame": {
+      "width": 6144,
+      "height": 3456
+    },
+    "nativeFrame": {
+      "width": 5120,
+      "height": 2880
+    },
+    "nativeCrop": {
+      "left": 512,
+      "top": 288,
+      "width": 5120,
+      "height": 2880
+    }
+  },
+  "sourceProvenance": {
+    "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/kitchen.blend",
+    "originalSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+    "originalAuthor": "Nicole Morena",
+    "license": "CC BY-SA; adaptation CC BY-SA4.0",
+    "derivations": [
+      {
+        "type": "native-perspective-camera-only",
+        "camera": "KitchenPastryNative_r2",
+        "cameraSha256": "1928c8bc896c9216011d16714b783db516b8aed9a92b6e6d802bf04b5773e7df",
+        "unchanged": "Original geometry/materials/lights/world, original ORTHO camera and frame1; no prop moves or studio-plane extension."
+      }
+    ],
+    "sourceFreeze": {
+      "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/kitchen.blend",
+      "originalSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+      "originalCamera": "CAM-wide",
+      "derivedSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/source/kitchen-pastry-native-r2.blend",
+      "derivedSourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+      "newCamera": "KitchenPastryNative_r2",
+      "approvedCameraSha256": "1928c8bc896c9216011d16714b783db516b8aed9a92b6e6d802bf04b5773e7df",
+      "freezeScriptSha256": "5ebfcda0d0439a2f1555c77d1b132525a30eb1560b9e3ddcf5e85e826cf6f9f6",
+      "approvalFileSha256": "5c96cd16a5877182a4b044229ad4a6eb4ad385f701645c4b6b24e0a97c69c2bc",
+      "planFileSha256": "74fa824bec521d1853a772b95f1e48c602779db5f474a877f063b805fc449883",
+      "sourceObjectCount": 1077,
+      "frozenObjectCount": 1078,
+      "cameraMatrixMaxDelta": 0.0,
+      "frame": 1,
+      "viewLayer": "ViewLayer",
+      "originalRenderResolution": [
+        2655,
+        2500,
+        50
+      ],
+      "frozenNativeResolution": [
+        5120,
+        2880,
+        100
+      ],
+      "originalSourceUnchanged": true,
+      "assetsMissing": []
+    }
+  },
+  "captureQuality": {
+    "sourceCenter": {
+      "width": 6144,
+      "height": 3456,
+      "samples": 256,
+      "overscan": 1.2,
+      "rendererEvidence": {
+        "version": 1,
+        "mode": "staged-center",
+        "components": {
+          "center-stage-runner.py": "8cbf9f8a05ecee412768b8959b328390b5127d9d5f0f3122d449d73903ee9a6d",
+          "render-center-raw.py": "f79a09158fdd589e1fd7a370cd6f2b8fe1afb7c0569b57c89e90900b31d71cbe",
+          "denoise-bounded.py": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+          "center-display.py": "67f892649c8a9e05685c87024239cb07297da242660381aead3ead90367cbcda",
+          "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+        },
+        "sha256": "b7191f921e7ba098d7c8745fc3127f2e3f592ef1765a04fb2b0faddebe9cb561"
+      },
+      "denoisingEvidence": {
+        "status": "complete",
+        "input": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/raw-stage/center.exr",
+        "inputSha256": "1d87cebcb54ff5a4673eda7591bf6ca180f1f904041443639a384d4364ca2139",
+        "inputFormat": "normalized-openexr-multilayer",
+        "inputChannels": [
+          "ViewLayer.Combined.R",
+          "ViewLayer.Combined.G",
+          "ViewLayer.Combined.B",
+          "ViewLayer.Combined.A",
+          "ViewLayer.Denoising Albedo.R",
+          "ViewLayer.Denoising Albedo.G",
+          "ViewLayer.Denoising Albedo.B",
+          "ViewLayer.Denoising Depth.Z",
+          "ViewLayer.Denoising Normal.X",
+          "ViewLayer.Denoising Normal.Y",
+          "ViewLayer.Denoising Normal.Z"
+        ],
+        "channelOffsets": {
+          "color": 0,
+          "normal": 8,
+          "albedo": 4
+        },
+        "sampleCountStatistics": null,
+        "filterRowOrder": "Cycles bottom-up; normalized EXR rows reversed before filtering, all output rows reversed back to top-down EXR",
+        "output": "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/center.exr",
+        "outputSha256": "054be3290268285d11065bfd437be826cf72036313264a4f51e51a23a389f104",
+        "dimensions": [
+          6144,
+          3456
+        ],
+        "samples": 256,
+        "normalization": "already normalized by Blender EXR export",
+        "device": "CPU",
+        "library": "/workspace/scratch/33cf95385f89/camera-render-work/blender-4.5.14-linux-x64/lib/libOpenImageDenoise.so.2.3.3",
+        "librarySha256": "9a220453d6a7ea32a036559e6579768a312653c9da12b819282f91bf8b2acc11",
+        "scriptSha256": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+        "quality": "HIGH",
+        "prefilter": "ACCURATE",
+        "hdr": true,
+        "srgb": false,
+        "cleanAux": true,
+        "maxMemoryMBPerFilter": 1024,
+        "threads": 8,
+        "setAffinity": false,
+        "fullFrameAutomaticInputScale": true,
+        "manualTiling": false,
+        "steps": [
+          {
+            "filter": "albedo",
+            "seconds": 28.119799926003907,
+            "peakRssMiB": 2054.953125
+          },
+          {
+            "filter": "normal",
+            "seconds": 27.878699842025526,
+            "peakRssMiB": 2077.25390625
+          },
+          {
+            "filter": "color",
+            "seconds": 26.43076905599446,
+            "peakRssMiB": 2099.37109375
+          }
+        ],
+        "seconds": 86.03562997002155,
+        "peakRssMiB": 2099.37109375,
+        "rawCaptureEvidence": {
+          "jobSha256": "e1ae80ea9d603b38ecd566763c1449576d5199fe9c95ea9f4d7a4174eed0facb",
+          "sourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+          "dimensions": [
+            6144,
+            3456
+          ],
+          "samples": 256,
+          "rawRendererComponents": {
+            "render-center-raw.py": "f79a09158fdd589e1fd7a370cd6f2b8fe1afb7c0569b57c89e90900b31d71cbe",
+            "render-job.py": "6f2d5f9c1eb328ea5b842a2ccfe5d2672458283dd92180d57fe33726cabef36e"
+          },
+          "renderProcess": {
+            "stage": "render",
+            "exit": 0,
+            "highWaterMiB": 3502.76953125,
+            "sampledPeakMiB": 3457.27734375,
+            "wallSeconds": 3212.176560163498,
+            "command": [
+              "/workspace/scratch/33cf95385f89/camera-render-work/blender-4.5.14-linux-x64/blender",
+              "-b",
+              "-Y",
+              "--python-exit-code",
+              "1",
+              "--disable-depsgraph-on-file-load",
+              "-t",
+              "8",
+              "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/source/kitchen-pastry-native-r2.blend",
+              "--python",
+              "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/scripts/render-center-raw.py",
+              "--",
+              "--job",
+              "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/job.json",
+              "--out",
+              "/workspace/scratch/33cf95385f89/camera-render-work/kitchen-pastry-production-20261024/outputs/jobs/kitchen-pastry/detail/center/attempt-001/raw-stage"
+            ],
+            "memorySafetyReason": null
+          },
+          "files": {
+            "center.exr": "1d87cebcb54ff5a4673eda7591bf6ca180f1f904041443639a384d4364ca2139",
+            "report.json": "b7bb042a445c9d6cf7ca72f96cda6e67c9b64612196f51d90d5385f95b5d7ece",
+            "render.log": "341f165d0f35a0954e4dbd34d62656930d8d1d52d6fdbe0df27564bae4fb7619"
+          }
+        },
+        "sceneProcessExitedBeforeDenoising": true
+      }
+    },
+    "center": {
+      "width": 5120,
+      "height": 2880,
+      "samples": 256,
+      "method": "Scene-linear area average of the complete 6144x3456 overscan EXR; runtime layer is never cropped"
+    },
+    "neighbors": {
+      "width": 4096,
+      "height": 2304,
+      "samples": 32
+    },
+    "base": {
+      "width": 2560,
+      "height": 1440,
+      "centerSourceSamples": 256,
+      "neighborSamples": 32,
+      "centerMethod": "Scene-linear area average of the same full 6144px/256spp source EXR"
+    },
+    "baseDepth": {
+      "width": 1280,
+      "height": 720,
+      "samples": 1
+    },
+    "detailDepth": {
+      "width": 2048,
+      "height": 1152,
+      "samples": 1
+    },
+    "flash": {
+      "width": 1280,
+      "height": 720,
+      "samples": 32
+    },
+    "denoiser": "Center: independent bounded-memory OpenImageDenoise HIGH/ACCURATE; other layers retain original Cycles/compositor denoising. See sourceCenter.denoisingEvidence for actual components and settings."
+  }
+}

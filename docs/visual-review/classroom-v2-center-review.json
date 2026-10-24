@@ -1,0 +1,143 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-24T02:17:44Z",
+  "scope": "Completed source centers only; not complete runtime pack acceptance, browser rendering or native photo download acceptance. No partial pack was imported.",
+  "nativePhotographCrop": {
+    "capture": [
+      6144,
+      3456
+    ],
+    "crop": [
+      512,
+      288,
+      5120,
+      2880
+    ],
+    "rescale": false
+  },
+  "depthOfField": "Source review uses pinhole capture; the simulator keeps physical teaching DOF. Final desk default is 0.45 m, supported by formal center Z=0.4538199 m at approved native blue-cover ROI (770,480), not the nearer pen/table foreground.",
+  "centers": [
+    {
+      "id": "classroom-desk",
+      "sourceSha256": "418ca50f91e4607d988684e9d2df4cdc555f573b02c66a134aa6cc3a4cb1ed3e",
+      "jobId": "desk/detail/center",
+      "attempt": "attempt-001",
+      "captureDimensions": [
+        6144,
+        3456
+      ],
+      "samples": 256,
+      "sourceFiles": {
+        "center.exr": {
+          "bytes": 240120455,
+          "sha256": "ea97646a308ccbdda5a4e9bac9145c78a59cf602cf043bbc163a9a14c1614f3b"
+        },
+        "center.png": {
+          "bytes": 101232010,
+          "sha256": "119da93d4684b6a15420467a9eaa8f5653fbda5ed7fc4de92d0d98d3c6b9acbe"
+        }
+      },
+      "processingChainAudit": "Passed against actual final EXR SHA-256 and completed renderer/denoiser reports",
+      "samplingLogVerification": {
+        "verificationMode": "tiled",
+        "allTilesReachedRequestedSamples": true,
+        "expectedTileCount": 336,
+        "samplesPerPixel": 256,
+        "adaptiveSampling": false,
+        "timeLimit": 0.0,
+        "layerSampleMode": "IGNORE",
+        "sampleSubset": false
+      },
+      "radianceValidation": {
+        "nonfiniteChannels": 0,
+        "negativeChannels": 0,
+        "minimumRadiance": 0.0,
+        "maximumRadiance": 7.0193400382995605
+      },
+      "userNativeJpeg": {
+        "path": "outputs/user-jpegs/图1-学生座位-Student-Seat-5120x2880.jpg",
+        "bytes": 4263524,
+        "sha256": "82525910bf8cba8a1d1bfe871e34fee36821a469240b3a9a9ab32643ed1bf979"
+      },
+      "visuallyReviewed": [
+        {
+          "path": "outputs/jobs/desk/detail/center/attempt-001/review/approved-native-review1280.jpg",
+          "bytes": 402281,
+          "sha256": "1a3836803a6c8f1ad9129998558c94216b17113fc52cf17f3e3c6a1ad933097c"
+        },
+        {
+          "path": "outputs/jobs/desk/detail/center/attempt-001/review/books-native-pixels.jpg",
+          "bytes": 208196,
+          "sha256": "8737bd8ac1a9608632757564bb11e3e8d1b85c2d2c7c33100b8e536a60ff3d3e"
+        },
+        {
+          "path": "outputs/jobs/desk/detail/center/attempt-001/review/alphabet-native-pixels.jpg",
+          "bytes": 394017,
+          "sha256": "7447b6117f4e0a5dc902abbb9a869505dbc66310288ab893cbb77f5c6579717a"
+        }
+      ],
+      "visualResult": "Passed: matches approved unoccupied native composition; no missing geometry, black capture border or lost requested subject."
+    },
+    {
+      "id": "classroom-window",
+      "sourceSha256": "964d6dc1c45320375b5e0622d0cf886cac7f2228460ac1b134e080baedecaf48",
+      "jobId": "window/detail/center",
+      "attempt": "attempt-002",
+      "captureDimensions": [
+        6144,
+        3456
+      ],
+      "samples": 256,
+      "sourceFiles": {
+        "center.exr": {
+          "bytes": 234289713,
+          "sha256": "5e3730a51700d5bfa7aa823cdca9a9637739070de4f8389d901083e6d5101edc"
+        },
+        "center.png": {
+          "bytes": 89994231,
+          "sha256": "33e1509ca623028e908ee63466b1d53850d3412b1cda554936096897aa97d6ac"
+        }
+      },
+      "processingChainAudit": "Passed against actual final EXR SHA-256 and completed renderer/denoiser reports",
+      "samplingLogVerification": {
+        "verificationMode": "tiled",
+        "allTilesReachedRequestedSamples": true,
+        "expectedTileCount": 336,
+        "samplesPerPixel": 256,
+        "adaptiveSampling": false,
+        "timeLimit": 0.0,
+        "layerSampleMode": "IGNORE",
+        "sampleSubset": false
+      },
+      "radianceValidation": {
+        "nonfiniteChannels": 0,
+        "negativeChannels": 0,
+        "minimumRadiance": 6.699806931464991e-07,
+        "maximumRadiance": 7.812220096588135
+      },
+      "userNativeJpeg": {
+        "path": "outputs/user-jpegs/图2-窗边逆光-Window-Backlight-5120x2880.jpg",
+        "bytes": 3165569,
+        "sha256": "9b29e5236e276294a7f88317e13f8d889ecba38c44052fb4adca0e98373f1b4e"
+      },
+      "visuallyReviewed": [
+        {
+          "path": "outputs/jobs/window/detail/center/attempt-002/review/approved-native-review1280.jpg",
+          "bytes": 333564,
+          "sha256": "7e11f5634115c67be01ac87c82c8f25b66782ef03f169bbcfa3a6c5c698f94da"
+        },
+        {
+          "path": "outputs/jobs/window/detail/center/attempt-002/review/chair-native-pixels.jpg",
+          "bytes": 392810,
+          "sha256": "0c2667930fe9873564fdfbcd73bfafded70f258cc6718d098b114758c1e607ba"
+        },
+        {
+          "path": "outputs/jobs/window/detail/center/attempt-002/review/blinds-native-pixels.jpg",
+          "bytes": 155541,
+          "sha256": "598d6bfa4069dca8290c53322c8b8ad75622ac951c5fac197e97f5b1c5b11ec7"
+        }
+      ],
+      "visualResult": "Passed: matches approved unoccupied native composition; no missing geometry, black capture border or lost requested subject."
+    }
+  ]
+}

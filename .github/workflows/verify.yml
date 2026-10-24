@@ -1,7 +1,7 @@
 name: Verify camera simulator
 on:
   push:
-    branches: [main]
+    branches: [main, feature/photography-final-20261024]
   pull_request:
 permissions:
   contents: read
@@ -24,7 +24,7 @@ jobs:
       - run: npm ci --prefer-offline
       - run: npm test
       - run: npm run audit:assets
-      - run: node tools/audit-scene-plates.mjs public/scenes/barbershop-plates public/scenes/classroom-plates public/scenes/kitchen-plates public/scenes/apartment-plates
+      - run: node tools/audit-scene-plates.mjs public/scenes/barbershop-plates public/scenes/classroom-plates public/scenes/kitchen-plates public/scenes/apartment-plates public/scenes/classroom-desk-plates public/scenes/classroom-window-plates public/scenes/classroom-teacher-plates public/scenes/kitchen-pastry-plates public/scenes/kitchen-tea-plates
       - run: npx playwright install --with-deps chromium
       - run: npm run test:browser -- --shard=${{ matrix.shard }}/3
       - uses: actions/upload-artifact@v4

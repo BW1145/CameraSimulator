@@ -1,0 +1,804 @@
+{
+  "version": 1,
+  "sourceSha256": "3fdf721977489b19ea9ec975854ea25ff3304fcf9a7742938e9233afce59389d",
+  "packs": [
+    {
+      "id": "classroom-desk",
+      "files": {
+        "right-detail-depth.png": {
+          "bytes": 755276,
+          "sha256": "3b99e7f0b3d3c58a7edc47a6b40f3b02b8ff50e3f4e635d1dbe8e929d7803183"
+        },
+        "back.webp": {
+          "bytes": 2587562,
+          "sha256": "76465fbebba9ddc0f22e13de9270061e9728eb974434db967f8e1f09309fc597"
+        },
+        "left-detail-depth.png": {
+          "bytes": 740811,
+          "sha256": "0fd24259c5ea86d27cd4f76199f878f8365028c50675a35dc96b642cdbbf4e8e"
+        },
+        "down.webp": {
+          "bytes": 2529502,
+          "sha256": "d1387e53f36b451dc8c651c005f410713cc83135b3864f6d4e5294ac4f7d5189"
+        },
+        "back-detail-depth.png": {
+          "bytes": 755724,
+          "sha256": "efc852649a77001bc369f15a5a1ef5112ac5b143ecfca549238575a37a061e6e"
+        },
+        "back-depth.png": {
+          "bytes": 381815,
+          "sha256": "eba83a15ba9e5f64c0685298d51a7b63e1ae0e509e72ea42ac8be97a600b144a"
+        },
+        "front-flash.webp": {
+          "bytes": 544214,
+          "sha256": "1ba47be500d5afae0d5bde5222a44fbedaad7d8f060a9e06232e07cb0aa0b651"
+        },
+        "center-flash.webp": {
+          "bytes": 545986,
+          "sha256": "2532865142f239e8deca012eb7e1e9297572d8fac9edc770f3af5afbbbed4128"
+        },
+        "left.webp": {
+          "bytes": 2627290,
+          "sha256": "125a95407a8168597a125d6a20e846c80fd66c8c4777fac41588e03ff6dc54d8"
+        },
+        "down-depth.png": {
+          "bytes": 354836,
+          "sha256": "7ce45dc2a0c7823b1408c0f0deb906fff1248b4322940be6e4e777dcd01414d6"
+        },
+        "right-detail.webp": {
+          "bytes": 6132462,
+          "sha256": "85b0c2d54f7320c4b12e36253ad1e6beb195d13a391cb91ea660c46163201f4c"
+        },
+        "center.webp": {
+          "bytes": 2687032,
+          "sha256": "12b9f6fea2adc3a0c238ca76a59121264d5140c7bc2fbdd6fe258f4d11ee1a7f"
+        },
+        "manifest.json": {
+          "bytes": 61563,
+          "sha256": "fc88e5d8690859ed5b66a8720a03f88ee419aa9d4f16a0117006115e81e9929e"
+        },
+        "front-depth.png": {
+          "bytes": 372290,
+          "sha256": "9c92c77412bd4098ac3c2307e0650effc083b1e60195991f8a920f724d47ece5"
+        },
+        "center-detail.webp": {
+          "bytes": 9416934,
+          "sha256": "08b414d2b7d2cd1c6d35a486a39ad91857efe12c30048cf049d700762943370c"
+        },
+        "left-depth.png": {
+          "bytes": 376200,
+          "sha256": "ab458b7d2eeff3dc698f9a48969790022f8fd7919a755e1377678eb3efb10bfe"
+        },
+        "back-detail.webp": {
+          "bytes": 6118546,
+          "sha256": "75bc7cef01d9ab2309a00ce91f3de7dccdf6f187240e0a2833835d039e157988"
+        },
+        "up-detail-depth.png": {
+          "bytes": 759037,
+          "sha256": "496241c220bcc29854a1ad5ad5722db1cde4a5d5f2dda657ad3702da517e5118"
+        },
+        "right.webp": {
+          "bytes": 2596618,
+          "sha256": "4e8860371ef4de627168f040bb4e5555d378a6c30ac985bbbe7b68061ed4a855"
+        },
+        "right-depth.png": {
+          "bytes": 384569,
+          "sha256": "0aab7ccf6c0b0c9d8b5ba355c0ae5754592d4568edac58545c1baf3f68f648a7"
+        },
+        "up-depth.png": {
+          "bytes": 384618,
+          "sha256": "c3edf6c0b6cf334c6c1184851825d34c4c7532beef1148a7a70cf08f20babcaf"
+        },
+        "front.webp": {
+          "bytes": 2624702,
+          "sha256": "0b9ca178755384607f49e46813370fad8f898d172089db43d4377e5ed04b5708"
+        },
+        "down-detail.webp": {
+          "bytes": 5946802,
+          "sha256": "5c006fcad074f1329f313d9f976d6f87def2e61ae3bda61a9cb045e6afcad925"
+        },
+        "front-detail-depth.png": {
+          "bytes": 733868,
+          "sha256": "6eb5544226b6efa1c7183d5cf9137f64ef1c51fe5ed90e84546ea57b4cc34e6b"
+        },
+        "up-detail.webp": {
+          "bytes": 6207838,
+          "sha256": "a6ee3b47410a8aef3915db81bcc1f441c421d5704dbcccb0b5c4720250ff3e04"
+        },
+        "back-flash.webp": {
+          "bytes": 539504,
+          "sha256": "a69bd5092465441634646f1e1f67cafba65f740693f751d08cbdaaeedd171085"
+        },
+        "down-flash.webp": {
+          "bytes": 522910,
+          "sha256": "53dc4751ccb18f68f1874a0bd3a764ba41890808502b1900940aef45dcb0143a"
+        },
+        "front-detail.webp": {
+          "bytes": 6230904,
+          "sha256": "6c6bc807e79b8f57398df470cc94b88fd255d1b932f73a657a56f87844fa6a4e"
+        },
+        "up-flash.webp": {
+          "bytes": 543224,
+          "sha256": "2daa64deebc08580fd6036bdd940f0e366ebc6cab665d98ccc4f4d05b6eb542c"
+        },
+        "up.webp": {
+          "bytes": 2611352,
+          "sha256": "d0ffb79343fc32df1eb54da91f0f9b61de855a3e90e3d1cfc7f5e1d8619ff75a"
+        },
+        "down-detail-depth.png": {
+          "bytes": 700534,
+          "sha256": "57bd1b1d7b3e43a6502009c04d3ba4972a1da29f949dbb7cb8d7d12f397a8fa2"
+        },
+        "right-flash.webp": {
+          "bytes": 544640,
+          "sha256": "eaec6ec25873f25cdbd53ed75c65cc29e437f8e0f8cd5bc26c7413cbb912f597"
+        },
+        "left-flash.webp": {
+          "bytes": 547418,
+          "sha256": "c3c0f50574100f2681fad2bf542f902a762f57302a2419ea032f268f81240613"
+        },
+        "left-detail.webp": {
+          "bytes": 6213654,
+          "sha256": "51e6a748a1142b2e92d9eee3141ebe7d2629a2e2bca9913f620fa0eb4351dff9"
+        },
+        "center-depth.png": {
+          "bytes": 378123,
+          "sha256": "a85aae3fb59bebda9568b96f37ca42a48dad918e0c0a29ac6025378f24034e12"
+        },
+        "center-detail-depth.png": {
+          "bytes": 743593,
+          "sha256": "a8a5119adeb4182ea55567315f26d5b481c822794bedcd6a0d0c18b535261878"
+        }
+      },
+      "rig": {
+        "id": "desk",
+        "camera": "Capture_Desk",
+        "position": [
+          1.25,
+          -3.25,
+          1.08
+        ],
+        "target": [
+          0.95,
+          1.6,
+          0.65
+        ],
+        "lens": 21.5,
+        "offsets": {
+          "center": [
+            0,
+            0,
+            0
+          ],
+          "left": [
+            -0.1,
+            0,
+            0
+          ],
+          "right": [
+            0.1,
+            0,
+            0
+          ],
+          "up": [
+            0,
+            0.08,
+            0
+          ],
+          "down": [
+            0,
+            -0.08,
+            0
+          ],
+          "front": [
+            0,
+            0,
+            -0.1
+          ],
+          "back": [
+            0,
+            0,
+            0.1
+          ]
+        },
+        "bounds": {
+          "x": [
+            -0.1,
+            0.1
+          ],
+          "y": [
+            -0.08,
+            0.08
+          ],
+          "z": [
+            -0.1,
+            0.1
+          ],
+          "yaw": [
+            -35,
+            35
+          ],
+          "pitch": [
+            -20,
+            20
+          ],
+          "roll": [
+            -5,
+            5
+          ]
+        },
+        "matrix": [
+          [
+            0.9980924129486084,
+            -0.005441949237138033,
+            0.06149735301733017,
+            1.25
+          ],
+          [
+            0.06173766776919365,
+            0.08797826617956161,
+            -0.9942073225975037,
+            -3.25
+          ],
+          [
+            -1.4296230865795678e-9,
+            0.9961074590682983,
+            0.08814641088247299,
+            1.0800000429153442
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "sensorWidth": 32,
+        "sensorHeight": 18,
+        "sensorFit": "AUTO",
+        "near": 0.05,
+        "far": 100,
+        "aspect": 1.7777777777777777,
+        "nativeResolution": [
+          1920,
+          1080
+        ],
+        "captureLens": 17.916666666666668,
+        "shiftX": 0,
+        "shiftY": 0
+      }
+    },
+    {
+      "id": "classroom-window",
+      "files": {
+        "right-detail-depth.png": {
+          "bytes": 798940,
+          "sha256": "e7d0a464497774f7e7de9160ac2817392c871c5d31c8e8c83d0ff60f457ab888"
+        },
+        "back.webp": {
+          "bytes": 1937866,
+          "sha256": "4e6ca52f36de2f1b0c8281b4202d3a11b0c2aa99cb5ecc2e88e99dfdb130716c"
+        },
+        "left-detail-depth.png": {
+          "bytes": 741959,
+          "sha256": "5a226da31827eaf9ba76b17369239da15c79847bd789d5ee9f19e8cbb9456f45"
+        },
+        "down.webp": {
+          "bytes": 1894696,
+          "sha256": "a626e6cb07a131b64921052c2c384ac2cc63440f623fc5df6a4edba476810839"
+        },
+        "back-detail-depth.png": {
+          "bytes": 808323,
+          "sha256": "e67da78ced8c883ed7c6dd4547b95d8aef0685e340fbed77066f756ef1de7efa"
+        },
+        "back-depth.png": {
+          "bytes": 429249,
+          "sha256": "dce5856ba49c37b7ab7c4060c06b8b7a59b5a2398d50530cf5a3ce854e2ed993"
+        },
+        "front-flash.webp": {
+          "bytes": 439110,
+          "sha256": "0120ee1b55e65bc16178bc9e1496cff368bbf71088eeac7ca977b1b3ac9cf786"
+        },
+        "center-flash.webp": {
+          "bytes": 442202,
+          "sha256": "a54ac82928f34f0871cbc83314ced4baa5516a5544f27c187ece7ce9d978f098"
+        },
+        "left.webp": {
+          "bytes": 1909756,
+          "sha256": "5041b01f9abc71c153880b8a5385e6eccf7920a218b95d2526d781bf340ee4e9"
+        },
+        "down-depth.png": {
+          "bytes": 371785,
+          "sha256": "8663a67009d1b37bfd1e9b23e750a5cadc332c2a46c99376d12b53c267dc3f1c"
+        },
+        "right-detail.webp": {
+          "bytes": 4361438,
+          "sha256": "9399f9594d79ae1e4d5a55277594cf038b1168ace297454474c4ee645cdd2b4c"
+        },
+        "center.webp": {
+          "bytes": 1953416,
+          "sha256": "2459e0553152da4ac51e71167fedcd0abd5755f1f315f5c72732f5ec4daca97b"
+        },
+        "manifest.json": {
+          "bytes": 61584,
+          "sha256": "12ecc1c1b0f5feddbb051a61882eedc9cd7b4b2a6d8f12173448a86198b0de18"
+        },
+        "front-depth.png": {
+          "bytes": 402055,
+          "sha256": "df02711d4c13937db5932fc6f5787e7a466e90dd766b0a5feac0b94757c5f525"
+        },
+        "center-detail.webp": {
+          "bytes": 6352370,
+          "sha256": "137e7980e85e8bf21e4ca6ade11057fcf524100462424a39384ee1abf894a7f1"
+        },
+        "left-depth.png": {
+          "bytes": 398848,
+          "sha256": "f472cf62c7f5122a5881b43b8665a12aa4bb96cd5d0f4ada535c737fde2f06e0"
+        },
+        "back-detail.webp": {
+          "bytes": 4300880,
+          "sha256": "8d7c99f0d379966d6854f2f45ff28eb99b2a2d01244487a301791d4fb135ff01"
+        },
+        "up-detail-depth.png": {
+          "bytes": 826439,
+          "sha256": "512faa73a562b1756e6b84d61e17ea7f1afc02b470c16ebd6b764b052a2af75e"
+        },
+        "right.webp": {
+          "bytes": 1969146,
+          "sha256": "bfd84d5d180cdd4f61640295cc89459a5a50cddccae125aeadf698c8b1811de8"
+        },
+        "right-depth.png": {
+          "bytes": 424490,
+          "sha256": "cc87163252acd0b1058e7fcfe135457f35faaeb70146aa1aee58d80cd39132c0"
+        },
+        "up-depth.png": {
+          "bytes": 438678,
+          "sha256": "c4ff9243dcf5d4ccd27a7b97551741c83111ae20c92a72a6771deda7926657d3"
+        },
+        "front.webp": {
+          "bytes": 1950682,
+          "sha256": "ae5b8344bb95f2043ff256dfe9c59a7a0167370c6aad246a7d404ce5b1e674ee"
+        },
+        "down-detail.webp": {
+          "bytes": 4223208,
+          "sha256": "e0c330be8c9eab133dfaaa52ae6a478cef36f6eb0dd099c41906c927c0a93abe"
+        },
+        "front-detail-depth.png": {
+          "bytes": 741656,
+          "sha256": "50b986e6b7a3227058e0668e3776d6c218e3ea110e9e49300fb0fb6d6bc42c93"
+        },
+        "up-detail.webp": {
+          "bytes": 4266454,
+          "sha256": "1d6cf4bf01d09159175f054f66cd47bd7957d32e3866924549425b64b8afb952"
+        },
+        "back-flash.webp": {
+          "bytes": 443902,
+          "sha256": "9a81fb28c80090d01709d11894e1a501b5d35404a2868875106cdedd151dc63a"
+        },
+        "down-flash.webp": {
+          "bytes": 418442,
+          "sha256": "34c451dfbba414f292f9e15a3f05b1f910ebaae0c41b072dce702e57f22ffbb9"
+        },
+        "front-detail.webp": {
+          "bytes": 4314502,
+          "sha256": "c9f541d4d9d2a9d4864ea530ab304a8a941e15cae92dce99afe426c95c26b88e"
+        },
+        "up-flash.webp": {
+          "bytes": 453652,
+          "sha256": "010c9f78ae96c63bd88ff802150a47d1d2f4fe33fb61ffbf5dd5210cf4244138"
+        },
+        "up.webp": {
+          "bytes": 1927984,
+          "sha256": "e441cb8416ab68743b03d36cc0845e18e8e5efc1f65b2b552188e728303e0488"
+        },
+        "down-detail-depth.png": {
+          "bytes": 694345,
+          "sha256": "bc0f076171457948bef842fb305ff17c3124ac29ee7ad09956bbfbe4c78d5b3d"
+        },
+        "right-flash.webp": {
+          "bytes": 434618,
+          "sha256": "528948f7241b3aa07b96873ad02c2dac8e037e02b5feb66be5d5880b26c2ccfc"
+        },
+        "left-flash.webp": {
+          "bytes": 441706,
+          "sha256": "9e71b6ccbdec02e94f6df7fe91e3ad3a29283f5571555fc24e3793e77d7fc340"
+        },
+        "left-detail.webp": {
+          "bytes": 4218992,
+          "sha256": "39d10058d4df0c1b044a5ed580fa3c6076bc0059cd2836bd6f759feb04a84ce6"
+        },
+        "center-depth.png": {
+          "bytes": 415897,
+          "sha256": "29c25a3cb5230c7aafd6880983c08f08a213605adc829d6cdd195d6fae73d211"
+        },
+        "center-detail-depth.png": {
+          "bytes": 780814,
+          "sha256": "6329887359e229e3be9850d91b62ecb0b9afc0ef9a1fc36bc9321aa7d88ec207"
+        }
+      },
+      "rig": {
+        "id": "window",
+        "camera": "Capture_Window",
+        "position": [
+          1.4,
+          0.3,
+          1.16
+        ],
+        "target": [
+          2.66,
+          -0.8,
+          0.8
+        ],
+        "lens": 25,
+        "offsets": {
+          "center": [
+            0,
+            0,
+            0
+          ],
+          "left": [
+            -0.2,
+            0,
+            0
+          ],
+          "right": [
+            0.2,
+            0,
+            0
+          ],
+          "up": [
+            0,
+            0.15,
+            0
+          ],
+          "down": [
+            0,
+            -0.15,
+            0
+          ],
+          "front": [
+            0,
+            0,
+            -0.2
+          ],
+          "back": [
+            0,
+            0,
+            0.2
+          ]
+        },
+        "bounds": {
+          "x": [
+            -0.2,
+            0.2
+          ],
+          "y": [
+            -0.15,
+            0.15
+          ],
+          "z": [
+            -0.2,
+            0.2
+          ],
+          "yaw": [
+            -35,
+            35
+          ],
+          "pitch": [
+            -20,
+            20
+          ],
+          "roll": [
+            -5,
+            5
+          ]
+        },
+        "matrix": [
+          [
+            -0.6576576828956604,
+            0.15850894153118134,
+            -0.7364519238471985,
+            1.399999976158142
+          ],
+          [
+            -0.7533169984817505,
+            -0.13838090002536774,
+            0.6429341435432434,
+            0.30000001192092896
+          ],
+          [
+            -3.4704111584460406e-8,
+            0.9776122570037842,
+            0.21041464805603027,
+            1.159999966621399
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "sensorWidth": 32,
+        "sensorHeight": 18,
+        "sensorFit": "AUTO",
+        "near": 0.05,
+        "far": 100,
+        "aspect": 1.7777777777777777,
+        "nativeResolution": [
+          1920,
+          1080
+        ],
+        "captureLens": 20.833333333333336,
+        "shiftX": 0,
+        "shiftY": 0
+      }
+    },
+    {
+      "id": "classroom-teacher",
+      "files": {
+        "right-detail-depth.png": {
+          "bytes": 1167552,
+          "sha256": "8cbd7b3bb1ff6908ae7c0fe17728b681ebcda606304c2525231ad482c8166eee"
+        },
+        "back.webp": {
+          "bytes": 2520434,
+          "sha256": "df1fb843b8ba48dbdb27be77ffd75a76a6be27961b6e7b92cbcb7f06f7edd733"
+        },
+        "left-detail-depth.png": {
+          "bytes": 1214714,
+          "sha256": "1faec13882133ee26a63912997dfc96cd13f39f2bed355723b696fea934642bd"
+        },
+        "down.webp": {
+          "bytes": 2522940,
+          "sha256": "a2a14e18b51aa2b43361e2a826d0cf63b8c2d84072efda785f2945b3afa7c08c"
+        },
+        "back-detail-depth.png": {
+          "bytes": 1238688,
+          "sha256": "50590662a1396a599e89e25d16db837a6bd6b76975bcfb1a2fd66eb5b3307ca7"
+        },
+        "back-depth.png": {
+          "bytes": 609698,
+          "sha256": "5f0b451f6c0e254613735b58b742b2b9f2832bcc6ccc709571b92e3236db7771"
+        },
+        "front-flash.webp": {
+          "bytes": 531486,
+          "sha256": "318c98f812cf146fcfae7f4d4458c2e30ca3779d303372c550c69522da498620"
+        },
+        "center-flash.webp": {
+          "bytes": 529540,
+          "sha256": "17f106d8e680762c3745d27572c1cd7131d4f5a7b10516fa4c543760bc6a6882"
+        },
+        "left.webp": {
+          "bytes": 2520412,
+          "sha256": "400c6e600e4b29c320d69b3f899efbee395c4bc0368e6e39e1ff4ed68e27ba1e"
+        },
+        "down-depth.png": {
+          "bytes": 550794,
+          "sha256": "662e669d4452a9d225a31b770958316e3df7407d50032bc9b623272ff231bfd6"
+        },
+        "right-detail.webp": {
+          "bytes": 6193240,
+          "sha256": "c85ebcad2518fc1f81afd51985fc5f546904e97d9568324a0631bb56d513b9a4"
+        },
+        "center.webp": {
+          "bytes": 2649614,
+          "sha256": "3bd6a3225fb7b9728fe8a6b592447191a11f74ed12ae18b00035f7d93e4fc063"
+        },
+        "manifest.json": {
+          "bytes": 61295,
+          "sha256": "11c6c64874bbe11903eb1f8c3b50070fc1fe4e06eea15b98b2be022cb8a154a5"
+        },
+        "front-depth.png": {
+          "bytes": 562236,
+          "sha256": "9e8e0a988a630f98f78dd0de778f6171d981ab0bae9a4e2a7b8391db468b65bc"
+        },
+        "center-detail.webp": {
+          "bytes": 9325304,
+          "sha256": "16383bfa7ebc15a5972e7a37e2ab9a458e40ca4aea9e7dd065c5da5f131a6906"
+        },
+        "left-depth.png": {
+          "bytes": 598622,
+          "sha256": "cf8172725e6cba00b4b019d342562b800e471d8e64086d794ec21c915455fbd2"
+        },
+        "back-detail.webp": {
+          "bytes": 6051776,
+          "sha256": "ab3812a6b304bd8d897bc9e03f4ba24f0ccfb07ee2f13681830ee8cfbc11a4c1"
+        },
+        "up-detail-depth.png": {
+          "bytes": 1253212,
+          "sha256": "8f347397230184da28fb94a779fee8e3bce7a38271cf3904e3fe8d0affba3f33"
+        },
+        "right.webp": {
+          "bytes": 2578636,
+          "sha256": "87b5ec5272fce1649ea37c9090a86c4225626d9f4c33de58ad98ae0ebbf7d9df"
+        },
+        "right-depth.png": {
+          "bytes": 576404,
+          "sha256": "d3f359739447add2a28dc7fb90f5dc4270733851ad20b245aaa2777b560e63a7"
+        },
+        "up-depth.png": {
+          "bytes": 615577,
+          "sha256": "cb2b3ef928e0cc99ceab8668ba4aa8d7cf47ec01e03f1feb28df89d2c8cce7a4"
+        },
+        "front.webp": {
+          "bytes": 2588044,
+          "sha256": "abde1e11cf50be82927f11770250bd5e2192b923fddae86313a7e1b06bcc5bca"
+        },
+        "down-detail.webp": {
+          "bytes": 6052770,
+          "sha256": "b268c0f4678b49acb957f7bc1156cddd162a9621faf211159203981446aebf61"
+        },
+        "front-detail-depth.png": {
+          "bytes": 1131738,
+          "sha256": "05df8b46c2f7fdc281adae4d267bc779cde1f553bc86d12991c4095d35084781"
+        },
+        "up-detail.webp": {
+          "bytes": 6156904,
+          "sha256": "f8633306403ff93cba4d3f5f4d9c1a53c93caa638cc6574a7dbfb41dd3f0b758"
+        },
+        "back-flash.webp": {
+          "bytes": 534410,
+          "sha256": "447f9e29969d10393b31a61f31c5211b58fd8e33df1dcac9eb92cecd367f8486"
+        },
+        "down-flash.webp": {
+          "bytes": 522440,
+          "sha256": "22e2d08adf91a85ba8ac871945df93dda22f7c88f2389e682abeabe47a8eff31"
+        },
+        "front-detail.webp": {
+          "bytes": 6208234,
+          "sha256": "2e52a2a9bd3b10e9358c3d01ffc6f29818a360c3e97c4c8b4e74fe59f8644ca1"
+        },
+        "up-flash.webp": {
+          "bytes": 534976,
+          "sha256": "bb5dc01ea04aa6ed4645a8894404d10c424f1b4b54ac214253a5ae0b4f49b025"
+        },
+        "up.webp": {
+          "bytes": 2560808,
+          "sha256": "af60b2d625ed648c96483b75d3fde42dd7d1e0be6be0806344912e48febc525e"
+        },
+        "down-detail-depth.png": {
+          "bytes": 1113480,
+          "sha256": "72276f21d5f3e90d3052e4ca276089ad76b6fd12fb3e85fbead4abb27a379b30"
+        },
+        "right-flash.webp": {
+          "bytes": 532554,
+          "sha256": "0ab5b630cb205a72fadec4a71f56f7acf4ccbda17ce74bf89f34345fdbcef89b"
+        },
+        "left-flash.webp": {
+          "bytes": 529116,
+          "sha256": "365ff96afd87d196f2c8d6058a5aab52993c9be35905ed7e22959c1d4705ee8b"
+        },
+        "left-detail.webp": {
+          "bytes": 6038118,
+          "sha256": "460c0b6f7002835a97c5b2c1131cc2ed95b8b033b4b19c01b2db3e7ceae5dc5f"
+        },
+        "center-depth.png": {
+          "bytes": 582460,
+          "sha256": "8854071910b1519aa301087787eef7379c2a262830901877af592f93b9e70040"
+        },
+        "center-detail-depth.png": {
+          "bytes": 1181980,
+          "sha256": "9df8a5712a1edfe5b800be099bd3ec8d7c6d7025ad3d6af49e430a9da4ed04b0"
+        }
+      },
+      "rig": {
+        "id": "teacher",
+        "camera": "Capture_Teacher",
+        "position": [
+          1.7,
+          2.75,
+          1.85
+        ],
+        "target": [
+          0.65,
+          -1.5,
+          0.15
+        ],
+        "lens": 21,
+        "offsets": {
+          "center": [
+            0,
+            0,
+            0
+          ],
+          "left": [
+            -0.2,
+            0,
+            0
+          ],
+          "right": [
+            0.2,
+            0,
+            0
+          ],
+          "up": [
+            0,
+            0.15,
+            0
+          ],
+          "down": [
+            0,
+            -0.15,
+            0
+          ],
+          "front": [
+            0,
+            0,
+            -0.2
+          ],
+          "back": [
+            0,
+            0,
+            0.2
+          ]
+        },
+        "bounds": {
+          "x": [
+            -0.2,
+            0.2
+          ],
+          "y": [
+            -0.15,
+            0.15
+          ],
+          "z": [
+            -0.2,
+            0.2
+          ],
+          "yaw": [
+            -35,
+            35
+          ],
+          "pitch": [
+            -20,
+            20
+          ],
+          "roll": [
+            -5,
+            5
+          ]
+        },
+        "matrix": [
+          [
+            -0.9708108305931091,
+            -0.08682212978601456,
+            0.2235814481973648,
+            1.7000000476837158
+          ],
+          [
+            0.2398473471403122,
+            -0.3514229655265808,
+            0.9049726128578186,
+            2.75
+          ],
+          [
+            -2.389128006541341e-8,
+            0.9321824908256531,
+            0.36198896169662476,
+            1.850000023841858
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "sensorWidth": 32,
+        "sensorHeight": 18,
+        "sensorFit": "AUTO",
+        "near": 0.05,
+        "far": 100,
+        "aspect": 1.7777777777777777,
+        "nativeResolution": [
+          1920,
+          1080
+        ],
+        "captureLens": 17.5,
+        "shiftX": 0,
+        "shiftY": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,2371 @@
+{
+  "version": 1,
+  "id": "classroom-teacher",
+  "title": "Classroom — Teacher View",
+  "sourceSha256": "3fdf721977489b19ea9ec975854ea25ff3304fcf9a7742938e9233afce59389d",
+  "attribution": "Christophe Seux — CC0; derived cameras and source-prop composition",
+  "method": "Seven individually rendered positions. XYZ selects an actual source camera; pan and focal length reframe that image. No invented continuous physical camera translation.",
+  "encoding": {
+    "type": "log2-rgb",
+    "min": -16,
+    "max": 6,
+    "losslessContainer": "WebP",
+    "maximumChannelQuantizationEV": 0.043137254901960784,
+    "sourceMaximumRadiance": 7.529411792755127
+  },
+  "depth": {
+    "type": "uint16-rg",
+    "space": "capture-camera-z",
+    "range": 64
+  },
+  "camera": {
+    "name": "Capture_Teacher",
+    "lens": 21,
+    "sourceProjection": "PERSP",
+    "sourceLens": 21,
+    "sourceOrthoScale": 6,
+    "sensorWidth": 32,
+    "sensorHeight": 18,
+    "aspect": 1.7777777777777777,
+    "nativeResolution": [
+      1920,
+      1080
+    ],
+    "near": 0.05,
+    "far": 100,
+    "sourceFar": 100,
+    "matrix": [
+      [
+        -0.9708108305931091,
+        -0.08682212978601456,
+        0.2235814481973648,
+        1.7000000476837158
+      ],
+      [
+        0.2398473471403122,
+        -0.3514229655265808,
+        0.9049726128578186,
+        2.75
+      ],
+      [
+        -2.389128006541341e-08,
+        0.9321824908256531,
+        0.36198896169662476,
+        1.850000023841858
+      ],
+      [
+        0,
+        0,
+        0,
+        1
+      ]
+    ],
+    "sourceScale": [
+      1,
+      1,
+      1
+    ],
+    "shiftX": 0,
+    "shiftY": 0,
+    "sensorFit": "AUTO",
+    "sourceClippingMethod": "Explicit near plane on the derived source camera; unchanged across the bounded rig."
+  },
+  "derivations": [],
+  "referenceFocal": 23.625,
+  "captureLens": 17.5,
+  "bounds": {
+    "x": [
+      -0.2,
+      0.2
+    ],
+    "y": [
+      -0.15,
+      0.15
+    ],
+    "z": [
+      -0.2,
+      0.2
+    ],
+    "yaw": [
+      -35,
+      35
+    ],
+    "pitch": [
+      -20,
+      20
+    ],
+    "roll": [
+      -5,
+      5
+    ]
+  },
+  "views": [
+    {
+      "id": "center",
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "near": 0.05000000074505806,
+      "position": [
+        1.7000000476837158,
+        1.850000023841858,
+        -2.75
+      ],
+      "matrix": [
+        -1.0618239641189575,
+        -0.16882072389125824,
+        -0.22380509972572327,
+        -0.22358140349388123,
+        8.149069863350178e-09,
+        1.8125765323638916,
+        -0.36235132813453674,
+        -0.3619891405105591,
+        -0.262332946062088,
+        0.6833218932151794,
+        0.9058780074119568,
+        0.9049725532531738,
+        1.0836851596832275,
+        -1.1871365308761597,
+        3.4419329166412354,
+        3.538442611694336
+      ],
+      "cameraMatrix": [
+        -0.9708108305931091,
+        -2.389128006541341e-08,
+        -0.2398473471403122,
+        0,
+        -0.08682212978601456,
+        0.9321824908256531,
+        0.3514229655265808,
+        0,
+        0.2235814481973648,
+        0.36198896169662476,
+        -0.9049726128578186,
+        0,
+        1.7000000476837158,
+        1.850000023841858,
+        -2.75,
+        1
+      ],
+      "projectionMatrix": [
+        1.09375,
+        0,
+        0,
+        0,
+        0,
+        1.9444444179534912,
+        0,
+        0,
+        0,
+        0,
+        -1.0010005235671997,
+        -1,
+        0,
+        0,
+        -0.10005002468824387,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 256,
+      "file": "center.webp",
+      "bytes": 2649614,
+      "depth": "center-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 582460,
+      "maximumRadiance": 6.696605086326599,
+      "clampedChannels": 0,
+      "minimumDepth": 1.2303218841552734,
+      "maximumDepth": 8.393270492553711,
+      "detailFile": "center-detail.webp",
+      "detailBytes": 9325304,
+      "detailWidth": 5120,
+      "detailHeight": 2880,
+      "detailDepth": "center-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1181980,
+      "flash": "center-flash.webp",
+      "flashBytes": 529540,
+      "flashWidth": 1280,
+      "flashHeight": 720,
+      "radianceCapture": {
+        "samples": 256,
+        "blender": "4.5.14 LTS",
+        "sourceExrSha256": "2750b274cca375ecea644f8471595e31e4edde0968b2172d40bdc3e2a302d9a1",
+        "maximumRadiance": 6.818392276763916,
+        "jobEvidence": "jobs/teacher/detail/center/attempt-001",
+        "sourceFile": "center.exr",
+        "captureSeconds": 3970.312441592003,
+        "denoising": "OpenImageDenoise HIGH/ACCURATE; full-frame with albedo and normal guides"
+      },
+      "independentBaseCapture": {
+        "samples": 32,
+        "sourceFile": "center.hdr",
+        "sourceSha256": "a22cdce0d906f4396f755ad1676aca1864e40ba7cee75c56b031a9cd78e27ab3",
+        "jobEvidence": "jobs/teacher/base/center/attempt-001",
+        "captureSeconds": 140.8083506999974,
+        "delivered": false,
+        "note": "Retained raw capture only; delivered center base instead comes from the same 256spp EXR as detail."
+      },
+      "baseRadianceMethod": "Area-average the exact center detail EXR in scene-linear space; no separate 32spp image at initial load."
+    },
+    {
+      "id": "left",
+      "offset": [
+        -0.2,
+        0,
+        0
+      ],
+      "near": 0.05000000074505806,
+      "position": [
+        1.8941621780395508,
+        1.850000023841858,
+        -2.7020304203033447
+      ],
+      "matrix": [
+        -1.0618239641189575,
+        -0.16882072389125824,
+        -0.22380509972572327,
+        -0.22358140349388123,
+        8.149069863350178e-09,
+        1.8125765323638916,
+        -0.36235132813453674,
+        -0.3619891405105591,
+        -0.262332946062088,
+        0.6833218932151794,
+        0.9058780074119568,
+        0.9049725532531738,
+        1.3024351596832275,
+        -1.1871366500854492,
+        3.4419331550598145,
+        3.538442850112915
+      ],
+      "cameraMatrix": [
+        -0.9708108305931091,
+        -2.389128006541341e-08,
+        -0.2398473471403122,
+        0,
+        -0.08682212978601456,
+        0.9321824908256531,
+        0.3514229655265808,
+        0,
+        0.2235814481973648,
+        0.36198896169662476,
+        -0.9049726128578186,
+        0,
+        1.8941621780395508,
+        1.850000023841858,
+        -2.7020304203033447,
+        1
+      ],
+      "projectionMatrix": [
+        1.09375,
+        0,
+        0,
+        0,
+        0,
+        1.9444444179534912,
+        0,
+        0,
+        0,
+        0,
+        -1.0010005235671997,
+        -1,
+        0,
+        0,
+        -0.10005002468824387,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "left.webp",
+      "bytes": 2520412,
+      "seconds": 138.8872540529992,
+      "jobEvidence": "jobs/teacher/base/left/attempt-001",
+      "sha256": "20c8791b4fd45e840af265e6322011b6a7b0219b20db867e75985a8e18037d02",
+      "depth": "left-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 598622,
+      "maximumRadiance": 7.3098039627075195,
+      "clampedChannels": 0,
+      "minimumDepth": 1.2303221225738525,
+      "maximumDepth": 8.410903930664062,
+      "detailFile": "left-detail.webp",
+      "detailBytes": 6038118,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "left-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1214714,
+      "flash": "left-flash.webp",
+      "flashBytes": 529116,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "right",
+      "offset": [
+        0.2,
+        0,
+        0
+      ],
+      "near": 0.05000000074505806,
+      "position": [
+        1.5058379173278809,
+        1.850000023841858,
+        -2.7979695796966553
+      ],
+      "matrix": [
+        -1.0618239641189575,
+        -0.16882072389125824,
+        -0.22380509972572327,
+        -0.22358140349388123,
+        8.149069863350178e-09,
+        1.8125765323638916,
+        -0.36235132813453674,
+        -0.3619891405105591,
+        -0.262332946062088,
+        0.6833218932151794,
+        0.9058780074119568,
+        0.9049725532531738,
+        0.8649351000785828,
+        -1.1871365308761597,
+        3.4419331550598145,
+        3.538442850112915
+      ],
+      "cameraMatrix": [
+        -0.9708108305931091,
+        -2.389128006541341e-08,
+        -0.2398473471403122,
+        0,
+        -0.08682212978601456,
+        0.9321824908256531,
+        0.3514229655265808,
+        0,
+        0.2235814481973648,
+        0.36198896169662476,
+        -0.9049726128578186,
+        0,
+        1.5058379173278809,
+        1.850000023841858,
+        -2.7979695796966553,
+        1
+      ],
+      "projectionMatrix": [
+        1.09375,
+        0,
+        0,
+        0,
+        0,
+        1.9444444179534912,
+        0,
+        0,
+        0,
+        0,
+        -1.0010005235671997,
+        -1,
+        0,
+        0,
+        -0.10005002468824387,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "right.webp",
+      "bytes": 2578636,
+      "seconds": 140.39504858100554,
+      "jobEvidence": "jobs/teacher/base/right/attempt-001",
+      "sha256": "9d00d73e8a8963e884dc313a7da305b991f780cbfbcf2d4b1c24b5a567ab9d87",
+      "depth": "right-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 576404,
+      "maximumRadiance": 7.529411792755127,
+      "clampedChannels": 0,
+      "minimumDepth": 1.2303221225738525,
+      "maximumDepth": 8.380931854248047,
+      "detailFile": "right-detail.webp",
+      "detailBytes": 6193240,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "right-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1167552,
+      "flash": "right-flash.webp",
+      "flashBytes": 532554,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "up",
+      "offset": [
+        0,
+        0.15,
+        0
+      ],
+      "near": 0.05000000074505806,
+      "position": [
+        1.686976671218872,
+        1.9898273944854736,
+        -2.697286605834961
+      ],
+      "matrix": [
+        -1.0618239641189575,
+        -0.16882072389125824,
+        -0.22380509972572327,
+        -0.22358140349388123,
+        8.149069863350178e-09,
+        1.8125765323638916,
+        -0.36235132813453674,
+        -0.3619891405105591,
+        -0.262332946062088,
+        0.6833218932151794,
+        0.9058780074119568,
+        0.9049725532531738,
+        1.0836851596832275,
+        -1.478803038597107,
+        3.4419329166412354,
+        3.538442611694336
+      ],
+      "cameraMatrix": [
+        -0.9708108305931091,
+        -2.389128006541341e-08,
+        -0.2398473471403122,
+        0,
+        -0.08682212978601456,
+        0.9321824908256531,
+        0.3514229655265808,
+        0,
+        0.2235814481973648,
+        0.36198896169662476,
+        -0.9049726128578186,
+        0,
+        1.686976671218872,
+        1.9898273944854736,
+        -2.697286605834961,
+        1
+      ],
+      "projectionMatrix": [
+        1.09375,
+        0,
+        0,
+        0,
+        0,
+        1.9444444179534912,
+        0,
+        0,
+        0,
+        0,
+        -1.0010005235671997,
+        -1,
+        0,
+        0,
+        -0.10005002468824387,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "up.webp",
+      "bytes": 2560808,
+      "seconds": 133.4682501770003,
+      "jobEvidence": "jobs/teacher/base/up/attempt-001",
+      "sha256": "75bc87b106c0d82a205e216ea3f7706b7f6afaac5626031f9a60d7c98883635c",
+      "depth": "up-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 615577,
+      "maximumRadiance": 7.12156867980957,
+      "clampedChannels": 0,
+      "minimumDepth": 1.3567148447036743,
+      "maximumDepth": 8.439543724060059,
+      "detailFile": "up-detail.webp",
+      "detailBytes": 6156904,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "up-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1253212,
+      "flash": "up-flash.webp",
+      "flashBytes": 534976,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "down",
+      "offset": [
+        0,
+        -0.15,
+        0
+      ],
+      "near": 0.05000000074505806,
+      "position": [
+        1.7130234241485596,
+        1.7101726531982422,
+        -2.802713394165039
+      ],
+      "matrix": [
+        -1.0618239641189575,
+        -0.16882072389125824,
+        -0.22380509972572327,
+        -0.22358140349388123,
+        8.149069863350178e-09,
+        1.8125765323638916,
+        -0.36235132813453674,
+        -0.3619891405105591,
+        -0.262332946062088,
+        0.6833218932151794,
+        0.9058780074119568,
+        0.9049725532531738,
+        1.083685278892517,
+        -0.8954698443412781,
+        3.4419331550598145,
+        3.538442850112915
+      ],
+      "cameraMatrix": [
+        -0.9708108305931091,
+        -2.389128006541341e-08,
+        -0.2398473471403122,
+        0,
+        -0.08682212978601456,
+        0.9321824908256531,
+        0.3514229655265808,
+        0,
+        0.2235814481973648,
+        0.36198896169662476,
+        -0.9049726128578186,
+        0,
+        1.7130234241485596,
+        1.7101726531982422,
+        -2.802713394165039,
+        1
+      ],
+      "projectionMatrix": [
+        1.09375,
+        0,
+        0,
+        0,
+        0,
+        1.9444444179534912,
+        0,
+        0,
+        0,
+        0,
+        -1.0010005235671997,
+        -1,
+        0,
+        0,
+        -0.10005002468824387,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "down.webp",
+      "bytes": 2522940,
+      "seconds": 133.68275744700804,
+      "jobEvidence": "jobs/teacher/base/down/attempt-001",
+      "sha256": "f8ffbb1c44f51af257ba1dc49b7cb2ad56e33ccf465c5abfc6ef7d3990fcac0b",
+      "depth": "down-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 550794,
+      "maximumRadiance": 7.058823585510254,
+      "clampedChannels": 0,
+      "minimumDepth": 1.064005732536316,
+      "maximumDepth": 8.361838340759277,
+      "detailFile": "down-detail.webp",
+      "detailBytes": 6052770,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "down-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1113480,
+      "flash": "down-flash.webp",
+      "flashBytes": 522440,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "front",
+      "offset": [
+        0,
+        0,
+        -0.2
+      ],
+      "near": 0.05000000074505806,
+      "position": [
+        1.655283808708191,
+        1.777602195739746,
+        -2.5690054893493652
+      ],
+      "matrix": [
+        -1.0618239641189575,
+        -0.16882072389125824,
+        -0.22380509972572327,
+        -0.22358140349388123,
+        8.149069863350178e-09,
+        1.8125765323638916,
+        -0.36235132813453674,
+        -0.3619891405105591,
+        -0.262332946062088,
+        0.6833218932151794,
+        0.9058780074119568,
+        0.9049725532531738,
+        1.083685278892517,
+        -1.1871365308761597,
+        3.2417330741882324,
+        3.338442802429199
+      ],
+      "cameraMatrix": [
+        -0.9708108305931091,
+        -2.389128006541341e-08,
+        -0.2398473471403122,
+        0,
+        -0.08682212978601456,
+        0.9321824908256531,
+        0.3514229655265808,
+        0,
+        0.2235814481973648,
+        0.36198896169662476,
+        -0.9049726128578186,
+        0,
+        1.655283808708191,
+        1.777602195739746,
+        -2.5690054893493652,
+        1
+      ],
+      "projectionMatrix": [
+        1.09375,
+        0,
+        0,
+        0,
+        0,
+        1.9444444179534912,
+        0,
+        0,
+        0,
+        0,
+        -1.0010005235671997,
+        -1,
+        0,
+        0,
+        -0.10005002468824387,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "front.webp",
+      "bytes": 2588044,
+      "seconds": 135.27354715502588,
+      "jobEvidence": "jobs/teacher/base/front/attempt-001",
+      "sha256": "e3552523ee91ae546c98e81f319eb91ee832f690a20a5b54b4d8b837b8171ac7",
+      "depth": "front-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 562236,
+      "maximumRadiance": 7.058823585510254,
+      "clampedChannels": 0,
+      "minimumDepth": 1.1225500106811523,
+      "maximumDepth": 8.19034481048584,
+      "detailFile": "front-detail.webp",
+      "detailBytes": 6208234,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "front-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1131738,
+      "flash": "front-flash.webp",
+      "flashBytes": 531486,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    },
+    {
+      "id": "back",
+      "offset": [
+        0,
+        0,
+        0.2
+      ],
+      "near": 0.05000000074505806,
+      "position": [
+        1.7447162866592407,
+        1.9223978519439697,
+        -2.9309945106506348
+      ],
+      "matrix": [
+        -1.0618239641189575,
+        -0.16882072389125824,
+        -0.22380509972572327,
+        -0.22358140349388123,
+        8.149069863350178e-09,
+        1.8125765323638916,
+        -0.36235132813453674,
+        -0.3619891405105591,
+        -0.262332946062088,
+        0.6833218932151794,
+        0.9058780074119568,
+        0.9049725532531738,
+        1.0836851596832275,
+        -1.1871365308761597,
+        3.6421332359313965,
+        3.738442897796631
+      ],
+      "cameraMatrix": [
+        -0.9708108305931091,
+        -2.389128006541341e-08,
+        -0.2398473471403122,
+        0,
+        -0.08682212978601456,
+        0.9321824908256531,
+        0.3514229655265808,
+        0,
+        0.2235814481973648,
+        0.36198896169662476,
+        -0.9049726128578186,
+        0,
+        1.7447162866592407,
+        1.9223978519439697,
+        -2.9309945106506348,
+        1
+      ],
+      "projectionMatrix": [
+        1.09375,
+        0,
+        0,
+        0,
+        0,
+        1.9444444179534912,
+        0,
+        0,
+        0,
+        0,
+        -1.0010005235671997,
+        -1,
+        0,
+        0,
+        -0.10005002468824387,
+        0
+      ],
+      "width": 2560,
+      "height": 1440,
+      "samples": 32,
+      "file": "back.webp",
+      "bytes": 2520434,
+      "seconds": 136.1253139139735,
+      "jobEvidence": "jobs/teacher/base/back/attempt-001",
+      "sha256": "d7f09364a94ac001fc1b304dca69e8ed8707c93f6eda60c7d2e5f21c3b3104e7",
+      "depth": "back-depth.png",
+      "depthWidth": 1280,
+      "depthHeight": 720,
+      "depthBytes": 609698,
+      "maximumRadiance": 7.058823585510254,
+      "clampedChannels": 0,
+      "minimumDepth": 1.3164348602294922,
+      "maximumDepth": 8.599603652954102,
+      "detailFile": "back-detail.webp",
+      "detailBytes": 6051776,
+      "detailWidth": 4096,
+      "detailHeight": 2304,
+      "detailDepth": "back-detail-depth.png",
+      "detailDepthWidth": 2048,
+      "detailDepthHeight": 1152,
+      "detailDepthBytes": 1238688,
+      "flash": "back-flash.webp",
+      "flashBytes": 534410,
+      "flashWidth": 1280,
+      "flashHeight": 720
+    }
+  ],
+  "totalBytes": 22036679,
+  "initialBytes": 3232074,
+  "detail": {
+    "method": "One independently rendered source perspective camera, with source-owned geometry/materials/lights.",
+    "sourceSha256": "3fdf721977489b19ea9ec975854ea25ff3304fcf9a7742938e9233afce59389d",
+    "camera": {
+      "name": "Capture_Teacher",
+      "lens": 21,
+      "sourceProjection": "PERSP",
+      "sourceLens": 21,
+      "sourceOrthoScale": 6,
+      "sensorWidth": 32,
+      "sensorHeight": 18,
+      "aspect": 1.7777777777777777,
+      "nativeResolution": [
+        1920,
+        1080
+      ],
+      "near": 0.05,
+      "far": 100,
+      "sourceFar": 100,
+      "matrix": [
+        [
+          -0.9708108305931091,
+          -0.08682212978601456,
+          0.2235814481973648,
+          1.7000000476837158
+        ],
+        [
+          0.2398473471403122,
+          -0.3514229655265808,
+          0.9049726128578186,
+          2.75
+        ],
+        [
+          -2.389128006541341e-08,
+          0.9321824908256531,
+          0.36198896169662476,
+          1.850000023841858
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "sourceScale": [
+        1,
+        1,
+        1
+      ],
+      "shiftX": 0,
+      "shiftY": 0,
+      "sensorFit": "AUTO",
+      "sourceClippingMethod": "Explicit near plane on the derived source camera; unchanged across the bounded rig."
+    },
+    "captureLens": 17.5,
+    "bounds": {
+      "x": [
+        -0.2,
+        0.2
+      ],
+      "y": [
+        -0.15,
+        0.15
+      ],
+      "z": [
+        -0.2,
+        0.2
+      ],
+      "yaw": [
+        -35,
+        35
+      ],
+      "pitch": [
+        -20,
+        20
+      ],
+      "roll": [
+        -5,
+        5
+      ]
+    },
+    "derivations": [],
+    "sourceProvenance": {
+      "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/classroom/classroom.blend",
+      "originalSha256": "5c526ea3f280566e80253673c9955640527cd0f247ea41b1742620b5bc39f7a4",
+      "originalAuthor": "Christophe Seux",
+      "license": "CC0",
+      "derivations": [
+        {
+          "type": "duplicate-source-prop",
+          "sourceObject": "beigeBook",
+          "newObject": "TeachingProps_beigeBook",
+          "translation": [
+            -0.30000001192092896,
+            -3.869999885559082,
+            -0.012000000104308128
+          ],
+          "position": [
+            1.5295734405517578,
+            -2.3436686992645264,
+            0.803048312664032
+          ],
+          "collection": "beigeBook"
+        },
+        {
+          "type": "duplicate-source-prop",
+          "sourceObject": "leatherBook",
+          "newObject": "TeachingProps_leatherBook",
+          "translation": [
+            -0.30000001192092896,
+            -3.869999885559082,
+            -0.012000000104308128
+          ],
+          "position": [
+            1.525892972946167,
+            -2.3436295986175537,
+            0.8199940323829651
+          ],
+          "collection": "leatherBook"
+        },
+        {
+          "type": "duplicate-source-prop",
+          "sourceObject": "zapBook",
+          "newObject": "TeachingProps_zapBook",
+          "translation": [
+            -0.30000001192092896,
+            -3.869999885559082,
+            -0.012000000104308128
+          ],
+          "position": [
+            1.535264253616333,
+            -2.3689842224121094,
+            0.8366289734840393
+          ],
+          "collection": "zapBook"
+        },
+        {
+          "type": "duplicate-source-prop",
+          "sourceObject": "pencil",
+          "newObject": "TeachingProps_pencil",
+          "translation": [
+            -0.30000001192092896,
+            -3.869999885559082,
+            -0.012000000104308128
+          ],
+          "position": [
+            1.5507619380950928,
+            -2.5855660438537598,
+            0.8073400259017944
+          ],
+          "collection": "pencil"
+        },
+        {
+          "type": "duplicate-source-prop",
+          "sourceObject": "plasticGoldPen",
+          "newObject": "TeachingProps_plasticGoldPen",
+          "translation": [
+            -0.30000001192092896,
+            -3.869999885559082,
+            -0.012000000104308128
+          ],
+          "position": [
+            1.6750340461730957,
+            -2.5433642864227295,
+            0.8091428279876709
+          ],
+          "collection": "plasticGoldPen"
+        },
+        {
+          "type": "duplicate-source-prop",
+          "sourceObject": "rotring",
+          "newObject": "TeachingProps_rotring",
+          "translation": [
+            -0.30000001192092896,
+            -3.869999885559082,
+            -0.012000000104308128
+          ],
+          "position": [
+            1.6041467189788818,
+            -2.576835870742798,
+            0.8092834949493408
+          ],
+          "collection": "rotring"
+        },
+        {
+          "type": "camera-only-source-sky",
+          "sourceMaterial": "dayLight_portal",
+          "skyType": "HOSEK_WILKIE",
+          "strength": 20,
+          "illumination": "Original non-camera world and emitter unchanged",
+          "depth": "Background remains infinity; no new occluding geometry"
+        }
+      ],
+      "prepareScriptSha256": "2b3f9501fc8334e8395aa7a79f556859406d4c6f930a901a46b6c2d2456d4916",
+      "cameraSkyScriptSha256": "ac70e723302f7620f734284561b8cfd2e68036959816824d4f5f31fb9b121514",
+      "sourceGeometryLighting": "Original furniture, room, materials and light parameters unchanged; new source-prop copies and camera-only world documented."
+    },
+    "bakedSourceDerivations": [
+      {
+        "type": "duplicate-source-prop",
+        "sourceObject": "beigeBook",
+        "newObject": "TeachingProps_beigeBook",
+        "translation": [
+          -0.30000001192092896,
+          -3.869999885559082,
+          -0.012000000104308128
+        ],
+        "position": [
+          1.5295734405517578,
+          -2.3436686992645264,
+          0.803048312664032
+        ],
+        "collection": "beigeBook"
+      },
+      {
+        "type": "duplicate-source-prop",
+        "sourceObject": "leatherBook",
+        "newObject": "TeachingProps_leatherBook",
+        "translation": [
+          -0.30000001192092896,
+          -3.869999885559082,
+          -0.012000000104308128
+        ],
+        "position": [
+          1.525892972946167,
+          -2.3436295986175537,
+          0.8199940323829651
+        ],
+        "collection": "leatherBook"
+      },
+      {
+        "type": "duplicate-source-prop",
+        "sourceObject": "zapBook",
+        "newObject": "TeachingProps_zapBook",
+        "translation": [
+          -0.30000001192092896,
+          -3.869999885559082,
+          -0.012000000104308128
+        ],
+        "position": [
+          1.535264253616333,
+          -2.3689842224121094,
+          0.8366289734840393
+        ],
+        "collection": "zapBook"
+      },
+      {
+        "type": "duplicate-source-prop",
+        "sourceObject": "pencil",
+        "newObject": "TeachingProps_pencil",
+        "translation": [
+          -0.30000001192092896,
+          -3.869999885559082,
+          -0.012000000104308128
+        ],
+        "position": [
+          1.5507619380950928,
+          -2.5855660438537598,
+          0.8073400259017944
+        ],
+        "collection": "pencil"
+      },
+      {
+        "type": "duplicate-source-prop",
+        "sourceObject": "plasticGoldPen",
+        "newObject": "TeachingProps_plasticGoldPen",
+        "translation": [
+          -0.30000001192092896,
+          -3.869999885559082,
+          -0.012000000104308128
+        ],
+        "position": [
+          1.6750340461730957,
+          -2.5433642864227295,
+          0.8091428279876709
+        ],
+        "collection": "plasticGoldPen"
+      },
+      {
+        "type": "duplicate-source-prop",
+        "sourceObject": "rotring",
+        "newObject": "TeachingProps_rotring",
+        "translation": [
+          -0.30000001192092896,
+          -3.869999885559082,
+          -0.012000000104308128
+        ],
+        "position": [
+          1.6041467189788818,
+          -2.576835870742798,
+          0.8092834949493408
+        ],
+        "collection": "rotring"
+      },
+      {
+        "type": "camera-only-source-sky",
+        "sourceMaterial": "dayLight_portal",
+        "skyType": "HOSEK_WILKIE",
+        "strength": 20,
+        "illumination": "Original non-camera world and emitter unchanged",
+        "depth": "Background remains infinity; no new occluding geometry"
+      }
+    ],
+    "blender": "4.5.14 LTS",
+    "blenderBuildHash": "62c1db4208e8",
+    "displayTransform": {
+      "view": "AgX",
+      "look": "None",
+      "exposure": 0,
+      "gamma": 1
+    },
+    "views": [
+      {
+        "id": "center",
+        "file": "center-detail.webp",
+        "bytes": 9325304,
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.7000000476837158,
+          1.850000023841858,
+          -2.75,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "maximumRadiance": 6.818392276763916,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 256,
+        "blender": "4.5.14 LTS",
+        "sourceExrSha256": "2750b274cca375ecea644f8471595e31e4edde0968b2172d40bdc3e2a302d9a1"
+      },
+      {
+        "id": "left",
+        "file": "left-detail.webp",
+        "bytes": 6038118,
+        "offset": [
+          -0.2,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.8941621780395508,
+          1.850000023841858,
+          -2.7020304203033447,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "maximumRadiance": 7.079510688781738,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "right",
+        "file": "right-detail.webp",
+        "bytes": 6193240,
+        "offset": [
+          0.2,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.5058379173278809,
+          1.850000023841858,
+          -2.7979695796966553,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "maximumRadiance": 7.471123695373535,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "up",
+        "file": "up-detail.webp",
+        "bytes": 6156904,
+        "offset": [
+          0,
+          0.15,
+          0
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.686976671218872,
+          1.9898273944854736,
+          -2.697286605834961,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "maximumRadiance": 7.170376300811768,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "down",
+        "file": "down-detail.webp",
+        "bytes": 6052770,
+        "offset": [
+          0,
+          -0.15,
+          0
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.7130234241485596,
+          1.7101726531982422,
+          -2.802713394165039,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "maximumRadiance": 7.120856285095215,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "front",
+        "file": "front-detail.webp",
+        "bytes": 6208234,
+        "offset": [
+          0,
+          0,
+          -0.2
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.655283808708191,
+          1.777602195739746,
+          -2.5690054893493652,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "maximumRadiance": 7.026315689086914,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      },
+      {
+        "id": "back",
+        "file": "back-detail.webp",
+        "bytes": 6051776,
+        "offset": [
+          0,
+          0,
+          0.2
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.7447162866592407,
+          1.9223978519439697,
+          -2.9309945106506348,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "maximumRadiance": 6.839053153991699,
+        "clampedChannels": 0,
+        "negativeChannels": 0,
+        "samples": 32
+      }
+    ],
+    "samplingPolicy": "center 256 spp at 5120 px; six neighboring captures 32 spp at 4096 px",
+    "encoding": {
+      "type": "log2-rgb",
+      "min": -16,
+      "max": 6,
+      "losslessContainer": "WebP",
+      "maximumChannelQuantizationEV": 0.043137254901960784,
+      "sourceMaximumRadiance": 7.471123695373535
+    },
+    "totalBytes": 46026346
+  },
+  "detailDepth": {
+    "sourceSha256": "3fdf721977489b19ea9ec975854ea25ff3304fcf9a7742938e9233afce59389d",
+    "method": "One-sample source Cycles axial-Z at exactly matching radiance matrices and near planes.",
+    "space": "capture-camera-z",
+    "range": 64,
+    "views": [
+      {
+        "id": "center",
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "near": 0.05000000074505806,
+        "position": [
+          1.7000000476837158,
+          1.850000023841858,
+          -2.75
+        ],
+        "matrix": [
+          -1.0618239641189575,
+          -0.16882072389125824,
+          -0.22380509972572327,
+          -0.22358140349388123,
+          8.149069863350178e-09,
+          1.8125765323638916,
+          -0.36235132813453674,
+          -0.3619891405105591,
+          -0.262332946062088,
+          0.6833218932151794,
+          0.9058780074119568,
+          0.9049725532531738,
+          1.0836851596832275,
+          -1.1871365308761597,
+          3.4419329166412354,
+          3.538442611694336
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.7000000476837158,
+          1.850000023841858,
+          -2.75,
+          1
+        ],
+        "projectionMatrix": [
+          1.09375,
+          0,
+          0,
+          0,
+          0,
+          1.9444444179534912,
+          0,
+          0,
+          0,
+          0,
+          -1.0010005235671997,
+          -1,
+          0,
+          0,
+          -0.10005002468824387,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "center-detail-depth.png",
+        "bytes": 1181980,
+        "seconds": 3.398397703989758,
+        "jobEvidence": "jobs/teacher/detail-depth/center/attempt-001",
+        "sha256": "bed9d8d2fe31e51f3b774bf74482e5b467ba446226731c40540deb3259ec95ed",
+        "minimumZ": 1.2299563884735107,
+        "maximumZ": 8.396108627319336,
+        "clampedPixels": 0
+      },
+      {
+        "id": "left",
+        "offset": [
+          -0.2,
+          0,
+          0
+        ],
+        "near": 0.05000000074505806,
+        "position": [
+          1.8941621780395508,
+          1.850000023841858,
+          -2.7020304203033447
+        ],
+        "matrix": [
+          -1.0618239641189575,
+          -0.16882072389125824,
+          -0.22380509972572327,
+          -0.22358140349388123,
+          8.149069863350178e-09,
+          1.8125765323638916,
+          -0.36235132813453674,
+          -0.3619891405105591,
+          -0.262332946062088,
+          0.6833218932151794,
+          0.9058780074119568,
+          0.9049725532531738,
+          1.3024351596832275,
+          -1.1871366500854492,
+          3.4419331550598145,
+          3.538442850112915
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.8941621780395508,
+          1.850000023841858,
+          -2.7020304203033447,
+          1
+        ],
+        "projectionMatrix": [
+          1.09375,
+          0,
+          0,
+          0,
+          0,
+          1.9444444179534912,
+          0,
+          0,
+          0,
+          0,
+          -1.0010005235671997,
+          -1,
+          0,
+          0,
+          -0.10005002468824387,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "left-detail-depth.png",
+        "bytes": 1214714,
+        "seconds": 3.556673355997191,
+        "jobEvidence": "jobs/teacher/detail-depth/left/attempt-001",
+        "sha256": "e9b917e59c53b9eb0a55f4013ff49d727bab7e4c5d80c9f228209cbc7f1cf1e3",
+        "minimumZ": 1.2299565076828003,
+        "maximumZ": 8.413211822509766,
+        "clampedPixels": 0
+      },
+      {
+        "id": "right",
+        "offset": [
+          0.2,
+          0,
+          0
+        ],
+        "near": 0.05000000074505806,
+        "position": [
+          1.5058379173278809,
+          1.850000023841858,
+          -2.7979695796966553
+        ],
+        "matrix": [
+          -1.0618239641189575,
+          -0.16882072389125824,
+          -0.22380509972572327,
+          -0.22358140349388123,
+          8.149069863350178e-09,
+          1.8125765323638916,
+          -0.36235132813453674,
+          -0.3619891405105591,
+          -0.262332946062088,
+          0.6833218932151794,
+          0.9058780074119568,
+          0.9049725532531738,
+          0.8649351000785828,
+          -1.1871365308761597,
+          3.4419331550598145,
+          3.538442850112915
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.5058379173278809,
+          1.850000023841858,
+          -2.7979695796966553,
+          1
+        ],
+        "projectionMatrix": [
+          1.09375,
+          0,
+          0,
+          0,
+          0,
+          1.9444444179534912,
+          0,
+          0,
+          0,
+          0,
+          -1.0010005235671997,
+          -1,
+          0,
+          0,
+          -0.10005002468824387,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "right-detail-depth.png",
+        "bytes": 1167552,
+        "seconds": 3.5906462209968595,
+        "jobEvidence": "jobs/teacher/detail-depth/right/attempt-001",
+        "sha256": "7fc88f30d08bbf7c70d1933f80dbf4a45f784f35bd781a83c8beb2f49d19298d",
+        "minimumZ": 1.2299565076828003,
+        "maximumZ": 8.383223533630371,
+        "clampedPixels": 0
+      },
+      {
+        "id": "up",
+        "offset": [
+          0,
+          0.15,
+          0
+        ],
+        "near": 0.05000000074505806,
+        "position": [
+          1.686976671218872,
+          1.9898273944854736,
+          -2.697286605834961
+        ],
+        "matrix": [
+          -1.0618239641189575,
+          -0.16882072389125824,
+          -0.22380509972572327,
+          -0.22358140349388123,
+          8.149069863350178e-09,
+          1.8125765323638916,
+          -0.36235132813453674,
+          -0.3619891405105591,
+          -0.262332946062088,
+          0.6833218932151794,
+          0.9058780074119568,
+          0.9049725532531738,
+          1.0836851596832275,
+          -1.478803038597107,
+          3.4419329166412354,
+          3.538442611694336
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.686976671218872,
+          1.9898273944854736,
+          -2.697286605834961,
+          1
+        ],
+        "projectionMatrix": [
+          1.09375,
+          0,
+          0,
+          0,
+          0,
+          1.9444444179534912,
+          0,
+          0,
+          0,
+          0,
+          -1.0010005235671997,
+          -1,
+          0,
+          0,
+          -0.10005002468824387,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "up-detail-depth.png",
+        "bytes": 1253212,
+        "seconds": 3.98882039898308,
+        "jobEvidence": "jobs/teacher/detail-depth/up/attempt-001",
+        "sha256": "e732cc026901526a4d0a7d894469e1f11ef87c25179bb1c73c329522c88f3f25",
+        "minimumZ": 1.3563114404678345,
+        "maximumZ": 8.443768501281738,
+        "clampedPixels": 0
+      },
+      {
+        "id": "down",
+        "offset": [
+          0,
+          -0.15,
+          0
+        ],
+        "near": 0.05000000074505806,
+        "position": [
+          1.7130234241485596,
+          1.7101726531982422,
+          -2.802713394165039
+        ],
+        "matrix": [
+          -1.0618239641189575,
+          -0.16882072389125824,
+          -0.22380509972572327,
+          -0.22358140349388123,
+          8.149069863350178e-09,
+          1.8125765323638916,
+          -0.36235132813453674,
+          -0.3619891405105591,
+          -0.262332946062088,
+          0.6833218932151794,
+          0.9058780074119568,
+          0.9049725532531738,
+          1.083685278892517,
+          -0.8954698443412781,
+          3.4419331550598145,
+          3.538442850112915
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.7130234241485596,
+          1.7101726531982422,
+          -2.802713394165039,
+          1
+        ],
+        "projectionMatrix": [
+          1.09375,
+          0,
+          0,
+          0,
+          0,
+          1.9444444179534912,
+          0,
+          0,
+          0,
+          0,
+          -1.0010005235671997,
+          -1,
+          0,
+          0,
+          -0.10005002468824387,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "down-detail-depth.png",
+        "bytes": 1113480,
+        "seconds": 3.5446761490020435,
+        "jobEvidence": "jobs/teacher/detail-depth/down/attempt-001",
+        "sha256": "82b73e64de4f57ed6be169fc86453702227929689d1b2574a7f182af10c0e09e",
+        "minimumZ": 1.0636893510818481,
+        "maximumZ": 8.363147735595703,
+        "clampedPixels": 0
+      },
+      {
+        "id": "front",
+        "offset": [
+          0,
+          0,
+          -0.2
+        ],
+        "near": 0.05000000074505806,
+        "position": [
+          1.655283808708191,
+          1.777602195739746,
+          -2.5690054893493652
+        ],
+        "matrix": [
+          -1.0618239641189575,
+          -0.16882072389125824,
+          -0.22380509972572327,
+          -0.22358140349388123,
+          8.149069863350178e-09,
+          1.8125765323638916,
+          -0.36235132813453674,
+          -0.3619891405105591,
+          -0.262332946062088,
+          0.6833218932151794,
+          0.9058780074119568,
+          0.9049725532531738,
+          1.083685278892517,
+          -1.1871365308761597,
+          3.2417330741882324,
+          3.338442802429199
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.655283808708191,
+          1.777602195739746,
+          -2.5690054893493652,
+          1
+        ],
+        "projectionMatrix": [
+          1.09375,
+          0,
+          0,
+          0,
+          0,
+          1.9444444179534912,
+          0,
+          0,
+          0,
+          0,
+          -1.0010005235671997,
+          -1,
+          0,
+          0,
+          -0.10005002468824387,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "front-detail-depth.png",
+        "bytes": 1131738,
+        "seconds": 3.4015734359854832,
+        "jobEvidence": "jobs/teacher/detail-depth/front/attempt-001",
+        "sha256": "9e5fe5e87765767ce111dfbc2d37ccb0ff3242bfceb98d884cbdefb2b243ecd9",
+        "minimumZ": 1.1222193241119385,
+        "maximumZ": 8.191800117492676,
+        "clampedPixels": 0
+      },
+      {
+        "id": "back",
+        "offset": [
+          0,
+          0,
+          0.2
+        ],
+        "near": 0.05000000074505806,
+        "position": [
+          1.7447162866592407,
+          1.9223978519439697,
+          -2.9309945106506348
+        ],
+        "matrix": [
+          -1.0618239641189575,
+          -0.16882072389125824,
+          -0.22380509972572327,
+          -0.22358140349388123,
+          8.149069863350178e-09,
+          1.8125765323638916,
+          -0.36235132813453674,
+          -0.3619891405105591,
+          -0.262332946062088,
+          0.6833218932151794,
+          0.9058780074119568,
+          0.9049725532531738,
+          1.0836851596832275,
+          -1.1871365308761597,
+          3.6421332359313965,
+          3.738442897796631
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.7447162866592407,
+          1.9223978519439697,
+          -2.9309945106506348,
+          1
+        ],
+        "projectionMatrix": [
+          1.09375,
+          0,
+          0,
+          0,
+          0,
+          1.9444444179534912,
+          0,
+          0,
+          0,
+          0,
+          -1.0010005235671997,
+          -1,
+          0,
+          0,
+          -0.10005002468824387,
+          0
+        ],
+        "width": 2048,
+        "height": 1152,
+        "samples": 1,
+        "file": "back-detail-depth.png",
+        "bytes": 1238688,
+        "seconds": 3.4233282530040015,
+        "jobEvidence": "jobs/teacher/detail-depth/back/attempt-001",
+        "sha256": "0cf5f56d021c5f17983aefe402fb8e8d6317bf40e7a101e70d80e45672c7dc5f",
+        "minimumZ": 1.316043496131897,
+        "maximumZ": 8.602394104003906,
+        "clampedPixels": 0
+      }
+    ],
+    "totalBytes": 8301364
+  },
+  "flash": {
+    "sourceSha256": "3fdf721977489b19ea9ec975854ea25ff3304fcf9a7742938e9233afce59389d",
+    "method": "Cycles isolated CameraFlash light group, full-frame OIDN with normal/albedo guides; no ambient subtraction.",
+    "referenceEnergy": 1000,
+    "referenceDuration": 0.01,
+    "areaDiameter": 0.08,
+    "position": "actual capture camera origin plus explicit forward offset",
+    "coordinateSystem": "Three.js Y-up; source x,z,-y",
+    "originOffsetForward": 0,
+    "width": 1280,
+    "height": 720,
+    "samples": 32,
+    "views": [
+      {
+        "id": "center",
+        "file": "center-flash.webp",
+        "bytes": 529540,
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.7000000476837158,
+          1.850000023841858,
+          -2.75,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "flashPosition": [
+          1.7000000476837158,
+          1.850000023841858,
+          -2.75
+        ],
+        "maximumRadiance": 1.4561078548431396,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "left",
+        "file": "left-flash.webp",
+        "bytes": 529116,
+        "offset": [
+          -0.2,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.8941621780395508,
+          1.850000023841858,
+          -2.7020304203033447,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "flashPosition": [
+          1.8941621780395508,
+          1.850000023841858,
+          -2.7020304203033447
+        ],
+        "maximumRadiance": 1.098103404045105,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "right",
+        "file": "right-flash.webp",
+        "bytes": 532554,
+        "offset": [
+          0.2,
+          0,
+          0
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.5058379173278809,
+          1.850000023841858,
+          -2.7979695796966553,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "flashPosition": [
+          1.5058379173278809,
+          1.850000023841858,
+          -2.7979695796966553
+        ],
+        "maximumRadiance": 0.8437793850898743,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "up",
+        "file": "up-flash.webp",
+        "bytes": 534976,
+        "offset": [
+          0,
+          0.15,
+          0
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.686976671218872,
+          1.9898273944854736,
+          -2.697286605834961,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "flashPosition": [
+          1.686976671218872,
+          1.9898273944854736,
+          -2.697286605834961
+        ],
+        "maximumRadiance": 0.9096577167510986,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "down",
+        "file": "down-flash.webp",
+        "bytes": 522440,
+        "offset": [
+          0,
+          -0.15,
+          0
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.7130234241485596,
+          1.7101726531982422,
+          -2.802713394165039,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "flashPosition": [
+          1.7130234241485596,
+          1.7101726531982422,
+          -2.802713394165039
+        ],
+        "maximumRadiance": 1.275282859802246,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "front",
+        "file": "front-flash.webp",
+        "bytes": 531486,
+        "offset": [
+          0,
+          0,
+          -0.2
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.655283808708191,
+          1.777602195739746,
+          -2.5690054893493652,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "flashPosition": [
+          1.655283808708191,
+          1.777602195739746,
+          -2.5690054893493652
+        ],
+        "maximumRadiance": 0.8522028923034668,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      },
+      {
+        "id": "back",
+        "file": "back-flash.webp",
+        "bytes": 534410,
+        "offset": [
+          0,
+          0,
+          0.2
+        ],
+        "cameraMatrix": [
+          -0.9708108305931091,
+          -2.389128006541341e-08,
+          -0.2398473471403122,
+          0,
+          -0.08682212978601456,
+          0.9321824908256531,
+          0.3514229655265808,
+          0,
+          0.2235814481973648,
+          0.36198896169662476,
+          -0.9049726128578186,
+          0,
+          1.7447162866592407,
+          1.9223978519439697,
+          -2.9309945106506348,
+          1
+        ],
+        "cameraMatrixVerification": "Actual captured camera matrix",
+        "near": 0.05000000074505806,
+        "flashPosition": [
+          1.7447162866592407,
+          1.9223978519439697,
+          -2.9309945106506348
+        ],
+        "maximumRadiance": 1.2818189859390259,
+        "clampedChannels": 0,
+        "negativeChannels": 0
+      }
+    ],
+    "encoding": {
+      "type": "log2-rgb",
+      "min": -16,
+      "max": 12,
+      "losslessContainer": "WebP",
+      "maximumChannelQuantizationEV": 0.054901960784313725,
+      "sourceMaximumRadiance": 1.4561078548431396
+    },
+    "totalBytes": 3714522
+  },
+  "initialWithSubjectBytes": 3232074,
+  "defaults": {
+    "focus": 4,
+    "baseEV": 8
+  },
+  "defaultsEvidence": {
+    "focus": "Source axial-Z teaching subject: foreground books, window-side chair, or mid-room desk row respectively.",
+    "baseEV": "Same original classroom lighting; new background sky branch is camera-only, not an illumination change."
+  },
+  "sourceProvenance": {
+    "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/classroom/classroom.blend",
+    "originalSha256": "5c526ea3f280566e80253673c9955640527cd0f247ea41b1742620b5bc39f7a4",
+    "originalAuthor": "Christophe Seux",
+    "license": "CC0",
+    "derivations": [
+      {
+        "type": "duplicate-source-prop",
+        "sourceObject": "beigeBook",
+        "newObject": "TeachingProps_beigeBook",
+        "translation": [
+          -0.30000001192092896,
+          -3.869999885559082,
+          -0.012000000104308128
+        ],
+        "position": [
+          1.5295734405517578,
+          -2.3436686992645264,
+          0.803048312664032
+        ],
+        "collection": "beigeBook"
+      },
+      {
+        "type": "duplicate-source-prop",
+        "sourceObject": "leatherBook",
+        "newObject": "TeachingProps_leatherBook",
+        "translation": [
+          -0.30000001192092896,
+          -3.869999885559082,
+          -0.012000000104308128
+        ],
+        "position": [
+          1.525892972946167,
+          -2.3436295986175537,
+          0.8199940323829651
+        ],
+        "collection": "leatherBook"
+      },
+      {
+        "type": "duplicate-source-prop",
+        "sourceObject": "zapBook",
+        "newObject": "TeachingProps_zapBook",
+        "translation": [
+          -0.30000001192092896,
+          -3.869999885559082,
+          -0.012000000104308128
+        ],
+        "position": [
+          1.535264253616333,
+          -2.3689842224121094,
+          0.8366289734840393
+        ],
+        "collection": "zapBook"
+      },
+      {
+        "type": "duplicate-source-prop",
+        "sourceObject": "pencil",
+        "newObject": "TeachingProps_pencil",
+        "translation": [
+          -0.30000001192092896,
+          -3.869999885559082,
+          -0.012000000104308128
+        ],
+        "position": [
+          1.5507619380950928,
+          -2.5855660438537598,
+          0.8073400259017944
+        ],
+        "collection": "pencil"
+      },
+      {
+        "type": "duplicate-source-prop",
+        "sourceObject": "plasticGoldPen",
+        "newObject": "TeachingProps_plasticGoldPen",
+        "translation": [
+          -0.30000001192092896,
+          -3.869999885559082,
+          -0.012000000104308128
+        ],
+        "position": [
+          1.6750340461730957,
+          -2.5433642864227295,
+          0.8091428279876709
+        ],
+        "collection": "plasticGoldPen"
+      },
+      {
+        "type": "duplicate-source-prop",
+        "sourceObject": "rotring",
+        "newObject": "TeachingProps_rotring",
+        "translation": [
+          -0.30000001192092896,
+          -3.869999885559082,
+          -0.012000000104308128
+        ],
+        "position": [
+          1.6041467189788818,
+          -2.576835870742798,
+          0.8092834949493408
+        ],
+        "collection": "rotring"
+      },
+      {
+        "type": "camera-only-source-sky",
+        "sourceMaterial": "dayLight_portal",
+        "skyType": "HOSEK_WILKIE",
+        "strength": 20.0,
+        "illumination": "Original non-camera world and emitter unchanged",
+        "depth": "Background remains infinity; no new occluding geometry"
+      }
+    ],
+    "prepareScriptSha256": "2b3f9501fc8334e8395aa7a79f556859406d4c6f930a901a46b6c2d2456d4916",
+    "cameraSkyScriptSha256": "ac70e723302f7620f734284561b8cfd2e68036959816824d4f5f31fb9b121514",
+    "sourceGeometryLighting": "Original furniture, room, materials and light parameters unchanged; new source-prop copies and camera-only world documented."
+  },
+  "captureQuality": {
+    "center": {
+      "width": 5120,
+      "height": 2880,
+      "samples": 256
+    },
+    "neighbors": {
+      "width": 4096,
+      "height": 2304,
+      "samples": 32
+    },
+    "base": {
+      "width": 2560,
+      "height": 1440,
+      "centerSourceSamples": 256,
+      "neighborSamples": 32,
+      "centerMethod": "Area-average the matching 5120px/256spp scene-linear EXR before log2 encoding"
+    },
+    "baseDepth": {
+      "width": 1280,
+      "height": 720,
+      "samples": 1
+    },
+    "detailDepth": {
+      "width": 2048,
+      "height": 1152,
+      "samples": 1
+    },
+    "flash": {
+      "width": 1280,
+      "height": 720,
+      "samples": 32
+    },
+    "denoiser": "OpenImageDenoise HIGH/ACCURATE; full-frame"
+  }
+}

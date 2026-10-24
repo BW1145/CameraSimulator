@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "decision": "User cancelled the character experiment; only approved unoccupied classroom sources may enter v2.",
+  "verifiedAt": "2026-10-23T21:40:56Z",
+  "rigs": [
+    {
+      "id": "desk",
+      "sourceSha256": "418ca50f91e4607d988684e9d2df4cdc555f573b02c66a134aa6cc3a4cb1ed3e",
+      "previewSha256": "fe07f0854e11351bfce5b4bc1ee83ddfaadeac228316ec241ce60b5bb7b3b5d8",
+      "previewSourceSha256": "9f9b6649378336743a89ae9027967d51645f22a6594ae1480af1c497b7d64782",
+      "previewReportSha256": "0a65daff5a58661754ee87f2ae7fca7ed5e9ccfdcc021ba1ac833c94bf76f9c1",
+      "referenceFocal": 20
+    },
+    {
+      "id": "window",
+      "sourceSha256": "964d6dc1c45320375b5e0622d0cf886cac7f2228460ac1b134e080baedecaf48",
+      "previewSha256": "0f9da8b744da47614cfda760e934030db899b6e54b9c1a2353deff1d9b47e777",
+      "previewSourceSha256": "3fdf721977489b19ea9ec975854ea25ff3304fcf9a7742938e9233afce59389d",
+      "previewReportSha256": "fc4940114789b8e12712c19e59de83290f086ea0f38d99a18e79d17016b2700e",
+      "referenceFocal": 23.4375
+    }
+  ]
+}

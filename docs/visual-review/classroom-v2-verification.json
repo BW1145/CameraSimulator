@@ -1,0 +1,195 @@
+{
+  "version": 2,
+  "verifiedAt": "2026-10-24T04:12:05.795545+00:00",
+  "scope": "Complete local v2 working-tree integration; final assets and changes not committed, no GitHub writes, no browser execution",
+  "branch": "feature/classroom-approved-views",
+  "preparationHead": "a9bcecfa722f35ab23b521d9c5a464d7ebb02559",
+  "v1CompleteCommit": "817e28d6b7f22b4607505c9e9ebf80ae7d768b46",
+  "originalMainBase": "c21f497f930978ab84417f936283eb1586e1b56e",
+  "delivery": {
+    "path": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-viewpoint-revision-v2-20261023/outputs/delivery.json",
+    "bytes": 14782,
+    "sha256": "27f688b8def3c408f1b3a63e23cabcb7a42d9b72c7d20ab5ef8b73e36c0cc71f"
+  },
+  "rigSpec": {
+    "path": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-viewpoint-revision-v2-20261023/rig-config.json",
+    "bytes": 48152,
+    "sha256": "f3bac8e1b54d02db834bb12a072f5613342585c221d297a988dab9a00b47b1df"
+  },
+  "runtimeReceipt": {
+    "path": "docs/visual-review/classroom-viewpoints-delivery.json",
+    "bytes": 69700,
+    "sha256": "04e54d210c0aec36193a8e4fd3f9c733de161276fa8dfe59bf888d9469d2ebac"
+  },
+  "archivedV1Receipt": {
+    "path": "docs/visual-review/classroom-viewpoints-v1-delivery.json",
+    "bytes": 23474,
+    "sha256": "5ebbaf570d96933a902e6790061abcbfdd28278d7004bc119268aff578f34dc5"
+  },
+  "packs": [
+    {
+      "id": "classroom-desk",
+      "revision": 2,
+      "runtimeFiles": 36,
+      "images": 35,
+      "imageBytes": 71763971,
+      "totalBytes": 71891811,
+      "sourceSha256": "418ca50f91e4607d988684e9d2df4cdc555f573b02c66a134aa6cc3a4cb1ed3e",
+      "referenceFocal": 20,
+      "defaults": {
+        "focus": 0.45,
+        "baseEV": 8
+      }
+    },
+    {
+      "id": "classroom-window",
+      "revision": 2,
+      "runtimeFiles": 36,
+      "images": 35,
+      "imageBytes": 58150237,
+      "totalBytes": 58242660,
+      "sourceSha256": "964d6dc1c45320375b5e0622d0cf886cac7f2228460ac1b134e080baedecaf48",
+      "referenceFocal": 23.4375,
+      "defaults": {
+        "focus": 1.6,
+        "baseEV": 8
+      }
+    },
+    {
+      "id": "classroom-teacher",
+      "revision": 1,
+      "runtimeFiles": 36,
+      "images": 35,
+      "imageBytes": 80078911,
+      "totalBytes": 80140206,
+      "sourceSha256": "3fdf721977489b19ea9ec975854ea25ff3304fcf9a7742938e9233afce59389d",
+      "referenceFocal": 23.625,
+      "defaults": {
+        "focus": 4,
+        "baseEV": 8
+      }
+    }
+  ],
+  "allPackBytes": 210274677,
+  "allImageBytes": 209993119,
+  "newTwoPackBytes": 130134471,
+  "newTwoImageBytes": 129914208,
+  "checks": {
+    "unitTests": {
+      "command": "npm test",
+      "total": 126,
+      "passed": 125,
+      "skipped": 1,
+      "failed": 0,
+      "skipReason": "Existing independent ExifTool check; ExifTool not installed"
+    },
+    "assetAudit": {
+      "passed": true,
+      "command": "npm run audit:assets",
+      "scenes": 7,
+      "classroomReceiptFiles": 108
+    },
+    "allViewAudit": {
+      "passed": true,
+      "command": "node tools/audit-scene-plates.mjs <all seven pack directories>",
+      "packs": 7
+    },
+    "runtimeMath": {
+      "passed": true,
+      "realDepthImages": 42,
+      "generalFocusChecks": 126,
+      "approvedCoverChecks": 2,
+      "deskCoverCameraZ": [
+        0.4531318989447396,
+        0.454108476313155
+      ],
+      "deskDefaultFocus": 0.45,
+      "fixedEnergyFlashChecks": 63,
+      "jpegPngMetadataCarriers": 6
+    },
+    "build": {
+      "passed": true,
+      "command": "node tools/build-linked-assets.mjs",
+      "compilerFiles": 6,
+      "staticFiles": 641,
+      "staticBytesNotDuplicated": 554337192,
+      "recipe": "Normal Vite build, base ./, copyPublicDir false; exact ordinary static list linked and verified by bytes/SHA/inode",
+      "postBuildDocumentationRelink": {
+        "path": "ASSETS.md",
+        "method": "Atomic source replacement and unlink/link destination; source and dist bytes/hash/inode rechecked; compiler outputs unchanged"
+      },
+      "existingWarning": "Large JS chunk advisory",
+      "newDeliveryMatchesSourcePublicDist": 72
+    },
+    "linkImport": {
+      "passed": true,
+      "frozenImagesSharedInode": 70,
+      "independentlyCopiedManifests": 2,
+      "teacherUnchanged": true,
+      "originalFourScenesUnchanged": true,
+      "oldV1WorktreeCommitUnchanged": true,
+      "review": "Separate read-only reviewer passed hardlink/build/rollback paths"
+    },
+    "visualSourceReview": {
+      "approvedPreviewCount": 2,
+      "formalCenterCount": 2,
+      "revisedDetailAndFlashViewsOnContactSheets": 28,
+      "deliveredDepthViewsOnContactSheets": 28,
+      "scope": "Source/pack imagery, not browser screenshots",
+      "depthNotes": "Consistent silhouettes/occlusion, base and detail correspondence; nearby desk/books are blue in the 0–8m color scale, not missing depth"
+    },
+    "browser": {
+      "executed": false,
+      "status": "Pending authorized CI/browser; earlier local execution denial not retried or bypassed",
+      "notEstablished": [
+        "WebGL rendering",
+        "interactive UI scene switches",
+        "network/lazy-loading races",
+        "real browser photo downloads"
+      ]
+    },
+    "publication": {
+      "pushed": false,
+      "merged": false,
+      "deployed": false,
+      "largeGitObjectsWritten": false,
+      "status": "Final asset commit deferred to reserve disk for the next authorized render"
+    }
+  },
+  "opticalBoundary": "Native approved framing preserved by real extra 1.2x overscan. Approved source JPEG is pinhole; normal simulator DOF and freely adjustable focus remain enabled.",
+  "logs": [
+    {
+      "path": "/tmp/classroom-v2-readonly-gate.log",
+      "bytes": 742,
+      "sha256": "8969679c09aeeab51a22658fb54bbb9630b80db27e8b072843652fe0a2ee88ec"
+    },
+    {
+      "path": "/tmp/classroom-v2-link-import.log",
+      "bytes": 742,
+      "sha256": "8969679c09aeeab51a22658fb54bbb9630b80db27e8b072843652fe0a2ee88ec"
+    },
+    {
+      "path": "/tmp/classroom-v2-tests-final.log",
+      "bytes": 11304,
+      "sha256": "3029876a4459f1612bc46f98d72875712c965e7d557ade29b3a806084e9b7e88"
+    },
+    {
+      "path": "/tmp/classroom-v2-assets.log",
+      "bytes": 3187,
+      "sha256": "9759fd814e7371959ef4808285bd71a18e87ab98df31459ee345ea7f402e6fe2"
+    },
+    {
+      "path": "/tmp/classroom-v2-positions.log",
+      "bytes": 8833,
+      "sha256": "bd92066d9e59238b51df846cfb15b9fdab7dd431d982f442e9e9cb039fc753c3"
+    },
+    {
+      "path": "/tmp/classroom-v2-linked-build.log",
+      "bytes": 836,
+      "sha256": "b64c643766f58079ccc367a54d250943dd90d727b1dbcee234df262f93a13366"
+    }
+  ],
+  "externalVisualEvidence": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-viewpoint-revision-v2-20261023/outputs/final-review/delivered-depth-review.json",
+  "freeBytesAtSlotRelease": 4163821568,
+  "inventory": "Local .assets-cache/v2-working-delivery.json and v2-head-tree.txt; uncommitted working-tree inventory is distinct from committed HEAD tree"
+}

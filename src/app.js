@@ -1,6 +1,6 @@
 import './style.css';
 import {APERTURES,SHUTTERS,ISOS,DEFAULTS,clamp,ev100,resolveExposure,formatShutter,meterLinearPixels,histogram} from './camera.js';
-import {SCENES} from './scenes.js';
+import {scenesForRenderer,sceneDefaults} from './scenes.js';
 import {Renderer} from './renderer.js';
 import {PlateRenderer} from './plate-renderer.js';
 import {previewSize,captureSize} from './render-size.js';
@@ -17,8 +17,9 @@ const photos=installPhotoReview({button:$('review-photos'),onError:error=>{$('hi
 let photoSequence=0;
 let renderer;
 const usePlates=new URLSearchParams(location.search).get('renderer')!=='gltf';
+const scenes=scenesForRenderer(usePlates);
 try{renderer=usePlates?new PlateRenderer(canvas):new Renderer(canvas);}catch(error){loading.textContent=error.message;}
-let s={...DEFAULTS},scene=SCENES[0],resolved=resolveExposure(s,8),meterEV=8;
+let s={...DEFAULTS},scene=scenes[0],resolved=resolveExposure(s,8),meterEV=8;
 const sourceView=new URLSearchParams(location.search).get('view')==='source';
 if(sourceView||usePlates){
   $('crop').add(new Option('原始画幅','native'));
@@ -51,7 +52,7 @@ async function changePosition(){
     const retry=document.createElement('button');retry.textContent='重新加载';retry.onclick=changePosition;loading.append(retry);
   }
 }
-for(const item of SCENES)$('scene').add(new Option(item.name,item.id));
+for(const item of scenes)$('scene').add(new Option(item.name,item.id));
 
 function discardDisplayedFrame(promotion=false){
   renderer?.analysisReadback.invalidate();
@@ -136,11 +137,11 @@ async function loadScene(id){
   if(!renderer)return;
   ++positionVersion;
   const version=++loadVersion;discardDisplayedFrame();ready=false;canvas.dataset.ready='false';loading.hidden=false;loading.textContent='正在加载完整场景…';$('capture').disabled=true;
-  const next=SCENES.find(item=>item.id===id);
+  const next=scenes.find(item=>item.id===id);
   try{
     const loaded=await renderer.load(next,(bytes,total)=>{if(version===loadVersion)loading.textContent=total?`正在加载${next.name} ${Math.round(bytes/total*100)}%`:`正在加载${next.name} ${(bytes/1048576).toFixed(1)} MB`;});
     if(!loaded||version!==loadVersion)return;
-    scene=next;s.focus=scene.focus;s.focal=renderer.plateMode?Math.max(renderer.pack.referenceFocal,renderer.pack.minimumFocal||0):sourceView&&scene.id==='barbershop'?18.8027323:scene.focal;clock=0;resetView();resize();ready=true;loading.hidden=true;$('capture').disabled=false;
+    scene={...next,...sceneDefaults(next,renderer.plateMode?renderer.pack:null)};renderer.scene=scene;s.focus=scene.focus;s.focal=renderer.plateMode?Math.max(renderer.pack.referenceFocal,renderer.pack.minimumFocal||0):sourceView&&scene.id==='barbershop'?18.8027323:scene.focal;clock=0;resetView();resize();ready=true;loading.hidden=true;$('capture').disabled=false;
     for(const key of ['x','y','z','yaw','pitch','roll']){
       const bounds=renderer.plateMode?{min:renderer.pack.bounds[key][0],max:renderer.pack.bounds[key][1],step:key==='y'?.2:['x','z'].includes(key)?.3:1}:originalBounds[key];
       if(renderer.plateMode){const axis=['x','y','z'].indexOf(key);if(axis>=0){const values=renderer.pack.views.map(v=>v.offset[axis]*(key==='z'?-1:1));bounds.min=Math.min(...values);bounds.max=Math.max(...values);bounds.step=Math.min(...values.filter(v=>v!==0).map(Math.abs));}}

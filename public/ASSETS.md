@@ -24,3 +24,29 @@ Legacy glTF changes: limit subdivision, simplify large meshes, retain diffuse im
 Original `Images/` renders and fan animation: Leonardo C. Bottaro (leocb), 2023, derived from the Blender barbershop scene. Original application: [leocb/CameraSimulator](https://github.com/leocb/CameraSimulator), MIT, copyright Leo Bottaro. Existing source and notices are retained.
 
 The camera practice ball is a procedural sphere created by this application's code. Three.js and its bundled Meshopt decoder are MIT licensed; see `licenses/`. Vite and glTF Transform are development tools. The [Stillframe source](https://github.com/Lian0123/camera-simulator/tree/897c62af63f792c237f0973d5009a03b80f0ac2b) informed selected control interactions: focus placement, exposure compensation and crop controls. The new camera and renderer modules are implemented independently for this project.
+
+
+Additional classroom photographic viewpoints: `classroom-desk-plates`,
+`classroom-window-plates` and `classroom-teacher-plates` are CC0 derivatives of
+Christophe Seux's Classroom. They use new unit-scale source cameras, source book
+and pen copies for the foreground teaching subject, and a camera-ray-only sky
+branch that does not change scene illumination or introduce occluding geometry.
+The original classroom panorama and GLB remain unchanged. Each new manifest records
+both the original source hash and derived source hash, the exact object translations,
+source optics, seven real camera poses and layer-specific render quality. The approved student-seat and window centers use independent derived sources
+and real additional 1.2× overscan: 6144×3456 / 256-sample centers supply whole-frame
+linear-downsampled 5120×2880 detail and 2560×1440 base images. The teacher retains
+its original 5120×2880 / 256-sample center. The six neighboring views use 32 samples. Base/depth/detail/flash assets preserve
+the source CC0 attribution. No new GLB conversion is claimed or required.
+
+
+Additional kitchen photographic viewpoints: `kitchen-pastry-plates` and
+`kitchen-tea-plates` are camera-only adaptations of Nicole Morena's Cozy Kitchen /
+Bakery source, retaining CC BY-SA, with these adaptations under CC BY-SA 4.0.
+Original geometry, materials, lights and world are unchanged; the new native
+perspective camera is added without replacing the original orthographic camera.
+The source hashes and approved capture poses are recorded independently for each
+rig. Each center is captured at 6144×3456 / 256 samples with actual extra 1.2×
+overscan, then linearly downsampled as a whole to runtime detail/base. Neighbor
+captures, axial Z and isolated flash are real matched source captures. No new
+GLB conversion or equivalence to the original GLB's cameras is claimed.

@@ -1,0 +1,2024 @@
+{
+  "version": 2,
+  "previousReceipt": {
+    "path": "docs/visual-review/classroom-viewpoints-v1-delivery.json",
+    "sha256": "5ebbaf570d96933a902e6790061abcbfdd28278d7004bc119268aff578f34dc5"
+  },
+  "deliverySha256": "27f688b8def3c408f1b3a63e23cabcb7a42d9b72c7d20ab5ef8b73e36c0cc71f",
+  "packs": [
+    {
+      "id": "classroom-desk",
+      "revision": 2,
+      "sourceSha256": "418ca50f91e4607d988684e9d2df4cdc555f573b02c66a134aa6cc3a4cb1ed3e",
+      "files": {
+        "right-detail-depth.png": {
+          "bytes": 645543,
+          "sha256": "d91690f537526e15c700eb317bb2978688b97470b1729edd70e4a773a73d742b"
+        },
+        "back.webp": {
+          "bytes": 2591084,
+          "sha256": "6c390068c682e38770587353f0a395ae4a9918b5fbeb364715f1dc823259c3ca"
+        },
+        "left-detail-depth.png": {
+          "bytes": 618638,
+          "sha256": "0cd1a18c564c1d36d11720458ce97c65cebfedd902f8838e3ff579ba74912f70"
+        },
+        "down.webp": {
+          "bytes": 2530838,
+          "sha256": "b522f3a7fc988c7d0e2b4455c703bbb1c046bdeffac0c0caccf02f0f9a7ab764"
+        },
+        "back-detail-depth.png": {
+          "bytes": 654684,
+          "sha256": "8f9922fafee4996c885e5f73ca0ce550abfb6bea2f117c9c0f412508850879a5"
+        },
+        "back-depth.png": {
+          "bytes": 329881,
+          "sha256": "660b8e30c8fa22f60dd9922a8e6386e96c8737b24c69d3532ff7a435c8a67ce9"
+        },
+        "front-flash.webp": {
+          "bytes": 517930,
+          "sha256": "0f965577c813ac873f6e7350348b1cb51a6720ddc7cb6d477442c1ea28d27fec"
+        },
+        "center-flash.webp": {
+          "bytes": 524662,
+          "sha256": "53fb0e44d1ac41e5e9c5e2fb23fdefbb850330750ca7fe49b209562230e02d7e"
+        },
+        "left.webp": {
+          "bytes": 2582482,
+          "sha256": "6fdd1a40c6ea24fc1a5c9d082b9e9d5349362e651de4a7a57452c832a27529d3"
+        },
+        "down-depth.png": {
+          "bytes": 305801,
+          "sha256": "12496f075e3e2f0b6f06202ebda81abae7c6ce3b5104cbff93e146c2274c518b"
+        },
+        "right-detail.webp": {
+          "bytes": 5606966,
+          "sha256": "205d433e056d9a37df992018ca2ab7dcedb3dc87ad82a8850e46d7d32c457ce3"
+        },
+        "center.webp": {
+          "bytes": 2576238,
+          "sha256": "83195b1bd31728f4f7870255407e4265dd883aaecb601a9db0a22a1e73e8715c"
+        },
+        "manifest.json": {
+          "bytes": 127840,
+          "sha256": "30217da5ebd539568817ee0cf002b4ab8150aafedd32bf325f0e4784a1e5f155"
+        },
+        "front-depth.png": {
+          "bytes": 310058,
+          "sha256": "bb6a89fd2e7557c22038b0fe169c023cb10a2c18462ead4ad5ee84fab43999c6"
+        },
+        "center-detail.webp": {
+          "bytes": 8164168,
+          "sha256": "16f974dcdf569d0b0b87276b5372776257c713b8e25e54af31cb228533ed2084"
+        },
+        "left-depth.png": {
+          "bytes": 311652,
+          "sha256": "6cee9e80cc04a0d6eebcad568deadcaf50f23d35e1f019301e5a43e08d6925de"
+        },
+        "back-detail.webp": {
+          "bytes": 6107418,
+          "sha256": "4374c1c63572cbf6bbf51da441748e5719942f1715fa27a381193e5dce2becd3"
+        },
+        "up-detail-depth.png": {
+          "bytes": 666764,
+          "sha256": "dfd1464cf1bea78383441a25bfbb2929d81d1dd62421106b4f8ad827e5b4e0f5"
+        },
+        "right.webp": {
+          "bytes": 2522500,
+          "sha256": "c270c6e64508a072dea7fb3fbeca7ebf2aa63dd70a68016c60eb3543ea7168b3"
+        },
+        "right-depth.png": {
+          "bytes": 324805,
+          "sha256": "e7be1206c748c81fbcab38f95d9e9c53b1d341cedc3adbdb2b829fb9b87c2247"
+        },
+        "up-depth.png": {
+          "bytes": 336095,
+          "sha256": "9f761d2049e5ba146733c1755105e96c06e75dddc49dd501b722c3944ef68ad7"
+        },
+        "front.webp": {
+          "bytes": 2509972,
+          "sha256": "ed31205a59dcd990c1aec124dde97349a1ed9dfd8e02f8ff309aaf187a6b756d"
+        },
+        "down-detail.webp": {
+          "bytes": 5612214,
+          "sha256": "b1dd8f75a3ff70e5865e46f4c11f1897c52b4a2e183a5f93c571d4be2874fa5b"
+        },
+        "front-detail-depth.png": {
+          "bytes": 618296,
+          "sha256": "54d44c3fc1af5ddc7810caf0677d487edb486db2520e5af360213a3b112ed8d8"
+        },
+        "up-detail.webp": {
+          "bytes": 6063776,
+          "sha256": "de1998b4dba41b8ce0379599cf61d348a9dfe47aefc699469e7e9e74622d5478"
+        },
+        "back-flash.webp": {
+          "bytes": 534672,
+          "sha256": "581d6d8e66b9043f3f1573e0835eca2348e2f10beb1505cd790f193b2416bdae"
+        },
+        "down-flash.webp": {
+          "bytes": 513316,
+          "sha256": "3839796ecde6cfb4f5aba4a02839861d00c701b22b755892856320b334968f34"
+        },
+        "front-detail.webp": {
+          "bytes": 5883812,
+          "sha256": "7928b90d5ae66007f473d67a5c4f36262dabd1c31e4b9047c9918fb225270d77"
+        },
+        "up-flash.webp": {
+          "bytes": 536468,
+          "sha256": "5d633aea79d85bf52d91f94d9e1c2e1548cd1ba2c10383809f419ea545df3423"
+        },
+        "up.webp": {
+          "bytes": 2575596,
+          "sha256": "e207067fc61d9c7c53e28a8ccadb3e78fd4fc35a2490c2547da6a33a37b93fae"
+        },
+        "down-detail-depth.png": {
+          "bytes": 606638,
+          "sha256": "36dc5a4051064d7dd1921559226958374e8cc5933a6163a3ad34a74e1c11bfff"
+        },
+        "right-flash.webp": {
+          "bytes": 521798,
+          "sha256": "daf83392894233321dbd7a7e193d6833deb70dd19eabde7773e586f90f9beed6"
+        },
+        "left-flash.webp": {
+          "bytes": 515632,
+          "sha256": "eb67ffac52c05fcfd9161ad809df5e4453e03bf4841a40fd45295e0cf9dd3ec6"
+        },
+        "left-detail.webp": {
+          "bytes": 6087686,
+          "sha256": "eb20b76067b35cad520f5e14420939cba0f6621236d27e37f4178a641292fa48"
+        },
+        "center-depth.png": {
+          "bytes": 320089,
+          "sha256": "ecf238cf2233c86d1f54fcc1c5dbf7b9375ade6a9d50b81581b10d2df7524864"
+        },
+        "center-detail-depth.png": {
+          "bytes": 635799,
+          "sha256": "0f46cae923296be5992268045124cb6448982c058500e095e358b9271fa10cbc"
+        }
+      },
+      "rig": {
+        "id": "desk",
+        "camera": "RevisionNative_desk",
+        "position": [
+          1.423120379447937,
+          -2.758755922317505,
+          1.03000009059906
+        ],
+        "target": [
+          1.363201139885725,
+          1.2407952630944643,
+          0.04750585673975738
+        ],
+        "lens": 17.77777777777778,
+        "captureLens": 14.814814814814815,
+        "sensorWidth": 32,
+        "sensorHeight": 18,
+        "sensorFit": "AUTO",
+        "near": 0.05,
+        "far": 100,
+        "aspect": 1.7777777777777777,
+        "nativeResolution": [
+          5120,
+          2880
+        ],
+        "shiftX": 0,
+        "shiftY": 0,
+        "offsets": {
+          "center": [
+            0,
+            0,
+            0
+          ],
+          "left": [
+            -0.1,
+            0,
+            0
+          ],
+          "right": [
+            0.1,
+            0,
+            0
+          ],
+          "up": [
+            0,
+            0.08,
+            0
+          ],
+          "down": [
+            0,
+            -0.08,
+            0
+          ],
+          "front": [
+            0,
+            0,
+            -0.1
+          ],
+          "back": [
+            0,
+            0,
+            0.1
+          ]
+        },
+        "bounds": {
+          "x": [
+            -0.1,
+            0.1
+          ],
+          "y": [
+            -0.08,
+            0.08
+          ],
+          "z": [
+            -0.1,
+            0.1
+          ],
+          "yaw": [
+            -35,
+            35
+          ],
+          "pitch": [
+            -20,
+            20
+          ],
+          "roll": [
+            -5,
+            5
+          ]
+        },
+        "matrix": [
+          [
+            0.9998878240585327,
+            -0.003573185298591852,
+            0.014547403901815414,
+            1.423120379447937
+          ],
+          [
+            0.01497980672866106,
+            0.23850665986537933,
+            -0.971025288105011,
+            -2.758755922317505
+          ],
+          [
+            9.296153846705124e-10,
+            0.9711342453956604,
+            0.23853342235088348,
+            1.03000009059906
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "defaults": {
+          "focus": 0.45,
+          "baseEV": 8
+        },
+        "referenceFocal": 20,
+        "approvedComposition": {
+          "version": 1,
+          "referenceFocal": 20,
+          "aspect": 1.7777777777777777,
+          "overscan": 1.2,
+          "preview": {
+            "sha256": "fe07f0854e11351bfce5b4bc1ee83ddfaadeac228316ec241ce60b5bb7b3b5d8",
+            "width": 1280,
+            "height": 720,
+            "sourceSha256": "9f9b6649378336743a89ae9027967d51645f22a6594ae1480af1c497b7d64782",
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-desk-reframe-20261023/review-seated-style-v7/图1-抬头露出字母条-最终低清1280x720.jpg",
+            "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-desk-reframe-20261023/source/classroom-seated-styled-v6.blend",
+            "sourceReportSha256": "0a65daff5a58661754ee87f2ae7fca7ed5e9ccfdcc021ba1ac833c94bf76f9c1",
+            "captureLens": 17.77777862548828,
+            "sensorWidth": 32,
+            "sourceReportPath": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-desk-reframe-20261023/seated-style-v7/qc-color/report.json"
+          },
+          "captureFrame": {
+            "width": 6144,
+            "height": 3456
+          },
+          "nativeFrame": {
+            "width": 5120,
+            "height": 2880
+          },
+          "nativeCrop": {
+            "left": 512,
+            "top": 288,
+            "width": 5120,
+            "height": 2880
+          }
+        },
+        "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-viewpoint-revision-v2-20261023/source/classroom-desk-approved-native-v2.blend",
+        "sourceSha256": "418ca50f91e4607d988684e9d2df4cdc555f573b02c66a134aa6cc3a4cb1ed3e",
+        "sourceScene": "_mainScene",
+        "sourceProvenance": {
+          "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/classroom/classroom.blend",
+          "originalSha256": "5c526ea3f280566e80253673c9955640527cd0f247ea41b1742620b5bc39f7a4",
+          "originalAuthor": "Christophe Seux",
+          "license": "CC0",
+          "derivations": [
+            {
+              "type": "duplicate-source-prop",
+              "sourceObject": "beigeBook",
+              "newObject": "TeachingProps_beigeBook",
+              "translation": [
+                -0.30000001192092896,
+                -3.869999885559082,
+                -0.012000000104308128
+              ],
+              "position": [
+                1.5295734405517578,
+                -2.3436686992645264,
+                0.803048312664032
+              ],
+              "collection": "beigeBook"
+            },
+            {
+              "type": "duplicate-source-prop",
+              "sourceObject": "leatherBook",
+              "newObject": "TeachingProps_leatherBook",
+              "translation": [
+                -0.30000001192092896,
+                -3.869999885559082,
+                -0.012000000104308128
+              ],
+              "position": [
+                1.525892972946167,
+                -2.3436295986175537,
+                0.8199940323829651
+              ],
+              "collection": "leatherBook"
+            },
+            {
+              "type": "duplicate-source-prop",
+              "sourceObject": "zapBook",
+              "newObject": "TeachingProps_zapBook",
+              "translation": [
+                -0.30000001192092896,
+                -3.869999885559082,
+                -0.012000000104308128
+              ],
+              "position": [
+                1.535264253616333,
+                -2.3689842224121094,
+                0.8366289734840393
+              ],
+              "collection": "zapBook"
+            },
+            {
+              "type": "duplicate-source-prop",
+              "sourceObject": "pencil",
+              "newObject": "TeachingProps_pencil",
+              "translation": [
+                -0.30000001192092896,
+                -3.869999885559082,
+                -0.012000000104308128
+              ],
+              "position": [
+                1.5507619380950928,
+                -2.5855660438537598,
+                0.8073400259017944
+              ],
+              "collection": "pencil"
+            },
+            {
+              "type": "duplicate-source-prop",
+              "sourceObject": "plasticGoldPen",
+              "newObject": "TeachingProps_plasticGoldPen",
+              "translation": [
+                -0.30000001192092896,
+                -3.869999885559082,
+                -0.012000000104308128
+              ],
+              "position": [
+                1.6750340461730957,
+                -2.5433642864227295,
+                0.8091428279876709
+              ],
+              "collection": "plasticGoldPen"
+            },
+            {
+              "type": "duplicate-source-prop",
+              "sourceObject": "rotring",
+              "newObject": "TeachingProps_rotring",
+              "translation": [
+                -0.30000001192092896,
+                -3.869999885559082,
+                -0.012000000104308128
+              ],
+              "position": [
+                1.6041467189788818,
+                -2.576835870742798,
+                0.8092834949493408
+              ],
+              "collection": "rotring"
+            },
+            {
+              "type": "camera-only-source-sky",
+              "sourceMaterial": "dayLight_portal",
+              "skyType": "HOSEK_WILKIE",
+              "strength": 20,
+              "illumination": "Original non-camera world and emitter unchanged",
+              "depth": "Background remains infinity; no new occluding geometry"
+            }
+          ],
+          "prepareScriptSha256": "2b3f9501fc8334e8395aa7a79f556859406d4c6f930a901a46b6c2d2456d4916",
+          "cameraSkyScriptSha256": "ac70e723302f7620f734284561b8cfd2e68036959816824d4f5f31fb9b121514",
+          "sourceGeometryLighting": "Original furniture, room, materials and light parameters unchanged; new source-prop copies and camera-only world documented.",
+          "supportCorrection": {
+            "artDirection": {
+              "eyeLoweredMeters": 0.08,
+              "hiddenDuplicateProps": [
+                "TeachingProps_leatherBook",
+                "TeachingProps_rotring"
+              ],
+              "changes": "Relative to v4: eye exactly 1cm lower, green pen moved onto bare tabletop along book left edge. All other prop transforms, focal length, and camera orientation unchanged."
+            },
+            "sourceBefore": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-desk-reframe-20261023/source/classroom-desk-reframe-v2.blend",
+            "sourceBeforeSha256": "bc471551fbd2c8e47db13dbe70060c663120fdc76c0d878e21db39e940dda211",
+            "meshMethod": "Evaluated source collection instance triangles in isolated scene; upward raycast finds actual undersides, downward BVH raycast actual tabletop/stack support. Includes all vertex penetration checks. 0.1mm contact tolerance avoids z-fighting.",
+            "placements": [
+              {
+                "object": "TeachingProps_beigeBook",
+                "supports": [
+                  "table"
+                ],
+                "oldMatrix": [
+                  [
+                    0.08631504327058792,
+                    -0.9962678551673889,
+                    0,
+                    1.5295734405517578
+                  ],
+                  [
+                    0.9962678551673889,
+                    0.08631504327058792,
+                    0,
+                    -2.3436686992645264
+                  ],
+                  [
+                    0,
+                    0,
+                    1,
+                    0.803048312664032
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "newMatrix": [
+                  [
+                    0.01985718309879303,
+                    -0.999797523021698,
+                    -0.0032501788809895515,
+                    1.5049083232879639
+                  ],
+                  [
+                    0.998936653137207,
+                    0.01997516117990017,
+                    -0.0415511317551136,
+                    -2.2890841960906982
+                  ],
+                  [
+                    0.04160764068365097,
+                    -0.0024216342717409134,
+                    0.9991310834884644,
+                    0.7973796129226685
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "gridStepMm": 1.5,
+                "trueUndersideSamples": 31208,
+                "unsupportedSamples": 0,
+                "minimumUndersideGapMm": 0.10000000000000286,
+                "medianUndersideGapMm": 0.10035762786865521,
+                "p95UndersideGapMm": 0.10047683715820599,
+                "maximumUndersideGapMm": 16.767723655700685,
+                "minimumAnyVertexGapMm": 0.10017881393432904,
+                "tableNormal": [
+                  -0.003250178648158908,
+                  -0.0415511354804039,
+                  0.9991310238838196
+                ]
+              },
+              {
+                "object": "TeachingProps_zapBook",
+                "supports": [
+                  "table",
+                  "beigeBook"
+                ],
+                "oldMatrix": [
+                  [
+                    0.49712997674942017,
+                    -0.8676760792732239,
+                    0,
+                    1.535264253616333
+                  ],
+                  [
+                    0.8676760792732239,
+                    0.49712997674942017,
+                    0,
+                    -2.3689842224121094
+                  ],
+                  [
+                    0,
+                    0,
+                    1,
+                    0.8366289734840393
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "newMatrix": [
+                  [
+                    0.990594744682312,
+                    -0.1367899775505066,
+                    -0.0032501788809895515,
+                    1.4748225212097168
+                  ],
+                  [
+                    0.1365387886762619,
+                    0.9897629618644714,
+                    -0.0415511317551136,
+                    -2.291057586669922
+                  ],
+                  [
+                    0.008900685235857964,
+                    0.04071655869483948,
+                    0.9991310834884644,
+                    0.8142110109329224
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "gridStepMm": 1.5,
+                "trueUndersideSamples": 13012,
+                "unsupportedSamples": 0,
+                "minimumUndersideGapMm": 0.10000000000000286,
+                "medianUndersideGapMm": 0.1004172325134306,
+                "p95UndersideGapMm": 0.10059604644775677,
+                "maximumUndersideGapMm": 44.69071159362793,
+                "minimumAnyVertexGapMm": 0.10011920928955365,
+                "tableNormal": [
+                  -0.003250178648158908,
+                  -0.0415511354804039,
+                  0.9991310238838196
+                ]
+              },
+              {
+                "object": "TeachingProps_pencil",
+                "supports": [
+                  "table"
+                ],
+                "oldMatrix": [
+                  [
+                    0.06903952360153198,
+                    5.788405132989283e-8,
+                    -0.6562290191650391,
+                    1.5507619380950928
+                  ],
+                  [
+                    -0.6562290191650391,
+                    4.380317619734342e-8,
+                    -0.06903950124979019,
+                    -2.5855660438537598
+                  ],
+                  [
+                    1.6547531345167954e-8,
+                    0.659850537776947,
+                    8.101898174572852e-8,
+                    0.8073400259017944
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "newMatrix": [
+                  [
+                    0.13721038401126862,
+                    -0.0021447010803967714,
+                    0.6454235911369324,
+                    1.3847070932388306
+                  ],
+                  [
+                    0.6448511481285095,
+                    -0.027417561039328575,
+                    -0.13717982172966003,
+                    -2.426631450653076
+                  ],
+                  [
+                    0.027263959869742393,
+                    0.6592772006988525,
+                    -0.003605285892263055,
+                    0.7962346076965332
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "gridStepMm": 1.5,
+                "trueUndersideSamples": 726,
+                "unsupportedSamples": 0,
+                "minimumUndersideGapMm": 0.13385543823242474,
+                "medianUndersideGapMm": 0.9762478828430204,
+                "p95UndersideGapMm": 4.037438130378726,
+                "maximumUndersideGapMm": 4.7839714050293,
+                "minimumAnyVertexGapMm": 0.10000000000000286,
+                "tableNormal": [
+                  -0.003250178648158908,
+                  -0.0415511354804039,
+                  0.9991310238838196
+                ]
+              },
+              {
+                "object": "TeachingProps_plasticGoldPen",
+                "supports": [
+                  "table"
+                ],
+                "oldMatrix": [
+                  [
+                    0.024739069864153862,
+                    -0.13377821445465088,
+                    -0.5658968091011047,
+                    1.6750340461730957
+                  ],
+                  [
+                    0.10290434956550598,
+                    -0.5564619302749634,
+                    0.13604643940925598,
+                    -2.5433642864227295
+                  ],
+                  [
+                    -0.5723167657852173,
+                    -0.10583630949258804,
+                    7.79432340891617e-8,
+                    0.8091428279876709
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "newMatrix": [
+                  [
+                    0.1076369360089302,
+                    -0.5716509819030762,
+                    0.019423216581344604,
+                    1.3291020393371582
+                  ],
+                  [
+                    0.02023719623684883,
+                    0.023557867854833603,
+                    0.5811912417411804,
+                    -2.4528515338897705
+                  ],
+                  [
+                    -0.5716227293014526,
+                    -0.10680823028087616,
+                    0.024233421310782433,
+                    0.7967516183853149
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "gridStepMm": 1.5,
+                "trueUndersideSamples": 1180,
+                "unsupportedSamples": 0,
+                "minimumUndersideGapMm": 0.10143051147461224,
+                "medianUndersideGapMm": 1.9771290779113797,
+                "p95UndersideGapMm": 5.944855308532716,
+                "maximumUndersideGapMm": 8.072002029418949,
+                "minimumAnyVertexGapMm": 0.10000000000000286,
+                "tableNormal": [
+                  -0.003250178648158908,
+                  -0.0415511354804039,
+                  0.9991310238838196
+                ]
+              }
+            ],
+            "seatEye": {
+              "supportingSeatObject": "chair.007 / Box297.002",
+              "eyeWorld": [
+                1.423120379447937,
+                -2.758755922317505,
+                1.040000081062317
+              ],
+              "eyeInChairLocal": [
+                -0.02,
+                -0.19,
+                1.0404461128
+              ],
+              "seatUnderEye": [
+                1.423120379447937,
+                -2.758755922317505,
+                0.514875054359436
+              ],
+              "eyeAboveSeatM": 0.5251250267028809,
+              "backrestYRange": [
+                -2.94309139251709,
+                -2.887939214706421
+              ],
+              "lookDirection": "Chair local +Y with 17-degree natural downward head pitch; no own backrest in front."
+            }
+          },
+          "bookStackRevision": {
+            "sourceBefore": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-desk-reframe-20261023/source/classroom-seated-styled-v5.blend",
+            "sourceBeforeSha256": "8990227fcfe790e98ead02b40874724619ec828c7ff95b2dea8ee9b9b5fa1691",
+            "artDirection": "Remove slab-like beige duplicate. Three compact source-zapBook geometry variants, visible paper pages/spines/curled covers, different thin thicknesses, muted clay/sage and original blue; no external assets or fake text added.",
+            "placements": [
+              {
+                "object": "TeachingProps_textbook_clay",
+                "supports": [
+                  "table"
+                ],
+                "newMatrix": [
+                  [
+                    1.1370223760604858,
+                    0.08225719630718231,
+                    -0.0014950699405744672,
+                    1.4897598028182983
+                  ],
+                  [
+                    -0.08234013617038727,
+                    1.1360353231430054,
+                    -0.01911352574825287,
+                    -2.2994565963745117
+                  ],
+                  [
+                    0.00027440712437964976,
+                    0.047512203454971313,
+                    0.4596002995967865,
+                    0.7970672845840454
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "intentionalModelScale": [
+                  1.14,
+                  1.14,
+                  0.46
+                ],
+                "sourceGeometry": "Original CC0 zapBook cover/spine and pages meshes reused; only proportional dimensions and two plain local cover materials derived.",
+                "gridStepMm": 1.5,
+                "trueUndersideSamples": 16830,
+                "unsupportedSamples": 0,
+                "minimumUndersideGapMm": 0.10000000000000286,
+                "medianUndersideGapMm": 0.10035762786865521,
+                "minimumAnyVertexGapMm": 0.10005960464477826,
+                "worldDimensions": [
+                  0.1855372190475464,
+                  0.23505282402038574,
+                  0.02532273530960083
+                ]
+              },
+              {
+                "object": "TeachingProps_textbook_sage",
+                "supports": [
+                  "table",
+                  "TeachingProps_textbook_clay"
+                ],
+                "newMatrix": [
+                  [
+                    1.0575870275497437,
+                    -0.07139766961336136,
+                    -0.0016250760527327657,
+                    1.4947658777236938
+                  ],
+                  [
+                    0.07119356095790863,
+                    1.056688904762268,
+                    -0.02077557146549225,
+                    -2.2962839603424072
+                  ],
+                  [
+                    0.006401054561138153,
+                    0.0437125600874424,
+                    0.4995655417442322,
+                    0.8126934170722961
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "intentionalModelScale": [
+                  1.06,
+                  1.06,
+                  0.5
+                ],
+                "sourceGeometry": "Original CC0 zapBook cover/spine and pages meshes reused; only proportional dimensions and two plain local cover materials derived.",
+                "gridStepMm": 1.5,
+                "trueUndersideSamples": 14562,
+                "unsupportedSamples": 0,
+                "minimumUndersideGapMm": 0.10000000000000286,
+                "medianUndersideGapMm": 2.6091171264648465,
+                "minimumAnyVertexGapMm": 0.49374828338623333,
+                "worldDimensions": [
+                  0.1715869903564453,
+                  0.216902494430542,
+                  0.026851236820220947
+                ]
+              },
+              {
+                "object": "TeachingProps_zapBook",
+                "supports": [
+                  "table",
+                  "TeachingProps_textbook_clay",
+                  "TeachingProps_textbook_sage"
+                ],
+                "newMatrix": [
+                  [
+                    0.988056480884552,
+                    -0.1540575474500656,
+                    -0.002210103441029787,
+                    1.4898146390914917
+                  ],
+                  [
+                    0.1537918895483017,
+                    0.9872292876243591,
+                    -0.028254777193069458,
+                    -2.291240930557251
+                  ],
+                  [
+                    0.009609912522137165,
+                    0.04055503010749817,
+                    0.6794091463088989,
+                    0.8296274542808533
+                  ],
+                  [
+                    0,
+                    0,
+                    0,
+                    1
+                  ]
+                ],
+                "intentionalModelScale": [
+                  1,
+                  1,
+                  0.68
+                ],
+                "sourceGeometry": "Original CC0 zapBook cover/spine and pages meshes reused; only proportional dimensions and two plain local cover materials derived.",
+                "gridStepMm": 1.5,
+                "trueUndersideSamples": 12982,
+                "unsupportedSamples": 0,
+                "minimumUndersideGapMm": 0.10000000000000286,
+                "medianUndersideGapMm": 2.800567245483401,
+                "minimumAnyVertexGapMm": 0.6905628204345732,
+                "worldDimensions": [
+                  0.17733311653137207,
+                  0.21587371826171875,
+                  0.032958984375
+                ]
+              },
+              {
+                "object": "TeachingProps_pencil",
+                "unchangedFromV5": true,
+                "supports": [
+                  "table"
+                ],
+                "gridStepMm": 1.5,
+                "trueUndersideSamples": 726,
+                "unsupportedSamples": 0,
+                "minimumUndersideGapMm": 0.13375282287597656
+              },
+              {
+                "object": "TeachingProps_plasticGoldPen",
+                "unchangedFromV5": true,
+                "supports": [
+                  "table"
+                ],
+                "gridStepMm": 1.5,
+                "trueUndersideSamples": 1180,
+                "unsupportedSamples": 0,
+                "minimumUndersideGapMm": 0.10126829147338867
+              }
+            ],
+            "hiddenDuplicateProps": [
+              "TeachingProps_beigeBook",
+              "TeachingProps_leatherBook",
+              "TeachingProps_rotring"
+            ],
+            "seatEye": {
+              "eyeWorld": [
+                1.423120379447937,
+                -2.758755922317505,
+                1.03000009059906
+              ],
+              "seatUnderEye": [
+                1.423120379447937,
+                -2.758755922317505,
+                0.514875054359436
+              ],
+              "eyeAboveSeatM": 0.515125036239624,
+              "eyeDeltaZFromV5M": -0.01,
+              "headPitchDegrees": 15.5,
+              "headLiftDegrees": 1.5
+            },
+            "booksSupportMethod": "Evaluated mesh triangles; upward underside and downward tabletop/previous-book BVH rays, every-vertex penetration test; pens additionally checked against every book mesh."
+          },
+          "finalHeadLift": {
+            "sourceUnchangedFromV6": true,
+            "cameraPositionUnchanged": true,
+            "allPropsUnchanged": true,
+            "pitchBeforeDegrees": 15.5,
+            "pitchAfterDegrees": 13.8,
+            "headLiftDegrees": 1.7,
+            "projectionBoundsPixels_xmin_xmax_ymin_ymax": {
+              "lettersPlank": [
+                309.1618083154317,
+                869.3122362872148,
+                7.751053213547987,
+                39.09443483767746
+              ],
+              "lettersPlank.002": [
+                632.3230030367653,
+                694.3500704878635,
+                -28.67333824907778,
+                -1.960805129739489
+              ],
+              "lettersPlank.001": [
+                501.3749729289656,
+                557.0879215316062,
+                -28.092918542141412,
+                -1.4888257650652825
+              ],
+              "alphabet": [
+                317.62999354362546,
+                860.4976263743606,
+                11.341190295290522,
+                35.59027690645267
+              ],
+              "TeachingProps_pencil": [
+                575.6084399666522,
+                971.5286089190179,
+                628.9818933886052,
+                697.7473427503837
+              ],
+              "TeachingProps_plasticGoldPen": [
+                453.69571190103727,
+                544.5822671721139,
+                471.6439252230509,
+                672.2605440844044
+              ]
+            },
+            "previewResolution": [
+              1280,
+              720
+            ],
+            "method": "Direct true mesh vertices for alphabet/letter boards with root TRS; independently reloaded evaluated true pen meshes; explicit source32x18 sensor and capture17.7778mm projection.",
+            "note": "Higher separate signs remain outside top edge; requested long alphabet strip is fully visible. Exact same optics and position as v6."
+          },
+          "approvedNativeRevision": {
+            "inputSourceSha256": "9f9b6649378336743a89ae9027967d51645f22a6594ae1480af1c497b7d64782",
+            "inputSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-desk-reframe-20261023/source/classroom-seated-styled-v6.blend",
+            "previewSourceReport": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-desk-reframe-20261023/seated-style-v7/qc-color/report.json",
+            "previewSourceReportSha256": "0a65daff5a58661754ee87f2ae7fca7ed5e9ccfdcc021ba1ac833c94bf76f9c1",
+            "approvedFullPreviewLens": 17.77777862548828,
+            "previousNativeLens": 21.333333333333332,
+            "newNativeLens": 17.77777777777778,
+            "newCaptureLens": 14.814814814814815,
+            "unchanged": "All room, object placement, geometry, material and light data retained from the exact reviewed input source. New camera only; pose equals reviewed capture pose.",
+            "newCamera": "RevisionNative_desk",
+            "freezeScriptSha256": "c98d01c011e4a82132cae5de5cb85fa32d02a167627d246efa3c3fbdc6942462"
+          },
+          "previewSourceSha256": "9f9b6649378336743a89ae9027967d51645f22a6594ae1480af1c497b7d64782"
+        },
+        "defaultsEvidence": {
+          "focus": {
+            "method": "Top-down OpenImageIO actual validated camera-Z EXR, native1280 coordinates mapped through exact6144 overscan crop",
+            "focusMeters": 0.45,
+            "subject": "Main blue textbook cover center",
+            "layer": "detail-depth/center",
+            "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-viewpoint-revision-v2-20261023/outputs/jobs/desk/detail-depth/center/attempt-001/center-detail-depth.exr",
+            "sourceSha256": "a693c653cac376971eab9b669ba5c53cdd750e1111fd55e2ff3cc359d7144d57",
+            "depthDimensions": [
+              2048,
+              1152
+            ],
+            "samples": [
+              {
+                "subject": "blue-cover-center",
+                "nativePreviewPixel": [
+                  770,
+                  480
+                ],
+                "fullCaptureUV": [
+                  0.5846354166666666,
+                  0.6388888888888888
+                ],
+                "depthPixel": [
+                  1197,
+                  736
+                ],
+                "zMeters": 0.4538198709487915,
+                "roi5x5": {
+                  "minimum": 0.45173272490501404,
+                  "median": 0.4538198709487915,
+                  "maximum": 0.4559268057346344
+                }
+              },
+              {
+                "subject": "cover-upper",
+                "nativePreviewPixel": [
+                  735,
+                  430
+                ],
+                "fullCaptureUV": [
+                  0.5618489583333334,
+                  0.5810185185185185
+                ],
+                "depthPixel": [
+                  1150,
+                  669
+                ],
+                "zMeters": 0.5364201664924622,
+                "roi5x5": {
+                  "minimum": 0.533506453037262,
+                  "median": 0.5364201664924622,
+                  "maximum": 0.5393656492233276
+                }
+              },
+              {
+                "subject": "cover-lower",
+                "nativePreviewPixel": [
+                  800,
+                  515
+                ],
+                "fullCaptureUV": [
+                  0.6041666666666666,
+                  0.6793981481481481
+                ],
+                "depthPixel": [
+                  1237,
+                  782
+                ],
+                "zMeters": 0.4103145897388458,
+                "roi5x5": {
+                  "minimum": 0.40860751271247864,
+                  "median": 0.4103145897388458,
+                  "maximum": 0.41203540563583374
+                }
+              },
+              {
+                "subject": "green-pen",
+                "nativePreviewPixel": [
+                  490,
+                  580
+                ],
+                "fullCaptureUV": [
+                  0.40234375,
+                  0.7546296296296297
+                ],
+                "depthPixel": [
+                  824,
+                  869
+                ],
+                "zMeters": 0.4176413416862488,
+                "roi5x5": {
+                  "minimum": 0.4157310128211975,
+                  "median": 0.4176413416862488,
+                  "maximum": 0.4195696711540222
+                }
+              },
+              {
+                "subject": "blue-pencil",
+                "nativePreviewPixel": [
+                  775,
+                  660
+                ],
+                "fullCaptureUV": [
+                  0.587890625,
+                  0.8472222222222222
+                ],
+                "depthPixel": [
+                  1204,
+                  976
+                ],
+                "zMeters": 0.35505279898643494,
+                "roi5x5": {
+                  "minimum": 0.35401633381843567,
+                  "median": 0.35505279898643494,
+                  "maximum": 0.35611316561698914
+                }
+              },
+              {
+                "subject": "sage-spine",
+                "nativePreviewPixel": [
+                  790,
+                  575
+                ],
+                "fullCaptureUV": [
+                  0.59765625,
+                  0.7488425925925926
+                ],
+                "depthPixel": [
+                  1224,
+                  862
+                ],
+                "zMeters": 0.3991340398788452,
+                "roi5x5": {
+                  "minimum": 0.39880120754241943,
+                  "median": 0.3991340398788452,
+                  "maximum": 0.39946356415748596
+                }
+              }
+            ],
+            "reason": "Formal camera-Z cover-center ROI median .4538199m; nearest pencil is not the focus target. The website retains teaching DOF and user-adjustable focus."
+          },
+          "baseEV": {
+            "value": 8,
+            "evidence": "Formal center AgX display exposure0/gamma1, original unoccupied classroom lighting unchanged; default f/8, 0.25s, ISO100."
+          }
+        }
+      }
+    },
+    {
+      "id": "classroom-window",
+      "revision": 2,
+      "sourceSha256": "964d6dc1c45320375b5e0622d0cf886cac7f2228460ac1b134e080baedecaf48",
+      "files": {
+        "right-detail-depth.png": {
+          "bytes": 825767,
+          "sha256": "985914dc472623c814be32255cd95cf5a1240072a2280b3239411cfd693411be"
+        },
+        "back.webp": {
+          "bytes": 1995682,
+          "sha256": "85d58143c39f1159a1c9ecc8de5f146f626fa829c1d9990bcecb589f7fb5398d"
+        },
+        "left-detail-depth.png": {
+          "bytes": 803733,
+          "sha256": "18dc73d5397520d035b943f79d7762fb78cc6aa796ebfacb7ffc27fc9e4d8241"
+        },
+        "down.webp": {
+          "bytes": 1897432,
+          "sha256": "97fcf604b84e936f4f67dbedab3f548ad5ef7147df1a46d23c4bc58d3aa833d6"
+        },
+        "back-detail-depth.png": {
+          "bytes": 855116,
+          "sha256": "e58b7420b5d0442ccaf70c1ea5b5c03036329fc26ad254d6d4182a59528ee786"
+        },
+        "back-depth.png": {
+          "bytes": 452137,
+          "sha256": "54ffe3bf0e0818c5afc0b8ab087d4fceec14792c711d3c58807f69e04aa71fe2"
+        },
+        "front-flash.webp": {
+          "bytes": 454320,
+          "sha256": "2508dc37bcc943dbc94c527ae0a013623acbedcc76f537a6a9dcb6741631e6b5"
+        },
+        "center-flash.webp": {
+          "bytes": 467302,
+          "sha256": "be16f232a580ca7bb6bf9c5b53ae15c2efbd9654c9d557a2bf9e8b26cab19f33"
+        },
+        "left.webp": {
+          "bytes": 1955522,
+          "sha256": "9d2776650289b282e17696427dccae20cfc7f609db6e8b8ee5e187dc4bb72cc6"
+        },
+        "down-depth.png": {
+          "bytes": 387709,
+          "sha256": "5e46f8e44c3da3eaa09f99e235ad34b2b7352f049bae31903b20023aa682d0a4"
+        },
+        "right-detail.webp": {
+          "bytes": 4423768,
+          "sha256": "1ca3a59074edf076b2655914b9165724c3d9416bb572a7f472eb1c3e2de5c1f7"
+        },
+        "center.webp": {
+          "bytes": 2062776,
+          "sha256": "f7ba9dab865f8c85e0af4dff96c1e71e9f3f4315163111abd093d951cfc54b42"
+        },
+        "manifest.json": {
+          "bytes": 92423,
+          "sha256": "7e8d84500ac3ceed6143badeb343d3362691ce2cd2e2dc92edc2bbc9747b8543"
+        },
+        "front-depth.png": {
+          "bytes": 410775,
+          "sha256": "011656176d247265a38b884eb4fd6804f72c612c932ab8f95dab8e2e3270f0df"
+        },
+        "center-detail.webp": {
+          "bytes": 6214316,
+          "sha256": "50d0780c02b89acac9284dde467637fe345226b9f5d02f02dc4e251f0f3545bc"
+        },
+        "left-depth.png": {
+          "bytes": 429496,
+          "sha256": "455efebee76af949848cb572614be45fbb0e3a782bd1906462e373267cae743e"
+        },
+        "back-detail.webp": {
+          "bytes": 4426468,
+          "sha256": "797eb678b8f5635ff7aee7d747e8fae3cc20645b2efe09cf030e30dbf4ef6bc7"
+        },
+        "up-detail-depth.png": {
+          "bytes": 856993,
+          "sha256": "7add0bcda1110b1089538f93b41e08a0e1fef707853cf054e6ddf0e2d540ede7"
+        },
+        "right.webp": {
+          "bytes": 2099744,
+          "sha256": "c22f2b5008a24b25ccd37f47ef655885c8463cd57483d58144c8559f4848da19"
+        },
+        "right-depth.png": {
+          "bytes": 434706,
+          "sha256": "845351add32da0e9881e7829e07f882333620d606da8394885a312c59ce22d64"
+        },
+        "up-depth.png": {
+          "bytes": 448492,
+          "sha256": "cddc75efe94356285dd6315c6722af30e8b165c25ed113d636c06254a715ef78"
+        },
+        "front.webp": {
+          "bytes": 1964158,
+          "sha256": "b54c822c9cc3bf6eb530fffec4c8dfe53ccadd1912899ccb02c98a588cb34dbb"
+        },
+        "down-detail.webp": {
+          "bytes": 4236564,
+          "sha256": "4680c6aa7ee08f64e68691a5c99f9e007300cbe78b755c5a4662da7b8aa6d1b4"
+        },
+        "front-detail-depth.png": {
+          "bytes": 772730,
+          "sha256": "e477a5d5569e09d146f8b2297b179cf7ef96689d5c82927ed4318d252203f3f3"
+        },
+        "up-detail.webp": {
+          "bytes": 4342110,
+          "sha256": "3f57b8c1e08950c26d5206cd6fa807572a8b7fce846306f9cbfbe8f0c66d396b"
+        },
+        "back-flash.webp": {
+          "bytes": 474168,
+          "sha256": "43ddc857a814b198f89c644768d5ad477c3d95ba28b3906d23c345688a6ed7ab"
+        },
+        "down-flash.webp": {
+          "bytes": 438464,
+          "sha256": "e5b447990efe89175293998968d771d3f1ecb64edf45c3dfbf1670c2a4bd622b"
+        },
+        "front-detail.webp": {
+          "bytes": 4360260,
+          "sha256": "82c029e1ba27b5397969221ab820a9b291c72fcee02dd39a8df7cdb2d8e27ced"
+        },
+        "up-flash.webp": {
+          "bytes": 471254,
+          "sha256": "0ea39fb04178f31a21f42b3d243c482845a600cc533b614f97ad6ac0d3a21b69"
+        },
+        "up.webp": {
+          "bytes": 1957184,
+          "sha256": "6317cf2aae38a94d760ff2edea4cdc9b4e77a5ad04244dd793a4c5a14205e886"
+        },
+        "down-detail-depth.png": {
+          "bytes": 729079,
+          "sha256": "1ded64d0b4563e400d8d1b66f44f6f28fd4167f5453883122b5f7fc69519ae64"
+        },
+        "right-flash.webp": {
+          "bytes": 458704,
+          "sha256": "c96f2dc06a4314af7b76b258666043f06f6b7106b1844ab8933e87c2c4bafb91"
+        },
+        "left-flash.webp": {
+          "bytes": 463958,
+          "sha256": "04c93a9ea9263e8d9a214dba0e8ec74d6fe82ca77ad7c3c202a19fcdee247065"
+        },
+        "left-detail.webp": {
+          "bytes": 4336004,
+          "sha256": "3641de81796cf24f9ccc50be353a12262f9bfae769d44c6a5c688eed75a6245b"
+        },
+        "center-depth.png": {
+          "bytes": 429656,
+          "sha256": "3a147d9b859b4b1ca3c2654ffea47f12b4275d0caef0a4dbf3033efa9773c099"
+        },
+        "center-detail-depth.png": {
+          "bytes": 813690,
+          "sha256": "b3da1856beafc97b75cc76ad4c47fdd23e76c1e6426ea2c19d4be8c5797d7cb8"
+        }
+      },
+      "rig": {
+        "id": "window",
+        "camera": "RevisionNative_window",
+        "position": [
+          1.4657657146453857,
+          0.37533169984817505,
+          1.159999966621399
+        ],
+        "target": [
+          2.725765768289566,
+          -0.724668300151825,
+          0.8000000034704112
+        ],
+        "lens": 20.833333333333332,
+        "offsets": {
+          "center": [
+            0,
+            0,
+            0
+          ],
+          "left": [
+            -0.2,
+            0,
+            0
+          ],
+          "right": [
+            0.2,
+            0,
+            0
+          ],
+          "up": [
+            0,
+            0.15,
+            0
+          ],
+          "down": [
+            0,
+            -0.15,
+            0
+          ],
+          "front": [
+            0,
+            0,
+            -0.2
+          ],
+          "back": [
+            0,
+            0,
+            0.2
+          ]
+        },
+        "bounds": {
+          "x": [
+            -0.2,
+            0.2
+          ],
+          "y": [
+            -0.15,
+            0.15
+          ],
+          "z": [
+            -0.2,
+            0.2
+          ],
+          "yaw": [
+            -35,
+            35
+          ],
+          "pitch": [
+            -20,
+            20
+          ],
+          "roll": [
+            -5,
+            5
+          ]
+        },
+        "matrix": [
+          [
+            -0.6576576828956604,
+            0.15850894153118134,
+            -0.7364519238471985,
+            1.4657657146453857
+          ],
+          [
+            -0.7533169984817505,
+            -0.13838090002536774,
+            0.6429341435432434,
+            0.37533169984817505
+          ],
+          [
+            -3.4704111584460406e-8,
+            0.9776122570037842,
+            0.21041464805603027,
+            1.159999966621399
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "sensorWidth": 32,
+        "sensorHeight": 18,
+        "sensorFit": "AUTO",
+        "near": 0.05,
+        "far": 100,
+        "aspect": 1.7777777777777777,
+        "nativeResolution": [
+          5120,
+          2880
+        ],
+        "captureLens": 17.36111111111111,
+        "shiftX": 0,
+        "shiftY": 0,
+        "defaults": {
+          "focus": 1.6,
+          "baseEV": 8
+        },
+        "referenceFocal": 23.4375,
+        "approvedComposition": {
+          "version": 1,
+          "referenceFocal": 23.4375,
+          "aspect": 1.7777777777777777,
+          "overscan": 1.2,
+          "preview": {
+            "sha256": "0f9da8b744da47614cfda760e934030db899b6e54b9c1a2353deff1d9b47e777",
+            "width": 1280,
+            "height": 720,
+            "sourceSha256": "3fdf721977489b19ea9ec975854ea25ff3304fcf9a7742938e9233afce59389d",
+            "path": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-desk-reframe-20261023/review-seated-window/图2-窗边微调-低清构图-1280x720.jpg",
+            "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-viewpoint-production/source/classroom-new-viewpoints-v2.blend",
+            "sourceReportSha256": "fc4940114789b8e12712c19e59de83290f086ea0f38d99a18e79d17016b2700e",
+            "captureLens": 20.83333396911621,
+            "sensorWidth": 32,
+            "sourceReportPath": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-desk-reframe-20261023/window-micro-adjust/report.json"
+          },
+          "captureFrame": {
+            "width": 6144,
+            "height": 3456
+          },
+          "nativeFrame": {
+            "width": 5120,
+            "height": 2880
+          },
+          "nativeCrop": {
+            "left": 512,
+            "top": 288,
+            "width": 5120,
+            "height": 2880
+          }
+        },
+        "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-viewpoint-revision-v2-20261023/source/classroom-window-approved-native-v2.blend",
+        "sourceSha256": "964d6dc1c45320375b5e0622d0cf886cac7f2228460ac1b134e080baedecaf48",
+        "sourceScene": "_mainScene",
+        "sourceProvenance": {
+          "originalPath": "/workspace/scratch/33cf95385f89/camera-render-work/remaining-sources/classroom/classroom.blend",
+          "originalSha256": "5c526ea3f280566e80253673c9955640527cd0f247ea41b1742620b5bc39f7a4",
+          "originalAuthor": "Christophe Seux",
+          "license": "CC0",
+          "derivations": [
+            {
+              "type": "duplicate-source-prop",
+              "sourceObject": "beigeBook",
+              "newObject": "TeachingProps_beigeBook",
+              "translation": [
+                -0.30000001192092896,
+                -3.869999885559082,
+                -0.012000000104308128
+              ],
+              "position": [
+                1.5295734405517578,
+                -2.3436686992645264,
+                0.803048312664032
+              ],
+              "collection": "beigeBook"
+            },
+            {
+              "type": "duplicate-source-prop",
+              "sourceObject": "leatherBook",
+              "newObject": "TeachingProps_leatherBook",
+              "translation": [
+                -0.30000001192092896,
+                -3.869999885559082,
+                -0.012000000104308128
+              ],
+              "position": [
+                1.525892972946167,
+                -2.3436295986175537,
+                0.8199940323829651
+              ],
+              "collection": "leatherBook"
+            },
+            {
+              "type": "duplicate-source-prop",
+              "sourceObject": "zapBook",
+              "newObject": "TeachingProps_zapBook",
+              "translation": [
+                -0.30000001192092896,
+                -3.869999885559082,
+                -0.012000000104308128
+              ],
+              "position": [
+                1.535264253616333,
+                -2.3689842224121094,
+                0.8366289734840393
+              ],
+              "collection": "zapBook"
+            },
+            {
+              "type": "duplicate-source-prop",
+              "sourceObject": "pencil",
+              "newObject": "TeachingProps_pencil",
+              "translation": [
+                -0.30000001192092896,
+                -3.869999885559082,
+                -0.012000000104308128
+              ],
+              "position": [
+                1.5507619380950928,
+                -2.5855660438537598,
+                0.8073400259017944
+              ],
+              "collection": "pencil"
+            },
+            {
+              "type": "duplicate-source-prop",
+              "sourceObject": "plasticGoldPen",
+              "newObject": "TeachingProps_plasticGoldPen",
+              "translation": [
+                -0.30000001192092896,
+                -3.869999885559082,
+                -0.012000000104308128
+              ],
+              "position": [
+                1.6750340461730957,
+                -2.5433642864227295,
+                0.8091428279876709
+              ],
+              "collection": "plasticGoldPen"
+            },
+            {
+              "type": "duplicate-source-prop",
+              "sourceObject": "rotring",
+              "newObject": "TeachingProps_rotring",
+              "translation": [
+                -0.30000001192092896,
+                -3.869999885559082,
+                -0.012000000104308128
+              ],
+              "position": [
+                1.6041467189788818,
+                -2.576835870742798,
+                0.8092834949493408
+              ],
+              "collection": "rotring"
+            },
+            {
+              "type": "camera-only-source-sky",
+              "sourceMaterial": "dayLight_portal",
+              "skyType": "HOSEK_WILKIE",
+              "strength": 20,
+              "illumination": "Original non-camera world and emitter unchanged",
+              "depth": "Background remains infinity; no new occluding geometry"
+            }
+          ],
+          "prepareScriptSha256": "2b3f9501fc8334e8395aa7a79f556859406d4c6f930a901a46b6c2d2456d4916",
+          "cameraSkyScriptSha256": "ac70e723302f7620f734284561b8cfd2e68036959816824d4f5f31fb9b121514",
+          "sourceGeometryLighting": "Original furniture, room, materials and light parameters unchanged; new source-prop copies and camera-only world documented.",
+          "approvedNativeRevision": {
+            "inputSourceSha256": "3fdf721977489b19ea9ec975854ea25ff3304fcf9a7742938e9233afce59389d",
+            "inputSourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-viewpoint-production/source/classroom-new-viewpoints-v2.blend",
+            "previewSourceReport": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-desk-reframe-20261023/window-micro-adjust/report.json",
+            "previewSourceReportSha256": "fc4940114789b8e12712c19e59de83290f086ea0f38d99a18e79d17016b2700e",
+            "approvedFullPreviewLens": 20.83333396911621,
+            "previousNativeLens": 25,
+            "newNativeLens": 20.833333333333332,
+            "newCaptureLens": 17.36111111111111,
+            "unchanged": "All room, object placement, geometry, material and light data retained from the exact reviewed input source. New camera only; pose equals reviewed capture pose.",
+            "newCamera": "RevisionNative_window",
+            "freezeScriptSha256": "c98d01c011e4a82132cae5de5cb85fa32d02a167627d246efa3c3fbdc6942462"
+          },
+          "previewSourceSha256": "3fdf721977489b19ea9ec975854ea25ff3304fcf9a7742938e9233afce59389d"
+        },
+        "defaultsEvidence": {
+          "focus": {
+            "method": "Top-down OpenImageIO actual validated camera-Z EXR;1280 native approved image mapped through6144 overscan crop",
+            "focusMeters": 1.6,
+            "subject": "Central complete chair and attached writing desk",
+            "layer": "detail-depth/center",
+            "sourcePath": "/workspace/scratch/33cf95385f89/camera-render-work/classroom-viewpoint-revision-v2-20261023/outputs/jobs/window/detail-depth/center/attempt-001/center-detail-depth.exr",
+            "sourceSha256": "9f93d95bd12bde7ccb1ae4576a13a772a4106b71b5698ed323f5246cd9aeb30f",
+            "depthDimensions": [
+              2048,
+              1152
+            ],
+            "samples": [
+              {
+                "subject": "central-chair-back",
+                "nativePreviewPixel": [
+                  550,
+                  410
+                ],
+                "fullCaptureUV": [
+                  0.44140625,
+                  0.5578703703703703
+                ],
+                "depthPixel": [
+                  904,
+                  642
+                ],
+                "zMeters": 1.42340087890625,
+                "roi5x5": {
+                  "minimum": 1.4197436571121216,
+                  "median": 1.42340087890625,
+                  "maximum": 1.426987648010254
+                }
+              },
+              {
+                "subject": "central-chair-seat",
+                "nativePreviewPixel": [
+                  705,
+                  468
+                ],
+                "fullCaptureUV": [
+                  0.5423177083333334,
+                  0.625
+                ],
+                "depthPixel": [
+                  1110,
+                  720
+                ],
+                "zMeters": 1.9096362590789795,
+                "roi5x5": {
+                  "minimum": 1.900009274482727,
+                  "median": 1.9096362590789795,
+                  "maximum": 1.9193617105484009
+                }
+              },
+              {
+                "subject": "middle-chair-back",
+                "nativePreviewPixel": [
+                  800,
+                  335
+                ],
+                "fullCaptureUV": [
+                  0.6041666666666666,
+                  0.4710648148148148
+                ],
+                "depthPixel": [
+                  1237,
+                  542
+                ],
+                "zMeters": 2.0729751586914062,
+                "roi5x5": {
+                  "minimum": 2.0699503421783447,
+                  "median": 2.0729751586914062,
+                  "maximum": 2.0759873390197754
+                }
+              },
+              {
+                "subject": "middle-chair-seat",
+                "nativePreviewPixel": [
+                  925,
+                  408
+                ],
+                "fullCaptureUV": [
+                  0.685546875,
+                  0.5555555555555556
+                ],
+                "depthPixel": [
+                  1404,
+                  640
+                ],
+                "zMeters": 2.4109795093536377,
+                "roi5x5": {
+                  "minimum": 2.3954217433929443,
+                  "median": 2.4109795093536377,
+                  "maximum": 2.42673921585083
+                }
+              },
+              {
+                "subject": "central-desk-board",
+                "nativePreviewPixel": [
+                  651,
+                  367
+                ],
+                "fullCaptureUV": [
+                  0.5071614583333334,
+                  0.5081018518518519
+                ],
+                "depthPixel": [
+                  1038,
+                  585
+                ],
+                "zMeters": 1.6716381311416626,
+                "roi5x5": {
+                  "minimum": 1.6557525396347046,
+                  "median": 1.6716381311416626,
+                  "maximum": 1.6878316402435303
+                }
+              },
+              {
+                "subject": "near-chair-seat",
+                "nativePreviewPixel": [
+                  379,
+                  620
+                ],
+                "fullCaptureUV": [
+                  0.330078125,
+                  0.8009259259259259
+                ],
+                "depthPixel": [
+                  676,
+                  922
+                ],
+                "zMeters": 1.2516562938690186,
+                "roi5x5": {
+                  "minimum": 1.2473022937774658,
+                  "median": 1.2516562938690186,
+                  "maximum": 1.2560412883758545
+                }
+              }
+            ],
+            "balancedReciprocalDepthMeters": 1.63105169071555,
+            "reason": "Keep the central complete chair/desk group as teaching subject. Its back and seat span1.423–1.910m, reciprocal-depth midpoint1.631m;1.6m is the rounded default. The tabletop center1.672m is also near this plane."
+          },
+          "baseEV": {
+            "value": 8,
+            "evidence": "Formal empty-window center AgX display exposure0/gamma1, original classroom lighting unchanged; default f/8,0.25s,ISO100. Bright camera-visible source sky remains physically backlit, not new geometry or relighting."
+          }
+        }
+      }
+    },
+    {
+      "id": "classroom-teacher",
+      "files": {
+        "right-detail-depth.png": {
+          "bytes": 1167552,
+          "sha256": "8cbd7b3bb1ff6908ae7c0fe17728b681ebcda606304c2525231ad482c8166eee"
+        },
+        "back.webp": {
+          "bytes": 2520434,
+          "sha256": "df1fb843b8ba48dbdb27be77ffd75a76a6be27961b6e7b92cbcb7f06f7edd733"
+        },
+        "left-detail-depth.png": {
+          "bytes": 1214714,
+          "sha256": "1faec13882133ee26a63912997dfc96cd13f39f2bed355723b696fea934642bd"
+        },
+        "down.webp": {
+          "bytes": 2522940,
+          "sha256": "a2a14e18b51aa2b43361e2a826d0cf63b8c2d84072efda785f2945b3afa7c08c"
+        },
+        "back-detail-depth.png": {
+          "bytes": 1238688,
+          "sha256": "50590662a1396a599e89e25d16db837a6bd6b76975bcfb1a2fd66eb5b3307ca7"
+        },
+        "back-depth.png": {
+          "bytes": 609698,
+          "sha256": "5f0b451f6c0e254613735b58b742b2b9f2832bcc6ccc709571b92e3236db7771"
+        },
+        "front-flash.webp": {
+          "bytes": 531486,
+          "sha256": "318c98f812cf146fcfae7f4d4458c2e30ca3779d303372c550c69522da498620"
+        },
+        "center-flash.webp": {
+          "bytes": 529540,
+          "sha256": "17f106d8e680762c3745d27572c1cd7131d4f5a7b10516fa4c543760bc6a6882"
+        },
+        "left.webp": {
+          "bytes": 2520412,
+          "sha256": "400c6e600e4b29c320d69b3f899efbee395c4bc0368e6e39e1ff4ed68e27ba1e"
+        },
+        "down-depth.png": {
+          "bytes": 550794,
+          "sha256": "662e669d4452a9d225a31b770958316e3df7407d50032bc9b623272ff231bfd6"
+        },
+        "right-detail.webp": {
+          "bytes": 6193240,
+          "sha256": "c85ebcad2518fc1f81afd51985fc5f546904e97d9568324a0631bb56d513b9a4"
+        },
+        "center.webp": {
+          "bytes": 2649614,
+          "sha256": "3bd6a3225fb7b9728fe8a6b592447191a11f74ed12ae18b00035f7d93e4fc063"
+        },
+        "manifest.json": {
+          "bytes": 61295,
+          "sha256": "11c6c64874bbe11903eb1f8c3b50070fc1fe4e06eea15b98b2be022cb8a154a5"
+        },
+        "front-depth.png": {
+          "bytes": 562236,
+          "sha256": "9e8e0a988a630f98f78dd0de778f6171d981ab0bae9a4e2a7b8391db468b65bc"
+        },
+        "center-detail.webp": {
+          "bytes": 9325304,
+          "sha256": "16383bfa7ebc15a5972e7a37e2ab9a458e40ca4aea9e7dd065c5da5f131a6906"
+        },
+        "left-depth.png": {
+          "bytes": 598622,
+          "sha256": "cf8172725e6cba00b4b019d342562b800e471d8e64086d794ec21c915455fbd2"
+        },
+        "back-detail.webp": {
+          "bytes": 6051776,
+          "sha256": "ab3812a6b304bd8d897bc9e03f4ba24f0ccfb07ee2f13681830ee8cfbc11a4c1"
+        },
+        "up-detail-depth.png": {
+          "bytes": 1253212,
+          "sha256": "8f347397230184da28fb94a779fee8e3bce7a38271cf3904e3fe8d0affba3f33"
+        },
+        "right.webp": {
+          "bytes": 2578636,
+          "sha256": "87b5ec5272fce1649ea37c9090a86c4225626d9f4c33de58ad98ae0ebbf7d9df"
+        },
+        "right-depth.png": {
+          "bytes": 576404,
+          "sha256": "d3f359739447add2a28dc7fb90f5dc4270733851ad20b245aaa2777b560e63a7"
+        },
+        "up-depth.png": {
+          "bytes": 615577,
+          "sha256": "cb2b3ef928e0cc99ceab8668ba4aa8d7cf47ec01e03f1feb28df89d2c8cce7a4"
+        },
+        "front.webp": {
+          "bytes": 2588044,
+          "sha256": "abde1e11cf50be82927f11770250bd5e2192b923fddae86313a7e1b06bcc5bca"
+        },
+        "down-detail.webp": {
+          "bytes": 6052770,
+          "sha256": "b268c0f4678b49acb957f7bc1156cddd162a9621faf211159203981446aebf61"
+        },
+        "front-detail-depth.png": {
+          "bytes": 1131738,
+          "sha256": "05df8b46c2f7fdc281adae4d267bc779cde1f553bc86d12991c4095d35084781"
+        },
+        "up-detail.webp": {
+          "bytes": 6156904,
+          "sha256": "f8633306403ff93cba4d3f5f4d9c1a53c93caa638cc6574a7dbfb41dd3f0b758"
+        },
+        "back-flash.webp": {
+          "bytes": 534410,
+          "sha256": "447f9e29969d10393b31a61f31c5211b58fd8e33df1dcac9eb92cecd367f8486"
+        },
+        "down-flash.webp": {
+          "bytes": 522440,
+          "sha256": "22e2d08adf91a85ba8ac871945df93dda22f7c88f2389e682abeabe47a8eff31"
+        },
+        "front-detail.webp": {
+          "bytes": 6208234,
+          "sha256": "2e52a2a9bd3b10e9358c3d01ffc6f29818a360c3e97c4c8b4e74fe59f8644ca1"
+        },
+        "up-flash.webp": {
+          "bytes": 534976,
+          "sha256": "bb5dc01ea04aa6ed4645a8894404d10c424f1b4b54ac214253a5ae0b4f49b025"
+        },
+        "up.webp": {
+          "bytes": 2560808,
+          "sha256": "af60b2d625ed648c96483b75d3fde42dd7d1e0be6be0806344912e48febc525e"
+        },
+        "down-detail-depth.png": {
+          "bytes": 1113480,
+          "sha256": "72276f21d5f3e90d3052e4ca276089ad76b6fd12fb3e85fbead4abb27a379b30"
+        },
+        "right-flash.webp": {
+          "bytes": 532554,
+          "sha256": "0ab5b630cb205a72fadec4a71f56f7acf4ccbda17ce74bf89f34345fdbcef89b"
+        },
+        "left-flash.webp": {
+          "bytes": 529116,
+          "sha256": "365ff96afd87d196f2c8d6058a5aab52993c9be35905ed7e22959c1d4705ee8b"
+        },
+        "left-detail.webp": {
+          "bytes": 6038118,
+          "sha256": "460c0b6f7002835a97c5b2c1131cc2ed95b8b033b4b19c01b2db3e7ceae5dc5f"
+        },
+        "center-depth.png": {
+          "bytes": 582460,
+          "sha256": "8854071910b1519aa301087787eef7379c2a262830901877af592f93b9e70040"
+        },
+        "center-detail-depth.png": {
+          "bytes": 1181980,
+          "sha256": "9df8a5712a1edfe5b800be099bd3ec8d7c6d7025ad3d6af49e430a9da4ed04b0"
+        }
+      },
+      "rig": {
+        "id": "teacher",
+        "camera": "Capture_Teacher",
+        "position": [
+          1.7,
+          2.75,
+          1.85
+        ],
+        "target": [
+          0.65,
+          -1.5,
+          0.15
+        ],
+        "lens": 21,
+        "offsets": {
+          "center": [
+            0,
+            0,
+            0
+          ],
+          "left": [
+            -0.2,
+            0,
+            0
+          ],
+          "right": [
+            0.2,
+            0,
+            0
+          ],
+          "up": [
+            0,
+            0.15,
+            0
+          ],
+          "down": [
+            0,
+            -0.15,
+            0
+          ],
+          "front": [
+            0,
+            0,
+            -0.2
+          ],
+          "back": [
+            0,
+            0,
+            0.2
+          ]
+        },
+        "bounds": {
+          "x": [
+            -0.2,
+            0.2
+          ],
+          "y": [
+            -0.15,
+            0.15
+          ],
+          "z": [
+            -0.2,
+            0.2
+          ],
+          "yaw": [
+            -35,
+            35
+          ],
+          "pitch": [
+            -20,
+            20
+          ],
+          "roll": [
+            -5,
+            5
+          ]
+        },
+        "matrix": [
+          [
+            -0.9708108305931091,
+            -0.08682212978601456,
+            0.2235814481973648,
+            1.7000000476837158
+          ],
+          [
+            0.2398473471403122,
+            -0.3514229655265808,
+            0.9049726128578186,
+            2.75
+          ],
+          [
+            -2.389128006541341e-8,
+            0.9321824908256531,
+            0.36198896169662476,
+            1.850000023841858
+          ],
+          [
+            0,
+            0,
+            0,
+            1
+          ]
+        ],
+        "sensorWidth": 32,
+        "sensorHeight": 18,
+        "sensorFit": "AUTO",
+        "near": 0.05,
+        "far": 100,
+        "aspect": 1.7777777777777777,
+        "nativeResolution": [
+          1920,
+          1080
+        ],
+        "captureLens": 17.5,
+        "shiftX": 0,
+        "shiftY": 0
+      },
+      "revision": 1,
+      "sourceSha256": "3fdf721977489b19ea9ec975854ea25ff3304fcf9a7742938e9233afce59389d"
+    }
+  ]
+}

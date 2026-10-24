@@ -1,0 +1,58 @@
+{
+  "version": 1,
+  "scope": "Independent pins for approved completed kitchen viewpoints. New scene identities require an explicit reviewed entry; not a blanket license/source approval.",
+  "rigs": [
+    {
+      "id": "kitchen-pastry",
+      "deliverySchema": "kitchen-pastry-delivery-v1",
+      "sourceSha256": "94e686a804e290b031ead863930cc9af0aff09b509b947263f94e484580f3259",
+      "originalSourceSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+      "originalAuthor": "Nicole Morena",
+      "sourceLicense": "CC BY-SA; adaptation CC BY-SA4.0",
+      "attribution": "Nicole Morena / CC BY-SA; adaptation CC BY-SA 4.0",
+      "previewSha256": "8da7ff1038644f66bc0e590709ec93ccb0446499ff011aee648906870eb7768e",
+      "previewSourceSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+      "previewReportSha256": "19982057b38080fd87e2f2f2cb155f78b81b7ef0c769403a9f7fe7b936c27368",
+      "deliverySha256": "6d1e3e1c1cda5be115640a8ba4c5ba86f04a15b11ebd0023cfe99bb3d564e215",
+      "specSha256": "2b1365cdaeefd1b02343908ce9375a7400dda594c267914284737c9fc8d36704",
+      "manifestSha256": "ca5a2c840860c57c472eeb1818b8c8ea8bf450bb54cf594ca56de4ab095d3254",
+      "rigSha256": "f6fc9adf8ae577279591117b9b9b8a8dcd91bfb15b2b87efc6894249e89a5828",
+      "approvedCompositionSha256": "430fcd7caaf5f9d4edf67318d319f11c4253ff2262962dda541115583bbcf93b",
+      "sourceProvenanceSha256": "bb583ec23590e8007020b86c602cb9010892f4b29d1a478e5daa39c449c07128",
+      "defaultsEvidenceSha256": "04232b4c7b3dda4a5d48f0d372e042ee440b8f875479bf54d5d7730d05dd4631",
+      "formalFocusDepthSha256": "c6c99b8402a99ab33ba48a511aa027c778935e45a79c170ce69882fb1492d033",
+      "referenceFocal": 35,
+      "defaults": {
+        "focus": 1.45,
+        "baseEV": 8
+      },
+      "previewViewId": "kitchen-pastry-r2"
+    },
+    {
+      "id": "kitchen-tea",
+      "deliverySchema": "kitchen-tea-delivery-v1",
+      "sourceSha256": "479b15e1ebcd00354c5afea0236dc0f750cac5ac137341c86560a77f533fd425",
+      "originalSourceSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+      "originalAuthor": "Nicole Morena",
+      "sourceLicense": "CC BY-SA; adaptation CC BY-SA4.0",
+      "attribution": "Nicole Morena / CC BY-SA; adaptation CC BY-SA 4.0",
+      "previewSha256": "a4528928b306931a3c97038f32032cba1df2a84551ff0c59ff731d713992dcc4",
+      "previewSourceSha256": "5f27c41cf828ca15ffd06fc3ad3d971343f6af4a29828c834252229a26dce395",
+      "previewReportSha256": "6221ddc7ead2c4c0f065aa2379af7325d8adf0d8fc233fc16970a77139eef47e",
+      "deliverySha256": "d2386f05976c2e51a403accc52833cc7a2c47b6db27ec62edbb97db950ab2d99",
+      "specSha256": "609a73f3f1659b37a7cdbd351aba5af06284b34c93b828ae5779eacc0e070448",
+      "manifestSha256": "2698ef08cd2d5db82a089d6b911ce3193abfd58de17c2fe9c584a582015b92d5",
+      "rigSha256": "0cd27f006f81a30eb0eadf0236007c838b2162801c5e227e79b94d14c3e898b6",
+      "approvedCompositionSha256": "477950527e6c4ac3783617b2c8adb06551258c400ee76eb822a5142e1b1548b0",
+      "sourceProvenanceSha256": "be1f52ce4c9282b0621bc16cf32e1069a59724d0e6db1145b8aece92f31a3a08",
+      "defaultsEvidenceSha256": "9c88decd0f94dd246e3de6a1dfc0ac7eda17771e66b772a7d6baf6cee024c829",
+      "formalFocusDepthSha256": "8301c8ee2c42c159ee99a28e26508e82de21269653c1fb2611ab39bb67c5154f",
+      "referenceFocal": 43,
+      "defaults": {
+        "focus": 1,
+        "baseEV": 8
+      },
+      "previewViewId": "kitchen-tea-r2"
+    }
+  ]
+}

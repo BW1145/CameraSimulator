@@ -1,0 +1,121 @@
+{
+  "version": 1,
+  "verifiedAt": "2026-10-23T18:00:00Z",
+  "scope": "Local independent-branch integration, no remote push, merge or deploy",
+  "baseCommit": "c21f497f930978ab84417f936283eb1586e1b56e",
+  "remoteMainReadOnlyCheckedAt": "2026-10-23T18:00:38Z",
+  "remoteMainUnchanged": true,
+  "runtimeReceipt": {
+    "file": "classroom-viewpoints-delivery.json",
+    "bytes": 23474,
+    "sha256": "5ebbaf570d96933a902e6790061abcbfdd28278d7004bc119268aff578f34dc5"
+  },
+  "externalRenderEvidence": [
+    {
+      "file": "delivery.json",
+      "bytes": 17781,
+      "sha256": "fae73a0194f80a334a5d9f8bc5fe438f47f94548f73e6e86e2c3c03c96e64d47"
+    },
+    {
+      "file": "capture-summary.json",
+      "bytes": 92202,
+      "sha256": "6f32a5e85ebab10e61e6a19fc4e047b75ca36cfdd91539b6eacf1c00bef2c6f7"
+    },
+    {
+      "file": "packaging-execution.json",
+      "bytes": 987,
+      "sha256": "15bde4b33e48b7bf1b98c8a9fa70c3107a36c461dbfc1cee303d57dbc391acb4"
+    }
+  ],
+  "packs": [
+    {
+      "id": "classroom-desk",
+      "runtimeFiles": 36,
+      "images": 35,
+      "imageBytes": 76140388,
+      "totalBytes": 76201951
+    },
+    {
+      "id": "classroom-window",
+      "runtimeFiles": 36,
+      "images": 35,
+      "imageBytes": 56928500,
+      "totalBytes": 56990084
+    },
+    {
+      "id": "classroom-teacher",
+      "runtimeFiles": 36,
+      "images": 35,
+      "imageBytes": 80078911,
+      "totalBytes": 80140206
+    }
+  ],
+  "allPackBytes": 213332241,
+  "allImageBytes": 213147799,
+  "checks": {
+    "unitTests": {
+      "command": "npm test",
+      "total": 96,
+      "passed": 95,
+      "failed": 0,
+      "skipped": 1,
+      "skipReason": "Existing independent ExifTool check; tool not installed locally"
+    },
+    "assetAudit": {
+      "command": "npm run audit:assets",
+      "passed": true,
+      "originalScenes": 4,
+      "newScenes": 3,
+      "receiptFilesVerified": 108
+    },
+    "realRuntimeMath": {
+      "command": "node tools/verify-classroom-runtime.mjs",
+      "passed": true,
+      "sourceViews": 21,
+      "realDepthImages": 42,
+      "focusChecks": 126,
+      "fixedEnergyFlashChecks": 63,
+      "metadataCarriers": 6,
+      "exclusions": [
+        "WebGL rendering",
+        "UI",
+        "network races",
+        "lazy loading",
+        "real browser photo downloads"
+      ]
+    },
+    "allViewAudit": {
+      "command": "node tools/audit-scene-plates.mjs <all seven pack directories>",
+      "passed": true,
+      "packs": 7
+    },
+    "build": {
+      "command": "npm run build",
+      "passed": true,
+      "distDeliveryHashMatches": 108,
+      "warning": "Existing large-JS-chunk advisory"
+    },
+    "originalAssets": {
+      "allFourOriginalGLBAndPlateDirectoriesUnchanged": true
+    },
+    "sourceVisualReview": {
+      "formalCentersAndNativeCrops": 3,
+      "formalDetailViews": 21,
+      "formalFlashViews": 21,
+      "deliveredDepthViews": 21,
+      "notRuntimeScreenshotAcceptance": true
+    },
+    "syntaxAndWhitespace": {
+      "passed": true
+    },
+    "browser": {
+      "status": "not_run",
+      "reason": "Prior local browser execution denied; no retry/workaround. Authorized branch CI remains pending."
+    },
+    "remoteCI": {
+      "status": "not_run",
+      "branchTriggerPrepared": "feature/classroom-viewpoints",
+      "pagesGuards": "unchanged: main push only"
+    }
+  }
+}

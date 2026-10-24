@@ -1,0 +1,185 @@
+{
+  "status": "formal-center-source-review-only",
+  "sourceSha256": "3fdf721977489b19ea9ec975854ea25ff3304fcf9a7742938e9233afce59389d",
+  "sourceAuthor": "Christophe Seux",
+  "sourceLicense": "CC0",
+  "reviewedAt": "2026-10-23T14:52:31Z",
+  "scope": "All three formal center source photographs inspected at overview and native crop resolution. Runtime packs, remaining 102 production layer jobs, depth/detail/flash contracts, default simulated lens output and authorized-browser acceptance are not covered by this source-image review.",
+  "centers": [
+    {
+      "id": "classroom-desk",
+      "jobId": "desk/detail/center",
+      "validatedAt": "2026-10-23T12:43:07.200972+00:00",
+      "dimensions": [
+        5120,
+        2880
+      ],
+      "samples": 256,
+      "rawFiles": {
+        "center.exr": {
+          "bytes": 167464696,
+          "sha256": "6673fa847a0723b4822d6676b908e27ae4448ad617d18801332012bbfceaca8a"
+        },
+        "center.png": {
+          "bytes": 70801366,
+          "sha256": "4f2f9a4ed039cd60a5ef30bdfacb0d0753027c5477ab7b6b0e4613cf2058cb7e"
+        }
+      },
+      "displayTransform": {
+        "view": "AgX",
+        "look": "None",
+        "exposure": 0,
+        "gamma": 1
+      },
+      "initialEV100": 8,
+      "baseEV": 8,
+      "plannedDefaultFocusMetres": 0.9,
+      "focusEvidence": [
+        {
+          "object": "TeachingProps_beigeBook",
+          "axialZMetres": 0.9083004903319911
+        },
+        {
+          "object": "TeachingProps_leatherBook",
+          "axialZMetres": 0.9070719991240952
+        },
+        {
+          "object": "TeachingProps_zapBook",
+          "axialZMetres": 0.8798216271769443
+        },
+        {
+          "object": "TeachingProps_pencil",
+          "axialZMetres": 0.6661230433927088
+        }
+      ],
+      "focusEvidenceKind": "Source prop locations projected onto the exact capture camera axis",
+      "visualInspection": "Formal center inspected using a 1600px overview and a native-resolution book/pen crop, original unchanged. Full composition, source lettering, leather grain, pencil and window structure are resolved; no visible missing geometry or black capture borders. Browser lens/exposure rendering is still pending authorized CI."
+    },
+    {
+      "id": "classroom-window",
+      "jobId": "window/detail/center",
+      "validatedAt": "2026-10-23T13:39:39.983201+00:00",
+      "dimensions": [
+        5120,
+        2880
+      ],
+      "samples": 256,
+      "rawFiles": {
+        "center.exr": {
+          "bytes": 162773153,
+          "sha256": "b33bda92c90cf5334d845df104e02f58bcb6f3425f316e74b5774d17bfcdfa68"
+        },
+        "center.png": {
+          "bytes": 61177345,
+          "sha256": "f2138344dad1b7bd91163ab27ddd9c66f68ad6d002d9d2cf70d0002f175382eb"
+        }
+      },
+      "displayTransform": {
+        "view": "AgX",
+        "look": "None",
+        "exposure": 0,
+        "gamma": 1
+      },
+      "initialEV100": 8,
+      "baseEV": 8,
+      "plannedDefaultFocusMetres": 1.6,
+      "focusEvidence": [
+        {
+          "name": "front chair back",
+          "u": 0.386,
+          "v": 0.542,
+          "axialZ": 1.4160706996917725
+        },
+        {
+          "name": "front chair seat",
+          "u": 0.245,
+          "v": 0.861,
+          "axialZ": 1.257102608680725
+        },
+        {
+          "name": "middle chair back",
+          "u": 0.595,
+          "v": 0.465,
+          "axialZ": 2.068803071975708
+        },
+        {
+          "name": "middle seat",
+          "u": 0.543,
+          "v": 0.675,
+          "axialZ": 1.79221510887146
+        },
+        {
+          "name": "primary chair subject from renderer QC review",
+          "u": 0.4875,
+          "v": 0.5166666666666667,
+          "axialZ": 1.6111245155334473
+        }
+      ],
+      "focusEvidenceKind": "Same frozen pose QC source axial-Z; not final depth-quality acceptance",
+      "visualInspection": "Formal center overview and native crop reviewed. Backlit chair wood grain, metal joints, radiator and window blinds are resolved; no visible holes or black capture borders. Bright source sky is retained. Browser lens/exposure rendering remains pending authorized CI."
+    },
+    {
+      "id": "classroom-teacher",
+      "jobId": "teacher/detail/center",
+      "validatedAt": "2026-10-23T14:46:02.921381+00:00",
+      "dimensions": [
+        5120,
+        2880
+      ],
+      "samples": 256,
+      "rawFiles": {
+        "center.exr": {
+          "bytes": 167548290,
+          "sha256": "2750b274cca375ecea644f8471595e31e4edde0968b2172d40bdc3e2a302d9a1"
+        },
+        "center.png": {
+          "bytes": 71661045,
+          "sha256": "b1f3f7d4b0073a326b32ca1afa85dc29f3ecebcf4c0ae2b31ef8805e5ddcfd23"
+        }
+      },
+      "displayTransform": {
+        "view": "AgX",
+        "look": "None",
+        "exposure": 0,
+        "gamma": 1
+      },
+      "initialEV100": 8,
+      "baseEV": 8,
+      "plannedDefaultFocusMetres": 4,
+      "focusEvidence": [
+        {
+          "name": "front middle chair back",
+          "u": 0.409,
+          "v": 0.46,
+          "axialZ": 3.3495547771453857
+        },
+        {
+          "name": "mid-room chair back",
+          "u": 0.404,
+          "v": 0.38,
+          "axialZ": 4.082629680633545
+        },
+        {
+          "name": "rear-middle chair back",
+          "u": 0.3875,
+          "v": 0.313,
+          "axialZ": 5.55849552154541
+        },
+        {
+          "name": "middle-left chair back",
+          "u": 0.24,
+          "v": 0.361,
+          "axialZ": 4.505045413970947
+        },
+        {
+          "name": "frame center",
+          "u": 0.5,
+          "v": 0.5,
+          "axialZ": 5.073357582092285
+        }
+      ],
+      "focusEvidenceKind": "Same frozen pose QC source axial-Z; not final depth-quality acceptance",
+      "visualInspection": "Formal center overview and native lectern/desk crops reviewed. Teacher-downward composition, thin paper clips and chalk, book/paper edges, chair chrome and wood-floor details are resolved with no visible geometry holes or black borders. Browser lens/exposure rendering remains pending authorized CI."
+    }
+  ]
+}
