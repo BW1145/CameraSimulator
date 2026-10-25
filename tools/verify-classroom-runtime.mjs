@@ -7,6 +7,8 @@ import readExif from 'exif-reader';
 import * as T from 'three';
 import {DERIVED_VIEWPOINTS,sceneDefaults} from '../src/scenes.js';
 import {DEFAULTS,resolveExposure,ev100} from '../src/camera.js';
+import {MONK_VIEWPOINT_IDS} from './monk-public-manifest.mjs';
+import {auditMonkRuntimeFocus} from './monk-runtime-focus-audit.mjs';
 import {PlateRenderer} from '../src/plate-renderer.js';
 import {photoSnapshot,assertCaptureLayers} from '../src/photo-snapshot.js';
 import {addPhotoMetadata} from '../src/photo-metadata.js';
@@ -82,6 +84,7 @@ for(const definition of DERIVED_VIEWPOINTS){
       }
     }
   }
+  if(MONK_VIEWPOINT_IDS.includes(pack.id))subjectFocus.push(...(await auditMonkRuntimeFocus(root,pack)).samples);
   owner.plate.image.image={width:owner.entry.detailWidth,height:owner.entry.detailHeight};
   assertCaptureLayers(owner,settings);
   const snapshot=photoSnapshot({settings,resolved:exposure,scene,renderer:owner,width:12,height:8,simulationTime:0,focusPoint:{x:.5,y:.5}});

@@ -1,0 +1,821 @@
+{
+  "version": 1,
+  "schema": "monk-colonnade-recovery-proof-v1",
+  "scope": "Synthetic parsed-value fixture ONLY; historical digest constants exercise invariants, not original-byte evidence.",
+  "rigId": "monk-colonnade",
+  "jobId": "monk-colonnade/detail/center",
+  "sourceSha256": "eea2bbfb3f9271050f523c8351fca40f2f559ce84b42b0143e949ecdb4594c3b",
+  "mode": "recovered-cycles-internal-buffer-v1",
+  "files": {
+    "report.json": {
+      "path": "outputs/jobs/monk-colonnade/detail/center/attempt-002/report.json",
+      "bytes": 20516,
+      "sha256": "1293bdbc71eef759173c8935f43df38086a4e2e17150f44463c3ce8306509abf",
+      "canonicalSha256": "c50cb33aed1f42207748308ac2aaf28b69d0150e6ff3869b049f0b6671c8406f"
+    },
+    "complete.json": {
+      "path": "outputs/jobs/monk-colonnade/detail/center/attempt-002/complete.json",
+      "bytes": 10561,
+      "sha256": "6f29f0d725d9378f57390ab366ff5daeeb11934aff85f31f43f29370a69e1dfc",
+      "canonicalSha256": "b78425d815beacf9fde51a746711ee358ddf60ff83a3ce15c19ba8e3319a72a0"
+    },
+    "validation.json": {
+      "path": "outputs/jobs/monk-colonnade/detail/center/attempt-002/validation.json",
+      "bytes": 1037,
+      "sha256": "67b74cfd9a4ad6b63367b9b320ea3cb3988eeba8d70b2a6eaa41c4bd98e6b5fe",
+      "canonicalSha256": "d8d31a6dcc1787368ea5aacee1733afd3f99d7381ffdf5d0896b1d5c05c2bb65"
+    },
+    "state.json": {
+      "path": "outputs/jobs/monk-colonnade/detail/center/attempt-002/state.json",
+      "bytes": 6577,
+      "sha256": "7dc8d899fa9b2c4a604c11bf9ad62a6e4b3bc535ac315247cb6a85fcb797f2a7",
+      "canonicalSha256": "e968c7002cd9d38c4edebd45c9f67ffa2d830abd1d536f38cdeda2e396bb715c"
+    },
+    "job.json": {
+      "path": "outputs/jobs/monk-colonnade/detail/center/attempt-002/job.json",
+      "bytes": 10217,
+      "sha256": "7671e0c743cdab4ef912034493488e47c0bde28bc06643726c1eed11e0473ce2",
+      "canonicalSha256": "a5ce3af7481512dc3ea47018da2f78121b3c39b64a9a47176422f99ca84e6a55"
+    }
+  },
+  "digestEncoding": {
+    "sha256": "SHA-256 of original file bytes, before JSON parsing",
+    "canonicalSha256": "SHA-256 of existing JS canonicalJSON(parsed value); never substituted for Python/raw-byte SHA"
+  },
+  "pythonContract": {
+    "path": "monk-production-20261024/recovery_contract.py",
+    "bytes": 15137,
+    "sha256": "dad73e4e513015787c5a15f575d55b9347da3c24d07c16e858b539815bf4965c"
+  },
+  "report": {
+    "status": "complete",
+    "method": "One independently rendered source perspective camera, with source-owned geometry/materials/lights. Completed sampling recovered from verified internal Cycles buffer after memory-guard termination during full-frame readback. Original post-render checks did not execute; see explicit recovery evidence.",
+    "jobId": "monk-colonnade/detail/center",
+    "jobSha256": "7671e0c743cdab4ef912034493488e47c0bde28bc06643726c1eed11e0473ce2",
+    "rigId": "monk-colonnade",
+    "mode": "ambient",
+    "layer": "detail",
+    "sourceSha256": "eea2bbfb3f9271050f523c8351fca40f2f559ce84b42b0143e949ecdb4594c3b",
+    "sourcePath": "fixtures/synthetic-machine/camera-render-work/new-scenes-preview-20261024/downloads/lone-monk.blend",
+    "sourceProvenance": {
+      "originalPath": "fixtures/synthetic-machine/camera-render-work/new-scenes-preview-20261024/downloads/lone-monk.blend",
+      "originalSha256": "eea2bbfb3f9271050f523c8351fca40f2f559ce84b42b0143e949ecdb4594c3b",
+      "previewSourceSha256": "eea2bbfb3f9271050f523c8351fca40f2f559ce84b42b0143e949ecdb4594c3b",
+      "originalAuthor": "Carlo Bergonzini / Monorender",
+      "license": "CC-BY (current official file internalREADME; version unspecified)",
+      "originalUrl": "https://download.blender.org/demo/cycles/lone-monk_cycles_and_exposure-node_demo.blend",
+      "derivations": [
+        {
+          "type": "external-reviewed-camera-and-display-settings",
+          "changes": "Native pose from exactapproved preview report; actualcapture uses1.2realoverscan, sourcegeometry/material/light unchanged. Scene-linearEXR notlook-baked."
+        }
+      ],
+      "sourceFreeze": {
+        "mode": "external-reviewed-camera-rig",
+        "sourcePath": "fixtures/synthetic-machine/camera-render-work/new-scenes-preview-20261024/downloads/lone-monk.blend",
+        "sourceSha256": "eea2bbfb3f9271050f523c8351fca40f2f559ce84b42b0143e949ecdb4594c3b",
+        "approvedCameraSha256": "549ea671009805f2fa49eed0d7575522a8e3ebc94c3bd3b17838ba4bd270d838",
+        "freezeScriptSha256": "6af2b3a4a7f89e1b1545f4b0d20c536bc1ba1cdade0b176859c95f894c06e61e",
+        "cameraInBlend": false,
+        "cameraCreatedAtRender": true,
+        "previewReportPath": "fixtures/synthetic-machine/camera-render-work/new-scenes-preview-20261024/attempts/lone-monk-colonnade-diagonal-r1-preview-001/report.json",
+        "previewReportSha256": "bd6ba7f7ea9bfa1a299ed0bc88b6156e236f9e8e86c0fbe23cbcf8a0905a8793"
+      },
+      "sourceDisplayInspection": {
+        "path": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/display-hdr-probe-001/report.json",
+        "sha256": "dce328d114c48e3288f1c314a195c54210f490f4aa8b396aed8249b9ed7ff1c0"
+      },
+      "compatibility": "Approved4.5.14 render appearance from original5.2 source. Originalunwritten; newerfile/partialCol warnings retained, no full5.2semantic-equivalence claim."
+    },
+    "camera": {
+      "name": "ApprovedNative_monk-colonnade",
+      "lens": 28,
+      "sourceProjection": "PERSP",
+      "sourceLens": 28,
+      "sourceOrthoScale": 6,
+      "sensorWidth": 36,
+      "sensorHeight": 24,
+      "aspect": 1.7777777777777777,
+      "nativeResolution": [
+        5120,
+        2880
+      ],
+      "near": 0.03,
+      "far": 200,
+      "sourceFar": 200,
+      "matrix": [
+        [
+          0.9987159967422485,
+          -0.0007331844535656273,
+          -0.05065418779850006,
+          10.100000381469727
+        ],
+        [
+          -0.05065949633717537,
+          -0.01445415522903204,
+          -0.9986113905906677,
+          13.199999809265137
+        ],
+        [
+          2.820984112972269e-9,
+          0.9998952746391296,
+          -0.014472737908363342,
+          1.5
+        ],
+        [
+          0,
+          0,
+          0,
+          1
+        ]
+      ],
+      "sourceScale": [
+        1,
+        1,
+        1
+      ],
+      "shiftX": 0,
+      "shiftY": 0,
+      "sensorFit": "HORIZONTAL",
+      "sourceClippingMethod": "Explicit near plane on the derived source camera; unchanged across the bounded rig."
+    },
+    "captureLens": 23.33333396911621,
+    "bounds": {
+      "x": [
+        -0.08,
+        0.08
+      ],
+      "y": [
+        -0.08,
+        0.08
+      ],
+      "z": [
+        -0.05,
+        0.05
+      ],
+      "yaw": [
+        -35,
+        35
+      ],
+      "pitch": [
+        -20,
+        20
+      ],
+      "roll": [
+        -5,
+        5
+      ]
+    },
+    "samples": 256,
+    "effectiveSampling": "Exactly 256 samples per pixel, no adaptive/time/layer/subset limits.",
+    "views": [
+      {
+        "id": "center",
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "near": 0.029999999329447746,
+        "position": [
+          10.100000381469727,
+          1.5,
+          -13.199999809265137
+        ],
+        "matrix": [
+          1.2946319580078125,
+          -0.0016896432498469949,
+          0.050669390708208084,
+          0.05065419152379036,
+          3.6972644945620914e-9,
+          2.304285764694214,
+          0.014477081596851349,
+          0.014472738839685917,
+          0.0656697154045105,
+          0.03330999240279198,
+          -0.9989110231399536,
+          -0.9986113905906677,
+          -12.208943367004395,
+          -2.999671220779419,
+          -13.7791109085083,
+          -13.714986801147461
+        ],
+        "cameraMatrix": [
+          0.9987159967422485,
+          2.820984112972269e-9,
+          0.05065949633717537,
+          0,
+          -0.0007331844535656273,
+          0.9998952746391296,
+          0.01445415522903204,
+          0,
+          -0.05065418779850006,
+          -0.014472737908363342,
+          0.9986113905906677,
+          0,
+          10.100000381469727,
+          1.5,
+          -13.199999809265137,
+          1
+        ],
+        "projectionMatrix": [
+          1.2962963581085205,
+          0,
+          0,
+          0,
+          0,
+          2.3045270442962646,
+          0,
+          0,
+          0,
+          0,
+          -1.0003000497817993,
+          -1,
+          0,
+          0,
+          -0.060009002685546875,
+          0
+        ],
+        "width": 6144,
+        "height": 3456,
+        "samples": 256,
+        "file": "center.exr",
+        "bytes": 239907231,
+        "seconds": 6943.896420717239
+      }
+    ],
+    "derivations": [],
+    "bakedSourceDerivations": [
+      {
+        "type": "external-reviewed-camera-and-display-settings",
+        "changes": "Native pose from exactapproved preview report; actualcapture uses1.2realoverscan, sourcegeometry/material/light unchanged. Scene-linearEXR notlook-baked."
+      }
+    ],
+    "blender": "4.5.14 LTS",
+    "blenderBuildHash": "62c1db4208e8",
+    "sourceScene": "daylight",
+    "sourceFrame": 4,
+    "isolatedRenderContext": true,
+    "renderScene": "daylight",
+    "renderViewLayer": "View Layer",
+    "metadataContextScene": "ProjectionMetadataOnly",
+    "sourceViewLayers": [
+      {
+        "name": "View Layer",
+        "enabled": true,
+        "samples": 0
+      }
+    ],
+    "sourceObjectCount": 1368,
+    "sourceSettings": {
+      "cycles": {
+        "samples": 4096,
+        "use_adaptive_sampling": true,
+        "adaptive_threshold": 0.009999999776482582,
+        "adaptive_min_samples": 0,
+        "time_limit": 0,
+        "max_bounces": 8,
+        "diffuse_bounces": 2,
+        "glossy_bounces": 2,
+        "transmission_bounces": 2,
+        "transparent_max_bounces": 8,
+        "volume_bounces": 0,
+        "caustics_reflective": false,
+        "caustics_refractive": false,
+        "sample_clamp_direct": 0,
+        "sample_clamp_indirect": 0,
+        "blur_glossy": 10,
+        "use_light_tree": true,
+        "pixel_filter_type": "BLACKMAN_HARRIS",
+        "filter_width": 1.5,
+        "use_denoising": true,
+        "denoiser": "OPENIMAGEDENOISE",
+        "denoising_prefilter": "ACCURATE",
+        "denoising_input_passes": "RGB_ALBEDO_NORMAL",
+        "denoising_quality": "HIGH",
+        "denoising_use_gpu": true,
+        "use_layer_samples": "USE",
+        "use_sample_subset": false,
+        "use_animated_seed": false,
+        "sample_offset": 0,
+        "device": "GPU",
+        "seed": 0,
+        "use_auto_tile": true,
+        "tile_size": 2048,
+        "texture_limit": "OFF",
+        "texture_limit_render": "OFF"
+      },
+      "render": {
+        "use_simplify": false,
+        "simplify_subdivision_render": 6,
+        "use_motion_blur": false,
+        "film_transparent": false,
+        "pixel_aspect_x": 1,
+        "pixel_aspect_y": 1
+      }
+    },
+    "renderSettings": {
+      "samples": 256,
+      "use_adaptive_sampling": false,
+      "adaptive_threshold": 0.009999999776482582,
+      "adaptive_min_samples": 0,
+      "time_limit": 0,
+      "max_bounces": 8,
+      "diffuse_bounces": 2,
+      "glossy_bounces": 2,
+      "transmission_bounces": 2,
+      "transparent_max_bounces": 8,
+      "volume_bounces": 0,
+      "caustics_reflective": false,
+      "caustics_refractive": false,
+      "sample_clamp_direct": 0,
+      "sample_clamp_indirect": 0,
+      "blur_glossy": 10,
+      "use_light_tree": true,
+      "pixel_filter_type": "BLACKMAN_HARRIS",
+      "filter_width": 1.5,
+      "use_denoising": false,
+      "denoiser": "OPENIMAGEDENOISE",
+      "denoising_prefilter": "ACCURATE",
+      "denoising_input_passes": "RGB_ALBEDO_NORMAL",
+      "denoising_quality": "HIGH",
+      "denoising_use_gpu": false,
+      "use_layer_samples": "IGNORE",
+      "use_sample_subset": false,
+      "use_animated_seed": false,
+      "sample_offset": 0,
+      "device": "CPU",
+      "seed": 17,
+      "use_auto_tile": true,
+      "tile_size": 256,
+      "texture_limit": "OFF",
+      "texture_limit_render": "OFF"
+    },
+    "renderThreads": 8,
+    "displayTransform": {
+      "view": "AgX",
+      "look": "AgX - Medium High Contrast",
+      "exposure": -1.5,
+      "gamma": 1
+    },
+    "pixelAspect": [
+      1,
+      1
+    ],
+    "renderInvocation": {
+      "write_still": true,
+      "scene": "daylight",
+      "layer": "View Layer"
+    },
+    "rendererEvidence": {
+      "version": 1,
+      "mode": "staged-center",
+      "components": {
+        "center-stage-runner.py": "bfa08760016d5e39e194820edec29f2842ff07a354114e34887c02829b94c32a",
+        "render-center-raw.py": "f79a09158fdd589e1fd7a370cd6f2b8fe1afb7c0569b57c89e90900b31d71cbe",
+        "denoise-bounded.py": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+        "center-display.py": "e07c0c827b57d70cb52224bdd3bc069ae78f437c87b52913635af625e5002e3c",
+        "render-job.py": "eb760f6b7fcf22d557fb555be006cd3f5c1779031e0b5193a4d1a0b7f678b7fa"
+      },
+      "sha256": "905cf378d5c2a7e4caf5797855bc6c8492c2cb5c0c4bc8676a07893c81d79a55"
+    },
+    "recoveryEvidence": {
+      "version": 1,
+      "mode": "recovered-cycles-internal-buffer-v1",
+      "originAttempt": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-001",
+      "recoveryAttempt": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-002",
+      "originJobSha256": "7671e0c743cdab4ef912034493488e47c0bde28bc06643726c1eed11e0473ce2",
+      "sourceSha256": "eea2bbfb3f9271050f523c8351fca40f2f559ce84b42b0143e949ecdb4594c3b",
+      "buffer": {
+        "path": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/recovery-colonnade-20261024T2133Z/cycles-tile-buffer.exr",
+        "sha256": "92cf607ac0da0363c3130e6ee3207bb3aca1576933b6c1f22063a7f19903ffd0",
+        "bytes": 781114421
+      },
+      "bufferValidation": {
+        "path": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/recovery-colonnade-20261024T2133Z/buffer-validation.json",
+        "sha256": "3ebbecda70ad0f0987488935122af55374eb0a328648364c1c900b8636edf962",
+        "inspectorScriptPath": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/inspect-recovered-buffer.py",
+        "inspectorScriptSha256": "4e6b1ec962010f0bd003b11db65968c07a8ffdda80d65af43c9a63521bedb417"
+      },
+      "copyReceipt": {
+        "path": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/recovery-colonnade-20261024T2133Z/copy-receipt.json",
+        "sha256": "56755776ab10fad98971e3ab9424dce504fc55cf27be3489656ed83dad05aa10"
+      },
+      "originalCapture": {
+        "runnerExit": 1,
+        "renderExit": -15,
+        "reason": "Resource safety stop RSS=3288.2109375, available=1683.15234375, diskMiB=16250.09765625",
+        "renderProcess": {
+          "stage": "render",
+          "exit": -15,
+          "highWaterMiB": 3288.2109375,
+          "sampledPeakMiB": 3288.2109375,
+          "wallSeconds": 6943.896420717239,
+          "command": [
+            "fixtures/synthetic-machine/camera-render-work/blender-4.5.14-linux-x64/blender",
+            "-b",
+            "-Y",
+            "--python-exit-code",
+            "1",
+            "--disable-depsgraph-on-file-load",
+            "-t",
+            "8",
+            "fixtures/synthetic-machine/camera-render-work/new-scenes-preview-20261024/downloads/lone-monk.blend",
+            "--python",
+            "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-001/scripts/render-center-raw.py",
+            "--",
+            "--job",
+            "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-001/job.json",
+            "--out",
+            "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-001/raw-stage"
+          ],
+          "memorySafetyReason": "Resource safety stop RSS=3288.2109375, available=1683.15234375, diskMiB=16250.09765625"
+        },
+        "statePath": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-001/state.json",
+        "stateSha256": "34002f1ac4bef19f21252a7aaf53020d0151c273d2cd45510bd09a140489c1e0",
+        "setupPath": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-001/raw-stage/setup.json",
+        "setupSha256": "500f15be6f2e50f0d367d9095b318ed3d6797da8b6734b642a719814e4ea6bf8",
+        "renderLogPath": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-001/raw-stage/render.log",
+        "renderLogSha256": "7f0b9811a56c667b8f4d98eb29f1c78b0d0a0760c57b4499d9e7371d0fd070f2",
+        "executionPath": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-001/execution.json",
+        "executionSha256": "9a0787d654ab6dc8a31b72b030313ff3c1a4659eb7e216154c4f6e5dfd539365"
+      },
+      "setupObservationPhase": "pre-render",
+      "postRenderChecks": {
+        "sourceFrame": "not-executed",
+        "cameraPose": "not-executed",
+        "samplingSettings": "not-executed",
+        "threads": "not-executed",
+        "qualitySettings": "not-executed",
+        "simplification": "not-executed",
+        "contextScene": "not-executed",
+        "effectiveSeed": "not-executed"
+      },
+      "recoveryScript": {
+        "path": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/finalize-recovered-center.py",
+        "sha256": "d673ecd99f3cae668def176baad49bdb06121aba92ef973d7e70153c11ed1dfc"
+      },
+      "denoiseReport": {
+        "path": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/recovery-colonnade-20261024T2133Z/center.denoise.json",
+        "sha256": "d34c43c519a2ba30b14e9fb420edcd313a456a571330b40536084e216713a32f"
+      },
+      "displayReport": {
+        "path": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/recovery-colonnade-20261024T2133Z/display-report.json",
+        "sha256": "c25ff55be0ed3f51391fd8fdde0d75564d5f2c65cf09b9f113e3f6b2a2a7ac7c"
+      },
+      "processes": {
+        "denoise": {
+          "statePath": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/recovery-colonnade-20261024T2133Z/denoise-guard-001/state.json",
+          "stateSha256": "c144e944d834d7ef0c4f3632b44935a5926cb309e95ab62b6b14a311f2965e17"
+        },
+        "display": {
+          "statePath": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/recovery-colonnade-20261024T2133Z/display-guard-001/state.json",
+          "stateSha256": "4b88f07bfa822e912f293259614190075b864acc4afb9ce30cf7e844ecb319ac"
+        }
+      },
+      "finalFiles": {
+        "center.exr": {
+          "path": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-002/center.exr",
+          "sha256": "4797bc6409464b476c3b330a649c485aeb6fdfd73295871e6fee7d37d55f72bb",
+          "bytes": 239907231
+        },
+        "center.png": {
+          "path": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-002/center.png",
+          "sha256": "d03a11874869be30f59547ddeb6754bfdc39f858d96e571e37cd77958c546ddf",
+          "bytes": 94504437
+        }
+      }
+    },
+    "denoisingEvidence": {
+      "status": "complete",
+      "input": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/recovery-colonnade-20261024T2133Z/cycles-tile-buffer.exr",
+      "inputSha256": "92cf607ac0da0363c3130e6ee3207bb3aca1576933b6c1f22063a7f19903ffd0",
+      "inputFormat": "cycles-internal-buffer",
+      "inputChannels": [
+        "00000000Combined.R",
+        "00000000Combined.G",
+        "00000000Combined.B",
+        "00000000Combined.A",
+        "00000001Denoising Normal.R",
+        "00000001Denoising Normal.G",
+        "00000001Denoising Normal.B",
+        "00000002Denoising Albedo.R",
+        "00000002Denoising Albedo.G",
+        "00000002Denoising Albedo.B",
+        "00000003.R",
+        "00000004Denoising Depth.R"
+      ],
+      "channelOffsets": {
+        "color": 0,
+        "normal": 4,
+        "albedo": 7
+      },
+      "sampleCountStatistics": {
+        "minimum": 256,
+        "maximum": 256,
+        "pixels": 21233664
+      },
+      "filterRowOrder": "Cycles bottom-up; normalized EXR rows reversed before filtering, all output rows reversed back to top-down EXR",
+      "output": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/recovery-colonnade-20261024T2133Z/center.exr",
+      "outputSha256": "4797bc6409464b476c3b330a649c485aeb6fdfd73295871e6fee7d37d55f72bb",
+      "dimensions": [
+        6144,
+        3456
+      ],
+      "samples": 256,
+      "normalization": "cycles uint32 sample-count division",
+      "device": "CPU",
+      "library": "fixtures/synthetic-machine/camera-render-work/blender-4.5.14-linux-x64/lib/libOpenImageDenoise.so.2.3.3",
+      "librarySha256": "9a220453d6a7ea32a036559e6579768a312653c9da12b819282f91bf8b2acc11",
+      "scriptSha256": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8",
+      "quality": "HIGH",
+      "prefilter": "ACCURATE",
+      "hdr": true,
+      "srgb": false,
+      "cleanAux": true,
+      "maxMemoryMBPerFilter": 1024,
+      "threads": 8,
+      "setAffinity": false,
+      "fullFrameAutomaticInputScale": true,
+      "manualTiling": false,
+      "steps": [
+        {
+          "filter": "albedo",
+          "seconds": 32.58846623499994,
+          "peakRssMiB": 1812.19921875
+        },
+        {
+          "filter": "normal",
+          "seconds": 31.403408541023964,
+          "peakRssMiB": 1834.453125
+        },
+        {
+          "filter": "color",
+          "seconds": 33.50468556798296,
+          "peakRssMiB": 1856.61328125
+        }
+      ],
+      "seconds": 103.41576134299976,
+      "peakRssMiB": 1856.61328125,
+      "sceneProcessExitedBeforeDenoising": true
+    },
+    "files": {
+      "exr": "center.exr",
+      "png": "center.png"
+    },
+    "renderSeconds": 6943.896420717239,
+    "renderSecondsBasis": "Original guarded capture process elapsed time, including failed readback; no retracing",
+    "peakRssMiB": 3288.2109375,
+    "validation": {
+      "status": "valid",
+      "jobId": "monk-colonnade/detail/center",
+      "jobSha256": "7671e0c743cdab4ef912034493488e47c0bde28bc06643726c1eed11e0473ce2",
+      "dimensions": [
+        6144,
+        3456
+      ],
+      "mode": "ambient",
+      "samples": 256,
+      "samplingLogVerification": {
+        "verificationMode": "tiled",
+        "allTilesReachedRequestedSamples": true,
+        "expectedTileCount": 336,
+        "samplesPerPixel": 256,
+        "adaptiveSampling": false,
+        "timeLimit": 0,
+        "layerSampleMode": "IGNORE",
+        "sampleSubset": false
+      },
+      "minimumRadiance": 0,
+      "maximumRadiance": 108.20978546142578,
+      "nonfiniteChannels": 0,
+      "negativeChannels": 0,
+      "meanLuminance": 0.45851577843517166,
+      "channelsOver64": 5,
+      "files": {
+        "center.exr": {
+          "bytes": 239907231,
+          "sha256": "4797bc6409464b476c3b330a649c485aeb6fdfd73295871e6fee7d37d55f72bb"
+        },
+        "center.png": {
+          "bytes": 94504437,
+          "sha256": "d03a11874869be30f59547ddeb6754bfdc39f858d96e571e37cd77958c546ddf"
+        }
+      },
+      "validatedAt": "2026-10-24T21:42:48.284838+00:00"
+    }
+  },
+  "completion": {
+    "status": "complete",
+    "jobId": "monk-colonnade/detail/center",
+    "jobSha256": "7671e0c743cdab4ef912034493488e47c0bde28bc06643726c1eed11e0473ce2",
+    "rendererSha256": "905cf378d5c2a7e4caf5797855bc6c8492c2cb5c0c4bc8676a07893c81d79a55",
+    "reportSha256": "1293bdbc71eef759173c8935f43df38086a4e2e17150f44463c3ce8306509abf",
+    "validationSha256": "67b74cfd9a4ad6b63367b9b320ea3cb3988eeba8d70b2a6eaa41c4bd98e6b5fe",
+    "files": {
+      "center.exr": {
+        "bytes": 239907231,
+        "sha256": "4797bc6409464b476c3b330a649c485aeb6fdfd73295871e6fee7d37d55f72bb"
+      },
+      "center.png": {
+        "bytes": 94504437,
+        "sha256": "d03a11874869be30f59547ddeb6754bfdc39f858d96e571e37cd77958c546ddf"
+      }
+    }
+  },
+  "state": {
+    "status": "complete",
+    "exit": 0,
+    "completionMode": "verified-internal-buffer-recovery",
+    "renderInvocationExecutedInThisAttempt": false,
+    "originalCaptureExit": -15,
+    "originalCaptureState": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-001/state.json",
+    "scriptSha256": "905cf378d5c2a7e4caf5797855bc6c8492c2cb5c0c4bc8676a07893c81d79a55",
+    "stages": [
+      {
+        "stage": "denoise",
+        "status": "complete",
+        "command": [
+          "fixtures/synthetic-machine/camera-render-work/blender-4.5.14-linux-x64/4.5/python/bin/python3.11",
+          "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/denoise-bounded.py",
+          "--input",
+          "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/recovery-colonnade-20261024T2133Z/cycles-tile-buffer.exr",
+          "--output",
+          "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/recovery-colonnade-20261024T2133Z/center.exr",
+          "--library",
+          "fixtures/synthetic-machine/camera-render-work/blender-4.5.14-linux-x64/lib/libOpenImageDenoise.so.2.3.3",
+          "--threads",
+          "8",
+          "--max-memory-mb",
+          "1024",
+          "--expected-samples",
+          "256"
+        ],
+        "cwd": "fixtures/synthetic-machine",
+        "root": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs",
+        "guardScriptSha256": "f93b9aa4d9671c1ff009e334ffba95b8c72618c6391c5000bcc44819580975fb",
+        "scriptEvidence": {
+          "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/guard-recovery-denoise.py": "f93b9aa4d9671c1ff009e334ffba95b8c72618c6391c5000bcc44819580975fb",
+          "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/denoise-bounded.py": "893793e2bc807d51f75ae07635da4863015c05bef58948dd4dbf5a9b6e4211a8"
+        },
+        "productionStateSha256": "8aab267c84addde710f783119dfba6480d7d0f98c85db560770fff5e44b2a533",
+        "productionQueueRun": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/queue-runs/production-20261024T193710Z-1792870630393093566-651b2d5878e04ffb98df91c7e4b18e8c",
+        "startedUnix": 1792877799.9102013,
+        "policy": {
+          "maxGroupRSSMiB": 4200,
+          "minSystemAvailableMiB": 2048,
+          "startAvailableMiB": 4800,
+          "diskReserveMiB": 1024,
+          "pollSeconds": 0.2
+        },
+        "samplingNote": "Conservative sum of child-process-group RSS; shared pages may be counted more than once. Polling can miss brief spikes. Only this new group is terminated.",
+        "childProcessGroup": 8,
+        "updatedUnix": 1792877903.44713,
+        "sampledPeakGroupRSSMiB": 1857.2890625,
+        "minimumSystemAvailableMiB": 3228.70703125,
+        "currentGroupRSSMiB": 781.65234375,
+        "currentDiskFreeMiB": 15276.10546875,
+        "exit": 0,
+        "stopReason": null,
+        "finishedUnix": 1792877903.6480196,
+        "wallSeconds": 103.73781847953796
+      },
+      {
+        "stage": "display",
+        "status": "complete",
+        "command": [
+          "fixtures/synthetic-machine/camera-render-work/blender-4.5.14-linux-x64/blender",
+          "-b",
+          "--factory-startup",
+          "-Y",
+          "-t",
+          "2",
+          "--python-exit-code",
+          "1",
+          "--python",
+          "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/center-display.py",
+          "--",
+          "--input",
+          "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/recovery-colonnade-20261024T2133Z/center.exr",
+          "--out",
+          "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/recovery-colonnade-20261024T2133Z"
+        ],
+        "cwd": "fixtures/synthetic-machine",
+        "root": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs",
+        "guardScriptSha256": "d42600d3dd6f8b15737656d0ab7fda2da7227b77f69bf57b3b405c32f9af8e57",
+        "scriptEvidence": {
+          "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/guard-recovery-display.py": "d42600d3dd6f8b15737656d0ab7fda2da7227b77f69bf57b3b405c32f9af8e57",
+          "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/center-display.py": "e07c0c827b57d70cb52224bdd3bc069ae78f437c87b52913635af625e5002e3c"
+        },
+        "productionStateSha256": "8aab267c84addde710f783119dfba6480d7d0f98c85db560770fff5e44b2a533",
+        "productionQueueRun": "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/queue-runs/production-20261024T193710Z-1792870630393093566-651b2d5878e04ffb98df91c7e4b18e8c",
+        "startedUnix": 1792877936.2102118,
+        "policy": {
+          "maxGroupRSSMiB": 4200,
+          "minSystemAvailableMiB": 2048,
+          "startAvailableMiB": 4000,
+          "diskReserveMiB": 1024,
+          "pollSeconds": 0.2
+        },
+        "samplingNote": "Conservative sum of child-process-group RSS; shared pages may be counted more than once. Polling can miss brief spikes. Only this new group is terminated.",
+        "childProcessGroup": 6,
+        "updatedUnix": 1792877943.4473476,
+        "sampledPeakGroupRSSMiB": 1394.63671875,
+        "minimumSystemAvailableMiB": 4552.41015625,
+        "currentGroupRSSMiB": 276.53515625,
+        "currentDiskFreeMiB": 15185.72265625,
+        "exit": 0,
+        "stopReason": null,
+        "finishedUnix": 1792877943.6483035,
+        "wallSeconds": 7.438092470169067
+      }
+    ]
+  },
+  "originalState": {
+    "status": "failed",
+    "exit": 1,
+    "startedUnix": 1792870630.8366807,
+    "finishedUnix": 1792877574.761468,
+    "renderProcess": {
+      "stage": "render",
+      "exit": -15,
+      "highWaterMiB": 3288.2109375,
+      "sampledPeakMiB": 3288.2109375,
+      "wallSeconds": 6943.896420717239,
+      "command": [
+        "fixtures/synthetic-machine/camera-render-work/blender-4.5.14-linux-x64/blender",
+        "-b",
+        "-Y",
+        "--python-exit-code",
+        "1",
+        "--disable-depsgraph-on-file-load",
+        "-t",
+        "8",
+        "fixtures/synthetic-machine/camera-render-work/new-scenes-preview-20261024/downloads/lone-monk.blend",
+        "--python",
+        "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-001/scripts/render-center-raw.py",
+        "--",
+        "--job",
+        "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-001/job.json",
+        "--out",
+        "fixtures/synthetic-machine/camera-render-work/monk-production-20261024/outputs/jobs/monk-colonnade/detail/center/attempt-001/raw-stage"
+      ],
+      "memorySafetyReason": "Resource safety stop RSS=3288.2109375, available=1683.15234375, diskMiB=16250.09765625"
+    }
+  },
+  "bufferValidation": {
+    "status": "valid-full-frame-internal-buffer",
+    "sourceBufferSha256": "92cf607ac0da0363c3130e6ee3207bb3aca1576933b6c1f22063a7f19903ffd0",
+    "dimensions": [
+      6144,
+      3456
+    ],
+    "channels": [
+      "00000000Combined.R",
+      "00000000Combined.G",
+      "00000000Combined.B",
+      "00000000Combined.A",
+      "00000001Denoising Normal.R",
+      "00000001Denoising Normal.G",
+      "00000001Denoising Normal.B",
+      "00000002Denoising Albedo.R",
+      "00000002Denoising Albedo.G",
+      "00000002Denoising Albedo.B",
+      "00000003.R",
+      "00000004Denoising Depth.R"
+    ],
+    "sampleCountStatistics": {
+      "minimum": 256,
+      "maximum": 256,
+      "pixels": 21233664
+    },
+    "normalizedChannelStatistics": {
+      "color": {
+        "allFinite": true,
+        "minimum": 0,
+        "maximum": 108.633544921875
+      },
+      "normal": {
+        "allFinite": true,
+        "minimum": -0.9999904632568359,
+        "maximum": 0.999893844127655
+      },
+      "albedo": {
+        "allFinite": true,
+        "minimum": 0,
+        "maximum": 1.3463941812515259
+      }
+    },
+    "tiles": {
+      "expected": 336,
+      "completeExactSamples": 336,
+      "samples": 256,
+      "finishedMarker": true
+    },
+    "originJobSha256": "7671e0c743cdab4ef912034493488e47c0bde28bc06643726c1eed11e0473ce2",
+    "sourceSceneSha256": "eea2bbfb3f9271050f523c8351fca40f2f559ce84b42b0143e949ecdb4594c3b",
+    "originalCaptureExit": -15,
+    "originalGuardReason": "Resource safety stop RSS=3288.2109375, available=1683.15234375, diskMiB=16250.09765625"
+  },
+  "fixtureScope": "synthetic-test-only"
+}

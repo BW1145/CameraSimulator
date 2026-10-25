@@ -8,7 +8,7 @@ import {validateStagedCenter} from './classroom-processing-audit.mjs';
 const close=(a,b,label,tolerance=2e-5)=>assert.ok(Number.isFinite(a)&&Number.isFinite(b)&&Math.abs(a-b)<=tolerance,`${label}: ${a} != ${b}`);
 const hash=(value,label)=>assert.match(value,/^[a-f0-9]{64}$/,label);
 
-export function validateApprovedComposition(pack,rig,{previewSourceField='previewSourceSha256'}={}){
+function validateComposition(pack,rig,{previewSourceField='previewSourceSha256'}={},processingValidator){
   assert.ok(['previewSourceSha256','originalSha256'].includes(previewSourceField),'explicit reviewed preview-parent field');
   const approved=rig.approvedComposition;
   assert.ok(approved,'new capture requires the frozen approved native composition');
@@ -32,7 +32,7 @@ export function validateApprovedComposition(pack,rig,{previewSourceField='previe
   assert.deepEqual(approved.nativeCrop,{left:512,top:288,width:5120,height:2880});
   close(approved.captureFrame.width/approved.nativeFrame.width,approved.overscan,'horizontal native crop');
   close(approved.captureFrame.height/approved.nativeFrame.height,approved.overscan,'vertical native crop');
-  validateStagedCenter(pack);
+  if(processingValidator)processingValidator(pack);
   const sourceCenter=pack.captureQuality.sourceCenter;
   for(const [key,value]of Object.entries({width:6144,height:3456,samples:256,overscan:1.2}))assert.equal(sourceCenter?.[key],value,`source center ${key}`);
   for(const record of [pack.views[0].radianceCapture,pack.detail.views.find(view=>view.id==='center')]){
@@ -63,6 +63,12 @@ export function validateApprovedComposition(pack,rig,{previewSourceField='previe
   }
   return {referenceFocal:settings.focal,nativeFrame:approved.nativeFrame,realOverscan:approved.overscan,views:pack.views.length};
 }
+
+// Existing callers retain the complete original normal-processing gate, in the
+// same validation order. Native rays alone never authorize a recovered capture.
+export function validateApprovedComposition(pack,rig,options){return validateComposition(pack,rig,options,validateStagedCenter);}
+// A source-specific caller must separately apply its strict processing contract.
+export function validateNativeComposition(pack,rig,options){return validateComposition(pack,rig,options,null);}
 
 export function validateApprovedPreviewReport(report,rig,{viewId='center'}={}){
   const approved=rig.approvedComposition;

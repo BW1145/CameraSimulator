@@ -5,12 +5,20 @@ import {SCENES} from '../src/scenes.js';
 import {subjectAssetBytes} from './subject-assets.mjs';
 import {auditClassroomPack} from './classroom-viewpoint-audit.mjs';
 import {validateClassroomDelivery,validateClassroomHistory,validateApprovedInputs} from './classroom-receipt.mjs';
+import {MONK_VIEWPOINT_IDS} from './monk-public-manifest.mjs';
+import {validateMonkPublicReceipt,auditMonkPublicPack} from './monk-public-receipt.mjs';
 import {auditDerivedPack} from './derived-viewpoint-audit.mjs';
 import {validateDerivedDelivery} from './derived-receipt.mjs';
 for(const scene of SCENES){
   // Only the explicitly plate-only derived viewpoints omit a GLB. Existing
   // scenes retain every geometry/source-hash check below.
   if(scene.plateOnly){
+    if(MONK_VIEWPOINT_IDS.includes(scene.id)){
+      const delivery=JSON.parse(await readFile('docs/visual-review/monk-runtime-delivery.json','utf8'));
+      validateMonkPublicReceipt(delivery);
+      const record=delivery.packs.find(pack=>pack.id===scene.id);assert.ok(record,'complete independently approved Monk delivery');
+      console.log(await auditMonkPublicPack(`public/${scene.platePack}`,record));continue;
+    }
     if(!scene.id.startsWith('classroom-')){
       const profiles=JSON.parse(await readFile('docs/visual-review/derived-viewpoints-approved-inputs.json','utf8')).rigs;
       const delivery=validateDerivedDelivery(JSON.parse(await readFile('docs/visual-review/derived-viewpoints-delivery.json','utf8')),profiles);

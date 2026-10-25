@@ -19,6 +19,8 @@ for(const scene of DERIVED_VIEWPOINTS)test(`${scene.name}: real seven-view rig, 
   await expect(image).toHaveAttribute('data-view','prerender');await expect(image).toHaveAttribute('data-focus',pack.defaults.focus.toFixed(3));
   await expect(page.locator('#focal-value')).toHaveText(`${Number(pack.referenceFocal.toFixed(1))} mm`);
   expect(Number(await image.getAttribute('data-ev'))).toBeCloseTo(8,3);
+  await expect(image).toHaveAttribute('data-display-profile',pack.displayTransform?.profile??'legacy');
+  await expect(image).toHaveAttribute('data-display-exposure',String(pack.displayTransform?.exposure??0));
   // Persist the actual browser output, not just a nonempty-pixel assertion.
   // Native defaults and every real capture direction remain reviewable in CI.
   const initial=await capturePhotographicPage(page);
@@ -62,6 +64,10 @@ for(const scene of DERIVED_VIEWPOINTS)test(`${scene.name}: real seven-view rig, 
   const snapshot=JSON.parse(exif.Exif[piexif.ExifIFD.UserComment].slice(8).replace(/\0+$/,'').trim());
   expect(snapshot.scene).toEqual({id:scene.id,name:scene.name});expect(snapshot.source.sourceSha256).toBe(pack.sourceSha256);
   expect(snapshot.source.viewId).toBe('center');expect(snapshot.source.flashLayerLoaded).toBe(true);
+  if(pack.displayTransform){
+    expect(snapshot.rendering.displayTransform).toMatchObject(pack.displayTransform);
+    expect(snapshot.rendering.displayTransform.profileSha256).toBe(pack.displayTransformProfile.profileSha256);
+  }else expect(snapshot.rendering.displayTransform).toBeUndefined();
   expect(snapshot.settings.focus).toBe(pack.defaults.focus);expect(snapshot.settings.focal).toBeCloseTo(pack.referenceFocal,3);
   await downloaded.saveAs(testInfo.outputPath(`${scene.id}.jpg`));
   expect(requests.some(url=>url.endsWith('.glb'))).toBe(false);expect(errors).toEqual([]);
